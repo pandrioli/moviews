@@ -8,3 +8,7 @@
 /captures
 .idea/
 Thumbs.db
+
+build\.gradle
+
+gradle/wrapper/gradle-wrapper\.properties
