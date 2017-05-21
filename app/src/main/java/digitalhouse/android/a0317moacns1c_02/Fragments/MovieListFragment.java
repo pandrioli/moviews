@@ -43,14 +43,14 @@ public class MovieListFragment extends Fragment {
         listViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Integer movieId = ((MovieListItem)parent.getItemAtPosition(position)).getId();
-                myActivity.movieSelected(movieId);
+                MovieListItem movieSelected = (MovieListItem)parent.getItemAtPosition(position);
+                myActivity.movieSelected(movieSelected);
             }
         });
         return view;
     }
 
     public interface MovieSelectable {
-        void movieSelected(Integer id);
+        void movieSelected(MovieListItem movieListItem);
     }
 }

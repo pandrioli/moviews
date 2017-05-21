@@ -15,6 +15,7 @@ public class MovieListItem implements Parcelable {
     private String year;
     private String genres;
     private String rating;
+    private String urlPoster;
 
     public MovieListItem(Movie movie) {
         this.id = movie.getId();
@@ -22,6 +23,7 @@ public class MovieListItem implements Parcelable {
         this.year = movie.getReleaseDate().substring(0,4);
         this.genres = movie.getGenres();
         this.rating = movie.getVoteAverage().toString();
+        this.urlPoster = movie.getPosterPath();
     }
 
     public MovieListItem(Parcel in) {
@@ -48,6 +50,10 @@ public class MovieListItem implements Parcelable {
         return rating;
     }
 
+    public String getUrlPoster() {
+        return urlPoster;
+    }
+
     public static final Creator<MovieListItem> CREATOR = new Creator<MovieListItem>() {
         @Override
         public MovieListItem createFromParcel(Parcel in) {
@@ -72,6 +78,7 @@ public class MovieListItem implements Parcelable {
         dest.writeString(year);
         dest.writeString(genres);
         dest.writeString(rating);
+        dest.writeString(urlPoster);
     }
 
     public void readFromParcel(Parcel in) {
@@ -80,5 +87,6 @@ public class MovieListItem implements Parcelable {
         year = in.readString();
         genres = in.readString();
         rating = in.readString();
+        urlPoster = in.readString();
     }
 }
