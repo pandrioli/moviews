@@ -14,4 +14,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asdasdasdasdsadsadsadsadsd"
+        android:id="@+id/botonLoco"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/botonLoco"
+        android:textSize="30dp"
+        android:id="@+id/textviewloco"/>
 </RelativeLayout>
