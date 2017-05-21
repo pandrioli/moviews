@@ -15,13 +15,61 @@ import retrofit2.http.QueryMap;
 
 public interface TMDBClient {
 
+    /* Explicacion:
+
+    @GET para consumir un método de la API que devuelva algo, osea que vos esperes una respuesta
+    lo que va entre parentesis después del @GET es la URL del método sin la BASE URL, esta esta en otra clase
+    @Query significa que lo que vas a poner es un parametro, uno solo. Lo que está entre paréntesis al lado ("api_key") es
+    el nombre de este parámetro. Después viene el tipo y nombre que recibe el método por este parametro que seteamos antes (poniendo
+    @Query("api_key") en este caso el tipo y nombre son String y API_KEY respectivamente
+    Más detalles -> https://api.themoviedb.org/3/authentication/token/new?api_key=91a255db2e1d0761c2dc886c0ed08709
+    https://api.themoviedb.org/3/ es la BASE URL porque siempre va a ser igual para cualquier método de la API que quieras consumir
+    authentication/token/new? es el método al cual le queres pegar -> lo que va entre parentesis despues del @GET
+    api_key= es el nombre del parametro que le tenes que mandar al método lo que va entre parentesis, SIN EL IGUAL, después del @Query
+    91a255db2e1d0761c2dc886c0ed08709 es el valor del parametro que le tenes que mandar al método como parametro, por ejenplo ->
+    Call<RequestToken> callRequestToken = client.obtainRequestToken(91a255db2e1d0761c2dc886c0ed08709);
+
+    Para más información mirar la clase Authenticator por el momento.
+     */
     @GET("authentication/token/new?")
     Call<RequestToken> obtainRequestToken(@Query("api_key") String API_KEY);
 
+
+    /*
+    En el caso en que un método de la API reciba varios parametros tenes que crear un HashMap<String, String>
+    donde la clave sea el nombre del paramétro y el valor sea el valor del parametro
+    por ejemplo: https://api.themoviedb.org/3/authentication/session/new?api_key=91a255db2e1d0761c2dc886c0ed08709&request_token=dc37f5982abc0fb5ad15c0a0aeddbb5cb3a4ee34
+
+    Map<String, String> parameters = new HashMap<>();
+    parameters.put("api_key", API_KEY);
+    parameters.put("request_token", token);
+
+    api_key -> es el primer parametro
+    91a255db2e1d0761c2dc886c0ed08709 -> es el primer valor
+
+    request_token -> es el segundo parametro
+    dc37f5982abc0fb5ad15c0a0aeddbb5cb3a4ee34 -> es el segundo valor
+
+    los valores no se deberían hardcodear.
+     */
     @GET("authentication/session/new?")
     Call<Session> obtainSession(@QueryMap Map<String, String> options);
 
 
+    /*
+    Hay casos en los que cuando llamas a algun método de la API este tarda más de lo que el programa
+    en devolverte información. Como los llamados a estos servicios son Asincronicos todo lo que este
+    debajo del llamado se va a ejecutar antes de que se recuperen datos, por lo tanto es MUY PROBABLE
+    que se devuelvan objetos Nulos (No se obtuvieron datos para llenarlos). En esos casos cuando
+    creamos nuevas llamadas a la api ponemos que uno de los parametros de estos métodos sea la
+    interfaz que está abajo. Y al llamar al método creamos una nueva interfaz como parametro, dentro
+    de esta ponemos lo que queremos que haga el método una vez obtenga datos, así evitamos errores
+     Igualmente con esto solo no alcanza, falta agregar al método que consume realmente el servicio
+     de la API un new Callback<T> dentro del método enqueue, este Callback nos obliga a sobreescribir
+     los métodos de onResponse y onFailure. En el onResponse agregamos el método
+     apiCallback.onSucces(Entidad Devuelta)
+     Para más info mirar la clase Authenticator, métodos: getSession y getRequestToken
+     */
     public interface APICallback{
         void onSuccess(Object result);
     }
