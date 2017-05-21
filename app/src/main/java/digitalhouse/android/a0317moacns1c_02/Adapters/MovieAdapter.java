@@ -49,6 +49,7 @@ public class MovieAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.cell_movie_list, parent, false);
         ((TextView)convertView.findViewById(R.id.textViewMovieListTitle)).setText(movie.getTitle());
         ((TextView)convertView.findViewById(R.id.textViewMovieListYear)).setText(movie.getYear());
+        ((TextView)convertView.findViewById(R.id.textViewMovieListGenres)).setText(movie.getGenres());
         ((TextView)convertView.findViewById(R.id.textViewMovieListRating)).setText(movie.getRating());
         return convertView;
     }

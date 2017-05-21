@@ -1,11 +1,13 @@
 package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,41 +23,34 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * A simple {@link Fragment} subclass.
  */
 public class MovieListFragment extends Fragment {
-
-    private List<MovieListItem> movieList;
+    public final static String MOVIE_LIST_KEY = "movieList";
 
     public MovieListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
-        loadMovies();
+        final MovieSelectable myActivity = (MovieSelectable)getActivity();
+        Bundle bundle = getArguments();
+        ArrayList<MovieListItem> movieList = bundle.getParcelableArrayList(MOVIE_LIST_KEY);
         MovieAdapter movieAdapter = new MovieAdapter(movieList, view.getContext());
         ListView listViewMovies = (ListView)view.findViewById(R.id.listViewMovies);
         listViewMovies.setAdapter(movieAdapter);
+        listViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Integer movieId = ((MovieListItem)parent.getItemAtPosition(position)).getId();
+                myActivity.movieSelected(movieId);
+            }
+        });
         return view;
     }
 
-    private void loadMovies(){
-        Movie movie = new Movie();
-        movie.setTitle("Guardians of the Galaxy");
-        movie.setReleaseDate("2014-01-01");
-        movie.setGenres("Adventure, Action, Comedy, Science Fiction");
-        movie.setVoteAverage(7.9);
-        movieList = new ArrayList<>();
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
+    public interface MovieSelectable {
+        void movieSelected(Integer id);
     }
-
 }
