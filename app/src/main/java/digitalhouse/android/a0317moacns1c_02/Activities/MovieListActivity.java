@@ -1,6 +1,5 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
-import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -8,17 +7,13 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.inject.Inject;
-
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.GeneralAPIData;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Config;
 import digitalhouse.android.a0317moacns1c_02.Entities.Movie;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
+import digitalhouse.android.a0317moacns1c_02.Services.MovieServiceImpl;
 
 public class MovieListActivity extends AppCompatActivity implements MovieListFragment.MovieSelectable {
 
@@ -29,7 +24,17 @@ public class MovieListActivity extends AppCompatActivity implements MovieListFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list_test);
-        loadMovies();
+        //loadMovies();
+        MovieServiceImpl.getInstance().getPopularMovies(new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                movieList = (ArrayList<MovieListItem>) result;
+                loadFragment();
+            }
+        });
+    }
+
+    private void loadFragment() {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(MovieListFragment.MOVIE_LIST_KEY, movieList);
         MovieListFragment movieListFragment = new MovieListFragment();

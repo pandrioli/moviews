@@ -82,7 +82,7 @@ public class MovieAdapter extends BaseAdapter {
         // Acá usé una lib (Picasso) que agregué en el Gradle, no sólo es fácil de usar
         // sino que está bien optimizada, por ejemplo cachea las imagenes del adapter para
         // no estar descargando a cada rato
-        Picasso.with(context).load(movie.getUrlPoster()).fit().centerInside().into(viewHolder.poster);
+        Picasso.with(context).load(movie.getPosterURL()).fit().centerInside().into(viewHolder.poster);
         return convertView;
     }
 }

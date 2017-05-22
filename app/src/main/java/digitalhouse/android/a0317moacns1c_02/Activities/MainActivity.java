@@ -10,7 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.GeneralAPIData;
+import digitalhouse.android.a0317moacns1c_02.Services.GeneralAPIData;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.R;
 

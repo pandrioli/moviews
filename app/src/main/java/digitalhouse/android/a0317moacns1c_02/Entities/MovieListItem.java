@@ -15,7 +15,11 @@ public class MovieListItem implements Parcelable {
     private String year;
     private String genres;
     private String rating;
-    private String urlPoster;
+    private String posterURL;
+
+    public MovieListItem() {
+
+    }
 
     public MovieListItem(Movie movie) {
         this.id = movie.getId();
@@ -23,7 +27,7 @@ public class MovieListItem implements Parcelable {
         this.year = movie.getReleaseDate().substring(0,4);
         this.genres = movie.getGenres();
         this.rating = movie.getVoteAverage().toString();
-        this.urlPoster = movie.getPosterPath();
+        this.posterURL = movie.getPosterPath();
     }
 
     public MovieListItem(Parcel in) {
@@ -50,8 +54,32 @@ public class MovieListItem implements Parcelable {
         return rating;
     }
 
-    public String getUrlPoster() {
-        return urlPoster;
+    public String getPosterURL() {
+        return posterURL;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public void setPosterURL(String posterURL) {
+        this.posterURL = posterURL;
     }
 
     public static final Creator<MovieListItem> CREATOR = new Creator<MovieListItem>() {
@@ -78,7 +106,7 @@ public class MovieListItem implements Parcelable {
         dest.writeString(year);
         dest.writeString(genres);
         dest.writeString(rating);
-        dest.writeString(urlPoster);
+        dest.writeString(posterURL);
     }
 
     public void readFromParcel(Parcel in) {
@@ -87,6 +115,6 @@ public class MovieListItem implements Parcelable {
         year = in.readString();
         genres = in.readString();
         rating = in.readString();
-        urlPoster = in.readString();
+        posterURL = in.readString();
     }
 }

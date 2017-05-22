@@ -1,12 +1,12 @@
-package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
+package digitalhouse.android.a0317moacns1c_02.Services;
 
 import android.util.Log;
-import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Config;
-import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Genre;
 import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Genres;
-import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,9 +37,20 @@ public class GeneralAPIData {
     private TMDBClient client;
     private Config config; //configuración de imágenes y change keys
     private Genres genres; //lista de géneros de películas
+    private String imagesBaseURL;
+    private ArrayList<String> posterSizes;
+
 
     private GeneralAPIData() {
         this.client = ServiceGenerator.createService(TMDBClient.class);
+    }
+
+    public String getImgBaseUrl() {
+        return imagesBaseURL;
+    }
+
+    public ArrayList<String> getPosterSizes() {
+        return posterSizes;
     }
 
     public static GeneralAPIData getInstance() {
@@ -54,6 +65,8 @@ public class GeneralAPIData {
             @Override
             public void onResponse(Call<Config> call, Response<Config> response) {
                 config = response.body();
+                imagesBaseURL = config.getImages().getBase_url();
+                posterSizes = config.getImages().getPoster_sizes();
                 String test = "URL Base imágenes = " + config.getImages().getBase_url();
                 test+="\r\nTamaños poster = ";
                 test+=config.getImages().getPoster_sizes().get(0)+", ";
