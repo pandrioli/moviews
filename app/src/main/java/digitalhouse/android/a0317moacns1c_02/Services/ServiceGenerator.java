@@ -1,8 +1,8 @@
-package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
+package digitalhouse.android.a0317moacns1c_02.Services;
 
 import android.text.TextUtils;
 
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication.TokenInterceptor;
+import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.TokenInterceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -35,8 +35,7 @@ public class ServiceGenerator {
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient().newBuilder();
 
-    public static <S> S createService(
-            Class<S> serviceClass) {
+    public static <S> S createService(Class<S> serviceClass) {
         if (!httpClient.interceptors().contains(logging)) {
             httpClient.addInterceptor(logging);
             builder.client(httpClient.build());

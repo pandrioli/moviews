@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication;
+package digitalhouse.android.a0317moacns1c_02.Entities.Authentication;
 
 import java.io.IOException;
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="digitalhouse.android.a0317moacns1c_02.MovieListTestActivity">
+    tools:context="digitalhouse.android.a0317moacns1c_02.Activities.MovieListTestActivity">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

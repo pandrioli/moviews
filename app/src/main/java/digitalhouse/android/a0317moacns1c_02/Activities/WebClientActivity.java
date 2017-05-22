@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02;
+package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +9,12 @@ import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import javax.inject.Inject;
+
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication.Authenticator;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
+import digitalhouse.android.a0317moacns1c_02.DependencyInjection.App.AuthenticationApp;
+import digitalhouse.android.a0317moacns1c_02.R;
 
 public class WebClientActivity extends AppCompatActivity {
 
@@ -20,10 +24,15 @@ public class WebClientActivity extends AppCompatActivity {
     String urlCompleta;
     String urlSalida;
 
+    @Inject
+    Authenticator authenticator;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_client);
+
+        ((AuthenticationApp) getApplication()).getAuthenticationComponent().inject(this);
 
         Intent intent = getIntent();
 
@@ -49,7 +58,7 @@ public class WebClientActivity extends AppCompatActivity {
             super.onPageFinished(view, url);
             if(urlSalida.equals(url))
             {
-                Authenticator.getInstance().getSession(new TMDBClient.APICallback() {
+                authenticator.getSession(new TMDBClient.APICallback() {
                     @Override
                     public void onSuccess(Object result) {
                         finish();

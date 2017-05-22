@@ -1,20 +1,25 @@
-package digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication.AuthenticationEntities;
+package digitalhouse.android.a0317moacns1c_02.Entities.Authentication;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 /**
  * Created by Gregorio Martin on 20/5/2017.
  */
+
 
 public class RequestToken {
 
     private Boolean success;
     private String expires_at;
-    private Date expirationDate;
     private String request_token;
+
+    private Date expirationDate;
+
+
 
     public Boolean getSuccess() {
         return success;

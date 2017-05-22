@@ -2,8 +2,8 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import java.util.Map;
 
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication.AuthenticationEntities.RequestToken;
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication.AuthenticationEntities.Session;
+import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.RequestToken;
+import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.Session;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -70,7 +70,7 @@ public interface TMDBClient {
      apiCallback.onSucces(Entidad Devuelta)
      Para más info mirar la clase Authenticator, métodos: getSession y getRequestToken
      */
-    public interface APICallback{
+    interface APICallback{
         void onSuccess(Object result);
     }
 

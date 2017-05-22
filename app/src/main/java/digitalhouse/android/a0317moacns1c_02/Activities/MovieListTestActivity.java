@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02;
+package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;

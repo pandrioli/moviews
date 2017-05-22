@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication.AuthenticationEntities;
+package digitalhouse.android.a0317moacns1c_02.Entities.Authentication;
 
 /**
  * Created by Gregorio Martin on 20/5/2017.
