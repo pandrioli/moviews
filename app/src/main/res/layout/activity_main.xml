@@ -16,6 +16,14 @@
         android:layout_height="wrap_content"
         android:text="por el momento es solo para testeo el activity main, así que cada vez que se quiera agregar una pantalla primero se debe agregar un botón que genere la nueva actividad"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="Cargando datos generales de la API..."
+        android:id="@+id/textViewStatusDatosGenerales"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,5 +31,11 @@
         android:text="Botón a Login Activity"
         android:layout_gravity="center_horizontal"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonToMovieListActivity"
+        android:text="Botón a Movie List Activity"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

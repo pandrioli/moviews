@@ -4,6 +4,9 @@ import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.RequestToken;
 import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.Session;
+import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Config;
+import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Genre;
+import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Genres;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -52,6 +55,7 @@ public interface TMDBClient {
 
     los valores no se deberían hardcodear.
      */
+
     @GET("authentication/session/new?")
     Call<Session> obtainSession(@QueryMap Map<String, String> options);
 
@@ -70,6 +74,19 @@ public interface TMDBClient {
      apiCallback.onSucces(Entidad Devuelta)
      Para más info mirar la clase Authenticator, métodos: getSession y getRequestToken
      */
+
+
+    //Calls para GeneralAPIData
+
+    //Obtener la configuracion de las imagenes y un array change_keys que todavía no sé para qué es
+    //pero por las dudas lo traigo
+    @GET("configuration?")
+    Call<Config> obtainConfiguration(@Query("api_key") String API_KEY);
+    //Obtener lista de géneros de películas
+    @GET("genre/movie/list?")
+    Call<Genres> obtainGenreList(@Query("api_key") String API_KEY);
+
+
     interface APICallback{
         void onSuccess(Object result);
     }
