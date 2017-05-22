@@ -1,5 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData;
 
+import java.util.ArrayList;
+
 /**
  * Created by Pablo on 22/05/2017.
  */
@@ -8,13 +10,13 @@ package digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData;
 
 public class ImageConfig {
     private String base_url;
-    private String[] poster_sizes;
+    private ArrayList<String> poster_sizes;
 
     public String getBase_url() {
         return base_url;
     }
 
-    public String[] getPoster_sizes() {
+    public ArrayList<String> getPoster_sizes() {
         return poster_sizes;
     }
 
@@ -22,7 +24,7 @@ public class ImageConfig {
         this.base_url = base_url;
     }
 
-    public void setPoster_sizes(String[] poster_sizes) {
+    public void setPoster_sizes(ArrayList<String> poster_sizes) {
         this.poster_sizes = poster_sizes;
     }
 }

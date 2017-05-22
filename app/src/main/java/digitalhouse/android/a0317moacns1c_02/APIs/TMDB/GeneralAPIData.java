@@ -54,8 +54,12 @@ public class GeneralAPIData {
             @Override
             public void onResponse(Call<Config> call, Response<Config> response) {
                 config = response.body();
-                String test = "img_base_url = " + config.getImages().getBase_url();
-                apiCallback.onSuccess("Config OK : " + test);
+                String test = "URL Base imágenes = " + config.getImages().getBase_url();
+                test+="\r\nTamaños poster = ";
+                test+=config.getImages().getPoster_sizes().get(0)+", ";
+                test+=config.getImages().getPoster_sizes().get(1)+", ";
+                test+=config.getImages().getPoster_sizes().get(2)+", etc.";
+                apiCallback.onSuccess(test);
             }
 
             @Override
@@ -69,10 +73,10 @@ public class GeneralAPIData {
             @Override
             public void onResponse(Call<Genres> call, Response<Genres> response) {
                 genres = response.body();
-                String test = genres.getGenres()[0].getName() + ", " +
-                        genres.getGenres()[1].getName() + ", " +
-                        genres.getGenres()[2].getName() + ", etc.";
-                apiCallback.onSuccess("Genres OK : " + test);
+                String test = genres.getGenres().get(0).getName() + ", " +
+                        genres.getGenres().get(1).getName() + ", " +
+                        genres.getGenres().get(2).getName() + ", etc.";
+                apiCallback.onSuccess("Genres = " + test);
             }
 
             @Override

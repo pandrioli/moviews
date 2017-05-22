@@ -1,17 +1,19 @@
 package digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData;
 
+import java.util.ArrayList;
+
 /**
  * Created by Pablo on 22/05/2017.
  */
 
 public class Genres {
-    private Genre[] genres;
+    private ArrayList<Genre> genres;
 
-    public Genre[] getGenres() {
+    public ArrayList<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(Genre[] genres) {
+    public void setGenres(ArrayList<Genre> genres) {
         this.genres = genres;
     }
 }
