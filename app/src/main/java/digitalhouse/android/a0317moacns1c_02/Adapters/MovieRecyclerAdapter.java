@@ -19,19 +19,22 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * Created by dh3 on 22/05/17.
  */
 
-public class MovieRecyclerAdapter extends RecyclerView.Adapter {
+public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.OnClickListener{
     private Context context;
     private List<MovieListItem> movieList;
+    private View.OnClickListener clickListener;
 
-    public MovieRecyclerAdapter(Context context, List<MovieListItem> movieList) {
+    public MovieRecyclerAdapter(Context context, List<MovieListItem> movieList, View.OnClickListener clickListener) {
         this.context = context;
         this.movieList = movieList;
+        this.clickListener = clickListener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View cellView = inflater.inflate(R.layout.cell_movie_list, parent, false);
+        cellView.setOnClickListener(this);
         MovieViewHolder movieViewHolder = new MovieViewHolder(cellView);
         return movieViewHolder;
     }
@@ -50,6 +53,11 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return movieList.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        clickListener.onClick(v);
     }
 
     private class MovieViewHolder extends RecyclerView.ViewHolder {

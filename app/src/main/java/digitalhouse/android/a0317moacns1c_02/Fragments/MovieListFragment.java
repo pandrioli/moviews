@@ -22,8 +22,10 @@ import digitalhouse.android.a0317moacns1c_02.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieListFragment extends Fragment {
+public class MovieListFragment extends Fragment implements View.OnClickListener {
     public final static String MOVIE_LIST_KEY = "movieList";
+    RecyclerView recyclerViewMovies;
+    ArrayList<MovieListItem> movieList;
 
     public MovieListFragment() {
         // Required empty public constructor
@@ -36,14 +38,23 @@ public class MovieListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
         final MovieSelectable myActivity = (MovieSelectable)getActivity();
         Bundle bundle = getArguments();
-        ArrayList<MovieListItem> movieList = bundle.getParcelableArrayList(MOVIE_LIST_KEY);
-        MovieRecyclerAdapter movieAdapter = new MovieRecyclerAdapter(view.getContext(), movieList);
-        RecyclerView recyclerViewMovies = (RecyclerView) view.findViewById(R.id.listViewMovies);
+        movieList = bundle.getParcelableArrayList(MOVIE_LIST_KEY);
+        MovieRecyclerAdapter movieAdapter = new MovieRecyclerAdapter(view.getContext(), movieList, this);
+        recyclerViewMovies = (RecyclerView) view.findViewById(R.id.listViewMovies);
         recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
         recyclerViewMovies.setAdapter(movieAdapter);
         return view;
     }
+
+    @Override
+    public void onClick(View v) {
+        MovieSelectable activity = (MovieSelectable)getActivity();
+        activity.movieSelected(movieList.get(recyclerViewMovies.indexOfChild(v)));
+    }
+
     public interface MovieSelectable {
         void movieSelected(MovieListItem movieListItem);
     }
+
+
 }
