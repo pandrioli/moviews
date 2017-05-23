@@ -19,6 +19,8 @@ import retrofit2.http.QueryMap;
 
 public interface TMDBClient {
 
+    String API_KEY = "91a255db2e1d0761c2dc886c0ed08709";
+
     /* Explicacion:
 
     @GET para consumir un método de la API que devuelva algo, osea que vos esperes una respuesta
@@ -33,7 +35,7 @@ public interface TMDBClient {
     91a255db2e1d0761c2dc886c0ed08709 es el valor del parametro que le tenes que mandar al método como parametro, por ejenplo ->
     Call<RequestToken> callRequestToken = client.obtainRequestToken(91a255db2e1d0761c2dc886c0ed08709);
 
-    Para más información mirar la clase Authenticator por el momento.
+    Para más información mirar la clase Authentication por el momento.
      */
     @GET("authentication/token/new?")
     Call<RequestToken> obtainRequestToken(@Query("api_key") String API_KEY);
@@ -60,23 +62,6 @@ public interface TMDBClient {
     @GET("authentication/session/new?")
     Call<Session> obtainSession(@QueryMap Map<String, String> options);
 
-
-    /*
-    Hay casos en los que cuando llamas a algun método de la API este tarda más de lo que el programa
-    en devolverte información. Como los llamados a estos servicios son Asincronicos todo lo que este
-    debajo del llamado se va a ejecutar antes de que se recuperen datos, por lo tanto es MUY PROBABLE
-    que se devuelvan objetos Nulos (No se obtuvieron datos para llenarlos). En esos casos cuando
-    creamos nuevas llamadas a la api ponemos que uno de los parametros de estos métodos sea la
-    interfaz que está abajo. Y al llamar al método creamos una nueva interfaz como parametro, dentro
-    de esta ponemos lo que queremos que haga el método una vez obtenga datos, así evitamos errores
-     Igualmente con esto solo no alcanza, falta agregar al método que consume realmente el servicio
-     de la API un new Callback<T> dentro del método enqueue, este Callback nos obliga a sobreescribir
-     los métodos de onResponse y onFailure. En el onResponse agregamos el método
-     apiCallback.onSucces(Entidad Devuelta)
-     Para más info mirar la clase Authenticator, métodos: getSession y getRequestToken
-     */
-
-
     //Calls para GeneralAPIData
 
     //Obtener la configuracion de las imagenes y un array change_keys que todavía no sé para qué es
@@ -90,6 +75,23 @@ public interface TMDBClient {
     //Obtener lista de películas populares
     @GET("movie/popular?")
     Call<MovieResults> obtainPopularMovies(@Query("api_key") String API_KEY);
+
+
+
+    /*
+    Hay casos en los que cuando llamas a algun método de la API este tarda más de lo que el programa
+    en devolverte información. Como los llamados a estos servicios son Asincronicos todo lo que este
+    debajo del llamado se va a ejecutar antes de que se recuperen datos, por lo tanto es MUY PROBABLE
+    que se devuelvan objetos Nulos (No se obtuvieron datos para llenarlos). En esos casos cuando
+    creamos nuevas llamadas a la api ponemos que uno de los parametros de estos métodos sea la
+    interfaz que está abajo. Y al llamar al método creamos una nueva interfaz como parametro, dentro
+    de esta ponemos lo que queremos que haga el método una vez obtenga datos, así evitamos errores
+     Igualmente con esto solo no alcanza, falta agregar al método que consume realmente el servicio
+     de la API un new Callback<T> dentro del método enqueue, este Callback nos obliga a sobreescribir
+     los métodos de onResponse y onFailure. En el onResponse agregamos el método
+     apiCallback.onSucces(Entidad Devuelta)
+     Para más info mirar la clase Authentication, métodos: getSession y getRequestToken
+     */
 
     interface APICallback{
         void onSuccess(Object result);

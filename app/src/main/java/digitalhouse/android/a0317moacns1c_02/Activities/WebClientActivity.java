@@ -9,39 +9,35 @@ import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import javax.inject.Inject;
-
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication.Authenticator;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.DependencyInjection.App.AuthenticationApp;
 import digitalhouse.android.a0317moacns1c_02.R;
+import digitalhouse.android.a0317moacns1c_02.Services.AuthenticationServiceImpl;
 
 public class WebClientActivity extends AppCompatActivity {
 
-    /** Called when the activity is first created. */
+    @BindView(R.id.WebViewWebClientActivity) protected WebView webView;
 
-    WebView web;
-    String urlCompleta;
-    String urlSalida;
+    private String urlCompleta;
+    private String urlSalida;
 
-    @Inject
-    Authenticator authenticator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_client);
 
-        ((AuthenticationApp) getApplication()).getAuthenticationComponent().inject(this);
-
         Intent intent = getIntent();
 
-        web = (WebView) findViewById(R.id.WebViewWebClientActivity);
-        web.setWebViewClient(new myWebClient());
-        web.getSettings().setJavaScriptEnabled(true);
+        ButterKnife.bind(this);
+
+        webView.setWebViewClient(new myWebClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+
         urlCompleta = "https://www.themoviedb.org/authenticate/" + intent.getStringExtra("token");
         urlSalida = urlCompleta + "/allow";
-        web.loadUrl(urlCompleta);
+        webView.loadUrl(urlCompleta);
     }
 
     public class myWebClient extends WebViewClient
@@ -58,7 +54,7 @@ public class WebClientActivity extends AppCompatActivity {
             super.onPageFinished(view, url);
             if(urlSalida.equals(url))
             {
-                authenticator.getSession(new TMDBClient.APICallback() {
+                AuthenticationServiceImpl.getInstance().logIn(new TMDBClient.APICallback() {
                     @Override
                     public void onSuccess(Object result) {
                         finish();
@@ -82,8 +78,8 @@ public class WebClientActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && web.canGoBack()) {
-            web.goBack();
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+            webView.goBack();
             return true;
         }
         return super.onKeyDown(keyCode, event);
