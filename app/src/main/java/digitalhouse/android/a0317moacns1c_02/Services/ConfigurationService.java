@@ -26,15 +26,15 @@ En cuanto a la API_KEY, opino que debería ir acá y ser llamada en el resto del
 como ConfigurationServiceImpl.API_KEY
 */
 
-public class ConfigurationServiceImpl {
-    private static ConfigurationServiceImpl instance;
+public class ConfigurationService {
+    private static ConfigurationService instance;
     private TMDBClient client;
     private String imagesBaseURL;
     private ArrayList<String> posterSizes;
     private ArrayList<String> changeKeys;
 
 
-    private ConfigurationServiceImpl() {
+    private ConfigurationService() {
         this.client = ServiceGenerator.createService(TMDBClient.class);
     }
 
@@ -50,14 +50,14 @@ public class ConfigurationServiceImpl {
         return changeKeys;
     }
 
-    public static ConfigurationServiceImpl getInstance() {
-        if (instance == null) instance = new ConfigurationServiceImpl();
+    public static ConfigurationService getInstance() {
+        if (instance == null) instance = new ConfigurationService();
         return instance;
     }
 
     public void obtainConfigData(final TMDBClient.APICallback callback) {
         //obtener datos config
-        ConfigurationCalls.getConfiguration(client, new TMDBClient.APICallback() {
+        ConfigurationCalls.obtainConfigData(client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 Config config = (Config) result;

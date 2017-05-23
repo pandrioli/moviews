@@ -4,9 +4,8 @@ import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.RequestToken;
 import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.Session;
-import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Config;
-import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Genre;
-import digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData.Genres;
+import digitalhouse.android.a0317moacns1c_02.Entities.Configuration.Config;
+import digitalhouse.android.a0317moacns1c_02.Entities.Genres.Genres;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieResults.MovieResults;
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData;
+package digitalhouse.android.a0317moacns1c_02.Entities.Configuration;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,15 @@ public class Config {
         return images;
     }
 
+    public ArrayList<String> getChange_keys() {
+        return change_keys;
+    }
+
     public void setImages(ImageConfig images) {
         this.images = images;
+    }
+
+    public void setChange_keys(ArrayList<String> change_keys) {
+        this.change_keys = change_keys;
     }
 }

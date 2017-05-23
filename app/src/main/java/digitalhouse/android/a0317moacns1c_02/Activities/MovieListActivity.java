@@ -13,7 +13,7 @@ import digitalhouse.android.a0317moacns1c_02.Entities.Movie;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
-import digitalhouse.android.a0317moacns1c_02.Services.MovieServiceImpl;
+import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
 public class MovieListActivity extends AppCompatActivity implements MovieListFragment.MovieSelectable {
 
@@ -25,7 +25,7 @@ public class MovieListActivity extends AppCompatActivity implements MovieListFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list_test);
         //loadMovies();
-        MovieServiceImpl.getInstance().getPopularMovies(new TMDBClient.APICallback() {
+        MovieService.getInstance().obtainPopularMovies(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 movieList = (ArrayList<MovieListItem>) result;

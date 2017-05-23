@@ -10,9 +10,10 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import digitalhouse.android.a0317moacns1c_02.Services.GeneralAPIData;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.R;
+import digitalhouse.android.a0317moacns1c_02.Services.ConfigurationService;
+import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
         //Carga los datos generales de la API
         //TODO: debería bloquearse la ejecución hasta obtener los datos
-        GeneralAPIData.getInstance().loadData(new TMDBClient.APICallback() {
+        ConfigurationService.getInstance().obtainConfigData(new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                String status = generalAPIDataLoadStatus.getText().toString();
+                status += "\r\n" + result.toString();
+                generalAPIDataLoadStatus.setText(status);
+            }
+        });
+        //Carga la lista de generos de peliculas
+        //TODO: debería bloquearse la ejecución hasta obtener los datos
+        MovieService.getInstance().obtainGenres(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 String status = generalAPIDataLoadStatus.getText().toString();

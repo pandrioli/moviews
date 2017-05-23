@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.GeneralAPIData;
+package digitalhouse.android.a0317moacns1c_02.Entities.Genres;
 
 import java.util.ArrayList;
 
