@@ -61,8 +61,6 @@ public interface TMDBClient {
     @GET("authentication/session/new?")
     Call<Session> obtainSession(@QueryMap Map<String, String> options);
 
-    //Calls para GeneralAPIData
-
     //Obtener la configuracion de las imagenes y un array change_keys que todavía no sé para qué es
     //pero por las dudas lo traigo
     @GET("configuration?")
@@ -74,6 +72,12 @@ public interface TMDBClient {
     //Obtener lista de películas populares
     @GET("movie/popular?")
     Call<MovieResults> obtainPopularMovies(@Query("api_key") String API_KEY);
+    //Obtener lista de películas en cartelera
+    @GET("movie/now_playing?")
+    Call<MovieResults> obtainNowPlayingMovies(@Query("api_key") String API_KEY);
+    //Obtener lista de películas con próximo estreno
+    @GET("movie/upcoming?")
+    Call<MovieResults> obtainUpcomingMovies(@Query("api_key") String API_KEY);
 
 
 

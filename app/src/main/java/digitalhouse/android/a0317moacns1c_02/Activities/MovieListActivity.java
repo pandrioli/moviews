@@ -45,24 +45,6 @@ public class MovieListActivity extends AppCompatActivity implements MovieListFra
         ft.commit();
     }
 
-    private void loadMovies(){
-        Movie movie = new Movie();
-        movie.setId(123324);
-        movie.setTitle("Guardians of the Galaxy");
-        movie.setReleaseDate("2014-01-01");
-        movie.setGenres("Adventure, Action, Comedy, Science Fiction");
-        movie.setVoteAverage(7.9);
-        movie.setPosterPath("http://1.media.dorkly.cvcdn.com/26/95/18b149286ca6f2920e017bd5d2ffcbf5.jpg");
-        movieList = new ArrayList<>();
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-        movieList.add(new MovieListItem(movie));
-    }
 
     @Override
     public void movieSelected(MovieListItem movieListItem) {

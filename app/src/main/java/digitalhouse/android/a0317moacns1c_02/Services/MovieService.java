@@ -55,31 +55,53 @@ public class MovieService {
     }
 
     public void obtainPopularMovies(final TMDBClient.APICallback callback) {
-        MovieCalls.obtainPopularMovies(client, new TMDBClient.APICallback() {
-            @Override
-            public void onSuccess(Object result) {
-                MovieResults movieResults = (MovieResults) result;
-                List<MovieListItem> movieList = new ArrayList<>();
-                for (MovieResultsItem movieResultsItem : movieResults.getResults()) {
-                    MovieListItem movieListItem = new MovieListItem();
-                    movieListItem.setId(movieResultsItem.getId());
-                    String genres = "";
-                    for (Integer genreId : movieResultsItem.getGenre_ids()) {
-                        genres += getGenreNameById(genreId)+", ";
-                    }
-                    genres = genres.substring(0, genres.length()-2);
-                    movieListItem.setGenres(genres);
-                    movieListItem.setRating(movieResultsItem.getVote_average().toString());
-                    movieListItem.setTitle(movieResultsItem.getTitle());
-                    String url = ConfigurationService.getInstance().getImagesBaseURL();
-                    url += ConfigurationService.getInstance().getPosterSizes().get(0);
-                    url += movieResultsItem.getPoster_path();
-                    movieListItem.setPosterURL(url);
-                    movieListItem.setYear(movieResultsItem.getRelease_date().substring(0,4));
-                    movieList.add(movieListItem);
-                }
-                callback.onSuccess(movieList);
-            }
-        });
+        MovieCalls.obtainPopular(client, new MovieResultsCallBack(callback));
     }
+
+    public void obtainNowPlayingMovies(final TMDBClient.APICallback callback) {
+        MovieCalls.obtainNowPlaying(client, new MovieResultsCallBack(callback));
+    }
+
+    public void obtainUpcomingMovies(final TMDBClient.APICallback callback) {
+        MovieCalls.obtainUpcoming(client, new MovieResultsCallBack(callback));
+    }
+
+    private List<MovieListItem> getMovieListItemsFromMovieResults(MovieResults movieResults) {
+        List<MovieListItem> movieList = new ArrayList<>();
+        for (MovieResultsItem movieResultsItem : movieResults.getResults()) {
+            MovieListItem movieListItem = new MovieListItem();
+            movieListItem.setId(movieResultsItem.getId());
+            String genres = "";
+            for (Integer genreId : movieResultsItem.getGenre_ids()) {
+                genres += getGenreNameById(genreId)+", ";
+            }
+            genres = genres.substring(0, genres.length()-2);
+            movieListItem.setGenres(genres);
+            movieListItem.setRating(movieResultsItem.getVote_average().toString());
+            movieListItem.setTitle(movieResultsItem.getTitle());
+            String url = ConfigurationService.getInstance().getImagesBaseURL();
+            url += ConfigurationService.getInstance().getPosterSizes().get(0);
+            url += movieResultsItem.getPoster_path();
+            movieListItem.setPosterURL(url);
+            movieListItem.setYear(movieResultsItem.getRelease_date().substring(0,4));
+            movieList.add(movieListItem);
+        }
+        return movieList;
+    }
+
+    private class MovieResultsCallBack implements TMDBClient.APICallback {
+        private TMDBClient.APICallback callback;
+
+        public MovieResultsCallBack(TMDBClient.APICallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        public void onSuccess(Object result) {
+            MovieResults movieResults = (MovieResults) result;
+            List<MovieListItem> movieList = getMovieListItemsFromMovieResults(movieResults);
+            callback.onSuccess(movieList);
+        }
+    }
+
 }

@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.buttonToLoginActivity) protected Button button;
     @BindView(R.id.buttonToMovieListActivity) protected Button buttonMovieList;
+    @BindView(R.id.buttonToTabsTestActivity) protected Button buttonSwipeTest;
     @BindView(R.id.textViewStatusDatosGenerales) protected TextView generalAPIDataLoadStatus;
 
     @Override
@@ -61,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.buttonToMovieListActivity)
     public void onClickMovieList(View v) {
         Intent intent = new Intent(this, MovieListActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.buttonToTabsTestActivity)
+    public void onClickTabsTest(View v) {
+        Intent intent = new Intent(this, TabsTestActivity.class);
         startActivity(intent);
     }
 }

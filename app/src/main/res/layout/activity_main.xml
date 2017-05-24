@@ -28,14 +28,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonToLoginActivity"
-        android:text="Botón a Login Activity"
+        android:text="Login Activity"
         android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonToMovieListActivity"
-        android:text="Botón a Movie List Activity"
+        android:text="Movie List Activity"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonToTabsTestActivity"
+        android:text="Tabs Test Activity"
         android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

@@ -12,18 +12,37 @@ import retrofit2.Response;
  */
 
 public class MovieCalls {
-    public static void obtainPopularMovies(TMDBClient client, final TMDBClient.APICallback callback) {
+    public static void obtainPopular(TMDBClient client, final TMDBClient.APICallback callback) {
         Call<MovieResults> call = client.obtainPopularMovies(TMDBClient.API_KEY);
-        call.enqueue(new Callback<MovieResults>() {
-            @Override
-            public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
-                callback.onSuccess(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<MovieResults> call, Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
+        call.enqueue(new MovieResultsCallBack(callback));
     }
+    public static void obtainNowPlaying(TMDBClient client, final TMDBClient.APICallback callback) {
+        Call<MovieResults> call = client.obtainNowPlayingMovies(TMDBClient.API_KEY);
+        call.enqueue(new MovieResultsCallBack(callback));
+    }
+    public static void obtainUpcoming(TMDBClient client, final TMDBClient.APICallback callback) {
+        Call<MovieResults> call = client.obtainUpcomingMovies(TMDBClient.API_KEY);
+        call.enqueue(new MovieResultsCallBack(callback));
+    }
+
+
+
+    private static class MovieResultsCallBack implements Callback<MovieResults> {
+        private TMDBClient.APICallback callback;
+
+        public MovieResultsCallBack(TMDBClient.APICallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+            callback.onSuccess(response.body());
+        }
+
+        @Override
+        public void onFailure(Call call, Throwable t) {
+            Log.d("Error", t.getMessage());
+        }
+    }
+
 }
