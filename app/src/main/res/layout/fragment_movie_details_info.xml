@@ -1,0 +1,81 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.MovieDetailsInfoFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMovieDetailsTitle"
+
+            android:layout_margin="14dp"
+
+            android:text="Alien: Covenant"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMovieDetailsYear"
+
+            android:layout_alignTop="@+id/textViewMovieDetailsTitle"
+            android:layout_toRightOf="@+id/textViewMovieDetailsTitle"
+
+            android:text="(2016)"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMovieDetailsMovieRatings"
+
+            android:layout_below="@id/textViewMovieDetailsTitle"
+            android:layout_margin="14dp"
+
+            android:text="PG-13"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMovieDetailsGeneros"
+
+            android:layout_alignTop="@id/textViewMovieDetailsMovieRatings"
+            android:layout_toRightOf="@id/textViewMovieDetailsMovieRatings"
+
+            android:text="Horror | Sci-Fi | Thriller"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMovieDetailsDuration"
+
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/textViewMovieDetailsMovieRatings"
+            android:layout_marginRight="14dp"
+
+            android:text="2 hrs 2 min"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMovieDetailsDescription"
+            android:layout_below="@id/textViewMovieDetailsGeneros"
+            android:layout_margin="14dp"
+            android:text="Es una pelicula muuuuuuuuuuuuuuuuuuuuuuuuy re mil re buenisima"
+            />
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>
