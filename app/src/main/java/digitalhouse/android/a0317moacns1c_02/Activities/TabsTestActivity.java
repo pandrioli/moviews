@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -84,7 +85,11 @@ public class TabsTestActivity extends AppCompatActivity implements MovieListFrag
 
     @Override
     public void movieSelected(MovieListItem movieListItem) {
-
+        Intent intent = new Intent(this,MovieDetailsTestActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("movieId", movieListItem.getId().toString());
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void loadViewPager() {

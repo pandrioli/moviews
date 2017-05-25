@@ -1,7 +1,9 @@
 package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 
+import digitalhouse.android.a0317moacns1c_02.Entities.MovieDetails.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieResults.MovieResults;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,6 +14,8 @@ import retrofit2.Response;
  */
 
 public class MovieCalls {
+
+
     public static void obtainPopular(TMDBClient client, final TMDBClient.APICallback callback) {
         Call<MovieResults> call = client.obtainPopularMovies(TMDBClient.API_KEY);
         call.enqueue(new MovieResultsCallBack(callback));
@@ -25,7 +29,20 @@ public class MovieCalls {
         call.enqueue(new MovieResultsCallBack(callback));
     }
 
+    public static void obtainMovieDetails(String id, TMDBClient client, final TMDBClient.APICallback callback) {
+        Call<MovieDetails> call = client.obtainMovieDetails(id, TMDBClient.API_KEY);
+        call.enqueue(new Callback<MovieDetails>() {
+            @Override
+            public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
+                callback.onSuccess(response.body());
+            }
 
+            @Override
+            public void onFailure(Call<MovieDetails> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
 
     private static class MovieResultsCallBack implements Callback<MovieResults> {
         private TMDBClient.APICallback callback;

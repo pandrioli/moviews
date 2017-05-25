@@ -6,9 +6,11 @@ import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.RequestToke
 import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.Session;
 import digitalhouse.android.a0317moacns1c_02.Entities.Configuration.Config;
 import digitalhouse.android.a0317moacns1c_02.Entities.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.Entities.MovieDetails.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieResults.MovieResults;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -68,6 +70,10 @@ public interface TMDBClient {
     //Obtener lista de géneros de películas
     @GET("genre/movie/list?")
     Call<Genres> obtainGenreList(@Query("api_key") String API_KEY);
+
+    //Obtener detalle de pelicula
+    @GET("movie/{movie_id}?")
+    Call<MovieDetails> obtainMovieDetails(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener lista de películas populares
     @GET("movie/popular?")

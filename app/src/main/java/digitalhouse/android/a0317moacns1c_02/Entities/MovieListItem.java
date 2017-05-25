@@ -21,15 +21,6 @@ public class MovieListItem implements Parcelable {
 
     }
 
-    public MovieListItem(Movie movie) {
-        this.id = movie.getId();
-        this.title = movie.getTitle();
-        this.year = movie.getReleaseDate().substring(0,4);
-        this.genres = movie.getGenres();
-        this.rating = movie.getVoteAverage().toString();
-        this.posterURL = movie.getPosterPath();
-    }
-
     public MovieListItem(Parcel in) {
         readFromParcel(in);
     }

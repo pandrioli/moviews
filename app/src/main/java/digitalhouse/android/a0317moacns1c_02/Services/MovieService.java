@@ -54,6 +54,15 @@ public class MovieService {
         return "";
     }
 
+    public void obtainMovieDetails(String id, final TMDBClient.APICallback callback){
+        MovieCalls.obtainMovieDetails(id, client, new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                callback.onSuccess(result);
+            }
+        });
+    }
+
     public void obtainPopularMovies(final TMDBClient.APICallback callback) {
         MovieCalls.obtainPopular(client, new MovieResultsCallBack(callback));
     }
