@@ -1,10 +1,9 @@
 package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieDetails.MovieDetails;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieResults.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

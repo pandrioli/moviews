@@ -1,21 +1,16 @@
 package digitalhouse.android.a0317moacns1c_02.Services;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.GenreCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.MovieCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.Genres.Genre;
-import digitalhouse.android.a0317moacns1c_02.Entities.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.Genre;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.Genres;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieResults.MovieResults;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieResults.MovieResultsItem;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsItem;
 
 
 public class MovieService {

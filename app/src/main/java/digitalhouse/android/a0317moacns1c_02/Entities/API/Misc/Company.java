@@ -1,10 +1,10 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.Genres;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Misc;
 
 /**
- * Created by Pablo on 22/05/2017.
+ * Created by dh3 on 24/05/17.
  */
 
-public class Genre {
+public class Company {
     private Integer id;
     private String name;
 
@@ -12,12 +12,12 @@ public class Genre {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {

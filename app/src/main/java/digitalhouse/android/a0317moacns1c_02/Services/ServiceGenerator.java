@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Services;
 
 import android.text.TextUtils;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.TokenInterceptor;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.TokenInterceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

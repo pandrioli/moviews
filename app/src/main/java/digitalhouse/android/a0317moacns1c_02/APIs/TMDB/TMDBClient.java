@@ -2,12 +2,12 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import java.util.Map;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.RequestToken;
-import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.Session;
-import digitalhouse.android.a0317moacns1c_02.Entities.Configuration.Config;
-import digitalhouse.android.a0317moacns1c_02.Entities.Genres.Genres;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieDetails.MovieDetails;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieResults.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.Config;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResults;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

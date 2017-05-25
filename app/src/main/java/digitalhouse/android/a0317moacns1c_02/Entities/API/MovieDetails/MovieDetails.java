@@ -1,11 +1,11 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.MovieDetails;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails;
 
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.Genres.Genre;
-import digitalhouse.android.a0317moacns1c_02.Entities.Misc.Company;
-import digitalhouse.android.a0317moacns1c_02.Entities.Misc.Country;
-import digitalhouse.android.a0317moacns1c_02.Entities.Misc.Language;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.Genre;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.Company;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.Country;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.Language;
 
 /**
  * Created by Gregorio Martin on 20/5/2017.

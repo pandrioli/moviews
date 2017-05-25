@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.ConfigurationCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.Configuration.Config;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.Config;
 
 /**
  * Created by Pablo on 22/05/2017.

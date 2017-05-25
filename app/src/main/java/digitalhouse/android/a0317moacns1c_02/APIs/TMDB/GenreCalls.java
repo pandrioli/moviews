@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import android.util.Log;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.Genres;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

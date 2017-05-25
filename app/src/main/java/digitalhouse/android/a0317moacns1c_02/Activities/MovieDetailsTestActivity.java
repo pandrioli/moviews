@@ -7,7 +7,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieDetails.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 

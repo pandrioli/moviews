@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.Genres;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Genres;
 
 import java.util.ArrayList;
 

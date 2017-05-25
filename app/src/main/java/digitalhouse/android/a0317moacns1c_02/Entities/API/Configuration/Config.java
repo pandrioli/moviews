@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.Configuration;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration;
 
 import java.util.ArrayList;
 

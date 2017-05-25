@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.Misc;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Misc;
 
 /**
  * Created by dh3 on 24/05/17.

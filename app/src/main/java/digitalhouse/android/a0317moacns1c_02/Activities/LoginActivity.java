@@ -11,9 +11,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.Authentication;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.RequestToken;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Services.AuthenticationServiceImpl;
 

@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.Authentication;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication;
 
 import java.text.DateFormat;
 import java.text.ParseException;

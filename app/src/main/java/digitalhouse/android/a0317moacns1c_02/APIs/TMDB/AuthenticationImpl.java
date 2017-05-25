@@ -5,8 +5,8 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.RequestToken;
-import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.Session;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

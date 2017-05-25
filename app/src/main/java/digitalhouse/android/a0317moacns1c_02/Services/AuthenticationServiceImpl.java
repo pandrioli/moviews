@@ -2,8 +2,8 @@ package digitalhouse.android.a0317moacns1c_02.Services;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.AuthenticationImpl;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.RequestToken;
-import digitalhouse.android.a0317moacns1c_02.Entities.Authentication.Session;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
 
 /**
  * Created by dh3 on 22/05/17.

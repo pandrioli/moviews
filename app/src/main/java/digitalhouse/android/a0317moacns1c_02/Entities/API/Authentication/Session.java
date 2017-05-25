@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.Authentication;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication;
 
 /**
  * Created by Gregorio Martin on 20/5/2017.
