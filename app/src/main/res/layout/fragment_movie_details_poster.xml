@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.MovieDetailsPosterFragment">
+
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="250dp"
+            android:id="@+id/imageViewMDPPoster"
+            />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageButtonMDPRate"
+
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+
+            android:layout_alignBaseline="@id/imageViewMDPPoster"
+            android:layout_toRightOf="@id/imageViewMDPPoster"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMDPMyRate"
+
+            android:layout_toRightOf="@id/imageButtonMDPRate"
+            android:layout_alignBottom="@id/imageButtonMDPRate"
+
+            android:text="Mi Califiación"
+            />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageButtonMDPActualRating"
+
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@id/imageButtonMDPRate"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMDPActualRating"
+
+            android:layout_alignBottom="@id/imageButtonMDPActualRating"
+            android:layout_toRightOf="@id/imageButtonMDPActualRating"
+
+            android:text="8.1 /10"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMDPNumberOfRates"
+
+            android:layout_alignTop="@id/imageButtonMDPActualRating"
+            android:layout_toRightOf="@id/imageButtonMDPActualRating"
+
+            android:text="139.801"
+            />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageButtonMDPMetaScore"
+            android:layout_marginBottom="30dp"
+
+            android:layout_alignLeft="@id/imageButtonMDPRate"
+            android:layout_alignBottom="@id/imageViewMDPPoster"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMDPMetaScore"
+
+            android:layout_alignTop="@id/imageButtonMDPMetaScore"
+            android:layout_toRightOf="@id/imageButtonMDPMetaScore"
+
+            android:text="Metascore"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMDPNumberOfCritics"
+
+            android:layout_alignBottom="@id/imageButtonMDPMetaScore"
+            android:layout_toRightOf="@id/imageButtonMDPMetaScore"
+
+            android:text="47 críticas"
+            />
+
+</RelativeLayout>
