@@ -6,17 +6,17 @@ import java.util.List;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.GenreCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.MovieCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.Genre;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenreAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenresAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResults;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsItem;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsItemAPI;
 
 
 public class MovieService {
     private static MovieService instance;
     private TMDBClient client;
-    private ArrayList<Genre> genreList;
+    private ArrayList<GenreAPI> genreList;
 
     public MovieService() {
         this.client = ServiceGenerator.createService(TMDBClient.class);
@@ -31,9 +31,9 @@ public class MovieService {
         GenreCalls.obtainGenres(client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                Genres genres = (Genres) result;
+                GenresAPI genres = (GenresAPI) result;
                 genreList = genres.getGenres();
-                String test = "Genres = ";
+                String test = "GenresAPI = ";
                 test += genreList.get(0).getName() + ", ";
                 test += genreList.get(1).getName() + ", ";
                 test += genreList.get(2).getName() + ", etc.";
@@ -43,7 +43,7 @@ public class MovieService {
     }
     // buscar genero por id
     public String getGenreNameById(Integer id) {
-        for (Genre genre : genreList) {
+        for (GenreAPI genre : genreList) {
             if (genre.getId().equals(id)) return genre.getName();
         }
         return "";
@@ -70,9 +70,9 @@ public class MovieService {
         MovieCalls.obtainUpcoming(client, new MovieResultsCallBack(callback));
     }
 
-    private List<MovieListItem> getMovieListItemsFromMovieResults(MovieResults movieResults) {
+    private List<MovieListItem> getMovieListItems(MovieResultsAPI movieResults) {
         List<MovieListItem> movieList = new ArrayList<>();
-        for (MovieResultsItem movieResultsItem : movieResults.getResults()) {
+        for (MovieResultsItemAPI movieResultsItem : movieResults.getResults()) {
             MovieListItem movieListItem = new MovieListItem();
             movieListItem.setId(movieResultsItem.getId());
             String genres = "";
@@ -102,8 +102,8 @@ public class MovieService {
 
         @Override
         public void onSuccess(Object result) {
-            MovieResults movieResults = (MovieResults) result;
-            List<MovieListItem> movieList = getMovieListItemsFromMovieResults(movieResults);
+            MovieResultsAPI movieResults = (MovieResultsAPI) result;
+            List<MovieListItem> movieList = getMovieListItems(movieResults);
             callback.onSuccess(movieList);
         }
     }

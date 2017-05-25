@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 // configuracion de imagenes y change keys
 
-public class Config {
-    private ImageConfig images; // la API devuelve un objeto con la config de las imagenes
+public class ConfigAPI {
+    private ImageConfigAPI images; // la API devuelve un objeto con la config de las imagenes
     private ArrayList<String> change_keys;
 
-    public ImageConfig getImages() {
+    public ImageConfigAPI getImages() {
         return images;
     }
 
@@ -20,7 +20,7 @@ public class Config {
         return change_keys;
     }
 
-    public void setImages(ImageConfig images) {
+    public void setImages(ImageConfigAPI images) {
         this.images = images;
     }
 

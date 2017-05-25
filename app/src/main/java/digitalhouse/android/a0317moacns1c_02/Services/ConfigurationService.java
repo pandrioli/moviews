@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.ConfigurationCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.Config;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.ConfigAPI;
 
 /**
  * Created by Pablo on 22/05/2017.
@@ -60,7 +60,7 @@ public class ConfigurationService {
         ConfigurationCalls.obtainConfigData(client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                Config config = (Config) result;
+                ConfigAPI config = (ConfigAPI) result;
                 imagesBaseURL = config.getImages().getBase_url();
                 posterSizes = config.getImages().getPoster_sizes();
                 changeKeys = config.getChange_keys();

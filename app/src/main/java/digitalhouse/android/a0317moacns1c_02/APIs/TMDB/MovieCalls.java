@@ -2,8 +2,8 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import android.util.Log;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetails;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,34 +16,34 @@ public class MovieCalls {
 
 
     public static void obtainPopular(TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieResults> call = client.obtainPopularMovies(TMDBClient.API_KEY);
+        Call<MovieResultsAPI> call = client.obtainPopularMovies(TMDBClient.API_KEY);
         call.enqueue(new MovieResultsCallBack(callback));
     }
     public static void obtainNowPlaying(TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieResults> call = client.obtainNowPlayingMovies(TMDBClient.API_KEY);
+        Call<MovieResultsAPI> call = client.obtainNowPlayingMovies(TMDBClient.API_KEY);
         call.enqueue(new MovieResultsCallBack(callback));
     }
     public static void obtainUpcoming(TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieResults> call = client.obtainUpcomingMovies(TMDBClient.API_KEY);
+        Call<MovieResultsAPI> call = client.obtainUpcomingMovies(TMDBClient.API_KEY);
         call.enqueue(new MovieResultsCallBack(callback));
     }
 
     public static void obtainMovieDetails(String id, TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieDetails> call = client.obtainMovieDetails(id, TMDBClient.API_KEY);
-        call.enqueue(new Callback<MovieDetails>() {
+        Call<MovieDetailsAPI> call = client.obtainMovieDetails(id, TMDBClient.API_KEY);
+        call.enqueue(new Callback<MovieDetailsAPI>() {
             @Override
-            public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
+            public void onResponse(Call<MovieDetailsAPI> call, Response<MovieDetailsAPI> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<MovieDetails> call, Throwable t) {
+            public void onFailure(Call<MovieDetailsAPI> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
         });
     }
 
-    private static class MovieResultsCallBack implements Callback<MovieResults> {
+    private static class MovieResultsCallBack implements Callback<MovieResultsAPI> {
         private TMDBClient.APICallback callback;
 
         public MovieResultsCallBack(TMDBClient.APICallback callback) {
