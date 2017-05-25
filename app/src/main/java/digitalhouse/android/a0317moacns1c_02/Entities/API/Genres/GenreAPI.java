@@ -4,7 +4,7 @@ package digitalhouse.android.a0317moacns1c_02.Entities.API.Genres;
  * Created by Pablo on 22/05/2017.
  */
 
-public class Genre {
+public class GenreAPI {
     private Integer id;
     private String name;
 

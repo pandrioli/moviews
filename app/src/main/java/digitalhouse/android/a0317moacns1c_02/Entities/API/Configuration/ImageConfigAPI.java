@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 // datos de las imagenes (base url y tamaños disponibles)
 
-public class ImageConfig {
+public class ImageConfigAPI {
     private String base_url;
     private ArrayList<String> poster_sizes;
 

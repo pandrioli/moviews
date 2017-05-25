@@ -6,14 +6,14 @@ import java.util.ArrayList;
  * Created by Pablo on 22/05/2017.
  */
 
-public class Genres {
-    private ArrayList<Genre> genres;
+public class GenresAPI {
+    private ArrayList<GenreAPI> genres;
 
-    public ArrayList<Genre> getGenres() {
+    public ArrayList<GenreAPI> getGenres() {
         return genres;
     }
 
-    public void setGenres(ArrayList<Genre> genres) {
+    public void setGenres(ArrayList<GenreAPI> genres) {
         this.genres = genres;
     }
 }

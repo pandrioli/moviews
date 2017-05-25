@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Pablo on 22/05/2017.
  */
 
-public class MovieResultsItem {
+public class MovieResultsItemAPI {
     private String poster_path;
     private Boolean adult;
     private String overview;

@@ -4,10 +4,10 @@ import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.Config;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.Genres;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetails;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.ConfigAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenresAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsAPI;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -66,24 +66,24 @@ public interface TMDBClient {
     //Obtener la configuracion de las imagenes y un array change_keys que todavía no sé para qué es
     //pero por las dudas lo traigo
     @GET("configuration?")
-    Call<Config> obtainConfiguration(@Query("api_key") String API_KEY);
+    Call<ConfigAPI> obtainConfiguration(@Query("api_key") String API_KEY);
     //Obtener lista de géneros de películas
     @GET("genre/movie/list?")
-    Call<Genres> obtainGenreList(@Query("api_key") String API_KEY);
+    Call<GenresAPI> obtainGenreList(@Query("api_key") String API_KEY);
 
     //Obtener detalle de pelicula
     @GET("movie/{movie_id}?")
-    Call<MovieDetails> obtainMovieDetails(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+    Call<MovieDetailsAPI> obtainMovieDetails(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener lista de películas populares
     @GET("movie/popular?")
-    Call<MovieResults> obtainPopularMovies(@Query("api_key") String API_KEY);
+    Call<MovieResultsAPI> obtainPopularMovies(@Query("api_key") String API_KEY);
     //Obtener lista de películas en cartelera
     @GET("movie/now_playing?")
-    Call<MovieResults> obtainNowPlayingMovies(@Query("api_key") String API_KEY);
+    Call<MovieResultsAPI> obtainNowPlayingMovies(@Query("api_key") String API_KEY);
     //Obtener lista de películas con próximo estreno
     @GET("movie/upcoming?")
-    Call<MovieResults> obtainUpcomingMovies(@Query("api_key") String API_KEY);
+    Call<MovieResultsAPI> obtainUpcomingMovies(@Query("api_key") String API_KEY);
 
 
 
