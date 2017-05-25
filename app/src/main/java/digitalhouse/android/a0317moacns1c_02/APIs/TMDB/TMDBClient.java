@@ -6,8 +6,10 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Request
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.ConfigAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenresAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.ImagesAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Videos.VideosAPI;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -74,6 +76,14 @@ public interface TMDBClient {
     //Obtener detalle de pelicula
     @GET("movie/{movie_id}?")
     Call<MovieDetailsAPI> obtainMovieDetails(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+
+    //Obtener imagenes
+    @GET("movie/{movie_id}?")
+    Call<ImagesAPI> obtainMovieImages(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+
+    //Obtener videos
+    @GET("movie/{movie_id}?")
+    Call<VideosAPI> obtainMovieVideos(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener lista de películas populares
     @GET("movie/popular?")

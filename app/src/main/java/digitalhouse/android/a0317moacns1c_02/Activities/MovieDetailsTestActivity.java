@@ -20,7 +20,7 @@ public class MovieDetailsTestActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
         String movieId = bundle.getString("movieId");
-        MovieService.getInstance().obtainMovieDetails(movieId, new TMDBClient.APICallback() {
+        MovieService.getInstance().getMovieData(movieId, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 textView.setText(result.toString());

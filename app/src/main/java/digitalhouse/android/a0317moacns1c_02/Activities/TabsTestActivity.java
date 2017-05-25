@@ -45,7 +45,7 @@ public class TabsTestActivity extends AppCompatActivity implements MovieListFrag
         bundleList = new Bundle[tabLayout.getTabCount()];
         loadedCounter = 0;
 
-        MovieService.getInstance().obtainPopularMovies(new TMDBClient.APICallback() {
+        MovieService.getInstance().getPopularMovies(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 movieList = (ArrayList<MovieListItem>) result;
@@ -57,7 +57,7 @@ public class TabsTestActivity extends AppCompatActivity implements MovieListFrag
             }
         });
 
-        MovieService.getInstance().obtainNowPlayingMovies(new TMDBClient.APICallback() {
+        MovieService.getInstance().getNowPlayingMovies(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 movieList = (ArrayList<MovieListItem>) result;
@@ -69,7 +69,7 @@ public class TabsTestActivity extends AppCompatActivity implements MovieListFrag
             }
         });
 
-        MovieService.getInstance().obtainUpcomingMovies(new TMDBClient.APICallback() {
+        MovieService.getInstance().getUpcomingMovies(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 movieList = (ArrayList<MovieListItem>) result;

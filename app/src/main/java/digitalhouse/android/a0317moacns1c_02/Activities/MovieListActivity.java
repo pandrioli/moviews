@@ -24,7 +24,7 @@ public class MovieListActivity extends AppCompatActivity implements MovieListFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list_test);
         //loadMovies();
-        MovieService.getInstance().obtainPopularMovies(new TMDBClient.APICallback() {
+        MovieService.getInstance().getPopularMovies(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 movieList = (ArrayList<MovieListItem>) result;
