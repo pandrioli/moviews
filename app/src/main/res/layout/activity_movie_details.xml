@@ -16,17 +16,28 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/frameLayoutMDImages"
-            > </FrameLayout>
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageViewDetailsBackdrop"/>
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/frameLayoutMDTitle"></FrameLayout>
+            android:id="@+id/frameLayoutMDTitle"/>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/frameLayoutMDPoster"></FrameLayout>
+            android:id="@+id/frameLayoutMDPoster"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/frameLayoutMDCast"/>
+
 
     </LinearLayout>
 

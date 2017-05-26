@@ -1,31 +1,37 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
-import android.content.Intent;
-import android.graphics.Movie;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenreAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenresAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.CompanyAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.LanguageAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.MovieCredits;
+import digitalhouse.android.a0317moacns1c_02.Entities.MovieData;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieDetailsPosterFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieDetailsTitleFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.PersonListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
+import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
     @BindView(R.id.frameLayoutMDImages) FrameLayout frameLayoutMDImages;
     @BindView(R.id.frameLayoutMDTitle) FrameLayout frameLayoutMDTitle;
     @BindView(R.id.frameLayoutMDPoster) FrameLayout frameLayoutMDPoster;
+    @BindView(R.id.imageViewDetailsBackdrop) ImageView imageViewBackdrop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +39,42 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
 
         ButterKnife.bind(this);
+        Bundle bundleReceived = getIntent().getExtras();
+        Integer id = bundleReceived.getInt("movieId");
+        MovieService.getInstance().getMovieData(id, new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                MovieData movieData = (MovieData) result;
+                Picasso.with(MovieDetailsActivity.this).load(movieData.getBackdropURL(3)).fit().centerCrop().into(imageViewBackdrop);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(movieData.tag, movieData);
+                startMovieDetailsPosterActivity(bundle);
+                startMovieDetailsTitleFragment(bundle);
+            }
+        });
+        MovieService.getInstance().getMovieCredits(id, new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                MovieCredits movieCredits = (MovieCredits) result;
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(PersonListFragment.PERSON_LIST_KEY,movieCredits.getCastList());
+                startMovieDetailsCastFragment(bundle);
+            }
+        });
+    }
 
+    private void startMovieDetailsCastFragment(Bundle bundle) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
-        Bundle bundle = new Bundle();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
 
-        bundle.putSerializable(MovieDetailsAPI.movieDetailsTag, hardCodearMovieDetails());
+        PersonListFragment personListFragment = new PersonListFragment();
 
-        startMovieDetailsPosterActivity(bundle);
+        personListFragment.setArguments(bundle);
 
-        startMovieDetailsTitleFragment(bundle);
+        fragmentTransaction.replace(R.id.frameLayoutMDCast, personListFragment);
 
-
+        fragmentTransaction.commit();
     }
 
     private void startMovieDetailsTitleFragment(Bundle bundle){

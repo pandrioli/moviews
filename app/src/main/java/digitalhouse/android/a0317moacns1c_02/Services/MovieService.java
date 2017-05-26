@@ -26,7 +26,6 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResu
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsItemAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.PersonListItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.VideoData;
-import digitalhouse.android.a0317moacns1c_02.Entities.PersonData;
 
 
 public class MovieService {
@@ -75,9 +74,9 @@ public class MovieService {
                 MovieDetailsAPI movieDetails = (MovieDetailsAPI) result;
                 String genres = "";
                 for (GenreAPI genre : movieDetails.getGenres()) {
-                    genres += genre.getName()+", ";
+                    genres += genre.getName()+" | ";
                 }
-                genres = genres.substring(0, genres.length()-2);
+                genres = genres.substring(0, genres.length()-3);
                 MovieData movieData = new MovieData();
                 movieData.setGenres(genres);
                 movieData.setId(movieDetails.getId());
@@ -88,8 +87,8 @@ public class MovieService {
                 movieData.setRating(movieDetails.getVote_average());
                 movieData.setTagline(movieDetails.getTagline());
                 movieData.setRuntime(movieDetails.getRuntime());
-                movieData.setPoster(movieDetails.getPoster_path());
-                movieData.setBackdrop(movieDetails.getBackdrop_path());
+                movieData.setPosterPath(movieDetails.getPoster_path());
+                movieData.setBackdropPath(movieDetails.getBackdrop_path());
                 callback.onSuccess(movieData);
             }
         });

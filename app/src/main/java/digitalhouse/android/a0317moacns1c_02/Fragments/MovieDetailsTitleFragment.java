@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.MovieData;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -40,17 +41,17 @@ public class MovieDetailsTitleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_details_title, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        setUpViews((MovieDetailsAPI) getArguments().getSerializable(MovieDetailsAPI.movieDetailsTag));
+        setUpViews((MovieData) getArguments().getSerializable(MovieData.tag));
 
         return view;
     }
 
-    private void setUpViews(MovieDetailsAPI movieDetailsAPI){
-        textViewMovieDetailsDescription.setText(movieDetailsAPI.getOverview());
-        textViewMovieDetailsDuration.setText(movieDetailsAPI.getRuntimeString());
-        textViewMovieDetailsGenres.setText(movieDetailsAPI.getGenresString());
-        textViewMovieDetailsTitle.setText(movieDetailsAPI.getTitle());
-        textViewMovieDetailsYear.setText(movieDetailsAPI.getYear());
+    private void setUpViews(MovieData movieData){
+        textViewMovieDetailsDescription.setText(movieData.getOverview());
+        textViewMovieDetailsDuration.setText(movieData.getRuntimeString());
+        textViewMovieDetailsGenres.setText(movieData.getGenres());
+        textViewMovieDetailsTitle.setText(movieData.getTitle());
+        textViewMovieDetailsYear.setText(movieData.getYear());
         //TODO: deshardcodear
         textViewMovieDetailsMovieRatings.setText("PG-13");
     }

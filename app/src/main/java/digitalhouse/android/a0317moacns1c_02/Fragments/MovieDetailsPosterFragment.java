@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.MovieData;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Services.ConfigurationService;
 
@@ -46,7 +47,7 @@ public class MovieDetailsPosterFragment extends Fragment {
 
         unbinder = ButterKnife.bind(this, view);
 
-        setUpViews((MovieDetailsAPI) getArguments().getSerializable(MovieDetailsAPI.movieDetailsTag));
+        setUpViews((MovieData) getArguments().getSerializable(MovieData.tag));
 
         return view;
     }
@@ -56,23 +57,19 @@ public class MovieDetailsPosterFragment extends Fragment {
         unbinder.unbind();
     }
 
-    private void setUpViews(MovieDetailsAPI movieDetailsAPI){
-        textViewMDPActualRating.setText(movieDetailsAPI.getVote_average().toString());
-        textViewMDPNumberOfRates.setText(movieDetailsAPI.getVote_count().toString());
+    private void setUpViews(MovieData movieData){
+        textViewMDPActualRating.setText(movieData.getRating().toString());
 
         //TODO: deshardcoread esto
+        textViewMDPNumberOfRates.setText("12342");
         textViewMDPMetaScoreRating.setText("99");
         textViewMDPMetaScoreDescription.setText("Metascore");
         textViewMDPNumberOfCritics.setText("139 críticas");
         textViewMDPMyRate.setText("Calificar");
 
-        String urlBase = ConfigurationService.getInstance().getImagesBaseURL();
-        String urlImagenTam = ConfigurationService.getInstance().getPosterSizes().get(2);
-        String urlFinal = urlBase + urlImagenTam + movieDetailsAPI.getBackdrop_path();
+        String url = movieData.getPosterURL(2);
 
-        Picasso.with(getContext()).load(urlFinal).fit().centerInside().into(imageViewMDPPoster);
-
-
+        Picasso.with(getContext()).load(url).fit().centerInside().into(imageViewMDPPoster);
 
     }
 

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class ImageConfigAPI {
     private String base_url;
     private ArrayList<String> poster_sizes;
+    private ArrayList<String> backdrop_sizes;
     private ArrayList<String> profile_sizes;
 
     public String getBase_url() {
@@ -19,6 +20,10 @@ public class ImageConfigAPI {
 
     public ArrayList<String> getPoster_sizes() {
         return poster_sizes;
+    }
+
+    public ArrayList<String> getBackdrop_sizes() {
+        return backdrop_sizes;
     }
 
     public ArrayList<String> getProfile_sizes() {
@@ -31,6 +36,10 @@ public class ImageConfigAPI {
 
     public void setPoster_sizes(ArrayList<String> poster_sizes) {
         this.poster_sizes = poster_sizes;
+    }
+
+    public void setBackdrop_sizes(ArrayList<String> backdrop_sizes) {
+        this.backdrop_sizes = backdrop_sizes;
     }
 
     public void setProfile_sizes(ArrayList<String> profile_sizes) {

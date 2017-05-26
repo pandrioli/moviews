@@ -12,9 +12,7 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.LanguageAPI;
  * Created by Gregorio Martin on 20/5/2017.
  */
 
-public class MovieDetailsAPI implements Serializable {
-
-    public static String movieDetailsTag = "movieDetailsApi";
+public class MovieDetailsAPI {
 
     private Boolean adult;
     private String backdrop_path;
@@ -67,23 +65,6 @@ public class MovieDetailsAPI implements Serializable {
 
     public ArrayList<GenreAPI> getGenres() {
         return genres;
-    }
-
-    public String getGenresString() {
-
-        if(genres.size() > 1)
-        {
-            StringBuilder retorno = new StringBuilder();
-
-            retorno.append(genres.get(0).getName());
-            for (int i = 1; i < genres.size(); i++) {
-                retorno.append(" | ");
-                retorno.append(genres.get(i).getName());
-            }
-            return retorno.toString();
-        }
-
-        return genres.get(0).getName();
     }
 
     public void setGenres(ArrayList<GenreAPI> genres) {
@@ -188,15 +169,6 @@ public class MovieDetailsAPI implements Serializable {
 
     public Integer getRuntime() {
         return runtime;
-    }
-
-    public String getRuntimeString(){
-        int horas = runtime / 60;
-        int minutos = runtime - (horas * 60);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(horas + " hrs ");
-        stringBuilder.append(minutos + " min");
-        return  stringBuilder.toString();
     }
 
     public void setRuntime(Integer runtime) {

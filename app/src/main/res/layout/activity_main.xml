@@ -34,15 +34,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonToMovieListActivity"
-        android:text="Movie List Activity"
-        android:layout_gravity="center_horizontal"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/buttonToTabsTestActivity"
-        android:text="Tabs Test Activity"
+        android:text="Tabs Activity"
         android:layout_gravity="center_horizontal"/>
 
     <Button

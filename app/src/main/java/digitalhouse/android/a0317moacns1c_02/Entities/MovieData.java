@@ -1,12 +1,15 @@
 package digitalhouse.android.a0317moacns1c_02.Entities;
 
-import java.util.List;
+import java.io.Serializable;
+
+import digitalhouse.android.a0317moacns1c_02.Services.ConfigurationService;
 
 /**
  * Created by Pablo on 24/05/2017.
  */
 
-public class MovieData {
+public class MovieData implements Serializable {
+    public static String tag = "movieData";
     private Integer id;
     private String title;
     private String year;
@@ -17,8 +20,8 @@ public class MovieData {
     private Double rating;
     private String tagline;
     private Integer runtime;
-    private String poster;
-    private String backdrop;
+    private String posterPath;
+    private String backdropPath;
 
     public Integer getId() {
         return id;
@@ -100,20 +103,43 @@ public class MovieData {
         this.runtime = runtime;
     }
 
-    public String getPoster() {
-        return poster;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
-    public String getBackdrop() {
-        return backdrop;
+    public String getBackdropPath() {
+        return backdropPath;
     }
 
-    public void setBackdrop(String backdrop) {
-        this.backdrop = backdrop;
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public String getRuntimeString(){
+        int horas = runtime / 60;
+        int minutos = runtime - (horas * 60);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(horas + " hrs ");
+        stringBuilder.append(minutos + " min");
+        return  stringBuilder.toString();
+    }
+
+    public String getPosterURL(Integer size) {
+        String url = ConfigurationService.getInstance().getImagesBaseURL();
+        url += ConfigurationService.getInstance().getPosterSizes().get(size);
+        url += posterPath;
+        return url;
+    }
+
+    public String getBackdropURL(Integer size) {
+        String url = ConfigurationService.getInstance().getImagesBaseURL();
+        url += ConfigurationService.getInstance().getBackdropSizes().get(size);
+        url += backdropPath;
+        return url;
     }
 
     @Override
@@ -129,8 +155,8 @@ public class MovieData {
                 ", rating=" + rating +
                 ", tagline='" + tagline + '\'' +
                 ", runtime=" + runtime +
-                ", poster='" + poster + '\'' +
-                ", backdrop='" + backdrop + '\'' +
+                ", posterPath='" + posterPath + '\'' +
+                ", backdropPath='" + backdropPath + '\'' +
                 '}';
     }
 }

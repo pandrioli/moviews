@@ -31,6 +31,7 @@ public class ConfigurationService {
     private TMDBClient client;
     private String imagesBaseURL;
     private ArrayList<String> posterSizes;
+    private ArrayList<String> backdropSizes;
     private ArrayList<String> profileSizes;
     private ArrayList<String> changeKeys;
 
@@ -46,6 +47,8 @@ public class ConfigurationService {
     public ArrayList<String> getPosterSizes() {
         return posterSizes;
     }
+
+    public ArrayList<String> getBackdropSizes() { return backdropSizes; }
 
     public ArrayList<String> getProfileSizes() {
         return profileSizes;
@@ -68,6 +71,7 @@ public class ConfigurationService {
                 ConfigAPI config = (ConfigAPI) result;
                 imagesBaseURL = config.getImages().getBase_url();
                 posterSizes = config.getImages().getPoster_sizes();
+                backdropSizes = config.getImages().getBackdrop_sizes();
                 profileSizes = config.getImages().getProfile_sizes();
                 changeKeys = config.getChange_keys();
                 String test = "URL Base imágenes = " + imagesBaseURL;

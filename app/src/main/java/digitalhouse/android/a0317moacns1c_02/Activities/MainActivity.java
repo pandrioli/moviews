@@ -19,7 +19,6 @@ import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.buttonToLoginActivity) protected Button button;
-    @BindView(R.id.buttonToMovieListActivity) protected Button buttonMovieList;
     @BindView(R.id.buttonToTabsTestActivity) protected Button buttonSwipeTest;
     @BindView(R.id.textViewStatusDatosGenerales) protected TextView generalAPIDataLoadStatus;
 
@@ -59,21 +58,18 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.buttonToMovieListActivity)
-    public void onClickMovieList(View v) {
-        Intent intent = new Intent(this, MovieListActivity.class);
-        startActivity(intent);
-    }
-
     @OnClick(R.id.buttonToTabsTestActivity)
     public void onClickTabsTest(View v) {
-        Intent intent = new Intent(this, TabsTestActivity.class);
+        Intent intent = new Intent(this, TabsActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.buttonToMovieDetailsActivity)
     public void onClickMovieDetails(View v){
+        Bundle bundle = new Bundle();
+        bundle.putInt("movieId", 400928);
         Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
