@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //Carga la lista de generos de peliculas
         //TODO: debería bloquearse la ejecución hasta obtener los datos
-        MovieService.getInstance().getGenres(new TMDBClient.APICallback() {
+        MovieService.getInstance().loadGenres(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 String status = generalAPIDataLoadStatus.getText().toString();

@@ -87,7 +87,7 @@ public class TabsTestActivity extends AppCompatActivity implements MovieListFrag
     public void movieSelected(MovieListItem movieListItem) {
         Intent intent = new Intent(this,MovieDetailsTestActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("movieId", movieListItem.getId().toString());
+        bundle.putInt("movieId", movieListItem.getId());
         intent.putExtras(bundle);
         startActivity(intent);
     }
