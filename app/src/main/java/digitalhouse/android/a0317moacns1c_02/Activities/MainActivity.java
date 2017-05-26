@@ -70,4 +70,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TabsTestActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.buttonToMovieDetailsActivity)
+    public void onClickMovieDetails(View v){
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        startActivity(intent);
+    }
 }

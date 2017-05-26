@@ -27,7 +27,8 @@
         <activity android:name=".Activities.WebClientActivity" />
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.TabsTestActivity" />
-        <activity android:name=".Activities.MovieDetailsTestActivity"></activity>
+        <activity android:name=".Activities.MovieDetailsTestActivity" />
+        <activity android:name=".Activities.MovieDetailsActivity"></activity>
     </application>
 
 </manifest>

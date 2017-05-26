@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenreAPI;
@@ -11,7 +12,10 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.LanguageAPI;
  * Created by Gregorio Martin on 20/5/2017.
  */
 
-public class MovieDetailsAPI {
+public class MovieDetailsAPI implements Serializable {
+
+    public static String movieDetailsTag = "movieDetailsApi";
+
     private Boolean adult;
     private String backdrop_path;
     private Integer budget;
@@ -63,6 +67,23 @@ public class MovieDetailsAPI {
 
     public ArrayList<GenreAPI> getGenres() {
         return genres;
+    }
+
+    public String getGenresString() {
+
+        if(genres.size() > 1)
+        {
+            StringBuilder retorno = new StringBuilder();
+
+            retorno.append(genres.get(0).getName());
+            for (int i = 1; i < genres.size(); i++) {
+                retorno.append(" | ");
+                retorno.append(genres.get(i).getName());
+            }
+            return retorno.toString();
+        }
+
+        return genres.get(0).getName();
     }
 
     public void setGenres(ArrayList<GenreAPI> genres) {
@@ -169,6 +190,15 @@ public class MovieDetailsAPI {
         return runtime;
     }
 
+    public String getRuntimeString(){
+        int horas = runtime / 60;
+        int minutos = runtime - (horas * 60);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(horas + " hrs ");
+        stringBuilder.append(minutos + " min");
+        return  stringBuilder.toString();
+    }
+
     public void setRuntime(Integer runtime) {
         this.runtime = runtime;
     }
@@ -257,5 +287,9 @@ public class MovieDetailsAPI {
                 ", vote_average=" + vote_average +
                 ", vote_count=" + vote_count +
                 '}';
+    }
+
+    public String getYear(){
+        return "(" + release_date.substring(0, 4) + ")";
     }
 }

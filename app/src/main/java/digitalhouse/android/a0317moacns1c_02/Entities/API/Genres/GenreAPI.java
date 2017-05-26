@@ -1,12 +1,23 @@
 package digitalhouse.android.a0317moacns1c_02.Entities.API.Genres;
 
+import java.io.Serializable;
+
 /**
  * Created by Pablo on 22/05/2017.
  */
 
-public class GenreAPI {
+public class GenreAPI implements Serializable {
     private Integer id;
     private String name;
+
+    public GenreAPI(){
+
+    }
+
+    public GenreAPI(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

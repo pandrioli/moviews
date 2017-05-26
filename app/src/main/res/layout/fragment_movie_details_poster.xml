@@ -2,7 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.MovieDetailsPosterFragment">
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.MovieDetailsPosterFragment"
+    android:layout_marginLeft="14dp"
+    android:layout_marginRight="14dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp">
 
 
         <ImageView
@@ -11,13 +15,19 @@
             android:id="@+id/imageViewMDPPoster"
             />
 
-        <ImageButton
+        <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/imageButtonMDPRate"
+            android:id="@+id/imageViewMDPRate"
 
             android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
+
+            android:src="@drawable/staricongrey"
+
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="false"
 
             android:layout_alignBaseline="@id/imageViewMDPPoster"
             android:layout_toRightOf="@id/imageViewMDPPoster"
@@ -25,74 +35,109 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:id="@+id/textViewMDPMyRate"
 
-            android:layout_toRightOf="@id/imageButtonMDPRate"
-            android:layout_alignBottom="@id/imageButtonMDPRate"
+            android:layout_toRightOf="@id/imageViewMDPRate"
+            android:layout_alignBottom="@id/imageViewMDPRate"
+
+            android:gravity="center"
 
             android:text="Mi Califiación"
             />
 
-        <ImageButton
+        <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/imageButtonMDPActualRating"
+            android:id="@+id/imageViewMDPActualRating"
 
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@id/imageButtonMDPRate"
+            android:src="@drawable/stariconyellow"
+
+            android:layout_below="@id/imageViewMDPRate"
+            android:layout_above="@+id/textViewMDPMetaScoreRating"
+            android:layout_alignLeft="@id/imageViewMDPRate"
+
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="15dp"
             />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:id="@+id/textViewMDPActualRating"
 
-            android:layout_alignBottom="@id/imageButtonMDPActualRating"
-            android:layout_toRightOf="@id/imageButtonMDPActualRating"
+            android:gravity="center"
 
-            android:text="8.1 /10"
+
+            android:text="8.1"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:layout_above="@+id/textViewMDPNumberOfRates"
+            android:layout_toEndOf="@+id/imageViewMDPActualRating" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:gravity="bottom"
+            android:layout_toRightOf="@id/textViewMDPActualRating"
+            android:layout_alignBottom="@id/textViewMDPActualRating"
+            android:text="/10"
+            android:textSize="12dp"
+
             />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:id="@+id/textViewMDPNumberOfRates"
 
-            android:layout_alignTop="@id/imageButtonMDPActualRating"
-            android:layout_toRightOf="@id/imageButtonMDPActualRating"
+            android:layout_alignBottom="@id/imageViewMDPActualRating"
+            android:layout_toRightOf="@id/imageViewMDPActualRating"
+            android:gravity="center"
 
             android:text="139.801"
             />
 
-        <ImageButton
+        <TextView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/imageButtonMDPMetaScore"
-            android:layout_marginBottom="30dp"
+            android:background="@android:color/holo_green_light"
+            android:text="96"
+            android:textSize="30dp"
+            android:gravity="center"
 
-            android:layout_alignLeft="@id/imageButtonMDPRate"
+            android:id="@+id/textViewMDPMetaScoreRating"
+
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="15dp"
+
+            android:layout_alignLeft="@id/imageViewMDPActualRating"
             android:layout_alignBottom="@id/imageViewMDPPoster"
             />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewMDPMetaScore"
+            android:layout_height="25dp"
+            android:id="@+id/textViewMDPMetaScoreDescription"
 
-            android:layout_alignTop="@id/imageButtonMDPMetaScore"
-            android:layout_toRightOf="@id/imageButtonMDPMetaScore"
+            android:layout_alignTop="@id/textViewMDPMetaScoreRating"
+            android:layout_toRightOf="@id/textViewMDPMetaScoreRating"
+
+            android:gravity="center"
 
             android:text="Metascore"
             />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:id="@+id/textViewMDPNumberOfCritics"
 
-            android:layout_alignBottom="@id/imageButtonMDPMetaScore"
-            android:layout_toRightOf="@id/imageButtonMDPMetaScore"
+            android:layout_alignBottom="@id/textViewMDPMetaScoreRating"
+            android:layout_toRightOf="@id/textViewMDPMetaScoreRating"
+
+            android:gravity="center"
 
             android:text="47 críticas"
             />
