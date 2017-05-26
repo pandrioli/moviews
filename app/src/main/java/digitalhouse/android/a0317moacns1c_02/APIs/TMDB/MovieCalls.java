@@ -2,10 +2,12 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import android.util.Log;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.ImagesAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CreditsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.MovieImagesAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Videos.VideosAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.MovieCredits;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,16 +47,30 @@ public class MovieCalls {
         });
     }
 
-    public static void obtainImages(String id, TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<ImagesAPI> call = client.obtainMovieImages(id, TMDBClient.API_KEY);
-        call.enqueue(new Callback<ImagesAPI>() {
+    public static void obtainCredits(String id, TMDBClient client, final TMDBClient.APICallback callback) {
+        Call<CreditsAPI> call = client.obtainMovieCredits(id, TMDBClient.API_KEY);
+        call.enqueue(new Callback<CreditsAPI>() {
             @Override
-            public void onResponse(Call<ImagesAPI> call, Response<ImagesAPI> response) {
+            public void onResponse(Call<CreditsAPI> call, Response<CreditsAPI> response) {
+                callback.onSuccess(response.body());
+            }
+            @Override
+            public void onFailure(Call<CreditsAPI> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
+
+    public static void obtainImages(String id, TMDBClient client, final TMDBClient.APICallback callback) {
+        Call<MovieImagesAPI> call = client.obtainMovieImages(id, TMDBClient.API_KEY);
+        call.enqueue(new Callback<MovieImagesAPI>() {
+            @Override
+            public void onResponse(Call<MovieImagesAPI> call, Response<MovieImagesAPI> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<ImagesAPI> call, Throwable t) {
+            public void onFailure(Call<MovieImagesAPI> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
         });

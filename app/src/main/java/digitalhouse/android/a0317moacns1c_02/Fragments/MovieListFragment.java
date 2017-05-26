@@ -8,12 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Adapters.MovieAdapter;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MovieRecyclerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -40,7 +37,7 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
         Bundle bundle = getArguments();
         movieList = bundle.getParcelableArrayList(MOVIE_LIST_KEY);
         MovieRecyclerAdapter movieAdapter = new MovieRecyclerAdapter(view.getContext(), movieList, this);
-        recyclerViewMovies = (RecyclerView) view.findViewById(R.id.listViewMovies);
+        recyclerViewMovies = (RecyclerView) view.findViewById(R.id.recyclerViewMovies);
         recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
         recyclerViewMovies.setAdapter(movieAdapter);
         return view;

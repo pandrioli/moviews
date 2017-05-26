@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Pablo on 25/05/2017.
  */
 
-public class ImagesAPI {
+public class MovieImagesAPI {
     private Integer id;
     private ArrayList<ImageItemAPI> backdrops;
     private ArrayList<ImageItemAPI> posters;

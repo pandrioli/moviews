@@ -4,7 +4,7 @@ package digitalhouse.android.a0317moacns1c_02.Entities;
  * Created by Pablo on 25/05/2017.
  */
 
-public class MovieVideo {
+public class VideoData {
     private String id;
     private String name;
     private String key;

@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="85dp"
         android:layout_height="match_parent"
-        android:src="@drawable/guardians"
+        android:src="@drawable/poster"
         android:scaleType="fitStart"
         android:id="@+id/imageViewMovieListPoster"/>
     <LinearLayout

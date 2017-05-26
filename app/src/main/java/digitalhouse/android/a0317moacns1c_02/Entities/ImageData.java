@@ -4,7 +4,7 @@ package digitalhouse.android.a0317moacns1c_02.Entities;
  * Created by Pablo on 25/05/2017.
  */
 
-public class MovieImage {
+public class ImageData {
     private String filePath;
     private Integer width;
     private Integer height;

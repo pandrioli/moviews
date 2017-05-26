@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class ImageConfigAPI {
     private String base_url;
     private ArrayList<String> poster_sizes;
+    private ArrayList<String> profile_sizes;
 
     public String getBase_url() {
         return base_url;
@@ -20,11 +21,19 @@ public class ImageConfigAPI {
         return poster_sizes;
     }
 
+    public ArrayList<String> getProfile_sizes() {
+        return profile_sizes;
+    }
+
     public void setBase_url(String base_url) {
         this.base_url = base_url;
     }
 
     public void setPoster_sizes(ArrayList<String> poster_sizes) {
         this.poster_sizes = poster_sizes;
+    }
+
+    public void setProfile_sizes(ArrayList<String> profile_sizes) {
+        this.profile_sizes = profile_sizes;
     }
 }

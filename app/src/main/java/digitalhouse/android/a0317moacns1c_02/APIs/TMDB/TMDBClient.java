@@ -5,8 +5,10 @@ import java.util.Map;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.ConfigAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CreditsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenresAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.ImagesAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.MovieImagesAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.PeopleImagesAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Videos.VideosAPI;
@@ -77,13 +79,21 @@ public interface TMDBClient {
     @GET("movie/{movie_id}?")
     Call<MovieDetailsAPI> obtainMovieDetails(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
-    //Obtener imagenes
+    //Obtener imagenes de película
     @GET("movie/{movie_id}?")
-    Call<ImagesAPI> obtainMovieImages(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+    Call<MovieImagesAPI> obtainMovieImages(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener videos
     @GET("movie/{movie_id}?")
     Call<VideosAPI> obtainMovieVideos(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+
+    //Obtener créditos
+    @GET("movie/{movie_id}/credits?")
+    Call<CreditsAPI> obtainMovieCredits(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+
+    //Obtener imagenes de persona
+    @GET("person/{person_id}/images?")
+    Call<PeopleImagesAPI> obtainPeopleImages(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
 
     //Obtener lista de películas populares
     @GET("movie/popular?")
