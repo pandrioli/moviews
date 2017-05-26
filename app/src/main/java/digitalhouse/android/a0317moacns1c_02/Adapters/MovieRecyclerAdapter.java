@@ -19,7 +19,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * Created by dh3 on 22/05/17.
  */
 
-public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.OnClickListener{
+public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.OnClickListener {
     private Context context;
     private List<MovieListItem> movieList;
     private View.OnClickListener clickListener;
@@ -43,6 +43,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.O
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MovieListItem movieListItem = movieList.get(position);
         MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
+        movieViewHolder.view.setTag(position);
         movieViewHolder.title.setText(movieListItem.getTitle());
         movieViewHolder.year.setText(movieListItem.getYear());
         movieViewHolder.genres.setText(movieListItem.getGenres());
@@ -50,17 +51,17 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.O
         Picasso.with(context).load(movieListItem.getPosterURL()).fit().centerInside().into(movieViewHolder.poster);
     }
 
+    public void onClick(View v) {
+        clickListener.onClick(v);
+    }
+
     @Override
     public int getItemCount() {
         return movieList.size();
     }
 
-    @Override
-    public void onClick(View v) {
-        clickListener.onClick(v);
-    }
-
     private class MovieViewHolder extends RecyclerView.ViewHolder {
+        private View view;
         private TextView title;
         private TextView year;
         private TextView genres;
@@ -68,6 +69,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.O
         private ImageView poster;
         public MovieViewHolder(View view) {
             super(view);
+            this.view = view;
             title = (TextView) view.findViewById(R.id.textViewMovieListTitle);
             year = (TextView) view.findViewById(R.id.textViewMovieListYear);
             genres = (TextView) view.findViewById(R.id.textViewMovieListGenres);

@@ -46,7 +46,7 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         MovieSelectable activity = (MovieSelectable)getActivity();
-        activity.movieSelected(movieList.get(recyclerViewMovies.indexOfChild(v)));
+        activity.movieSelected(movieList.get((Integer)v.getTag()));
     }
 
     public interface MovieSelectable {
