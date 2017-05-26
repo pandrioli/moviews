@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * A simple {@link Fragment} subclass.
  */
 public class PersonListFragment extends Fragment {
+    public final static String TITLE_KEY = "title";
     public final static String PERSON_LIST_KEY = "personList";
 
     private List<PersonListItem> personList;
@@ -44,6 +46,7 @@ public class PersonListFragment extends Fragment {
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerViewPersons);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
+        ((TextView)view.findViewById(R.id.textViewPersonListTitle)).setText(bundle.getString(TITLE_KEY));
         return view;
     }
 

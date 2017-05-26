@@ -58,6 +58,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 MovieCredits movieCredits = (MovieCredits) result;
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(PersonListFragment.PERSON_LIST_KEY,movieCredits.getCastList());
+                bundle.putString(PersonListFragment.TITLE_KEY, "Cast");
                 startMovieDetailsCastFragment(bundle);
             }
         });
