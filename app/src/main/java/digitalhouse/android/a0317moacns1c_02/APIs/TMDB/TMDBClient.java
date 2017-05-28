@@ -67,6 +67,9 @@ public interface TMDBClient {
     @GET("authentication/session/new?")
     Call<Session> obtainSession(@QueryMap Map<String, String> options);
 
+    @GET("search/movie?")
+    Call<MovieResultsAPI> obtainMovies(@QueryMap Map<String, String> options);
+
     //Obtener la configuracion de las imagenes y un array change_keys que todavía no sé para qué es
     //pero por las dudas lo traigo
     @GET("configuration?")
