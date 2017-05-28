@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Genres;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Misc;
 
 /**
  * Created by Pablo on 22/05/2017.

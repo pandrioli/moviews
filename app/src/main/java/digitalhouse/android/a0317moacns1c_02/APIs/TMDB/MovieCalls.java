@@ -3,11 +3,10 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 import android.util.Log;
 
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CreditsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.MovieImagesAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieResults.MovieResultsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Videos.VideosAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieCredits;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieImagesAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieDetailsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.VideosAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

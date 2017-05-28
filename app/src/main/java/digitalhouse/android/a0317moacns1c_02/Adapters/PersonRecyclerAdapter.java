@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.PersonListItem;
+import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -22,9 +22,9 @@ import digitalhouse.android.a0317moacns1c_02.R;
 
 public class PersonRecyclerAdapter extends Adapter {
     private Context context;
-    private List<PersonListItem> personList;
+    private List<ImageListItem> personList;
 
-    public PersonRecyclerAdapter(Context context, List<PersonListItem> personList) {
+    public PersonRecyclerAdapter(Context context, List<ImageListItem> personList) {
         this.context = context;
         this.personList = personList;
     }
@@ -39,11 +39,11 @@ public class PersonRecyclerAdapter extends Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        PersonListItem person = personList.get(position);
+        ImageListItem person = personList.get(position);
         PersonViewHolder personViewHolder = (PersonViewHolder) holder;
-        personViewHolder.name.setText(person.getName());
-        personViewHolder.role.setText(person.getRole());
-        Picasso.with(context).load(person.getProfileURL()).fit().centerCrop().into(personViewHolder.picture);
+        personViewHolder.name.setText(person.getTitle());
+        personViewHolder.role.setText(person.getSubtitle());
+        Picasso.with(context).load(person.getImageURL()).fit().centerCrop().into(personViewHolder.picture);
 
     }
 

@@ -1,9 +1,8 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Movie;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenreAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenreAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.CompanyAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.CountryAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.LanguageAPI;

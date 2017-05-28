@@ -1,6 +1,8 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Genres;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Misc;
 
 import java.util.ArrayList;
+
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenreAPI;
 
 /**
  * Created by Pablo on 22/05/2017.

@@ -13,10 +13,8 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieData;
 import digitalhouse.android.a0317moacns1c_02.R;
-import digitalhouse.android.a0317moacns1c_02.Services.ConfigurationService;
 
 
 public class MovieDetailsPosterFragment extends Fragment {

@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Videos;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Media;
 
 import java.util.ArrayList;
 

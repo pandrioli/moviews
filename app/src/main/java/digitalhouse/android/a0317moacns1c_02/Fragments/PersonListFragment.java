@@ -14,7 +14,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Adapters.PersonRecyclerAdapter;
-import digitalhouse.android.a0317moacns1c_02.Entities.PersonListItem;
+import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -24,7 +24,7 @@ public class PersonListFragment extends Fragment {
     public final static String TITLE_KEY = "title";
     public final static String PERSON_LIST_KEY = "personList";
 
-    private List<PersonListItem> personList;
+    private List<ImageListItem> personList;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 

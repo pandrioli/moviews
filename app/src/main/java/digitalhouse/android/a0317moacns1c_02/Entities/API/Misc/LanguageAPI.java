@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by dh3 on 24/05/17.
  */
 
-public class LanguageAPI implements Serializable {
+public class LanguageAPI {
     private String iso_639_1;
     private String name;
 

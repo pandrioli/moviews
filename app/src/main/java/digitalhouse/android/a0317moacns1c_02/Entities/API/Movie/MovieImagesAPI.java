@@ -1,6 +1,8 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Images;
+package digitalhouse.android.a0317moacns1c_02.Entities.API.Movie;
 
 import java.util.ArrayList;
+
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
 
 /**
  * Created by Pablo on 25/05/2017.
