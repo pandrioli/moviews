@@ -1,5 +1,5 @@
 <resources>
-    <string title="app_name">Moviews</string>
-    <string title="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Moviews</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
