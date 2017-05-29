@@ -83,7 +83,7 @@ public interface TMDBClient {
     Call<MovieDetailsAPI> obtainMovieDetails(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener imagenes de película
-    @GET("movie/{movie_id}?")
+    @GET("movie/{movie_id}/images?")
     Call<MovieImagesAPI> obtainMovieImages(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener videos

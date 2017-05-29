@@ -3,6 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,6 +41,12 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
         recyclerViewMovies = (RecyclerView) view.findViewById(R.id.recyclerViewMovies);
         recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
         recyclerViewMovies.setAdapter(movieAdapter);
+
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerViewMovies.getContext(),
+                LinearLayoutManager.VERTICAL);
+        recyclerViewMovies.addItemDecoration(mDividerItemDecoration);
+
+
         return view;
     }
 

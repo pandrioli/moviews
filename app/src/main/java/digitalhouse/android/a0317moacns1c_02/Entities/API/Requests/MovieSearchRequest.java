@@ -12,6 +12,7 @@ public class MovieSearchRequest extends BaseRequest {
     private String region = null;
     private String year = null;
     private String primary_release_year = null;
+
     public MovieSearchRequest(String query){
         super(query);
     }
