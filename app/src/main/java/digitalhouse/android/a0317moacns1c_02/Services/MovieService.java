@@ -9,7 +9,6 @@ import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CastAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CreditsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CrewAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenreAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenresAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
@@ -26,6 +25,7 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsItem
 import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.CrewListItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.VideoData;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallBack;
 
 
 public class MovieService {
@@ -195,10 +195,6 @@ public class MovieService {
         });
     }
 
-    public void getMovies(MovieSearchRequest movieSearchRequest, final TMDBClient.APICallback callback){
-        MovieCalls.obtainMovies(movieSearchRequest, client, new MovieResultsCallBack(callback));
-    }
-
     // obtiene lista de películas populares, devuelve MovieResults
     public void getPopularMovies(final TMDBClient.APICallback callback) {
         MovieCalls.obtainPopular(client, new MovieResultsCallBack(callback));
@@ -216,7 +212,7 @@ public class MovieService {
 
 
     // Matcheador de MovieResultsAPI a MovieListItem
-    private List<MovieListItem> getMovieListItems(MovieResultsAPI movieResults) {
+    public List<MovieListItem> getMovieListItems(MovieResultsAPI movieResults) {
         List<MovieListItem> movieList = new ArrayList<>();
         for (MovieResultsItemAPI movieResultsItem : movieResults.getResults()) {
             MovieListItem movieListItem = new MovieListItem();
@@ -240,21 +236,4 @@ public class MovieService {
         }
         return movieList;
     }
-
-    // Clase callback usada para los llamados que devuelven MovieResultsAPI
-    private class MovieResultsCallBack implements TMDBClient.APICallback {
-        private TMDBClient.APICallback callback;
-
-        public MovieResultsCallBack(TMDBClient.APICallback callback) {
-            this.callback = callback;
-        }
-
-        @Override
-        public void onSuccess(Object result) {
-            MovieResultsAPI movieResults = (MovieResultsAPI) result;
-            List<MovieListItem> movieList = getMovieListItems(movieResults);
-            callback.onSuccess(movieList);
-        }
-    }
-
 }
