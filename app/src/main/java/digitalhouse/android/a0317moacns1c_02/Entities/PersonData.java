@@ -1,17 +1,34 @@
 package digitalhouse.android.a0317moacns1c_02.Entities;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
+import digitalhouse.android.a0317moacns1c_02.Services.ConfigurationService;
+
 /**
  * Created by Pablo on 25/05/2017.
  */
 
-public class PersonData {
+public class PersonData implements Serializable {
+
+    public static final String tag = "personData";
+
     private Integer id;
+    private String imdbId;
     private String name;
-    private Integer order;
-    private String character;
-    private String department;
-    private String job;
-    private String profile;
+    private Date birthday;
+    private Date deathday;
+    private String placeOfBirth;
+    private String biography;
+    private Double popularity;
+    private String profilePath;
+
+    //obtener edad
+    public Integer getAge() {
+        return DateHelper.age(birthday);
+    }
 
     public Integer getId() {
         return id;
@@ -19,6 +36,14 @@ public class PersonData {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public String getName() {
@@ -29,44 +54,58 @@ public class PersonData {
         this.name = name;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
-    public String getCharacter() {
-        return character;
+    public Date getDeathday() {
+        return deathday;
     }
 
-    public void setCharacter(String character) {
-        this.character = character;
+    public void setDeathday(Date deathday) {
+        this.deathday = deathday;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
     }
 
-    public String getJob() {
-        return job;
+    public String getBiography() {
+        return biography;
     }
 
-    public void setJob(String job) {
-        this.job = job;
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 
-    public String getProfile() {
-        return profile;
+    public Double getPopularity() {
+        return popularity;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setPopularity(Double popularity) {
+        this.popularity = popularity;
     }
 
+    public String getProfilePath() {
+        return profilePath;
+    }
+
+    public String getProfileURL(Integer size) {
+        String url = ConfigurationService.getInstance().getImagesBaseURL();
+        url += ConfigurationService.getInstance().getProfileSizes().get(size);
+        url += profilePath;
+        return url;
+    }
+
+    public void setProfilePath(String profilePath) {
+        this.profilePath = profilePath;
+    }
 }

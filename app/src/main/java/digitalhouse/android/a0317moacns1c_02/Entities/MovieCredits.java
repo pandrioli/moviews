@@ -1,32 +1,30 @@
 package digitalhouse.android.a0317moacns1c_02.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
 /**
  * Created by Pablo on 25/05/2017.
  */
 
-public class MovieCredits {
-    private ArrayList<PersonListItem> castList;
-    private ArrayList<PersonListItem> crewList;
+public class MovieCredits implements Serializable {
+    public static final String tag = "movieCredits";
+    private ArrayList<ImageListItem> castList;
+    private ArrayList<CrewListItem> crewList;
 
-    public ArrayList<PersonListItem> getCastList() {
+    public ArrayList<ImageListItem> getCastList() {
         return castList;
     }
 
-    public void setCastList(ArrayList<PersonListItem> castList) {
+    public void setCastList(ArrayList<ImageListItem> castList) {
         this.castList = castList;
     }
 
-    public ArrayList<PersonListItem> getCrewList() {
+    public ArrayList<CrewListItem> getCrewList() {
         return crewList;
     }
 
-    public void setCrewList(ArrayList<PersonListItem> crewList) {
+    public void setCrewList(ArrayList<CrewListItem> crewList) {
         this.crewList = crewList;
     }
 }

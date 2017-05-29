@@ -14,7 +14,7 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
-public class MovieListActivity extends AppCompatActivity implements MovieListFragment.MovieSelectable {
+public class MovieListActivity extends AppCompatActivity implements MovieListFragment.MovieClickeable {
 
     // tiene que ser del tipo ArrayList, no List, ya que lo requiere el putParcelableArrayList;
     private ArrayList<MovieListItem> movieList;
@@ -46,7 +46,7 @@ public class MovieListActivity extends AppCompatActivity implements MovieListFra
 
 
     @Override
-    public void movieSelected(MovieListItem movieListItem) {
+    public void onClick(MovieListItem movieListItem) {
         Toast.makeText(this, "Movie selected: " + movieListItem.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

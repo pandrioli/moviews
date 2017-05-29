@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by dh3 on 24/05/17.
  */
 
-public class CompanyAPI implements Serializable {
+public class CompanyAPI {
     private Integer id;
     private String name;
 

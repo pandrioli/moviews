@@ -72,4 +72,13 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+    @OnClick(R.id.buttonToPersonDetailsActivity)
+    public void onClickPersonDetails(View v){
+        Bundle bundle = new Bundle();
+        bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, 287);
+        Intent intent = new Intent(this, PersonDetailsActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }
