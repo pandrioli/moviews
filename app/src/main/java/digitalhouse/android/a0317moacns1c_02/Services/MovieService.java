@@ -9,15 +9,7 @@ import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CastAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CreditsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CrewAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenreAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenresAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.ImageItemAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.MovieImagesAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.PeopleImagesAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Videos.VideoItemAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Videos.VideosAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenreAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenresAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
@@ -84,7 +76,7 @@ public class MovieService {
                 for (GenreAPI genre : movieDetails.getGenres()) {
                     genres += genre.getName()+" | ";
                 }
-                genres = genres.substring(0, genres.length()-3);
+                if (genres.length()>0) genres = genres.substring(0, genres.length()-3);
                 MovieData movieData = new MovieData();
                 movieData.setGenres(genres);
                 movieData.setId(movieDetails.getId());

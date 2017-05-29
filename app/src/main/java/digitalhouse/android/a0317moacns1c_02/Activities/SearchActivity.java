@@ -21,7 +21,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
 public class SearchActivity extends AppCompatActivity {
 
     public static final String SEARCH_ACTIVITY_QUERY_TAG = "query";
-    public static final String SEACH_ACTION_TAG = "search_action";
+    public static final String SEARCH_ACTION_TAG = "search_action";
     public static final Integer SEARCH_MOVIES = 0;
     public static final Integer SEARCH_SERIES = 1;
     public static final Integer SEARCH_ACTORS = 2;
@@ -42,9 +42,9 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        if(intent.hasExtra(SEACH_ACTION_TAG))
+        if(intent.hasExtra(SEARCH_ACTION_TAG))
         {
-            currentTab = intent.getIntExtra(SEACH_ACTION_TAG, 0);
+            currentTab = intent.getIntExtra(SEARCH_ACTION_TAG, 0);
         }
 
         if(intent.hasExtra(SEARCH_ACTIVITY_QUERY_TAG)){

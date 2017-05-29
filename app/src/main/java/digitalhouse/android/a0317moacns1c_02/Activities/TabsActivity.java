@@ -159,7 +159,7 @@ public class TabsActivity extends AppCompatActivity implements MovieListFragment
                 if(searchEditText.getVisibility() == View.VISIBLE && !searchEditText.getText().toString().isEmpty()){
                     Intent intent = new Intent(this, SearchActivity.class);
                     intent.putExtra(SearchActivity.SEARCH_ACTIVITY_QUERY_TAG, searchEditText.getText().toString());
-                    intent.putExtra(SearchActivity.SEACH_ACTION_TAG ,SearchActivity.SEARCH_MOVIES);
+                    intent.putExtra(SearchActivity.SEARCH_ACTION_TAG,SearchActivity.SEARCH_MOVIES);
                     startActivity(intent);
                 }
                 else
