@@ -33,7 +33,7 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
-        final MovieSelectable myActivity = (MovieSelectable)getActivity();
+        final MovieClickeable myActivity = (MovieClickeable)getActivity();
         Bundle bundle = getArguments();
         movieList = bundle.getParcelableArrayList(MOVIE_LIST_KEY);
         MovieRecyclerAdapter movieAdapter = new MovieRecyclerAdapter(view.getContext(), movieList, this);
@@ -45,12 +45,12 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        MovieSelectable activity = (MovieSelectable)getActivity();
-        activity.movieSelected(movieList.get((Integer)v.getTag()));
+        MovieClickeable activity = (MovieClickeable)getActivity();
+        activity.onClick(movieList.get((Integer)v.getTag()));
     }
 
-    public interface MovieSelectable {
-        void movieSelected(MovieListItem movieListItem);
+    public interface MovieClickeable {
+        void onClick(MovieListItem movieListItem);
     }
 
 

@@ -13,6 +13,7 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonImagesAPI
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieDetailsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.VideosAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonMovieCreditsAPI;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -114,7 +115,9 @@ public interface TMDBClient {
     @GET("person/{person_id}/images?")
     Call<PersonImagesAPI> obtainPersonImages(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
 
-    //Obtener
+    //Obtener peliculas en las que trabajo (movie credits)
+    @GET("person/{person_id}/movie_credits?")
+    Call<PersonMovieCreditsAPI> obtainPersonMovieCredits(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
 
 
     /*

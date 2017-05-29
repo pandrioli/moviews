@@ -1,14 +1,16 @@
 package digitalhouse.android.a0317moacns1c_02.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Pablo on 25/05/2017.
  */
 
-public class MovieCredits {
+public class MovieCredits implements Serializable {
+    public static final String tag = "movieCredits";
     private ArrayList<ImageListItem> castList;
-    private ArrayList<ImageListItem> crewList;
+    private ArrayList<CrewListItem> crewList;
 
     public ArrayList<ImageListItem> getCastList() {
         return castList;
@@ -18,11 +20,11 @@ public class MovieCredits {
         this.castList = castList;
     }
 
-    public ArrayList<ImageListItem> getCrewList() {
+    public ArrayList<CrewListItem> getCrewList() {
         return crewList;
     }
 
-    public void setCrewList(ArrayList<ImageListItem> crewList) {
+    public void setCrewList(ArrayList<CrewListItem> crewList) {
         this.crewList = crewList;
     }
 }

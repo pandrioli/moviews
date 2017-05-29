@@ -13,22 +13,23 @@ import android.widget.TextView;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import digitalhouse.android.a0317moacns1c_02.Adapters.PersonRecyclerAdapter;
+import digitalhouse.android.a0317moacns1c_02.Adapters.ImageListRecyclerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PersonListFragment extends Fragment {
+public class ImageListFragment extends Fragment implements View.OnClickListener {
     public final static String TITLE_KEY = "title";
-    public final static String PERSON_LIST_KEY = "personList";
+    public final static String IMAGE_LIST_KEY = "imageList";
 
-    private List<ImageListItem> personList;
+    private List<ImageListItem> imageList;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    private String title;
 
-    public PersonListFragment() {
+    public ImageListFragment() {
         // Required empty public constructor
     }
 
@@ -37,17 +38,29 @@ public class PersonListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_person_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_image_list, container, false);
         ButterKnife.bind(view);
         Bundle bundle = getArguments();
-        personList = bundle.getParcelableArrayList(PERSON_LIST_KEY);
-        adapter = new PersonRecyclerAdapter(getContext(), personList);
+        imageList = bundle.getParcelableArrayList(IMAGE_LIST_KEY);
+        adapter = new ImageListRecyclerAdapter(imageList, getContext(), this);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerViewPersons);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
-        ((TextView)view.findViewById(R.id.textViewPersonListTitle)).setText(bundle.getString(TITLE_KEY));
+        title = bundle.getString(TITLE_KEY);
+        ((TextView)view.findViewById(R.id.textViewPersonListTitle)).setText(title);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        ImageListItem selectedItem = imageList.get((Integer)v.getTag());
+        ImageClickeable myActivity = (ImageClickeable)getActivity();
+        myActivity.onClick(selectedItem.getId(), title);
+    }
+
+    public interface ImageClickeable {
+        void onClick(Integer id, String title);
     }
 
 }

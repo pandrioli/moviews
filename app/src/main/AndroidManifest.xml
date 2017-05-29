@@ -21,7 +21,8 @@
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.TabsActivity" />
         <activity android:name=".Activities.MovieDetailsTestActivity" />
-        <activity android:name=".Activities.MovieDetailsActivity"></activity>
+        <activity android:name=".Activities.MovieDetailsActivity" />
+        <activity android:name=".Activities.PersonDetailsActivity"></activity>
     </application>
 
 </manifest>

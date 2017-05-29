@@ -8,7 +8,11 @@ import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonDetailsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonImagesAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonMovieCastCreditItemAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonMovieCreditsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonMovieCrewCreditItemAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.ImageData;
+import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.PersonData;
 import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
 
@@ -30,7 +34,7 @@ public class PersonService {
     }
 
 
-    public void getPersonDetails(Integer id, final TMDBClient.APICallback callback) {
+    public void getPersonData(Integer id, final TMDBClient.APICallback callback) {
         PersonCalls.obtainDetails(id.toString(), client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
@@ -67,6 +71,57 @@ public class PersonService {
                     imageList.add(imgData);
                 }
                 callback.onSuccess(imageList);
+            }
+        });
+    }
+
+    //provisorioooo
+    public void getPersonImageList(Integer id, final TMDBClient.APICallback callback) {
+        PersonCalls.obtainImages(id.toString(), client, new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                PersonImagesAPI personImagesAPI = (PersonImagesAPI) result;
+                List<ImageListItem> imageList = new ArrayList<>();
+                for (ImageItemAPI imgAPI : personImagesAPI.getProfiles()) {
+                    ImageListItem imgItem = new ImageListItem();
+                    imgItem.setId(0);
+                    String url = ConfigurationService.getInstance().getImagesBaseURL();
+                    url += ConfigurationService.getInstance().getProfileSizes().get(1);
+                    url += imgAPI.getFile_path();
+                    imgItem.setImageURL(url);
+                    imageList.add(imgItem);
+                }
+                if (imageList.size()>1) imageList.remove(0);
+                callback.onSuccess(imageList);
+            }
+        });
+    }
+
+    public void getMovieCreditsImageList(Integer id, final TMDBClient.APICallback callback) {
+        PersonCalls.obtainMovieCredits(id.toString(), client, new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                PersonMovieCreditsAPI movieCreditsAPI = (PersonMovieCreditsAPI) result;
+                List<ImageListItem> imgList = new ArrayList<>();
+                String url = ConfigurationService.getInstance().getImagesBaseURL();
+                url += ConfigurationService.getInstance().getProfileSizes().get(1);
+                for (PersonMovieCastCreditItemAPI castAPI : movieCreditsAPI.getCast()) {
+                    ImageListItem imgItem = new ImageListItem();
+                    imgItem.setId(castAPI.getId());
+                    imgItem.setTitle(castAPI.getTitle());
+                    imgItem.setSubtitle(castAPI.getCharacter());
+                    imgItem.setImageURL(url+castAPI.getPoster_path());
+                    imgList.add(imgItem);
+                }
+                for (PersonMovieCrewCreditItemAPI crewAPI : movieCreditsAPI.getCrew()) {
+                    ImageListItem imgItem = new ImageListItem();
+                    imgItem.setId(crewAPI.getId());
+                    imgItem.setTitle(crewAPI.getTitle());
+                    imgItem.setSubtitle(crewAPI.getJob());
+                    imgItem.setImageURL(url+crewAPI.getPoster_path());
+                    imgList.add(imgItem);
+                }
+                callback.onSuccess(imgList);
             }
         });
     }

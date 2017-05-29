@@ -2,19 +2,21 @@ package digitalhouse.android.a0317moacns1c_02.Entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
+
+import butterknife.OnClick;
 
 /**
  * Created by Pablo on 26/05/2017.
  */
 
-public class ImageListItem implements Parcelable {
+public class ImageListItem implements Parcelable, View.OnClickListener {
     private Integer id;
     private String title;
     private String subtitle;
     private String imageURL;
 
     public ImageListItem() {
-
     }
 
     protected ImageListItem(Parcel in) {
@@ -81,4 +83,8 @@ public class ImageListItem implements Parcelable {
         this.imageURL = imageURL;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

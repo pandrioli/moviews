@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.PersonDetailsBioFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:text="Biography"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="14dp"
+        android:text="sd dsa fdsa fsda fdsa fsda fsda fasd fdas sda dsa dsa sdaf ds ds dsfa dsa dsa asd dsa ads dsfa dsaas sad dsa asd dsa dasf dsa dsa das asd dfas dsads sad dsa dsa ds a dfsas dfdas f ads asdfsd fsdaf dsds dsa asdf as dsf sdfa dsfasdf"
+        android:id="@+id/textViewPDIBio"/>
+
+</LinearLayout>

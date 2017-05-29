@@ -10,7 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieCredits;
-import digitalhouse.android.a0317moacns1c_02.Fragments.PersonListFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
@@ -37,8 +37,8 @@ public class MovieDetailsTestActivity extends AppCompatActivity {
 
     private void loadCreditsFragment() {
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(PersonListFragment.PERSON_LIST_KEY, movieCredits.getCastList());
-        PersonListFragment personListFragment = new PersonListFragment();
+        bundle.putParcelableArrayList(ImageListFragment.IMAGE_LIST_KEY, movieCredits.getCastList());
+        ImageListFragment personListFragment = new ImageListFragment();
         personListFragment.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

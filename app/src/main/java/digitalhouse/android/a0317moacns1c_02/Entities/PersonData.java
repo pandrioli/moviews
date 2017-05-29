@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Entities;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,7 +11,10 @@ import digitalhouse.android.a0317moacns1c_02.Services.ConfigurationService;
  * Created by Pablo on 25/05/2017.
  */
 
-public class PersonData {
+public class PersonData implements Serializable {
+
+    public static final String tag = "personData";
+
     private Integer id;
     private String imdbId;
     private String name;
@@ -92,6 +96,13 @@ public class PersonData {
 
     public String getProfilePath() {
         return profilePath;
+    }
+
+    public String getProfileURL(Integer size) {
+        String url = ConfigurationService.getInstance().getImagesBaseURL();
+        url += ConfigurationService.getInstance().getProfileSizes().get(size);
+        url += profilePath;
+        return url;
     }
 
     public void setProfilePath(String profilePath) {

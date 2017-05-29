@@ -19,7 +19,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
 
-public class TabsActivity extends AppCompatActivity implements MovieListFragment.MovieSelectable {
+public class TabsActivity extends AppCompatActivity implements MovieListFragment.MovieClickeable {
 
     @BindView(R.id.pager) protected ViewPager viewPager;
     @BindView(R.id.tab_layout) protected TabLayout tabLayout;
@@ -84,10 +84,10 @@ public class TabsActivity extends AppCompatActivity implements MovieListFragment
     }
 
     @Override
-    public void movieSelected(MovieListItem movieListItem) {
+    public void onClick(MovieListItem movieListItem) {
         Intent intent = new Intent(this,MovieDetailsActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("movieId", movieListItem.getId());
+        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, movieListItem.getId());
         intent.putExtras(bundle);
         startActivity(intent);
     }

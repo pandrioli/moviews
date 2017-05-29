@@ -23,6 +23,7 @@ import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsItemAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Entities.CrewListItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.VideoData;
 
 
@@ -101,7 +102,7 @@ public class MovieService {
                 CreditsAPI creditsAPI = (CreditsAPI) result;
                 MovieCredits movieCredits = new MovieCredits();
                 ArrayList<ImageListItem> castList = new ArrayList<>();
-                ArrayList<ImageListItem> crewList = new ArrayList<>();
+                ArrayList<CrewListItem> crewList = new ArrayList<>();
                 for (CastAPI castAPI : creditsAPI.getCast()) {
                     ImageListItem cast = new ImageListItem();
                     cast.setId(castAPI.getId());
@@ -115,14 +116,11 @@ public class MovieService {
                 }
                 movieCredits.setCastList(castList);
                 for (CrewAPI crewAPI : creditsAPI.getCrew()) {
-                    ImageListItem crew = new ImageListItem();
+                    CrewListItem crew = new CrewListItem();
                     crew.setId(crewAPI.getId());
-                    crew.setTitle(crewAPI.getName());
-                    crew.setSubtitle(crewAPI.getJob());
-                    String url = ConfigurationService.getInstance().getImagesBaseURL();
-                    url += ConfigurationService.getInstance().getProfileSizes().get(1);
-                    url += crewAPI.getProfile_path();
-                    crew.setImageURL(url);
+                    crew.setName(crewAPI.getName());
+                    crew.setDepartment(crewAPI.getDepartment());
+                    crew.setJob(crewAPI.getJob());
                     crewList.add(crew);
                 }
                 movieCredits.setCastList(castList);

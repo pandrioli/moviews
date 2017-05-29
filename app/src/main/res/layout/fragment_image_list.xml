@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.PersonListFragment">
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="14dp"
-        android:textSize="14dp"
+        android:textSize="15dp"
         android:text="Cast"
         android:id="@+id/textViewPersonListTitle"/>
     <android.support.v7.widget.RecyclerView
