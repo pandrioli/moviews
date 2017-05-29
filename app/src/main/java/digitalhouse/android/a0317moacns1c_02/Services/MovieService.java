@@ -9,6 +9,15 @@ import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CastAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CreditsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CrewAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenreAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Genres.GenresAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.ImageItemAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.MovieImagesAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Images.PeopleImagesAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.MovieDetails.MovieDetailsAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Videos.VideoItemAPI;
+import digitalhouse.android.a0317moacns1c_02.Entities.API.Videos.VideosAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenreAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenresAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
@@ -194,6 +203,10 @@ public class MovieService {
         });
     }
 
+    public void getMovies(MovieSearchRequest movieSearchRequest, final TMDBClient.APICallback callback){
+        MovieCalls.obtainMovies(movieSearchRequest, client, new MovieResultsCallBack(callback));
+    }
+
     // obtiene lista de películas populares, devuelve MovieResults
     public void getPopularMovies(final TMDBClient.APICallback callback) {
         MovieCalls.obtainPopular(client, new MovieResultsCallBack(callback));
@@ -220,6 +233,7 @@ public class MovieService {
             for (Integer genreId : movieResultsItem.getGenre_ids()) {
                 genres += getGenreNameById(genreId)+", ";
             }
+            if(genres.length()> 3)
             genres = genres.substring(0, genres.length()-2);
             movieListItem.setGenres(genres);
             movieListItem.setRating(movieResultsItem.getVote_average().toString());
@@ -228,6 +242,7 @@ public class MovieService {
             url += ConfigurationService.getInstance().getPosterSizes().get(0);
             url += movieResultsItem.getPoster_path();
             movieListItem.setPosterURL(url);
+            if(movieResultsItem.getRelease_date().length() > 8)
             movieListItem.setYear(movieResultsItem.getRelease_date().substring(0,4));
             movieList.add(movieListItem);
         }
