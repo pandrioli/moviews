@@ -77,7 +77,7 @@ public class MovieService {
                 if (!movieDetails.getGenres().isEmpty()) {
                     genres = movieDetails.getGenres().get(0).getName();
                     for (int i=1; i<movieDetails.getGenres().size(); i++) {
-                        genres += " | " + movieDetails.getGenres().get(i);
+                        genres += " | " + movieDetails.getGenres().get(i).getName();
                     }
                 }
                 movieData.setGenres(genres);
