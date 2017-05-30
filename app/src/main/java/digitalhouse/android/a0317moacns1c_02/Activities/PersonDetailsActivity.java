@@ -14,6 +14,7 @@ import digitalhouse.android.a0317moacns1c_02.Entities.PersonData;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.PersonDetailsBioFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.PersonDetailsInfoFragment;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Services.PersonService;
 
@@ -24,6 +25,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_details);
+        ActivityStackManager.getInstance().addActivity(this);
         Bundle bundleReceived = getIntent().getExtras();
         Integer id = bundleReceived.getInt(PERSON_ID_KEY);
         PersonService.getInstance().getPersonData(id, new TMDBClient.APICallback() {
@@ -100,5 +102,11 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             intent.putExtras(bundle);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ActivityStackManager.getInstance().removeLastActivity();
     }
 }
