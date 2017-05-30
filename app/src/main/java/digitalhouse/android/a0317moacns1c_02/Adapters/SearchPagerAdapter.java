@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import digitalhouse.android.a0317moacns1c_02.Activities.SearchActivity;
 
 /**
@@ -12,57 +15,30 @@ import digitalhouse.android.a0317moacns1c_02.Activities.SearchActivity;
 
 public class SearchPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int mNumOfTabs;
-    private Fragment movieFragment;
-    private Fragment seriesFragment;
-    private Fragment actorsFragment;
+    private List<Fragment> fragments;
 
     public SearchPagerAdapter(FragmentManager fragmentManager, Integer NumOfTabs){
         super(fragmentManager);
-        this.mNumOfTabs = NumOfTabs;
+        fragments = new ArrayList<>();
+        fragments.add(new Fragment());
+        fragments.add(new Fragment());
+        fragments.add(new Fragment());
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = null;
-        if (position == 0)
-        {   //TODO: colocar los fragments correctos
-            if(movieFragment == null)
-            fragment = new Fragment();
-            else fragment =  movieFragment;
-        }
-        else if (position == 1)
-        {   //series list fragment
-            if(seriesFragment == null)
-            fragment = new Fragment();
-            else fragment = seriesFragment;
-        }
-        else if (position == 2)
-        {   //actor list fragments
-            if(actorsFragment == null)
-            fragment = new Fragment();
-            else fragment = actorsFragment;
-        }
-        return fragment;
+        return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return fragments.size();
     }
 
-    public SearchActivity.ListReloadable getMovieFragment(){
-        if(this.movieFragment == null) movieFragment = new Fragment(); //TODO: Fragment por el tipo de fragment correspondiente
-        return (SearchActivity.ListReloadable)this.movieFragment;
+    public List<Fragment> getFragments() {
+        return fragments;
     }
-
-    public SearchActivity.ListReloadable getSeriesFragment(){
-        if(this.seriesFragment == null) seriesFragment = new Fragment();//TODO: Fragment por el tipo de fragment correspondiente
-        return (SearchActivity.ListReloadable)this.seriesFragment;
-    }
-
-    public SearchActivity.ListReloadable getActorsFragment(){
-        if(this.seriesFragment == null) actorsFragment = new Fragment();//TODO: Fragment por el tipo de fragment correspondiente
-        return (SearchActivity.ListReloadable)this.actorsFragment;
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }

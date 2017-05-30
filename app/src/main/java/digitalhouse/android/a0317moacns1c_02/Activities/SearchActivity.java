@@ -1,6 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +12,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.BaseRequest;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
+import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
+import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
+import digitalhouse.android.a0317moacns1c_02.Services.SearchService;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements MovieListFragment.MovieClickeable {
 
     public static final String SEARCH_ACTIVITY_QUERY_TAG = "query";
     public static final String SEARCH_ACTION_TAG = "search_action";
@@ -105,6 +113,20 @@ public class SearchActivity extends AppCompatActivity {
     //Mas adelate voy a agregar todas las opciones de busqueda, por eso los diferentes requests
     private void onButtonSearchPressed(String query){
         MovieSearchRequest movieSearchRequest = new MovieSearchRequest(query);
+        SearchService.getInstance().searchMovies(movieSearchRequest, new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                MovieListFragment movieListFragment = new MovieListFragment();
+                Bundle bundle = new Bundle();
+                ArrayList<Parcelable> movieList = (ArrayList<Parcelable>) result;
+                bundle.putParcelableArrayList(MovieListFragment.MOVIE_LIST_KEY, movieList);
+                movieListFragment.setArguments(bundle);
+                adapter.getFragments().set(0, movieListFragment);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+
         //adapter.getMovieFragment().realoadList(movieSearchRequest);
         //TODO: crear request de actores y cambiar el null de abajo por el request
         //adapter.getActorsFragment().realoadList(null);
@@ -133,7 +155,12 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
-    public interface ListReloadable{
-        void realoadList(BaseRequest request);
+    @Override
+    public void onClick(MovieListItem movieListItem) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, movieListItem.getId());
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

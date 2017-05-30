@@ -21,7 +21,7 @@ public class SearchService {
         this.client = ServiceGenerator.createService(TMDBClient.class);
     }
 
-    public SearchService getInstance() {
+    public static SearchService getInstance() {
         if (instance == null) instance = new SearchService();
         return instance;
     }

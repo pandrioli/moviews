@@ -72,17 +72,22 @@ public class MovieService {
             @Override
             public void onSuccess(Object result) {
                 MovieDetailsAPI movieDetails = (MovieDetailsAPI) result;
-                String genres = "";
-                for (GenreAPI genre : movieDetails.getGenres()) {
-                    genres += genre.getName()+" | ";
-                }
-                if (genres.length()>0) genres = genres.substring(0, genres.length()-3);
                 MovieData movieData = new MovieData();
+                String genres = "";
+                if (!movieDetails.getGenres().isEmpty()) {
+                    genres = movieDetails.getGenres().get(0).getName();
+                    for (int i=1; i<movieDetails.getGenres().size(); i++) {
+                        genres += " | " + movieDetails.getGenres().get(i);
+                    }
+                }
                 movieData.setGenres(genres);
                 movieData.setId(movieDetails.getId());
                 movieData.setTitle(movieDetails.getTitle());
-                movieData.setYear(movieDetails.getRelease_date().substring(0,4));
-                movieData.setReleaseDate(movieDetails.getRelease_date());
+                if (movieDetails.getRelease_date().length()>4) {
+                    movieData.setYear(movieDetails.getRelease_date().substring(0, 4));
+                } else {
+                    movieData.setYear("");
+                }
                 movieData.setOverview(movieDetails.getOverview());
                 movieData.setRating(movieDetails.getVote_average());
                 movieData.setTagline(movieDetails.getTagline());
@@ -218,11 +223,12 @@ public class MovieService {
             MovieListItem movieListItem = new MovieListItem();
             movieListItem.setId(movieResultsItem.getId());
             String genres = "";
-            for (Integer genreId : movieResultsItem.getGenre_ids()) {
-                genres += getGenreNameById(genreId)+", ";
+            if (!movieResultsItem.getGenre_ids().isEmpty()) {
+                genres = getGenreNameById(movieResultsItem.getGenre_ids().get(0));
+                for (int i=1; i<movieResultsItem.getGenre_ids().size(); i++) {
+                    genres += ", " + getGenreNameById(movieResultsItem.getGenre_ids().get(i));
+                }
             }
-            if(genres.length()> 3)
-            genres = genres.substring(0, genres.length()-2);
             movieListItem.setGenres(genres);
             movieListItem.setRating(movieResultsItem.getVote_average().toString());
             movieListItem.setTitle(movieResultsItem.getTitle());
@@ -231,7 +237,7 @@ public class MovieService {
             url += movieResultsItem.getPoster_path();
             movieListItem.setPosterURL(url);
             if(movieResultsItem.getRelease_date().length() > 8)
-            movieListItem.setYear(movieResultsItem.getRelease_date().substring(0,4));
+                movieListItem.setYear(movieResultsItem.getRelease_date().substring(0,4));
             movieList.add(movieListItem);
         }
         return movieList;
