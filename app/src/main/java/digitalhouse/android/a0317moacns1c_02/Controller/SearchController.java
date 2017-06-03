@@ -3,13 +3,11 @@ package digitalhouse.android.a0317moacns1c_02.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.SearchCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallBack;
 import digitalhouse.android.a0317moacns1c_02.DAO.SearchDAO;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
+import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Helpers.RequestsMapper;
-import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 
 /**
  * Created by dh3 on 29/05/17.

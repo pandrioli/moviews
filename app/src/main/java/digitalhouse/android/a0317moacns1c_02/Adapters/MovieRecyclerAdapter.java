@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -47,7 +48,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.O
         movieViewHolder.view.setTag(position);
         movieViewHolder.title.setText(movieResultsItem.getTitle());
         movieViewHolder.year.setText(movieResultsItem.getYear());
-        //movieViewHolder.genres.setText(movieResultsItem.getGenres());
+        movieViewHolder.genres.setText(GenreController.getInstance().getGenresStringbyIds(movieResultsItem.getGenre_ids(), ", "));
         movieViewHolder.rating.setText(movieResultsItem.getVote_average().toString());
         String imageURL = ImageHelper.getPosterURL(movieResultsItem.getPoster_path(), 1);
         Picasso.with(context).load(imageURL).fit().centerInside().into(movieViewHolder.poster);

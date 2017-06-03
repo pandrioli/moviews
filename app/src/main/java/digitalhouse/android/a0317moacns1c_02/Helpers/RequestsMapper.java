@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Helpers;
 
 import java.util.Map;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
+import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
 
 /**
  * Created by Gregorio Martin on 27/5/2017.
