@@ -11,11 +11,14 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import digitalhouse.android.a0317moacns1c_02.Entities.PersonData;
+import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -41,25 +44,30 @@ public class PersonDetailsInfoFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person_details_info, container, false);
         unbinder = ButterKnife.bind(this, view);
-        setUpViews((PersonData) getArguments().getSerializable(PersonData.tag));
+        setUpViews((PersonDetails) getArguments().getParcelable(PersonDetails.tag));
         return view;
     }
 
-    private void setUpViews(PersonData personData) {
-        textViewName.setText(personData.getName());
-        if (personData.getBirthday() != null) {
-            String birthdayAndAge = DateHelper.format(personData.getBirthday(), DateHelper.FORMAT_ARG);
-            birthdayAndAge += " (Age: " + personData.getAge().toString() + ")";
+    private void setUpViews(PersonDetails personDetails) {
+        textViewName.setText(personDetails.getName());
+        Date birthday = personDetails.getBirthdayDate();
+        Date deathday = personDetails.getDeathdayDate();
+        if (birthday != null) {
+            String birthdayAndAge = DateHelper.format(birthday, DateHelper.FORMAT_ARG);
+            if (deathday == null)
+                birthdayAndAge += " (Age: " + DateHelper.age(birthday) + ")";
+                else birthdayAndAge += " (Death: " + DateHelper.format(deathday, DateHelper.FORMAT_ARG) + ")";
             textViewBirthDay.setText(birthdayAndAge);
         } else {
             textViewBirthDay.setText("no info");
         }
-        if (personData.getPlaceOfBirth() != null) {
-            textViewBirthPlace.setText(personData.getPlaceOfBirth());
+        if (personDetails.getPlace_of_birth() != null) {
+            textViewBirthPlace.setText(personDetails.getPlace_of_birth());
         } else {
             textViewBirthPlace.setText("no info");
         }
-        Picasso.with(getContext()).load(personData.getProfileURL(3)).fit().centerCrop().into(imageViewProfile);
+        String url = ImageHelper.getProfileURL(personDetails.getProfile_path(), 2);
+        Picasso.with(getContext()).load(url).fit().centerCrop().into(imageViewProfile);
     }
 
     @Override public void onDestroyView(){

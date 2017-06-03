@@ -15,7 +15,7 @@ import digitalhouse.android.a0317moacns1c_02.DAO.Misc.Language;
  */
 
 public class MovieDetails implements Parcelable{
-
+    public static final String tag = "movieDetails";
     private Boolean adult;
     private String backdrop_path;
     private Integer budget;
@@ -284,6 +284,16 @@ public class MovieDetails implements Parcelable{
     public void setVote_count(Integer vote_count) {
         this.vote_count = vote_count;
     }
+
+    public String getRuntimeString(){
+        int horas = runtime / 60;
+        int minutos = runtime - (horas * 60);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(horas + " hrs ");
+        stringBuilder.append(minutos + " min");
+        return  stringBuilder.toString();
+    }
+
 
     @Override
     public String toString() {

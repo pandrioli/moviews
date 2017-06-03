@@ -21,12 +21,9 @@ import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MovieListPageAdapter;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
 import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
-import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
 
 public class TabsActivity extends AppCompatActivity implements MovieListFragment.MovieClickeable {

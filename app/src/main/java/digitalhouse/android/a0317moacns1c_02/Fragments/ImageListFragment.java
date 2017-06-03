@@ -14,7 +14,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Adapters.ImageListRecyclerAdapter;
-import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**

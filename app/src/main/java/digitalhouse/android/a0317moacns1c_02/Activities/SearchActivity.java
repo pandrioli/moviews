@@ -13,17 +13,13 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
 import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.BaseRequest;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Services.SearchService;

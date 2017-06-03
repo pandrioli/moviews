@@ -13,7 +13,8 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieData;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 
@@ -45,7 +46,7 @@ public class MovieDetailsPosterFragment extends Fragment {
 
         unbinder = ButterKnife.bind(this, view);
 
-        setUpViews((MovieData) getArguments().getSerializable(MovieData.tag));
+        setUpViews((MovieDetails) getArguments().getParcelable(MovieDetails.tag));
 
         return view;
     }
@@ -55,8 +56,8 @@ public class MovieDetailsPosterFragment extends Fragment {
         unbinder.unbind();
     }
 
-    private void setUpViews(MovieData movieData){
-        textViewMDPActualRating.setText(movieData.getRating().toString());
+    private void setUpViews(MovieDetails movieDetails){
+        textViewMDPActualRating.setText(movieDetails.getVote_average().toString());
 
         //TODO: deshardcoread esto
         textViewMDPNumberOfRates.setText("12342");
@@ -65,7 +66,7 @@ public class MovieDetailsPosterFragment extends Fragment {
         textViewMDPNumberOfCritics.setText("139 críticas");
         textViewMDPMyRate.setText("Calificar");
 
-        String url = movieData.getPosterURL(2);
+        String url = ImageHelper.getPosterURL(movieDetails.getPoster_path(), 2);
 
         Picasso.with(getContext()).load(url).fit().centerInside().into(imageViewMDPPoster);
 

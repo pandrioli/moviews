@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieCredits;
-import digitalhouse.android.a0317moacns1c_02.Entities.CrewListItem;
+import digitalhouse.android.a0317moacns1c_02.DAO.Credits.Crew;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -40,10 +39,10 @@ public class MovieDetailsProductionTeamFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie_details_production_team, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ArrayList<CrewListItem> crewList = getArguments().getParcelableArrayList(CREW_LIST_KEY);
+        ArrayList<Crew> crewList = getArguments().getParcelableArrayList(CREW_LIST_KEY);
         String direction = "";
         String writing = "";
-        for (CrewListItem person : crewList) {
+        for (Crew person : crewList) {
             switch (person.getDepartment()) {
                 case "Directing":
                     direction += person.getName() + " (" + person.getJob() + ") \r\n";

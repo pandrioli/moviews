@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Adapters.MovieRecyclerAdapter;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
 import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
-import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 

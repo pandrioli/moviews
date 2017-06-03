@@ -1,9 +1,12 @@
-package digitalhouse.android.a0317moacns1c_02.DAO.Movie;
+package digitalhouse.android.a0317moacns1c_02.DAO;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.RetrofitTMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.DAO.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieImages;
 import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieVideos;
 import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;
 

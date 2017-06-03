@@ -10,10 +10,10 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.ConfigAP
 import digitalhouse.android.a0317moacns1c_02.DAO.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieImages;
 import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonDetailsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonImagesAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonDetails;
+import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonImages;
 import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieVideos;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonMovieCreditsAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonMovieCredits;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -74,15 +74,15 @@ public interface TMDBClient {
 
     //Obtener detalles de persona
     @GET("person/{person_id}?")
-    Call<PersonDetailsAPI> obtainPersonDetails(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
+    Call<PersonDetails> obtainPersonDetails(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
 
     //Obtener imagenes de persona
     @GET("person/{person_id}/images?")
-    Call<PersonImagesAPI> obtainPersonImages(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
+    Call<PersonImages> obtainPersonImages(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
 
     //Obtener peliculas en las que trabajo (movie credits)
     @GET("person/{person_id}/movie_credits?")
-    Call<PersonMovieCreditsAPI> obtainPersonMovieCredits(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
+    Call<PersonMovieCredits> obtainPersonMovieCredits(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
 
     //SEARCH
     @GET("search/movie?")

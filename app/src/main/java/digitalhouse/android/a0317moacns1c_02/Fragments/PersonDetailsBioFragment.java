@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import digitalhouse.android.a0317moacns1c_02.Entities.PersonData;
+import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -34,8 +34,8 @@ public class PersonDetailsBioFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_person_details_bio, container, false);
         unbinder = ButterKnife.bind(this, view);
-        PersonData personData = (PersonData)getArguments().getSerializable(PersonData.tag);
-        textViewBio.setText(personData.getBiography());
+        PersonDetails personDetails = (PersonDetails) getArguments().getParcelable(PersonDetails.tag);
+        textViewBio.setText(personDetails.getBiography());
         return view;
     }
 

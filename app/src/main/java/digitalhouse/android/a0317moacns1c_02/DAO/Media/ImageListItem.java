@@ -1,10 +1,8 @@
-package digitalhouse.android.a0317moacns1c_02.Entities;
+package digitalhouse.android.a0317moacns1c_02.DAO.Media;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
-
-import butterknife.OnClick;
 
 /**
  * Created by Pablo on 26/05/2017.

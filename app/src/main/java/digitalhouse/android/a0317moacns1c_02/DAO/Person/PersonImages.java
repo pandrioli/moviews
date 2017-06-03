@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Person;
+package digitalhouse.android.a0317moacns1c_02.DAO.Person;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageData;
  * Created by Pablo on 25/05/2017.
  */
 
-public class PersonImagesAPI {
+public class PersonImages {
     private Integer id;
     private ArrayList<ImageData> profiles;
 

@@ -1,10 +1,18 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Person;
+package digitalhouse.android.a0317moacns1c_02.DAO.Person;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.Date;
+
+import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
 
 /**
  * Created by Pablo on 27/05/2017.
  */
 
-public class PersonDetailsAPI {
+public class PersonDetails implements Parcelable {
+    public static final String tag = "personDetails";
     private Boolean adult;
     private String biography;
     private String birthday;
@@ -17,6 +25,46 @@ public class PersonDetailsAPI {
     private String place_of_birth;
     private Double popularity;
     private String profile_path;
+
+    protected PersonDetails(Parcel in) {
+        biography = in.readString();
+        birthday = in.readString();
+        deathday = in.readString();
+        homepage = in.readString();
+        imdb_id = in.readString();
+        name = in.readString();
+        place_of_birth = in.readString();
+        profile_path = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(biography);
+        dest.writeString(birthday);
+        dest.writeString(deathday);
+        dest.writeString(homepage);
+        dest.writeString(imdb_id);
+        dest.writeString(name);
+        dest.writeString(place_of_birth);
+        dest.writeString(profile_path);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<PersonDetails> CREATOR = new Creator<PersonDetails>() {
+        @Override
+        public PersonDetails createFromParcel(Parcel in) {
+            return new PersonDetails(in);
+        }
+
+        @Override
+        public PersonDetails[] newArray(int size) {
+            return new PersonDetails[size];
+        }
+    };
 
     public Boolean getAdult() {
         return adult;
@@ -38,12 +86,20 @@ public class PersonDetailsAPI {
         return birthday;
     }
 
+    public Date getBirthdayDate() {
+        return DateHelper.parse(birthday, DateHelper.FORMAT_API);
+    }
+
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
     public String getDeathday() {
         return deathday;
+    }
+
+    public Date getDeathdayDate() {
+        return DateHelper.parse(deathday, DateHelper.FORMAT_API);
     }
 
     public void setDeathday(String deathday) {

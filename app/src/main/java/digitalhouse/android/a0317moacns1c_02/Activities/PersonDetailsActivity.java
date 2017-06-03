@@ -9,14 +9,14 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
-import digitalhouse.android.a0317moacns1c_02.Entities.PersonData;
+import digitalhouse.android.a0317moacns1c_02.Controller.PersonController;
+import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.PersonDetailsBioFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.PersonDetailsInfoFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.R;
-import digitalhouse.android.a0317moacns1c_02.Services.PersonService;
 
 public class PersonDetailsActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable {
     public final static String PERSON_ID_KEY = "personId";
@@ -28,17 +28,17 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         ActivityStackManager.getInstance().addActivity(this);
         Bundle bundleReceived = getIntent().getExtras();
         Integer id = bundleReceived.getInt(PERSON_ID_KEY);
-        PersonService.getInstance().getPersonData(id, new TMDBClient.APICallback() {
+        PersonController.getInstance().getDetails(id, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                PersonData personData = (PersonData) result;
+                PersonDetails personDetails = (PersonDetails) result;
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(PersonData.tag, personData);
+                bundle.putParcelable(PersonDetails.tag, personDetails);
                 startPersonDetailsInfoFragment(bundle);
                 startPersonDetailsBioFragment(bundle);
             }
         });
-        PersonService.getInstance().getPersonImageList(id, new TMDBClient.APICallback() {
+        PersonController.getInstance().getImageList(id, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 ArrayList<ImageListItem> imageList = (ArrayList<ImageListItem>) result;
@@ -48,7 +48,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
                 startPersonDetailsImageFragment(bundle);
             }
         });
-        PersonService.getInstance().getMovieCreditsImageList(id, new TMDBClient.APICallback() {
+        PersonController.getInstance().getMovieCreditsImageList(id, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 ArrayList<ImageListItem> imageList = (ArrayList<ImageListItem>) result;

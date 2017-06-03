@@ -1,13 +1,11 @@
 package digitalhouse.android.a0317moacns1c_02.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**

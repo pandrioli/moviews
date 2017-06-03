@@ -1,14 +1,15 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Person;
+package digitalhouse.android.a0317moacns1c_02.DAO.Person;
 
 /**
  * Created by Pablo on 28/05/2017.
  */
 
-public class PersonMovieCastCreditItemAPI {
+public class PersonCrewCreditItem {
     private Boolean adult;
-    private String character;
     private String credit_id;
+    private String department;
     private Integer id;
+    private String job;
     private String original_title;
     private String poster_path;
     private String release_date;
@@ -22,14 +23,6 @@ public class PersonMovieCastCreditItemAPI {
         this.adult = adult;
     }
 
-    public String getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(String character) {
-        this.character = character;
-    }
-
     public String getCredit_id() {
         return credit_id;
     }
@@ -38,12 +31,28 @@ public class PersonMovieCastCreditItemAPI {
         this.credit_id = credit_id;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
     }
 
     public String getOriginal_title() {

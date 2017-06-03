@@ -18,7 +18,6 @@ public class DateHelper {
         try {
             return sdf.parse(date);
         } catch (ParseException e) {
-            Log.d("Error", e.getMessage());
             return null;
         }
     }
