@@ -1,4 +1,7 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Movie;
+package digitalhouse.android.a0317moacns1c_02.DAO.Movie;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 
@@ -6,7 +9,7 @@ import java.util.ArrayList;
  * Created by Pablo on 22/05/2017.
  */
 
-public class MovieResultsItemAPI {
+public class MovieResultsItem implements Parcelable {
     private String poster_path;
     private Boolean adult;
     private String overview;
@@ -21,6 +24,44 @@ public class MovieResultsItemAPI {
     private Integer vote_count;
     private Boolean video;
     private Double vote_average;
+
+    protected MovieResultsItem(Parcel in) {
+        poster_path = in.readString();
+        overview = in.readString();
+        release_date = in.readString();
+        original_title = in.readString();
+        original_language = in.readString();
+        title = in.readString();
+        backdrop_path = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(poster_path);
+        dest.writeString(overview);
+        dest.writeString(release_date);
+        dest.writeString(original_title);
+        dest.writeString(original_language);
+        dest.writeString(title);
+        dest.writeString(backdrop_path);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<MovieResultsItem> CREATOR = new Creator<MovieResultsItem>() {
+        @Override
+        public MovieResultsItem createFromParcel(Parcel in) {
+            return new MovieResultsItem(in);
+        }
+
+        @Override
+        public MovieResultsItem[] newArray(int size) {
+            return new MovieResultsItem[size];
+        }
+    };
 
     public String getPoster_path() {
         return poster_path;
@@ -133,4 +174,13 @@ public class MovieResultsItemAPI {
     public void setVote_average(Double vote_average) {
         this.vote_average = vote_average;
     }
+
+    // custom methods
+
+    public String getYear() {
+        if (release_date.length()>4)
+        return release_date.substring(0,4);
+        else return "";
+    }
+
 }

@@ -3,7 +3,8 @@ package digitalhouse.android.a0317moacns1c_02.Callbacks;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
 
@@ -11,7 +12,7 @@ import digitalhouse.android.a0317moacns1c_02.Services.MovieService;
  * Created by dh3 on 29/05/17.
  */
 
-// Clase callback usada para los llamados que devuelven MovieResultsAPI
+// Clase callback usada para los llamados que devuelven MovieResults
 public class MovieResultsCallBack implements TMDBClient.APICallback {
     private TMDBClient.APICallback callback;
 
@@ -21,8 +22,8 @@ public class MovieResultsCallBack implements TMDBClient.APICallback {
 
     @Override
     public void onSuccess(Object result) {
-        MovieResultsAPI movieResults = (MovieResultsAPI) result;
-        List<MovieListItem> movieList = MovieService.getInstance().getMovieListItems(movieResults);
-        callback.onSuccess(movieList);
+        MovieResults movieResults = (MovieResults) result;
+        List<MovieResultsItem> results = movieResults.getResults();
+        callback.onSuccess(results);
     }
 }

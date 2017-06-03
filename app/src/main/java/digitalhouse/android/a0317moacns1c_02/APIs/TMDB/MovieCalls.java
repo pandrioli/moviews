@@ -3,11 +3,11 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 import android.util.Log;
 
 import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsAPICallBack;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CreditsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieImagesAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieDetailsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.VideosAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.DAO.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieImages;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieVideos;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,72 +19,72 @@ import retrofit2.Response;
 public class MovieCalls {
 
     public static void obtainPopular(TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieResultsAPI> call = client.obtainPopularMovies(TMDBClient.API_KEY);
+        Call<MovieResults> call = client.obtainPopularMovies(TMDBClient.API_KEY);
         call.enqueue(new MovieResultsAPICallBack(callback));
     }
     public static void obtainNowPlaying(TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieResultsAPI> call = client.obtainNowPlayingMovies(TMDBClient.API_KEY);
+        Call<MovieResults> call = client.obtainNowPlayingMovies(TMDBClient.API_KEY);
         call.enqueue(new MovieResultsAPICallBack(callback));
     }
     public static void obtainUpcoming(TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieResultsAPI> call = client.obtainUpcomingMovies(TMDBClient.API_KEY);
+        Call<MovieResults> call = client.obtainUpcomingMovies(TMDBClient.API_KEY);
         call.enqueue(new MovieResultsAPICallBack(callback));
     }
 
     public static void obtainDetails(String id, TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieDetailsAPI> call = client.obtainMovieDetails(id, TMDBClient.API_KEY);
-        call.enqueue(new Callback<MovieDetailsAPI>() {
+        Call<MovieDetails> call = client.obtainMovieDetails(id, TMDBClient.API_KEY);
+        call.enqueue(new Callback<MovieDetails>() {
             @Override
-            public void onResponse(Call<MovieDetailsAPI> call, Response<MovieDetailsAPI> response) {
+            public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<MovieDetailsAPI> call, Throwable t) {
+            public void onFailure(Call<MovieDetails> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
         });
     }
 
     public static void obtainCredits(String id, TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<CreditsAPI> call = client.obtainMovieCredits(id, TMDBClient.API_KEY);
-        call.enqueue(new Callback<CreditsAPI>() {
+        Call<Credits> call = client.obtainMovieCredits(id, TMDBClient.API_KEY);
+        call.enqueue(new Callback<Credits>() {
             @Override
-            public void onResponse(Call<CreditsAPI> call, Response<CreditsAPI> response) {
+            public void onResponse(Call<Credits> call, Response<Credits> response) {
                 callback.onSuccess(response.body());
             }
             @Override
-            public void onFailure(Call<CreditsAPI> call, Throwable t) {
+            public void onFailure(Call<Credits> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
         });
     }
 
     public static void obtainImages(String id, TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<MovieImagesAPI> call = client.obtainMovieImages(id, TMDBClient.API_KEY);
-        call.enqueue(new Callback<MovieImagesAPI>() {
+        Call<MovieImages> call = client.obtainMovieImages(id, TMDBClient.API_KEY);
+        call.enqueue(new Callback<MovieImages>() {
             @Override
-            public void onResponse(Call<MovieImagesAPI> call, Response<MovieImagesAPI> response) {
+            public void onResponse(Call<MovieImages> call, Response<MovieImages> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<MovieImagesAPI> call, Throwable t) {
+            public void onFailure(Call<MovieImages> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
         });
     }
 
     public static void obtainVideos(String id, TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<VideosAPI> call = client.obtainMovieVideos(id, TMDBClient.API_KEY);
-        call.enqueue(new Callback<VideosAPI>() {
+        Call<MovieVideos> call = client.obtainMovieVideos(id, TMDBClient.API_KEY);
+        call.enqueue(new Callback<MovieVideos>() {
             @Override
-            public void onResponse(Call<VideosAPI> call, Response<VideosAPI> response) {
+            public void onResponse(Call<MovieVideos> call, Response<MovieVideos> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<VideosAPI> call, Throwable t) {
+            public void onFailure(Call<MovieVideos> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
         });

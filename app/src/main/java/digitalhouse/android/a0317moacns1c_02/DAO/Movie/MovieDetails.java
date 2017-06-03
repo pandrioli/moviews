@@ -1,22 +1,25 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Movie;
+package digitalhouse.android.a0317moacns1c_02.DAO.Movie;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenreAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.CompanyAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.CountryAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.LanguageAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Genres.Genre;
+import digitalhouse.android.a0317moacns1c_02.DAO.Misc.Company;
+import digitalhouse.android.a0317moacns1c_02.DAO.Misc.Country;
+import digitalhouse.android.a0317moacns1c_02.DAO.Misc.Language;
 
 /**
  * Created by Gregorio Martin on 20/5/2017.
  */
 
-public class MovieDetailsAPI {
+public class MovieDetails implements Parcelable{
 
     private Boolean adult;
     private String backdrop_path;
     private Integer budget;
-    private ArrayList<GenreAPI> genres;
+    private ArrayList<Genre> genres;
     private String homepage;
     private Integer id;
     private String imdb_id;
@@ -25,18 +28,70 @@ public class MovieDetailsAPI {
     private String overview;
     private Double popularity;
     private String poster_path;
-    private ArrayList<CompanyAPI> production_companies;
-    private ArrayList<CountryAPI> production_countries;
+    private ArrayList<Company> production_companies;
+    private ArrayList<Country> production_countries;
     private String release_date;
     private Integer revenue;
     private Integer runtime;
-    private ArrayList<LanguageAPI> spoken_languages;
+    private ArrayList<Language> spoken_languages;
     private String status;
     private String tagline;
     private String title;
     private Boolean video;
     private Double vote_average;
     private Integer vote_count;
+
+    protected MovieDetails(Parcel in) {
+        backdrop_path = in.readString();
+        homepage = in.readString();
+        imdb_id = in.readString();
+        original_language = in.readString();
+        original_title = in.readString();
+        overview = in.readString();
+        poster_path = in.readString();
+        production_companies = in.createTypedArrayList(Company.CREATOR);
+        production_countries = in.createTypedArrayList(Country.CREATOR);
+        release_date = in.readString();
+        spoken_languages = in.createTypedArrayList(Language.CREATOR);
+        status = in.readString();
+        tagline = in.readString();
+        title = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(backdrop_path);
+        dest.writeString(homepage);
+        dest.writeString(imdb_id);
+        dest.writeString(original_language);
+        dest.writeString(original_title);
+        dest.writeString(overview);
+        dest.writeString(poster_path);
+        dest.writeTypedList(production_companies);
+        dest.writeTypedList(production_countries);
+        dest.writeString(release_date);
+        dest.writeTypedList(spoken_languages);
+        dest.writeString(status);
+        dest.writeString(tagline);
+        dest.writeString(title);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<MovieDetails> CREATOR = new Creator<MovieDetails>() {
+        @Override
+        public MovieDetails createFromParcel(Parcel in) {
+            return new MovieDetails(in);
+        }
+
+        @Override
+        public MovieDetails[] newArray(int size) {
+            return new MovieDetails[size];
+        }
+    };
 
     public Boolean getAdult() {
         return adult;
@@ -62,11 +117,11 @@ public class MovieDetailsAPI {
         this.budget = budget;
     }
 
-    public ArrayList<GenreAPI> getGenres() {
+    public ArrayList<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(ArrayList<GenreAPI> genres) {
+    public void setGenres(ArrayList<Genre> genres) {
         this.genres = genres;
     }
 
@@ -134,19 +189,19 @@ public class MovieDetailsAPI {
         this.poster_path = poster_path;
     }
 
-    public ArrayList<CompanyAPI> getProduction_companies() {
+    public ArrayList<Company> getProduction_companies() {
         return production_companies;
     }
 
-    public void setProduction_companies(ArrayList<CompanyAPI> production_companies) {
+    public void setProduction_companies(ArrayList<Company> production_companies) {
         this.production_companies = production_companies;
     }
 
-    public ArrayList<CountryAPI> getProduction_countries() {
+    public ArrayList<Country> getProduction_countries() {
         return production_countries;
     }
 
-    public void setProduction_countries(ArrayList<CountryAPI> production_countries) {
+    public void setProduction_countries(ArrayList<Country> production_countries) {
         this.production_countries = production_countries;
     }
 
@@ -174,11 +229,11 @@ public class MovieDetailsAPI {
         this.runtime = runtime;
     }
 
-    public ArrayList<LanguageAPI> getSpoken_languages() {
+    public ArrayList<Language> getSpoken_languages() {
         return spoken_languages;
     }
 
-    public void setSpoken_languages(ArrayList<LanguageAPI> spoken_languages) {
+    public void setSpoken_languages(ArrayList<Language> spoken_languages) {
         this.spoken_languages = spoken_languages;
     }
 
@@ -232,7 +287,7 @@ public class MovieDetailsAPI {
 
     @Override
     public String toString() {
-        return "MovieDetailsAPI{" +
+        return "MovieDetails{" +
                 "adult=" + adult +
                 ", backdrop_path='" + backdrop_path + '\'' +
                 ", budget=" + budget +

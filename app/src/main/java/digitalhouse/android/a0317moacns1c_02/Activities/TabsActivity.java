@@ -20,6 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MovieListPageAdapter;
+import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -33,7 +36,7 @@ public class TabsActivity extends AppCompatActivity implements MovieListFragment
     @BindView(R.id.toolbar_editText) protected EditText searchEditText;
     @BindView(R.id.tab_act_toolbar) protected Toolbar toolbar;
 
-    private ArrayList<MovieListItem> movieList;
+    private ArrayList<MovieResultsItem> movieList;
     private Bundle[] bundleList;
     private Integer loadedCounter;
 
@@ -54,10 +57,10 @@ public class TabsActivity extends AppCompatActivity implements MovieListFragment
         bundleList = new Bundle[tabLayout.getTabCount()];
         loadedCounter = 0;
 
-        MovieService.getInstance().getPopularMovies(new TMDBClient.APICallback() {
+        MovieController.getInstance().getPopular(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                movieList = (ArrayList<MovieListItem>) result;
+                movieList = (ArrayList<MovieResultsItem>) result;
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(MovieListFragment.MOVIE_LIST_KEY, movieList);
                 bundleList[0] = bundle;
@@ -66,10 +69,10 @@ public class TabsActivity extends AppCompatActivity implements MovieListFragment
             }
         });
 
-        MovieService.getInstance().getNowPlayingMovies(new TMDBClient.APICallback() {
+        MovieController.getInstance().getNowPlaying(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                movieList = (ArrayList<MovieListItem>) result;
+                movieList = (ArrayList<MovieResultsItem>) result;
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(MovieListFragment.MOVIE_LIST_KEY, movieList);
                 bundleList[1] = bundle;
@@ -78,10 +81,10 @@ public class TabsActivity extends AppCompatActivity implements MovieListFragment
             }
         });
 
-        MovieService.getInstance().getUpcomingMovies(new TMDBClient.APICallback() {
+        MovieController.getInstance().getUpcoming(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                movieList = (ArrayList<MovieListItem>) result;
+                movieList = (ArrayList<MovieResultsItem>) result;
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(MovieListFragment.MOVIE_LIST_KEY, movieList);
                 bundleList[2] = bundle;
@@ -95,10 +98,10 @@ public class TabsActivity extends AppCompatActivity implements MovieListFragment
     }
 
     @Override
-    public void onClick(MovieListItem movieListItem) {
+    public void onClick(MovieResultsItem movieResultsItem) {
         Intent intent = new Intent(this,MovieDetailsActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, movieListItem.getId());
+        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, movieResultsItem.getId());
         intent.putExtras(bundle);
         startActivity(intent);
     }

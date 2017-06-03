@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Movie;
+package digitalhouse.android.a0317moacns1c_02.DAO.Movie;
 
 import java.util.ArrayList;
 
@@ -6,9 +6,9 @@ import java.util.ArrayList;
  * Created by Pablo on 22/05/2017.
  */
 
-public class MovieResultsAPI {
+public class MovieResults {
     private Integer page;
-    private ArrayList<MovieResultsItemAPI> results;
+    private ArrayList<MovieResultsItem> results;
     private Integer total_results;
     private Integer total_pages;
 
@@ -20,11 +20,11 @@ public class MovieResultsAPI {
         this.page = page;
     }
 
-    public ArrayList<MovieResultsItemAPI> getResults() {
+    public ArrayList<MovieResultsItem> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<MovieResultsItemAPI> results) {
+    public void setResults(ArrayList<MovieResultsItem> results) {
         this.results = results;
     }
 

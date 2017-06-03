@@ -5,13 +5,12 @@ import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.PersonCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageData;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonDetailsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonImagesAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonMovieCastCreditItemAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonMovieCreditsAPI;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Person.PersonMovieCrewCreditItemAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.ImageData;
 import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.PersonData;
 import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
@@ -61,9 +60,9 @@ public class PersonService {
             @Override
             public void onSuccess(Object result) {
                 PersonImagesAPI peopleImagesAPI = (PersonImagesAPI) result;
-                List<ImageData> imageList = new ArrayList<>();
-                for (ImageItemAPI imgAPI : peopleImagesAPI.getProfiles()) {
-                    ImageData imgData = new ImageData();
+                List<digitalhouse.android.a0317moacns1c_02.Entities.ImageData> imageList = new ArrayList<>();
+                for (ImageData imgAPI : peopleImagesAPI.getProfiles()) {
+                    digitalhouse.android.a0317moacns1c_02.Entities.ImageData imgData = new digitalhouse.android.a0317moacns1c_02.Entities.ImageData();
                     imgData.setFilePath(imgAPI.getFile_path());
                     imgData.setWidth(imgAPI.getWidth());
                     imgData.setHeight(imgAPI.getHeight());
@@ -82,7 +81,7 @@ public class PersonService {
             public void onSuccess(Object result) {
                 PersonImagesAPI personImagesAPI = (PersonImagesAPI) result;
                 List<ImageListItem> imageList = new ArrayList<>();
-                for (ImageItemAPI imgAPI : personImagesAPI.getProfiles()) {
+                for (ImageData imgAPI : personImagesAPI.getProfiles()) {
                     ImageListItem imgItem = new ImageListItem();
                     imgItem.setId(0);
                     String url = ConfigurationService.getInstance().getImagesBaseURL();

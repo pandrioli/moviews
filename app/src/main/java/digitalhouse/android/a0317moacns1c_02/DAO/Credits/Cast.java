@@ -1,10 +1,13 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Credits;
+package digitalhouse.android.a0317moacns1c_02.DAO.Credits;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Pablo on 25/05/2017.
  */
 
-public class CastAPI {
+public class Cast implements Parcelable {
     private Integer cast_id;
     private String character;
     private String credit_id;
@@ -13,6 +16,38 @@ public class CastAPI {
     private Integer order;
     private String profile_path;
 
+
+    protected Cast(Parcel in) {
+        character = in.readString();
+        credit_id = in.readString();
+        name = in.readString();
+        profile_path = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(character);
+        dest.writeString(credit_id);
+        dest.writeString(name);
+        dest.writeString(profile_path);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Cast> CREATOR = new Creator<Cast>() {
+        @Override
+        public Cast createFromParcel(Parcel in) {
+            return new Cast(in);
+        }
+
+        @Override
+        public Cast[] newArray(int size) {
+            return new Cast[size];
+        }
+    };
 
     public Integer getCast_id() {
         return cast_id;

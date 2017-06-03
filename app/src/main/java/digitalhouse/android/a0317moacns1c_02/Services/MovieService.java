@@ -6,32 +6,30 @@ import java.util.List;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.GenreCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.MovieCalls;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CastAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CreditsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Credits.CrewAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenreAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenresAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieImagesAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieDetailsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.VideoItemAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.VideosAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.DAO.Credits.Cast;
+import digitalhouse.android.a0317moacns1c_02.DAO.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.DAO.Credits.Crew;
+import digitalhouse.android.a0317moacns1c_02.DAO.Genres.Genre;
+import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageData;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieImages;
+import digitalhouse.android.a0317moacns1c_02.DAO.Media.VideoData;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieVideos;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieCredits;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieData;
-import digitalhouse.android.a0317moacns1c_02.Entities.ImageData;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsAPI;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Movie.MovieResultsItemAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.CrewListItem;
-import digitalhouse.android.a0317moacns1c_02.Entities.VideoData;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallBack;
 
 
 public class MovieService {
     private static MovieService instance;
     private TMDBClient client;
-    private ArrayList<GenreAPI> genreList;
+    private ArrayList<Genre> genreList;
 
     public MovieService() {
         this.client = ServiceGenerator.createService(TMDBClient.class);
@@ -46,9 +44,9 @@ public class MovieService {
         GenreCalls.obtainGenres(client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                GenresAPI genres = (GenresAPI) result;
+                Genres genres = (Genres) result;
                 genreList = genres.getGenres();
-                String test = "GenresAPI = ";
+                String test = "Genres = ";
                 test += genreList.get(0).getName() + ", ";
                 test += genreList.get(1).getName() + ", ";
                 test += genreList.get(2).getName() + ", etc.";
@@ -59,7 +57,7 @@ public class MovieService {
 
     // buscar nombre de genero por id
     public String getGenreNameById(Integer id) {
-        for (GenreAPI genre : genreList) {
+        for (Genre genre : genreList) {
             if (genre.getId().equals(id)) return genre.getName();
         }
         return "";
@@ -71,7 +69,7 @@ public class MovieService {
         MovieCalls.obtainDetails(id.toString(), client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                MovieDetailsAPI movieDetails = (MovieDetailsAPI) result;
+                MovieDetails movieDetails = (MovieDetails) result;
                 MovieData movieData = new MovieData();
                 String genres = "";
                 if (!movieDetails.getGenres().isEmpty()) {
@@ -105,11 +103,11 @@ public class MovieService {
         MovieCalls.obtainCredits(id.toString(), client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                CreditsAPI creditsAPI = (CreditsAPI) result;
+                Credits creditsAPI = (Credits) result;
                 MovieCredits movieCredits = new MovieCredits();
                 ArrayList<ImageListItem> castList = new ArrayList<>();
                 ArrayList<CrewListItem> crewList = new ArrayList<>();
-                for (CastAPI castAPI : creditsAPI.getCast()) {
+                for (Cast castAPI : creditsAPI.getCast()) {
                     ImageListItem cast = new ImageListItem();
                     cast.setId(castAPI.getId());
                     cast.setTitle(castAPI.getName());
@@ -121,7 +119,7 @@ public class MovieService {
                     castList.add(cast);
                 }
                 movieCredits.setCastList(castList);
-                for (CrewAPI crewAPI : creditsAPI.getCrew()) {
+                for (Crew crewAPI : creditsAPI.getCrew()) {
                     CrewListItem crew = new CrewListItem();
                     crew.setId(crewAPI.getId());
                     crew.setName(crewAPI.getName());
@@ -143,10 +141,10 @@ public class MovieService {
         MovieCalls.obtainImages(id.toString(), client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                MovieImagesAPI imagesAPI = (MovieImagesAPI) result;
-                List<ImageData> imageList = new ArrayList<>();
-                for (ImageItemAPI imageAPI : imagesAPI.getPosters()) {
-                    ImageData image = new ImageData();
+                MovieImages imagesAPI = (MovieImages) result;
+                List<digitalhouse.android.a0317moacns1c_02.Entities.ImageData> imageList = new ArrayList<>();
+                for (ImageData imageAPI : imagesAPI.getPosters()) {
+                    digitalhouse.android.a0317moacns1c_02.Entities.ImageData image = new digitalhouse.android.a0317moacns1c_02.Entities.ImageData();
                     image.setAspectRatio(imageAPI.getAspect_ratio());
                     image.setFilePath(imageAPI.getFile_path());
                     image.setHeight(imageAPI.getHeight());
@@ -164,10 +162,10 @@ public class MovieService {
         MovieCalls.obtainImages(id.toString(), client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                MovieImagesAPI imagesAPI = (MovieImagesAPI) result;
-                List<ImageData> imageList = new ArrayList<>();
-                for (ImageItemAPI imageAPI : imagesAPI.getBackdrops()) {
-                    ImageData image = new ImageData();
+                MovieImages imagesAPI = (MovieImages) result;
+                List<digitalhouse.android.a0317moacns1c_02.Entities.ImageData> imageList = new ArrayList<>();
+                for (ImageData imageAPI : imagesAPI.getBackdrops()) {
+                    digitalhouse.android.a0317moacns1c_02.Entities.ImageData image = new digitalhouse.android.a0317moacns1c_02.Entities.ImageData();
                     image.setAspectRatio(imageAPI.getAspect_ratio());
                     image.setFilePath(imageAPI.getFile_path());
                     image.setHeight(imageAPI.getHeight());
@@ -185,10 +183,10 @@ public class MovieService {
         MovieCalls.obtainVideos(id.toString(), client, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                VideosAPI videosAPI = (VideosAPI) result;
-                List<VideoData> videoList = new ArrayList<>();
-                for (VideoItemAPI videoAPI : videosAPI.getResults()) {
-                    VideoData video = new VideoData();
+                MovieVideos videosAPI = (MovieVideos) result;
+                List<digitalhouse.android.a0317moacns1c_02.Entities.VideoData> videoList = new ArrayList<>();
+                for (VideoData videoAPI : videosAPI.getResults()) {
+                    digitalhouse.android.a0317moacns1c_02.Entities.VideoData video = new digitalhouse.android.a0317moacns1c_02.Entities.VideoData();
                     video.setId(videoAPI.getId());
                     video.setKey(videoAPI.getKey());
                     video.setName(videoAPI.getName());
@@ -216,10 +214,10 @@ public class MovieService {
     }
 
 
-    // Matcheador de MovieResultsAPI a MovieListItem
-    public List<MovieListItem> getMovieListItems(MovieResultsAPI movieResults) {
+    // Matcheador de MovieResults a MovieListItem
+    public List<MovieListItem> getMovieListItems(MovieResults movieResults) {
         List<MovieListItem> movieList = new ArrayList<>();
-        for (MovieResultsItemAPI movieResultsItem : movieResults.getResults()) {
+        for (MovieResultsItem movieResultsItem : movieResults.getResults()) {
             MovieListItem movieListItem = new MovieListItem();
             movieListItem.setId(movieResultsItem.getId());
             String genres = "";

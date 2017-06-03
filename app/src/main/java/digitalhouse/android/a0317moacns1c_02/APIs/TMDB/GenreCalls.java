@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import android.util.Log;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Misc.GenresAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Genres.Genres;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,15 +13,15 @@ import retrofit2.Response;
 
 public class GenreCalls {
     public static void obtainGenres(TMDBClient client, final TMDBClient.APICallback callback) {
-        Call<GenresAPI> call = client.obtainGenreList(TMDBClient.API_KEY);
-        call.enqueue(new Callback<GenresAPI>() {
+        Call<Genres> call = client.obtainGenreList(TMDBClient.API_KEY);
+        call.enqueue(new Callback<Genres>() {
             @Override
-            public void onResponse(Call<GenresAPI> call, Response<GenresAPI> response) {
+            public void onResponse(Call<Genres> call, Response<Genres> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenresAPI> call, Throwable t) {
+            public void onFailure(Call<Genres> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
         });

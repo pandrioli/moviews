@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Entities.API.Person;
 
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
+import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageData;
 
 /**
  * Created by Pablo on 25/05/2017.
@@ -10,7 +10,7 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.Media.ImageItemAPI;
 
 public class PersonImagesAPI {
     private Integer id;
-    private ArrayList<ImageItemAPI> profiles;
+    private ArrayList<ImageData> profiles;
 
     public Integer getId() {
         return id;
@@ -20,11 +20,11 @@ public class PersonImagesAPI {
         this.id = id;
     }
 
-    public ArrayList<ImageItemAPI> getProfiles() {
+    public ArrayList<ImageData> getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(ArrayList<ImageItemAPI> profiles) {
+    public void setProfiles(ArrayList<ImageData> profiles) {
         this.profiles = profiles;
     }
 }

@@ -19,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.BaseRequest;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
@@ -156,9 +158,9 @@ public class SearchActivity extends AppCompatActivity implements MovieListFragme
     }
 
     @Override
-    public void onClick(MovieListItem movieListItem) {
+    public void onClick(MovieResultsItem movieResultsItem) {
         Bundle bundle = new Bundle();
-        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, movieListItem.getId());
+        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, movieResultsItem.getId());
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

@@ -1,31 +1,31 @@
 package digitalhouse.android.a0317moacns1c_02.Callbacks;
 
-/**
- * Created by dh3 on 29/05/17.
- */
-
 import android.util.Log;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieResultsAPICallBack implements Callback<MovieResults> {
+/**
+ * Created by Pablo on 03/06/2017.
+ */
+
+public class RetrofitTMDBCallBack<T> implements Callback<T> {
     private TMDBClient.APICallback callback;
 
-    public MovieResultsAPICallBack(TMDBClient.APICallback callback) {
+    public RetrofitTMDBCallBack(TMDBClient.APICallback callback) {
         this.callback = callback;
     }
 
     @Override
-    public void onResponse(Call call, Response response) {
+    public void onResponse(Call<T> call, Response<T> response) {
         callback.onSuccess(response.body());
     }
 
+    // aquí se deberían handlear los errores de la API
     @Override
-    public void onFailure(Call call, Throwable t) {
+    public void onFailure(Call<T> call, Throwable t) {
         Log.d("Error", t.getMessage());
     }
 }

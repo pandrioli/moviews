@@ -1,10 +1,13 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Media;
+package digitalhouse.android.a0317moacns1c_02.DAO.Media;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Pablo on 25/05/2017.
  */
 
-public class VideoItemAPI {
+public class VideoData implements Parcelable {
     private String id;
     private String iso_639_1;
     private String iso_3166_1;
@@ -13,6 +16,44 @@ public class VideoItemAPI {
     private String site;
     private Integer size;
     private String type;
+
+    protected VideoData(Parcel in) {
+        id = in.readString();
+        iso_639_1 = in.readString();
+        iso_3166_1 = in.readString();
+        key = in.readString();
+        name = in.readString();
+        site = in.readString();
+        type = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(iso_639_1);
+        dest.writeString(iso_3166_1);
+        dest.writeString(key);
+        dest.writeString(name);
+        dest.writeString(site);
+        dest.writeString(type);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<VideoData> CREATOR = new Creator<VideoData>() {
+        @Override
+        public VideoData createFromParcel(Parcel in) {
+            return new VideoData(in);
+        }
+
+        @Override
+        public VideoData[] newArray(int size) {
+            return new VideoData[size];
+        }
+    };
 
     public String getId() {
         return id;

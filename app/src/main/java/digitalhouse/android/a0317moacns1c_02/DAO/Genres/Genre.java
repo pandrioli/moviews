@@ -1,18 +1,18 @@
-package digitalhouse.android.a0317moacns1c_02.Entities.API.Misc;
+package digitalhouse.android.a0317moacns1c_02.DAO.Genres;
 
 /**
  * Created by Pablo on 22/05/2017.
  */
 
-public class GenreAPI {
+public class Genre {
     private Integer id;
     private String name;
 
-    public GenreAPI(){
+    public Genre(){
 
     }
 
-    public GenreAPI(Integer id, String name) {
+    public Genre(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

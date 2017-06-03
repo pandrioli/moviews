@@ -12,7 +12,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.MovieListItem;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -21,10 +24,10 @@ import digitalhouse.android.a0317moacns1c_02.R;
 
 public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.OnClickListener {
     private Context context;
-    private List<MovieListItem> movieList;
+    private List<MovieResultsItem> movieList;
     private View.OnClickListener clickListener;
 
-    public MovieRecyclerAdapter(Context context, List<MovieListItem> movieList, View.OnClickListener clickListener) {
+    public MovieRecyclerAdapter(Context context, List<MovieResultsItem> movieList, View.OnClickListener clickListener) {
         this.context = context;
         this.movieList = movieList;
         this.clickListener = clickListener;
@@ -41,14 +44,15 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.O
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MovieListItem movieListItem = movieList.get(position);
+        MovieResultsItem movieResultsItem = movieList.get(position);
         MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
         movieViewHolder.view.setTag(position);
-        movieViewHolder.title.setText(movieListItem.getTitle());
-        movieViewHolder.year.setText(movieListItem.getYear());
-        movieViewHolder.genres.setText(movieListItem.getGenres());
-        movieViewHolder.rating.setText(movieListItem.getRating());
-        Picasso.with(context).load(movieListItem.getPosterURL()).fit().centerInside().into(movieViewHolder.poster);
+        movieViewHolder.title.setText(movieResultsItem.getTitle());
+        movieViewHolder.year.setText(movieResultsItem.getYear());
+        //movieViewHolder.genres.setText(movieResultsItem.getGenres());
+        movieViewHolder.rating.setText(movieResultsItem.getVote_average().toString());
+        String imageURL = ImageHelper.getPosterURL(movieResultsItem.getPoster_path(), 1);
+        Picasso.with(context).load(imageURL).fit().centerInside().into(movieViewHolder.poster);
     }
 
     public void onClick(View v) {
