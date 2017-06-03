@@ -3,7 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsAPICallBack;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieResults;
 import retrofit2.Call;
 
 /**

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageData;
-import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageListItem;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonCastCreditItem;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonCrewCreditItem;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonImages;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonMovieCredits;
-import digitalhouse.android.a0317moacns1c_02.DAO.PersonDAO;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Media.ImageData;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Media.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonCastCreditItem;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonCrewCreditItem;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonImages;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonMovieCredits;
+import digitalhouse.android.a0317moacns1c_02.Model.DAO.PersonDAO;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 
 /**

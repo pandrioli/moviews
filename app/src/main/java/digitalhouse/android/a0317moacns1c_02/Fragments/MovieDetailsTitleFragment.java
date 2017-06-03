@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**

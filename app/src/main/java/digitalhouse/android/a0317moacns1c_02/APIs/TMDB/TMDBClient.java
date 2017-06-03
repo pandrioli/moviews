@@ -2,18 +2,18 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import java.util.Map;
 
-import digitalhouse.android.a0317moacns1c_02.DAO.Genres.Genres;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Configuration.ConfigAPI;
-import digitalhouse.android.a0317moacns1c_02.DAO.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieImages;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResults;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonDetails;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonImages;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieVideos;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonMovieCredits;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Configuration.Config;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieImages;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonImages;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieVideos;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonMovieCredits;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -37,7 +37,7 @@ public interface TMDBClient {
     //Obtener la configuracion de las imagenes y un array change_keys que todavía no sé para qué es
     //pero por las dudas lo traigo
     @GET("configuration?")
-    Call<ConfigAPI> obtainConfiguration(@Query("api_key") String API_KEY);
+    Call<Config> obtainConfiguration(@Query("api_key") String API_KEY);
     //Obtener lista de géneros de películas
     @GET("genre/movie/list?")
     Call<Genres> obtainGenreList(@Query("api_key") String API_KEY);

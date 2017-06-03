@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Controller.PersonController;
-import digitalhouse.android.a0317moacns1c_02.DAO.Media.ImageListItem;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Media.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.PersonDetailsBioFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.PersonDetailsInfoFragment;

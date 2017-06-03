@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import digitalhouse.android.a0317moacns1c_02.DAO.Person.PersonDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**

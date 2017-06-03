@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
-import digitalhouse.android.a0317moacns1c_02.DAO.Movie.MovieResultsItem;
+import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
