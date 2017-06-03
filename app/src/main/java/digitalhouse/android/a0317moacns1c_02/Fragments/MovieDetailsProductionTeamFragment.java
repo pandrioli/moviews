@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Credits.Crew;
+import digitalhouse.android.a0317moacns1c_02.Model.Credits.Crew;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**

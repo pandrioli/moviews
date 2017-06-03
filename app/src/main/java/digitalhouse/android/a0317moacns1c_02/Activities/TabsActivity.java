@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MovieListPageAdapter;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieResultsItem;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
 

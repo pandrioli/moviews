@@ -2,18 +2,18 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import java.util.Map;
 
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Genres.Genres;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Configuration.Config;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieImages;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieResults;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonDetails;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonImages;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieVideos;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Person.PersonMovieCredits;
+import digitalhouse.android.a0317moacns1c_02.Model.Configuration.Config;
+import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieImages;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResults;
+import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonImages;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieVideos;
+import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonMovieCredits;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

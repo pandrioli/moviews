@@ -4,7 +4,7 @@ package digitalhouse.android.a0317moacns1c_02.Helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Media.ImageData;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
 import digitalhouse.android.a0317moacns1c_02.Controller.ConfigController;
 
 /**

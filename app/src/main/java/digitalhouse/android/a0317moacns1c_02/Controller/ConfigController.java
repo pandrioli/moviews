@@ -3,8 +3,8 @@ package digitalhouse.android.a0317moacns1c_02.Controller;
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Model.DAO.ConfigDAO;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Configuration.Config;
+import digitalhouse.android.a0317moacns1c_02.DAO.ConfigDAO;
+import digitalhouse.android.a0317moacns1c_02.Model.Configuration.Config;
 
 /**
  * Created by Pablo on 22/05/2017.

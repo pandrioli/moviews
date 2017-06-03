@@ -18,11 +18,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Movie.MovieResultsItem;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsItem;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
-import digitalhouse.android.a0317moacns1c_02.Services.SearchService;
+import digitalhouse.android.a0317moacns1c_02.Controller.SearchController;
 
 public class SearchActivity extends AppCompatActivity implements MovieListFragment.MovieClickeable {
 
@@ -111,7 +111,7 @@ public class SearchActivity extends AppCompatActivity implements MovieListFragme
     //Mas adelate voy a agregar todas las opciones de busqueda, por eso los diferentes requests
     private void onButtonSearchPressed(String query){
         MovieSearchRequest movieSearchRequest = new MovieSearchRequest(query);
-        SearchService.getInstance().searchMovies(movieSearchRequest, new TMDBClient.APICallback() {
+        SearchController.getInstance().searchMovies(movieSearchRequest, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 MovieListFragment movieListFragment = new MovieListFragment();

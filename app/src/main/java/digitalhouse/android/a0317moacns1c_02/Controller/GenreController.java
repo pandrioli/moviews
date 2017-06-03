@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Model.DAO.GenreDAO;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Genres.Genre;
-import digitalhouse.android.a0317moacns1c_02.Model.POJO.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.DAO.GenreDAO;
+import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
+import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 
 /**
  * Created by Pablo on 03/06/2017.
