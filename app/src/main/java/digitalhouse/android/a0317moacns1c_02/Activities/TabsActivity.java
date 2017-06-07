@@ -20,9 +20,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Adapters.ListPagerAdapter;
+import digitalhouse.android.a0317moacns1c_02.Controller.ObtainerController;
+import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
-public class SeriesTabsActivity extends AppCompatActivity {
+public class TabsActivity extends AppCompatActivity implements ItemListFragment.ItemClickeable {
 
     @BindView(R.id.pager) protected ViewPager viewPager;
     @BindView(R.id.tab_layout) protected TabLayout tabLayout;
@@ -32,10 +35,24 @@ public class SeriesTabsActivity extends AppCompatActivity {
     private List<Fragment> fragmentList;
     private List<String> titlesLists;
 
+    public static final String SEARCH_TYPE_TAG = "search_type";
+    private static SearchActivity.SEARCH_TYPE SEARCH_TYPE;
+
+    public static final String CONTROLLER_TYPE_TAG = "controller_type";
+    private ObtainerController obtainerController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_series_tab);
+        setContentView(R.layout.activity_tabs);
+
+        Intent initializationInformation = getIntent();
+
+        SEARCH_TYPE = (SearchActivity.SEARCH_TYPE) initializationInformation.getSerializableExtra(SEARCH_TYPE_TAG);
+
+        obtainerController = (ObtainerController) initializationInformation.getSerializableExtra(CONTROLLER_TYPE_TAG);
+
+
 
         ButterKnife.bind(this);
 
@@ -131,10 +148,7 @@ public class SeriesTabsActivity extends AppCompatActivity {
                 !searchEditText.getText().toString().isEmpty()){
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     private void enableSearchEdiText(){
@@ -152,8 +166,33 @@ public class SeriesTabsActivity extends AppCompatActivity {
     private void startSearchActivity(){
         Intent intent = new Intent(this, SearchActivity.class);
         intent.putExtra(SearchActivity.SEARCH_ACTIVITY_QUERY_TAG, searchEditText.getText().toString());
-        intent.putExtra(SearchActivity.SEARCH_ACTION_TAG,SearchActivity.SEARCH_MOVIES);
+        intent.putExtra(SearchActivity.SEARCH_ACTION_TAG, SEARCH_TYPE);
         startActivity(intent);
     }
 
+    @Override
+    public void onClick(ListItem listItem) {
+        switch (SEARCH_TYPE){
+            case SERIES:
+                startSeriesDetailsActivity(listItem);
+                break;
+            case MOVIES:
+            default:
+                startMovieDetailsActivity(listItem);
+                break;
+        }
+    }
+
+    private void startMovieDetailsActivity(ListItem listItem){
+        Intent intent = new Intent(this,MovieDetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void startSeriesDetailsActivity(ListItem listItem){
+        Intent intent = new Intent(this,MovieDetailsActivity.class);
+        Bundle bundle = new Bundle();
+    }
 }

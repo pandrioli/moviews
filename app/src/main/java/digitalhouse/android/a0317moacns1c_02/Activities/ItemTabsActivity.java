@@ -26,7 +26,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 
-public class MovieTabsActivity extends AppCompatActivity implements ItemListFragment.MovieClickeable {
+public class ItemTabsActivity extends AppCompatActivity implements ItemListFragment.ItemClickeable {
 
     @BindView(R.id.pager) protected ViewPager viewPager;
     @BindView(R.id.tab_layout) protected TabLayout tabLayout;

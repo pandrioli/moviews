@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsItem;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -21,12 +21,12 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * Created by dh3 on 22/05/17.
  */
 
-public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.OnClickListener {
+public class ListItemRecyclerAdapter extends RecyclerView.Adapter implements View.OnClickListener {
     private Context context;
-    private List<MovieResultsItem> movieList;
+    private List<ListItem> movieList;
     private View.OnClickListener clickListener;
 
-    public MovieRecyclerAdapter(Context context, List<MovieResultsItem> movieList, View.OnClickListener clickListener) {
+    public ListItemRecyclerAdapter(Context context, List<ListItem> movieList, View.OnClickListener clickListener) {
         this.context = context;
         this.movieList = movieList;
         this.clickListener = clickListener;
@@ -35,7 +35,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.O
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View cellView = inflater.inflate(R.layout.cell_movie_list, parent, false);
+        View cellView = inflater.inflate(R.layout.cell_item_list, parent, false);
         cellView.setOnClickListener(this);
         MovieViewHolder movieViewHolder = new MovieViewHolder(cellView);
         return movieViewHolder;
@@ -43,14 +43,14 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter implements View.O
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MovieResultsItem movieResultsItem = movieList.get(position);
+        ListItem listItem = movieList.get(position);
         MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
         movieViewHolder.view.setTag(position);
-        movieViewHolder.title.setText(movieResultsItem.getTitle());
-        movieViewHolder.year.setText(movieResultsItem.getYear());
-        movieViewHolder.genres.setText(GenreController.getInstance().getGenresStringbyIds(movieResultsItem.getGenre_ids(), ", "));
-        movieViewHolder.rating.setText(movieResultsItem.getVote_average().toString());
-        String imageURL = ImageHelper.getPosterURL(movieResultsItem.getPoster_path(), 1);
+        movieViewHolder.title.setText(listItem.getTitle());
+        movieViewHolder.year.setText(listItem.getYear());
+        movieViewHolder.genres.setText(GenreController.getInstance().getGenresStringbyIds(listItem.getGenre_ids(), ", "));
+        movieViewHolder.rating.setText(listItem.getVote_average().toString());
+        String imageURL = ImageHelper.getPosterURL(listItem.getPoster_path(), 1);
         Picasso.with(context).load(imageURL).fit().centerInside().into(movieViewHolder.poster);
     }
 
