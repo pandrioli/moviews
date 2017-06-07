@@ -18,7 +18,7 @@ import digitalhouse.android.a0317moacns1c_02.Helpers.ImageMapper;
  * Created by Pablo on 03/06/2017.
  */
 
-public class MovieController {
+public class MovieController extends ObtainerController {
     private MovieDAO movieDAO;
     private static MovieController instance;
 

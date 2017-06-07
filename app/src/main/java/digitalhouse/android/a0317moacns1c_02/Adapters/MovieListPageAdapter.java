@@ -5,9 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.util.List;
-
-import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
 
 /**
  * Created by Pablo on 23/05/2017.
@@ -26,9 +24,9 @@ public class MovieListPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Bundle bundle = bundleList[position];
-        MovieListFragment movieListFragment = new MovieListFragment();
-        movieListFragment.setArguments(bundle);
-        return movieListFragment;
+        ItemListFragment itemListFragment = new ItemListFragment();
+        itemListFragment.setArguments(bundle);
+        return itemListFragment;
     }
 
     @Override

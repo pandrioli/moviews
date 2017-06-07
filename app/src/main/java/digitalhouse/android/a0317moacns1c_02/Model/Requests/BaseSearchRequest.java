@@ -4,10 +4,10 @@ package digitalhouse.android.a0317moacns1c_02.Model.Requests;
  * Created by Gregorio Martin on 28/5/2017.
  */
 
-public class BaseRequest {
+public class BaseSearchRequest {
     private String query;
 
-    public BaseRequest(String query) {
+    public BaseSearchRequest(String query) {
         this.query = query;
     }
 

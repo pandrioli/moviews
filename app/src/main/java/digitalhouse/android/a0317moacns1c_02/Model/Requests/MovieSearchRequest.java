@@ -4,7 +4,7 @@ package digitalhouse.android.a0317moacns1c_02.Model.Requests;
  * Created by Gregorio Martin on 27/5/2017.
  */
 
-public class MovieSearchRequest extends BaseRequest {
+public class MovieSearchRequest extends BaseSearchRequest {
 
     private String lenguage = null;
     private Integer page = null;

@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Model.Movie;
+package digitalhouse.android.a0317moacns1c_02.Model.General;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Pablo on 22/05/2017.
  */
 
-public class MovieResultsItem implements Parcelable {
+public class ListItem implements Parcelable {
     private String poster_path;
     private Boolean adult;
     private String overview;
@@ -25,7 +25,7 @@ public class MovieResultsItem implements Parcelable {
     private Boolean video;
     private Double vote_average;
 
-    protected MovieResultsItem(Parcel in) {
+    protected ListItem(Parcel in) {
         poster_path = in.readString();
         overview = in.readString();
         release_date = in.readString();
@@ -51,15 +51,15 @@ public class MovieResultsItem implements Parcelable {
         return 0;
     }
 
-    public static final Creator<MovieResultsItem> CREATOR = new Creator<MovieResultsItem>() {
+    public static final Creator<ListItem> CREATOR = new Creator<ListItem>() {
         @Override
-        public MovieResultsItem createFromParcel(Parcel in) {
-            return new MovieResultsItem(in);
+        public ListItem createFromParcel(Parcel in) {
+            return new ListItem(in);
         }
 
         @Override
-        public MovieResultsItem[] newArray(int size) {
-            return new MovieResultsItem[size];
+        public ListItem[] newArray(int size) {
+            return new ListItem[size];
         }
     };
 

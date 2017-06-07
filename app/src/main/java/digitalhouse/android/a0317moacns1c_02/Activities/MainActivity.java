@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonToTabsTestActivity)
     public void onClickTabsTest(View v) {
-        Intent intent = new Intent(this, TabsActivity.class);
+        Intent intent = new Intent(this, ItemTabsActivity.class);
         startActivity(intent);
     }
 

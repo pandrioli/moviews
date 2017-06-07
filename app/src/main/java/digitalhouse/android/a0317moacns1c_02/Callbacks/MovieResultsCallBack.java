@@ -4,7 +4,7 @@ import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResults;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsItem;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 
 /**
  * Created by dh3 on 29/05/17.
@@ -21,7 +21,7 @@ public class MovieResultsCallBack implements TMDBClient.APICallback {
     @Override
     public void onSuccess(Object result) {
         MovieResults movieResults = (MovieResults) result;
-        List<MovieResultsItem> results = movieResults.getResults();
+        List<ListItem> results = movieResults.getResults();
         callback.onSuccess(results);
     }
 }

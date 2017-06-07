@@ -12,20 +12,20 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Adapters.MovieRecyclerAdapter;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsItem;
+import digitalhouse.android.a0317moacns1c_02.Adapters.ListItemRecyclerAdapter;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieListFragment extends Fragment implements View.OnClickListener {
+public class ItemListFragment extends Fragment implements View.OnClickListener {
     public final static String MOVIE_LIST_KEY = "movieList";
     RecyclerView recyclerViewMovies;
-    ArrayList<MovieResultsItem> movieList;
+    ArrayList<ListItem> movieList;
 
-    public MovieListFragment() {
+    public ItemListFragment() {
         // Required empty public constructor
     }
 
@@ -33,11 +33,11 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
-        final MovieClickeable myActivity = (MovieClickeable)getActivity();
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        final ItemClickeable myActivity = (ItemClickeable)getActivity();
         Bundle bundle = getArguments();
         movieList = bundle.getParcelableArrayList(MOVIE_LIST_KEY);
-        MovieRecyclerAdapter movieAdapter = new MovieRecyclerAdapter(view.getContext(), movieList, this);
+        ListItemRecyclerAdapter movieAdapter = new ListItemRecyclerAdapter(view.getContext(), movieList, this);
         recyclerViewMovies = (RecyclerView) view.findViewById(R.id.recyclerViewMovies);
         recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
         recyclerViewMovies.setAdapter(movieAdapter);
@@ -52,12 +52,12 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        MovieClickeable activity = (MovieClickeable)getActivity();
+        ItemClickeable activity = (ItemClickeable)getActivity();
         activity.onClick(movieList.get((Integer)v.getTag()));
     }
 
-    public interface MovieClickeable {
-        void onClick(MovieResultsItem movieResultsItem);
+    public interface ItemClickeable {
+        void onClick(ListItem listItem);
     }
 
 

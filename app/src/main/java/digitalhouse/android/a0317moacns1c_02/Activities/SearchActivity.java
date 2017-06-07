@@ -12,25 +12,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsItem;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
-import digitalhouse.android.a0317moacns1c_02.Fragments.MovieListFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Controller.SearchController;
 
-public class SearchActivity extends AppCompatActivity implements MovieListFragment.MovieClickeable {
+public class SearchActivity extends AppCompatActivity implements ItemListFragment.ItemClickeable {
 
     public static final String SEARCH_ACTIVITY_QUERY_TAG = "query";
     public static final String SEARCH_ACTION_TAG = "search_action";
-    public static final Integer SEARCH_MOVIES = 0;
-    public static final Integer SEARCH_SERIES = 1;
-    public static final Integer SEARCH_ACTORS = 2;
+
+    public enum SEARCH_TYPE implements Serializable{
+        MOVIES, SERIES, ACTORS
+    }
+
     private static Integer currentTab;
     private SearchPagerAdapter adapter;
 
@@ -50,7 +53,8 @@ public class SearchActivity extends AppCompatActivity implements MovieListFragme
         Intent intent = getIntent();
         if(intent.hasExtra(SEARCH_ACTION_TAG))
         {
-            currentTab = intent.getIntExtra(SEARCH_ACTION_TAG, 0);
+            Integer default_value = 0;
+            currentTab = intent.getIntExtra(SEARCH_ACTION_TAG, default_value);
         }
 
         if(intent.hasExtra(SEARCH_ACTIVITY_QUERY_TAG)){
@@ -114,12 +118,12 @@ public class SearchActivity extends AppCompatActivity implements MovieListFragme
         SearchController.getInstance().searchMovies(movieSearchRequest, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                MovieListFragment movieListFragment = new MovieListFragment();
+                ItemListFragment itemListFragment = new ItemListFragment();
                 Bundle bundle = new Bundle();
                 ArrayList<Parcelable> movieList = (ArrayList<Parcelable>) result;
-                bundle.putParcelableArrayList(MovieListFragment.MOVIE_LIST_KEY, movieList);
-                movieListFragment.setArguments(bundle);
-                adapter.getFragments().set(0, movieListFragment);
+                bundle.putParcelableArrayList(ItemListFragment.MOVIE_LIST_KEY, movieList);
+                itemListFragment.setArguments(bundle);
+                adapter.getFragments().set(0, itemListFragment);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -154,9 +158,9 @@ public class SearchActivity extends AppCompatActivity implements MovieListFragme
     }
 
     @Override
-    public void onClick(MovieResultsItem movieResultsItem) {
+    public void onClick(ListItem listItem) {
         Bundle bundle = new Bundle();
-        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, movieResultsItem.getId());
+        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

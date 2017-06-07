@@ -2,13 +2,15 @@ package digitalhouse.android.a0317moacns1c_02.Model.Movie;
 
 import java.util.ArrayList;
 
+import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
+
 /**
  * Created by Pablo on 22/05/2017.
  */
 
 public class MovieResults {
     private Integer page;
-    private ArrayList<MovieResultsItem> results;
+    private ArrayList<ListItem> results;
     private Integer total_results;
     private Integer total_pages;
 
@@ -20,11 +22,11 @@ public class MovieResults {
         this.page = page;
     }
 
-    public ArrayList<MovieResultsItem> getResults() {
+    public ArrayList<ListItem> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<MovieResultsItem> results) {
+    public void setResults(ArrayList<ListItem> results) {
         this.results = results;
     }
 
