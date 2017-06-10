@@ -14,6 +14,7 @@ public class DateHelper {
 
     //parsear string
     public static Date parse(String date, String format) {
+        if (date == null) return null;
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         try {
             return sdf.parse(date);
