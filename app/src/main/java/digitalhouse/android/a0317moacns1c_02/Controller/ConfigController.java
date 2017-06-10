@@ -74,7 +74,7 @@ public class ConfigController {
                 backdropSizes = config.getImages().getBackdrop_sizes();
                 profileSizes = config.getImages().getProfile_sizes();
                 changeKeys = config.getChange_keys();
-                callback.onSuccess("OK");
+                callback.onSuccess("Config OK");
             }
         });
     }

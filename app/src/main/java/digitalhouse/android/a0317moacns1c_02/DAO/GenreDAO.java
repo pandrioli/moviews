@@ -15,8 +15,12 @@ public class GenreDAO {
     public GenreDAO() {
         this.client = ServiceGenerator.createService(TMDBClient.class);
     }
-    public void obtainGenres(TMDBClient.APICallback callback) {
-        Call<Genres> call = client.obtainGenreList(TMDBClient.API_KEY);
+    public void obtainMovieGenres(TMDBClient.APICallback callback) {
+        Call<Genres> call = client.obtainMovieGenres(TMDBClient.API_KEY);
+        call.enqueue(new RetrofitTMDBCallBack<Genres>(callback));
+    }
+    public void obtainSerieGenres(TMDBClient.APICallback callback) {
+        Call<Genres> call = client.obtainSerieGenres(TMDBClient.API_KEY);
         call.enqueue(new RetrofitTMDBCallBack<Genres>(callback));
     }
 }

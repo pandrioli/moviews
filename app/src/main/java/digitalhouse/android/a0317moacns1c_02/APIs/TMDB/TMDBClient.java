@@ -41,7 +41,10 @@ public interface TMDBClient {
     Call<Config> obtainConfiguration(@Query("api_key") String API_KEY);
     //Obtener lista de géneros de películas
     @GET("genre/movie/list?")
-    Call<Genres> obtainGenreList(@Query("api_key") String API_KEY);
+    Call<Genres> obtainMovieGenres(@Query("api_key") String API_KEY);
+    //Obtener lista de géneros de películas
+    @GET("genre/tv/list?")
+    Call<Genres> obtainSerieGenres(@Query("api_key") String API_KEY);
 
     // MOVIE
 

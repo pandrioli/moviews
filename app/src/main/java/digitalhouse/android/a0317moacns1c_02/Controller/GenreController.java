@@ -14,9 +14,11 @@ import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 
 public class GenreController {
     private static GenreController instance;
-    private List<Genre> genreList;
-    public GenreController() {
-
+    private List<Genre> movieGenres;
+    private List<Genre> serieGenres;
+    private GenreController() {
+        movieGenres = new ArrayList<>();
+        serieGenres = new ArrayList<>();
     }
 
     public static GenreController getInstance() {
@@ -24,19 +26,37 @@ public class GenreController {
         return instance;
     }
 
-    public void loadGenres(final TMDBClient.APICallback callback) {
+    public void loadMovieGenres(final TMDBClient.APICallback callback) {
         GenreDAO genreDAO = new GenreDAO();
-        genreDAO.obtainGenres(new TMDBClient.APICallback() {
+        genreDAO.obtainMovieGenres(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 Genres genres = (Genres) result;
-                genreList = genres.getGenres();
-                callback.onSuccess("OK");
+                movieGenres = genres.getGenres();
+                callback.onSuccess("Movie genres OK");
             }
         });
     }
-    public String getGenreNameById(Integer id) {
-        for (Genre genre : genreList) {
+    public void loadSerieGenres(final TMDBClient.APICallback callback) {
+        GenreDAO genreDAO = new GenreDAO();
+        genreDAO.obtainSerieGenres(new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                Genres genres = (Genres) result;
+                serieGenres = genres.getGenres();
+                callback.onSuccess("Serie genres OK");
+            }
+        });
+    }
+
+    public String getMovieGenreNameById(Integer id) {
+        for (Genre genre : movieGenres) {
+            if (genre.getId().equals(id)) return genre.getName();
+        }
+        return "";
+    }
+    public String getSerieGenreNameById(Integer id) {
+        for (Genre genre : serieGenres) {
             if (genre.getId().equals(id)) return genre.getName();
         }
         return "";
@@ -53,12 +73,22 @@ public class GenreController {
         return genres;
     }
 
-    public String getGenresStringbyIds(List<Integer> genreIdList, String separator) {
+    public String getMovieGenresStringbyIds(List<Integer> genreIdList, String separator) {
         List<Genre> genreList = new ArrayList<>();
         for (Integer id : genreIdList) {
             Genre genre = new Genre();
             genre.setId(id);
-            genre.setName(getGenreNameById(id));
+            genre.setName(getMovieGenreNameById(id));
+            genreList.add(genre);
+        }
+        return getGenresString(genreList, separator);
+    }
+    public String getSerieGenresStringbyIds(List<Integer> genreIdList, String separator) {
+        List<Genre> genreList = new ArrayList<>();
+        for (Integer id : genreIdList) {
+            Genre genre = new Genre();
+            genre.setId(id);
+            genre.setName(getSerieGenreNameById(id));
             genreList.add(genre);
         }
         return getGenresString(genreList, separator);

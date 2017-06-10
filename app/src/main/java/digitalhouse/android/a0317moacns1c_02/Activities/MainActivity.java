@@ -39,7 +39,17 @@ public class MainActivity extends AppCompatActivity {
         });
         //Carga la lista de generos de peliculas
         //TODO: debería bloquearse la ejecución hasta obtener los datos
-        GenreController.getInstance().loadGenres(new TMDBClient.APICallback() {
+        GenreController.getInstance().loadMovieGenres(new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                String status = generalAPIDataLoadStatus.getText().toString();
+                status += "\r\n" + result.toString();
+                generalAPIDataLoadStatus.setText(status);
+            }
+        });
+        //Carga la lista de generos de peliculas
+        //TODO: debería bloquearse la ejecución hasta obtener los datos
+        GenreController.getInstance().loadSerieGenres(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
                 String status = generalAPIDataLoadStatus.getText().toString();
