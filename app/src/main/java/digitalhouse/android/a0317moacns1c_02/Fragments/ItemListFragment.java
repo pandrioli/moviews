@@ -21,9 +21,10 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * A simple {@link Fragment} subclass.
  */
 public class ItemListFragment extends Fragment implements View.OnClickListener {
-    public final static String MOVIE_LIST_KEY = "movieList";
-    RecyclerView recyclerViewMovies;
-    ArrayList<ListItem> movieList;
+    public final static String ITEM_LIST_KEY = "itemList";
+    public final static String TITLE_KEY = "title";
+    RecyclerView recyclerViewItems;
+    ArrayList<ListItem> itemList;
 
     public ItemListFragment() {
         // Required empty public constructor
@@ -36,15 +37,15 @@ public class ItemListFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         final ItemClickeable myActivity = (ItemClickeable)getActivity();
         Bundle bundle = getArguments();
-        movieList = bundle.getParcelableArrayList(MOVIE_LIST_KEY);
-        ListItemRecyclerAdapter movieAdapter = new ListItemRecyclerAdapter(view.getContext(), movieList, this);
-        recyclerViewMovies = (RecyclerView) view.findViewById(R.id.recyclerViewMovies);
-        recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
-        recyclerViewMovies.setAdapter(movieAdapter);
+        itemList = bundle.getParcelableArrayList(ITEM_LIST_KEY);
+        ListItemRecyclerAdapter movieAdapter = new ListItemRecyclerAdapter(view.getContext(), itemList, this);
+        recyclerViewItems = (RecyclerView) view.findViewById(R.id.recyclerViewMovies);
+        recyclerViewItems.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
+        recyclerViewItems.setAdapter(movieAdapter);
 
-        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerViewMovies.getContext(),
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerViewItems.getContext(),
                 LinearLayoutManager.VERTICAL);
-        recyclerViewMovies.addItemDecoration(mDividerItemDecoration);
+        recyclerViewItems.addItemDecoration(mDividerItemDecoration);
 
 
         return view;
@@ -53,7 +54,7 @@ public class ItemListFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         ItemClickeable activity = (ItemClickeable)getActivity();
-        activity.onClick(movieList.get((Integer)v.getTag()));
+        activity.onClick(itemList.get((Integer)v.getTag()));
     }
 
     public interface ItemClickeable {

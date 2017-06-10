@@ -64,7 +64,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         }
 
         tabLayout.addTab(tabLayout.newTab().setText("Movies"));
-        tabLayout.addTab(tabLayout.newTab().setText("Series"));
+        tabLayout.addTab(tabLayout.newTab().setText("SerieResult"));
         tabLayout.addTab(tabLayout.newTab().setText("Actors"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -85,7 +85,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
                 currentTab = viewPager.getCurrentItem();
                 switch (currentTab){
                     case 1:
-                        searchEditText.setHint("Search Series...");
+                        searchEditText.setHint("Search SerieResult...");
                         break;
                     case 2:
                         searchEditText.setHint("Search Actors...");
@@ -121,7 +121,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
                 ItemListFragment itemListFragment = new ItemListFragment();
                 Bundle bundle = new Bundle();
                 ArrayList<Parcelable> movieList = (ArrayList<Parcelable>) result;
-                bundle.putParcelableArrayList(ItemListFragment.MOVIE_LIST_KEY, movieList);
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, movieList);
                 itemListFragment.setArguments(bundle);
                 adapter.getFragments().set(0, itemListFragment);
                 adapter.notifyDataSetChanged();

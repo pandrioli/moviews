@@ -8,9 +8,9 @@ import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
  * Created by Pablo on 22/05/2017.
  */
 
-public class MovieResults {
+public class MovieResultsContainer {
     private Integer page;
-    private ArrayList<ListItem> results;
+    private ArrayList<MovieResult> results;
     private Integer total_results;
     private Integer total_pages;
 
@@ -22,11 +22,11 @@ public class MovieResults {
         this.page = page;
     }
 
-    public ArrayList<ListItem> getResults() {
+    public ArrayList<MovieResult> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<ListItem> results) {
+    public void setResults(ArrayList<MovieResult> results) {
         this.results = results;
     }
 

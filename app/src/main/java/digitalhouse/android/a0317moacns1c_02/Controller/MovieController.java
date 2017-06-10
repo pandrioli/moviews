@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallBack;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Cast;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
@@ -32,13 +32,13 @@ public class MovieController extends ObtainerController {
     }
 
     public void getPopular(TMDBClient.APICallback callback) {
-        movieDAO.obtainPopular(new MovieResultsCallBack(callback));
+        movieDAO.obtainPopular(new MovieResultsCallback(callback));
     }
     public void getNowPlaying(TMDBClient.APICallback callback) {
-        movieDAO.obtainPopular(new MovieResultsCallBack(callback));
+        movieDAO.obtainNowPlaying(new MovieResultsCallback(callback));
     }
     public void getUpcoming(TMDBClient.APICallback callback) {
-        movieDAO.obtainUpcoming(new MovieResultsCallBack(callback));
+        movieDAO.obtainUpcoming(new MovieResultsCallback(callback));
     }
 
     public void getDetails(Integer id, TMDBClient.APICallback callback) {

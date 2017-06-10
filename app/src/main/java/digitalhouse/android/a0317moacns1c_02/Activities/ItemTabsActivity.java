@@ -13,14 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Adapters.MovieListPageAdapter;
+import digitalhouse.android.a0317moacns1c_02.Adapters.ItemListPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
+import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -30,10 +32,12 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
 
     @BindView(R.id.pager) protected ViewPager viewPager;
     @BindView(R.id.tab_layout) protected TabLayout tabLayout;
+    @BindView(R.id.tabLayoutModes) protected TabLayout tabLayoutModes;
     @BindView(R.id.toolbar_editText) protected EditText searchEditText;
     @BindView(R.id.tab_act_toolbar) protected Toolbar toolbar;
 
-    private ArrayList<ListItem> movieList;
+    public static final String MODE_KEY = "mode";
+    private ArrayList<ListItem> itemList;
     private Bundle[] bundleList;
     private Integer loadedCounter;
 
@@ -42,25 +46,41 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Remove title bar
-        setContentView(R.layout.activity_tabs_test);
-
+        setContentView(R.layout.activity_tabs);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        tabLayoutModes.addOnTabSelectedListener(new TabModeListener());
 
-        tabLayout.addTab(tabLayout.newTab().setText("Popular"));
-        tabLayout.addTab(tabLayout.newTab().setText("Now Playing"));
-        tabLayout.addTab(tabLayout.newTab().setText("Upcoming"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle==null) { // si no hay bundle cargar movies
+            loadMovies();
+        } else {
+            String mode = bundle.getString(MODE_KEY); // obtener modo de la activity
+            // cargar movies o series y seleccionar tab según modo recibido
+            if (mode.equals("movies")) {
+                tabLayoutModes.setScrollPosition(0,0f,true);
+                loadMovies();
+            }
+            if (mode.equals("series")) {
+                tabLayoutModes.setScrollPosition(1,0f,true);
+                loadSeries();
+            }
+        }
+    }
 
-        bundleList = new Bundle[tabLayout.getTabCount()];
-        loadedCounter = 0;
+    private void loadMovies() {
+        bundleList = new Bundle[3]; // array de bundles que se envia al adapter
+        loadedCounter = 0; // flag de carga
 
+        //carga de datos
         MovieController.getInstance().getPopular(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                movieList = (ArrayList<ListItem>) result;
+                itemList = (ArrayList<ListItem>) result;
                 Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.MOVIE_LIST_KEY, movieList);
-                bundleList[0] = bundle;
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
+                bundle.putString(ItemListFragment.TITLE_KEY, "Popular");
+                bundleList[0] = bundle; // de esta manera se puede especificar la posicion (tab) en la que va cada lista
                 loadedCounter++;
                 loadViewPager();
             }
@@ -69,9 +89,10 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         MovieController.getInstance().getNowPlaying(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                movieList = (ArrayList<ListItem>) result;
+                itemList = (ArrayList<ListItem>) result;
                 Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.MOVIE_LIST_KEY, movieList);
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
+                bundle.putString(ItemListFragment.TITLE_KEY, "Now playing");
                 bundleList[1] = bundle;
                 loadedCounter++;
                 loadViewPager();
@@ -81,51 +102,81 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         MovieController.getInstance().getUpcoming(new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                movieList = (ArrayList<ListItem>) result;
+                itemList = (ArrayList<ListItem>) result;
                 Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.MOVIE_LIST_KEY, movieList);
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
+                bundle.putString(ItemListFragment.TITLE_KEY, "Upcoming");
                 bundleList[2] = bundle;
                 loadedCounter++;
                 loadViewPager();
             }
         });
+    }
 
-        setSupportActionBar(toolbar);
+    private void loadSeries() {
+        bundleList = new Bundle[3];
+        loadedCounter = 0;
+        SerieController.getInstance().getPopular(new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                itemList = (ArrayList<ListItem>) result;
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
+                bundle.putString(ItemListFragment.TITLE_KEY, "Popular");
+                bundleList[0] = bundle;
+                loadedCounter++;
+                loadViewPager();
+            }
+        });
+        SerieController.getInstance().getTopRated(new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                itemList = (ArrayList<ListItem>) result;
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
+                bundle.putString(ItemListFragment.TITLE_KEY, "Top Rated");
+                bundleList[1] = bundle;
+                loadedCounter++;
+                loadViewPager();
+            }
+        });
+        SerieController.getInstance().getAiringToday(new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                itemList = (ArrayList<ListItem>) result;
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
+                bundle.putString(ItemListFragment.TITLE_KEY, "Airing today");
+                bundleList[2] = bundle;
+                loadedCounter++;
+                loadViewPager();
+            }
+        });
+    }
 
+
+    private void loadViewPager() {
+        if (loadedCounter<bundleList.length) return; // si todavia no se cargaron todos los bundles, cancelar
+        PagerAdapter adapter = new ItemListPagerAdapter(getSupportFragmentManager(), bundleList);
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
     public void onClick(ListItem listItem) {
-        Intent intent = new Intent(this,MovieDetailsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
-        intent.putExtras(bundle);
-        startActivity(intent);
+        // se define la accion a tomar segun el tipo del listitem (movie o serie)
+        if (listItem.getType().equals("movie")) {
+            Intent intent = new Intent(this,MovieDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        if (listItem.getType().equals("serie")) {
+            //TODO: ir a serie details
+        }
     }
 
-    private void loadViewPager() {
-        if (loadedCounter<tabLayout.getTabCount()) return;
-        PagerAdapter adapter = new MovieListPageAdapter(getSupportFragmentManager(), bundleList, tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.searchmenu, menu);
@@ -178,4 +229,41 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
 
         }
     }
+
+    // listener del tablayout de modos
+    private class TabModeListener implements TabLayout.OnTabSelectedListener {
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent(ItemTabsActivity.this, ItemTabsActivity.class);
+            // la activity se llama a sí misma con el bundle correspondiente al tab seleccionado
+            // TODO: itemTabsFragment en lugar de hacer esto todo en la misma activity???
+            switch (tab.getPosition()) {
+                case 0:
+                    bundle.putString(MODE_KEY, "movies");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 1:
+                    bundle.putString(MODE_KEY, "series");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                    break;
+            }
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+            onTabSelected(tab);
+        }
+    }
+
 }

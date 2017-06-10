@@ -48,10 +48,9 @@ public class ListItemRecyclerAdapter extends RecyclerView.Adapter implements Vie
         movieViewHolder.view.setTag(position);
         movieViewHolder.title.setText(listItem.getTitle());
         movieViewHolder.year.setText(listItem.getYear());
-        movieViewHolder.genres.setText(GenreController.getInstance().getGenresStringbyIds(listItem.getGenre_ids(), ", "));
-        movieViewHolder.rating.setText(listItem.getVote_average().toString());
-        String imageURL = ImageHelper.getPosterURL(listItem.getPoster_path(), 1);
-        Picasso.with(context).load(imageURL).fit().centerInside().into(movieViewHolder.poster);
+        movieViewHolder.genres.setText(listItem.getGenres());
+        movieViewHolder.rating.setText(listItem.getRating());
+        Picasso.with(context).load(listItem.getPosterURL()).fit().centerInside().into(movieViewHolder.poster);
     }
 
     public void onClick(View v) {

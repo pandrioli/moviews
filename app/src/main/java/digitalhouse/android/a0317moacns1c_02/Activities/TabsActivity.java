@@ -44,7 +44,7 @@ public class TabsActivity extends AppCompatActivity implements ItemListFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tabs);
+        setContentView(R.layout.activity_tabs_estanoes);
 
         Intent initializationInformation = getIntent();
 

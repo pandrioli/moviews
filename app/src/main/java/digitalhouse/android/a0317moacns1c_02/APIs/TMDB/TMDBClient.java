@@ -3,17 +3,18 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
 import digitalhouse.android.a0317moacns1c_02.Model.Configuration.Config;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieImages;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResults;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonImages;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieVideos;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonMovieCredits;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -62,13 +63,13 @@ public interface TMDBClient {
 
     //Obtener lista de películas populares
     @GET("movie/popular?")
-    Call<MovieResults> obtainPopularMovies(@Query("api_key") String API_KEY);
+    Call<MovieResultsContainer> obtainPopularMovies(@Query("api_key") String API_KEY);
     //Obtener lista de películas en cartelera
     @GET("movie/now_playing?")
-    Call<MovieResults> obtainNowPlayingMovies(@Query("api_key") String API_KEY);
+    Call<MovieResultsContainer> obtainNowPlayingMovies(@Query("api_key") String API_KEY);
     //Obtener lista de películas con próximo estreno
     @GET("movie/upcoming?")
-    Call<MovieResults> obtainUpcomingMovies(@Query("api_key") String API_KEY);
+    Call<MovieResultsContainer> obtainUpcomingMovies(@Query("api_key") String API_KEY);
 
     //PERSON
 
@@ -84,9 +85,22 @@ public interface TMDBClient {
     @GET("person/{person_id}/movie_credits?")
     Call<PersonMovieCredits> obtainPersonMovieCredits(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
 
+    //SERIES
+
+    //Obtener series populares
+    @GET("tv/popular?")
+    Call<SerieResultsContainer> obtainPopularSeries(@Query("api_key") String API_KEY);
+    @GET("tv/top_rated?")
+    Call<SerieResultsContainer> obtainTopRatedSeries(@Query("api_key") String API_KEY);
+    @GET("tv/airing_today?")
+    Call<SerieResultsContainer> obtainAiringTodaySeries(@Query("api_key") String API_KEY);
+
+
     //SEARCH
     @GET("search/movie?")
-    Call<MovieResults> obtainMovies(@QueryMap Map<String, String> options);
+    Call<MovieResultsContainer> obtainMovies(@QueryMap Map<String, String> options);
+
+
 
     interface APICallback{
         void onSuccess(Object result);

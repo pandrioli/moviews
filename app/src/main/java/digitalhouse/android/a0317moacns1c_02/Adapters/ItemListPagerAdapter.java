@@ -11,13 +11,11 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
  * Created by Pablo on 23/05/2017.
  */
 
-public class MovieListPageAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+public class ItemListPagerAdapter extends FragmentStatePagerAdapter {
     private Bundle[] bundleList;
 
-    public MovieListPageAdapter(FragmentManager fm, Bundle[] bundleList, int NumOfTabs) {
+    public ItemListPagerAdapter(FragmentManager fm, Bundle[] bundleList) {
         super(fm);
-        this.mNumOfTabs = NumOfTabs;
         this.bundleList = bundleList;
     }
 
@@ -31,6 +29,11 @@ public class MovieListPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return bundleList.length;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return bundleList[position].getString(ItemListFragment.TITLE_KEY);
     }
 }

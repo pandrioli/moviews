@@ -3,9 +3,9 @@ package digitalhouse.android.a0317moacns1c_02.DAO;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.RetrofitTMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieImages;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResults;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieVideos;
 import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;
@@ -20,16 +20,16 @@ public class MovieDAO {
         this.client = ServiceGenerator.createService(TMDBClient.class);
     }
     public void obtainPopular(TMDBClient.APICallback callback) {
-        Call<MovieResults> call = client.obtainPopularMovies(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<MovieResults>(callback));
+        Call<MovieResultsContainer> call = client.obtainPopularMovies(TMDBClient.API_KEY);
+        call.enqueue(new RetrofitTMDBCallBack<MovieResultsContainer>(callback));
     }
     public void obtainNowPlaying(TMDBClient.APICallback callback) {
-        Call<MovieResults> call = client.obtainNowPlayingMovies(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<MovieResults>(callback));
+        Call<MovieResultsContainer> call = client.obtainNowPlayingMovies(TMDBClient.API_KEY);
+        call.enqueue(new RetrofitTMDBCallBack<MovieResultsContainer>(callback));
     }
     public void obtainUpcoming(TMDBClient.APICallback callback) {
-        Call<MovieResults> call = client.obtainUpcomingMovies(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<MovieResults>(callback));
+        Call<MovieResultsContainer> call = client.obtainUpcomingMovies(TMDBClient.API_KEY);
+        call.enqueue(new RetrofitTMDBCallBack<MovieResultsContainer>(callback));
     }
     public void obtainDetails(Integer id, TMDBClient.APICallback callback) {
         Call<MovieDetails> call = client.obtainMovieDetails(id.toString(), TMDBClient.API_KEY);

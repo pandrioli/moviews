@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallBack;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.DAO.SearchDAO;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Helpers.RequestsMapper;
@@ -30,6 +30,6 @@ public class SearchController {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("api_key", TMDBClient.API_KEY);
         parameters = RequestsMapper.map(movieSearchRequest, parameters);
-        searchDAO.searchMovies(parameters, new MovieResultsCallBack(callback));
+        searchDAO.searchMovies(parameters, new MovieResultsCallback(callback));
     }
 }
