@@ -42,10 +42,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             @Override
             public void onSuccess(Object result) {
                 ArrayList<ImageListItem> imageList = (ArrayList<ImageListItem>) result;
-                Bundle bundle = new Bundle();
-                bundle.putString(ImageListFragment.TITLE_KEY, "Images");
-                bundle.putParcelableArrayList(ImageListFragment.IMAGE_LIST_KEY, imageList);
-                startPersonDetailsImageFragment(bundle);
+                startPersonDetailsImageFragment(imageList, "Images");
             }
         });
         PersonController.getInstance().getMovieCreditsImageList(id, new TMDBClient.APICallback() {
@@ -76,11 +73,10 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         ft.replace(R.id.frameLayoutPDBio, bioFragment);
         ft.commit();
     }
-    private void startPersonDetailsImageFragment(Bundle bundle) {
+    private void startPersonDetailsImageFragment(ArrayList<ImageListItem> imageList, String title) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ImageListFragment imgFragment = new ImageListFragment();
-        imgFragment.setArguments(bundle);
+        ImageListFragment imgFragment = ImageListFragment.newInstance(imageList, title);
         ft.replace(R.id.frameLayoutPDImages, imgFragment);
         ft.commit();
     }

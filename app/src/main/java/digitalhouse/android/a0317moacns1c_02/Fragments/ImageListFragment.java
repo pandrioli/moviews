@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -33,6 +34,24 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
         // Required empty public constructor
     }
 
+    public static ImageListFragment newInstance(ArrayList<ImageListItem> imageList, String title){
+        ImageListFragment fragment = new ImageListFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(IMAGE_LIST_KEY ,imageList);
+        args.putString(TITLE_KEY, title);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            imageList = getArguments().getParcelableArrayList(IMAGE_LIST_KEY);
+            title = getArguments().getString(TITLE_KEY);
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,14 +59,11 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_image_list, container, false);
         ButterKnife.bind(view);
-        Bundle bundle = getArguments();
-        imageList = bundle.getParcelableArrayList(IMAGE_LIST_KEY);
         adapter = new ImageListRecyclerAdapter(imageList, getContext(), this);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerViewPersons);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
-        title = bundle.getString(TITLE_KEY);
         ((TextView)view.findViewById(R.id.textViewPersonListTitle)).setText(title);
         return view;
     }

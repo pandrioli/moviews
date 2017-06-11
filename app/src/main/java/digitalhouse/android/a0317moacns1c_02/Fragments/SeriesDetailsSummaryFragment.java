@@ -12,10 +12,10 @@ import digitalhouse.android.a0317moacns1c_02.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SeriesDetailsSummary extends Fragment {
+public class SeriesDetailsSummaryFragment extends Fragment {
 
 
-    public SeriesDetailsSummary() {
+    public SeriesDetailsSummaryFragment() {
         // Required empty public constructor
     }
 
