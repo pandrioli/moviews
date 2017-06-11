@@ -36,7 +36,6 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     @BindView(R.id.toolbar_editText) protected EditText searchEditText;
     @BindView(R.id.tab_act_toolbar) protected Toolbar toolbar;
 
-    public static final String MODE_KEY = "mode";
     private ArrayList<ListItem> itemList;
     private Bundle[] bundleList;
     private Integer loadedCounter;
@@ -50,22 +49,8 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         tabLayoutModes.addOnTabSelectedListener(new TabModeListener());
-
-        Bundle bundle = getIntent().getExtras();
-        if (bundle==null) { // si no hay bundle cargar movies
-            loadMovies();
-        } else {
-            String mode = bundle.getString(MODE_KEY); // obtener modo de la activity
-            // cargar movies o series y seleccionar tab según modo recibido
-            if (mode.equals("movies")) {
-                tabLayoutModes.setScrollPosition(0,0f,true);
-                loadMovies();
-            }
-            if (mode.equals("series")) {
-                tabLayoutModes.setScrollPosition(1,0f,true);
-                loadSeries();
-            }
-        }
+        searchEditText.setHint("Search movies...");
+        loadMovies();
     }
 
     private void loadMovies() {
@@ -210,7 +195,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
                 if(searchEditText.getVisibility() == View.VISIBLE && !searchEditText.getText().toString().isEmpty()){
                     Intent intent = new Intent(this, SearchActivity.class);
                     intent.putExtra(SearchActivity.SEARCH_ACTIVITY_QUERY_TAG, searchEditText.getText().toString());
-                    intent.putExtra(SearchActivity.SEARCH_ACTION_TAG, SearchActivity.SEARCH_TYPE.MOVIES);
+                    intent.putExtra(SearchActivity.SEARCH_ACTION_TAG, tabLayoutModes.getSelectedTabPosition());
                     startActivity(intent);
                 }
                 else
@@ -235,22 +220,14 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
 
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
-            Bundle bundle = new Bundle();
-            Intent intent = new Intent(ItemTabsActivity.this, ItemTabsActivity.class);
-            // la activity se llama a sí misma con el bundle correspondiente al tab seleccionado
-            // TODO: itemTabsFragment en lugar de hacer esto todo en la misma activity???
             switch (tab.getPosition()) {
                 case 0:
-                    bundle.putString(MODE_KEY, "movies");
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    finish();
+                    searchEditText.setHint("Search movies...");
+                    loadMovies();
                     break;
                 case 1:
-                    bundle.putString(MODE_KEY, "series");
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    finish();
+                    searchEditText.setHint("Search series...");
+                    loadSeries();
                     break;
             }
         }

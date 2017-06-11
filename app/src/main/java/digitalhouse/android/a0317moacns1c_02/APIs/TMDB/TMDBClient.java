@@ -14,6 +14,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonImages;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieVideos;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonMovieCredits;
+import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -102,7 +103,10 @@ public interface TMDBClient {
     //SEARCH
     @GET("search/movie?")
     Call<MovieResultsContainer> obtainMovies(@QueryMap Map<String, String> options);
-
+    @GET("search/tv?")
+    Call<SerieResultsContainer> obtainSeries(@QueryMap Map<String, String> options);
+    @GET("search/person?")
+    Call<PersonResultsContainer> obtainPeople(@QueryMap Map<String, String> options);
 
 
     interface APICallback{

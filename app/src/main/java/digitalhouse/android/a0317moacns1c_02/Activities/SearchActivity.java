@@ -20,8 +20,11 @@ import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
+import digitalhouse.android.a0317moacns1c_02.Model.Requests.PersonSearchRequest;
+import digitalhouse.android.a0317moacns1c_02.Model.Requests.SerieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Controller.SearchController;
 
@@ -64,8 +67,8 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         }
 
         tabLayout.addTab(tabLayout.newTab().setText("Movies"));
-        tabLayout.addTab(tabLayout.newTab().setText("SerieResult"));
-        tabLayout.addTab(tabLayout.newTab().setText("Actors"));
+        tabLayout.addTab(tabLayout.newTab().setText("Series"));
+        tabLayout.addTab(tabLayout.newTab().setText("People"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         setSupportActionBar(toolbar);
@@ -78,21 +81,21 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         adapter = new SearchPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 currentTab = viewPager.getCurrentItem();
                 switch (currentTab){
                     case 1:
-                        searchEditText.setHint("Search SerieResult...");
+                        searchEditText.setHint("Search series...");
                         break;
                     case 2:
-                        searchEditText.setHint("Search Actors...");
+                        searchEditText.setHint("Search people...");
                         break;
                     case 0:
                     default:
-                        searchEditText.setHint("Search Movies...");
+                        searchEditText.setHint("Search movies...");
                         break;
                 }
             }
@@ -114,6 +117,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
 
     //Mas adelate voy a agregar todas las opciones de busqueda, por eso los diferentes requests
     private void onButtonSearchPressed(String query){
+        // buscar movies
         MovieSearchRequest movieSearchRequest = new MovieSearchRequest(query);
         SearchController.getInstance().searchMovies(movieSearchRequest, new TMDBClient.APICallback() {
             @Override
@@ -127,13 +131,35 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
                 adapter.notifyDataSetChanged();
             }
         });
+        // buscar series
+        SerieSearchRequest serieSearchRequest = new SerieSearchRequest(query);
+        SearchController.getInstance().searchSeries(serieSearchRequest, new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                ItemListFragment itemListFragment = new ItemListFragment();
+                Bundle bundle = new Bundle();
+                ArrayList<Parcelable> serieList = (ArrayList<Parcelable>) result;
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, serieList);
+                itemListFragment.setArguments(bundle);
+                adapter.getFragments().set(1, itemListFragment);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        // buscar gente
+        PersonSearchRequest personSearchRequest = new PersonSearchRequest(query);
+        SearchController.getInstance().searchPeople(personSearchRequest, new TMDBClient.APICallback() {
+            @Override
+            public void onSuccess(Object result) {
+                ItemListFragment itemListFragment = new ItemListFragment();
+                Bundle bundle = new Bundle();
+                ArrayList<Parcelable> personList = (ArrayList<Parcelable>) result;
+                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, personList);
+                itemListFragment.setArguments(bundle);
+                adapter.getFragments().set(2, itemListFragment);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
-
-        //adapter.getMovieFragment().realoadList(movieSearchRequest);
-        //TODO: crear request de actores y cambiar el null de abajo por el request
-        //adapter.getActorsFragment().realoadList(null);
-        //TODO: crear request de series y cambiar el null de abajo por el request
-        //adapter.getSeriesFragment().realoadList(null);
     }
 
     @Override
@@ -159,10 +185,22 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
 
     @Override
     public void onClick(ListItem listItem) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
-        Intent intent = new Intent(this, MovieDetailsActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        if (listItem.getType().equals("movie")) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
+            Intent intent = new Intent(this, MovieDetailsActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        if (listItem.getType().equals("serie")) {
+
+        }
+        if (listItem.getType().equals("person")) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, listItem.getId());
+            Intent intent = new Intent(this, PersonDetailsActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 }

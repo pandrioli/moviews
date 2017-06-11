@@ -3,6 +3,8 @@ package digitalhouse.android.a0317moacns1c_02.Helpers;
 import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
+import digitalhouse.android.a0317moacns1c_02.Model.Requests.PersonSearchRequest;
+import digitalhouse.android.a0317moacns1c_02.Model.Requests.SerieSearchRequest;
 
 /**
  * Created by Gregorio Martin on 27/5/2017.
@@ -33,4 +35,26 @@ public class RequestsMapper {
 
         return target;
     }
+
+    public static Map<String, String> map(SerieSearchRequest serieSearchRequest, Map<String, String> target){
+        if(serieSearchRequest.getLenguage() != null)
+            target.put("lenguage", serieSearchRequest.getLenguage());
+
+        target.put("query", serieSearchRequest.getQuery());
+
+        if(serieSearchRequest.getPage() != null)
+            target.put("page", serieSearchRequest.getPage().toString());
+
+        if(serieSearchRequest.getFirst_air_date_year() != null)
+            target.put("first_air_date_year", serieSearchRequest.getFirst_air_date_year().toString());
+
+        return target;
+    }
+
+    public static Map<String, String> map(PersonSearchRequest personSearchRequest, Map<String, String> target) {
+        target.put("query", personSearchRequest.getQuery());
+        //TODO: campos que faltan para la query completa
+        return target;
+    }
+
 }

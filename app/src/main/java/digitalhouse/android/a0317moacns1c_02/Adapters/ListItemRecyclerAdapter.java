@@ -12,9 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -50,7 +48,7 @@ public class ListItemRecyclerAdapter extends RecyclerView.Adapter implements Vie
         movieViewHolder.year.setText(listItem.getYear());
         movieViewHolder.genres.setText(listItem.getGenres());
         movieViewHolder.rating.setText(listItem.getRating());
-        Picasso.with(context).load(listItem.getPosterURL()).fit().centerInside().into(movieViewHolder.poster);
+        Picasso.with(context).load(listItem.getImageURL()).fit().centerInside().into(movieViewHolder.poster);
     }
 
     public void onClick(View v) {

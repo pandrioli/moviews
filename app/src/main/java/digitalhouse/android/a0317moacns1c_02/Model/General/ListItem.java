@@ -3,8 +3,6 @@ package digitalhouse.android.a0317moacns1c_02.Model.General;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 /**
  * Created by Pablo on 22/05/2017.
  */
@@ -15,7 +13,7 @@ public class ListItem implements Parcelable {
     private String year;
     private String genres;
     private String rating;
-    private String posterURL;
+    private String imageURL;
     private String type;
 
     public ListItem() {
@@ -62,12 +60,12 @@ public class ListItem implements Parcelable {
         this.rating = rating;
     }
 
-    public String getPosterURL() {
-        return posterURL;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setPosterURL(String posterURL) {
-        this.posterURL = posterURL;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getType() {
@@ -84,7 +82,7 @@ public class ListItem implements Parcelable {
         year = in.readString();
         genres = in.readString();
         rating = in.readString();
-        posterURL = in.readString();
+        imageURL = in.readString();
         type = in.readString();
     }
 
@@ -95,7 +93,7 @@ public class ListItem implements Parcelable {
         dest.writeString(year);
         dest.writeString(genres);
         dest.writeString(rating);
-        dest.writeString(posterURL);
+        dest.writeString(imageURL);
         dest.writeString(type);
     }
 
