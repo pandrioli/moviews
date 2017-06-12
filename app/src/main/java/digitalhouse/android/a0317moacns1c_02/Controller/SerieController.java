@@ -1,10 +1,8 @@
 package digitalhouse.android.a0317moacns1c_02.Controller;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.SerieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.DAO.SerieDAO;
-import digitalhouse.android.a0317moacns1c_02.Model.Requests.PopularSeriesRequest;
 
 /**
  * Created by Gregorio Martin on 4/6/2017.
@@ -31,6 +29,18 @@ public class SerieController {
     }
     public void getAiringToday(TMDBClient.APICallback callback) {
         seriesDAO.obtainAiringToday(new SerieResultsCallback(callback));
+    }
+
+    public void getDetails(String ID, TMDBClient.APICallback callback){
+        seriesDAO.obtainDetails(ID, callback);
+    }
+
+    public void getImages(String ID, TMDBClient.APICallback callback){
+        seriesDAO.obtainImages(ID, callback);
+    }
+
+    public void getCredits(String ID, TMDBClient.APICallback callback){
+        seriesDAO.obtainCredits(ID, callback);
     }
 
 }

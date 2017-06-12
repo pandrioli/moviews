@@ -42,7 +42,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             @Override
             public void onSuccess(Object result) {
                 ArrayList<ImageListItem> imageList = (ArrayList<ImageListItem>) result;
-                startPersonDetailsImageFragment(imageList, "Images");
+                startPersonDetailsImageFragment(imageList, "ImagesContainer");
             }
         });
         PersonController.getInstance().getMovieCreditsImageList(id, new TMDBClient.APICallback() {

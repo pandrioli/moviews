@@ -1,5 +1,8 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Series;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -8,30 +11,70 @@ import java.util.List;
  * Created by Gregorio Martin on 4/6/2017.
  */
 
-public class SerieResult {
+public class SerieResult implements Parcelable {
 
     @SerializedName("poster_path")
-    private String posterPath;
-    private Double popularity;
-    private Integer id;
+    protected String posterPath;
+    protected Double popularity;
+    protected Integer id;
     @SerializedName("backdrop_path")
-    private String backdropPath;
+    protected String backdropPath;
     @SerializedName("vote_average")
-    private Double voteAverage;
-    private String overview;
+    protected Double voteAverage;
+    protected String overview;
     @SerializedName("first_air_date")
-    private String firstAirDate;
+    protected String firstAirDate;
     @SerializedName("origin_country")
-    private List<String> originCountries;
+    protected List<String> originCountries;
     @SerializedName("genre_ids")
-    private List<Integer> genreIds;
-    @SerializedName("original_lenguage")
-    private String originalLenguage;
+    protected List<Integer> genreIds;
+    @SerializedName("original_language")
+    protected String originalLanguage;
     @SerializedName("vote_count")
-    private Integer voteCount;
-    private String name;
+    protected Integer voteCount;
+    protected String name;
     @SerializedName("original_name")
-    private String originalName;
+    protected String originalName;
+
+    protected SerieResult(Parcel in) {
+        posterPath = in.readString();
+        backdropPath = in.readString();
+        overview = in.readString();
+        firstAirDate = in.readString();
+        originCountries = in.createStringArrayList();
+        originalLanguage = in.readString();
+        name = in.readString();
+        originalName = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(posterPath);
+        dest.writeString(backdropPath);
+        dest.writeString(overview);
+        dest.writeString(firstAirDate);
+        dest.writeStringList(originCountries);
+        dest.writeString(originalLanguage);
+        dest.writeString(name);
+        dest.writeString(originalName);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<SerieResult> CREATOR = new Creator<SerieResult>() {
+        @Override
+        public SerieResult createFromParcel(Parcel in) {
+            return new SerieResult(in);
+        }
+
+        @Override
+        public SerieResult[] newArray(int size) {
+            return new SerieResult[size];
+        }
+    };
 
     public String getPosterPath() {
         return posterPath;
@@ -105,12 +148,12 @@ public class SerieResult {
         this.genreIds = genreIds;
     }
 
-    public String getOriginalLenguage() {
-        return originalLenguage;
+    public String getOriginalLanguage() {
+        return originalLanguage;
     }
 
-    public void setOriginalLenguage(String originalLenguage) {
-        this.originalLenguage = originalLenguage;
+    public void setOriginalLanguage(String originalLenguage) {
+        this.originalLanguage = originalLenguage;
     }
 
     public Integer getVoteCount() {

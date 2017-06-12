@@ -1,0 +1,63 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.+.com/apk/res-auto"
+    android:layout_margin="4dp"
+    android:orientation="vertical"
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsTitleFragment"
+    app:cardCornerRadius="2dp">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/frameLayoutSDBackdrop">
+                <ImageView
+                    android:id="@+id/imageViewSDBackDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Al aire"
+                        android:padding="3dp"
+                        android:textSize="12sp"
+                        android:visibility="visible"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/pop_on_the_air"
+                        android:textColor="#FFFF"
+                        android:id="@+id/textViewSDOnTheAir"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:background="#96000000"
+                        android:textColor="#fff"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:text="Alien: Recontra contrataca por decimo octava novena vez"
+                        android:id="@+id/textViewSDTitle"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#96000000"
+                        android:textColor="#fff"
+                        android:textSize="12sp"
+                        android:text="Horror | Sci-Fi | ThrillerHorror"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="2dp"
+                        android:id="@+id/textViewSDGenres" />
+                    </LinearLayout>
+
+            </FrameLayout>
+
+</android.support.v7.widget.CardView>

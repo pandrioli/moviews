@@ -11,22 +11,19 @@ import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
  * Created by Pablo on 27/05/2017.
  */
 
-public class PersonDetails implements Parcelable {
+public class PersonDetails extends PersonBase implements Parcelable {
     public static final String tag = "personDetails";
     private Boolean adult;
     private String biography;
     private String birthday;
     private String deathday;
-    private Integer gender;
     private String homepage;
-    private Integer id;
     private String imdb_id;
-    private String name;
     private String place_of_birth;
     private Double popularity;
-    private String profile_path;
 
     protected PersonDetails(Parcel in) {
+        super(in);
         biography = in.readString();
         birthday = in.readString();
         deathday = in.readString();
@@ -47,6 +44,8 @@ public class PersonDetails implements Parcelable {
         dest.writeString(name);
         dest.writeString(place_of_birth);
         dest.writeString(profile_path);
+        dest.writeInt(gender);
+        dest.writeInt(id);
     }
 
     @Override

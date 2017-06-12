@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -158,7 +157,11 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             startActivity(intent);
         }
         if (listItem.getType().equals("serie")) {
-            //TODO: ir a serie details
+            Intent intent = new Intent(this, SerieDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(SerieDetailsActivity.SERIE_ID_KEY, listItem.getId().toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 

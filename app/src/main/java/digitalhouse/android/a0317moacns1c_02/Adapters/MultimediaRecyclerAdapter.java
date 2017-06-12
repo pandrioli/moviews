@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -21,9 +22,9 @@ import digitalhouse.android.a0317moacns1c_02.R;
 public class MultimediaRecyclerAdapter extends RecyclerView.Adapter<MultimediaRecyclerAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<String> mDataSet;
+    private List<String> mDataSet;
 
-    public MultimediaRecyclerAdapter(Context context, ArrayList<String> myDataSet){
+    public MultimediaRecyclerAdapter(Context context, List<String> myDataSet){
         this.context = context;
         mDataSet = myDataSet;
     }

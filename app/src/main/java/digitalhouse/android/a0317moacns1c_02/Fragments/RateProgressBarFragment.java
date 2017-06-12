@@ -70,11 +70,13 @@ public class RateProgressBarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rate_progress_bar, container, false);
 
+        unbinder = ButterKnife.bind(this, view);
+
         progressBar.setProgress(rating);
         textViewRateSource.setText(rateSource);
-        textViewRating.setText(rating);
+        textViewRating.setText(rating.toString());
 
-        unbinder = ButterKnife.bind(this, view);
+
 
         return view;
     }

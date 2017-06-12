@@ -7,9 +7,9 @@ import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Cast;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieImages;
 import digitalhouse.android.a0317moacns1c_02.DAO.MovieDAO;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageMapper;
@@ -18,7 +18,7 @@ import digitalhouse.android.a0317moacns1c_02.Helpers.ImageMapper;
  * Created by Pablo on 03/06/2017.
  */
 
-public class MovieController extends ObtainerController {
+public class MovieController {
     private MovieDAO movieDAO;
     private static MovieController instance;
 
@@ -53,8 +53,8 @@ public class MovieController extends ObtainerController {
         getImages(id, new TMDBClient.APICallback() {
             @Override
             public void onSuccess(Object result) {
-                MovieImages movieImages = (MovieImages) result;
-                List<ImageData> imageList = movieImages.getBackdrops();
+                ImagesContainer imagesContainer = (ImagesContainer) result;
+                List<ImageData> imageList = imagesContainer.getBackdrops();
                 ArrayList<String> URLsArray = ImageMapper.map(imageList);
                 callback.onSuccess(URLsArray);
             }

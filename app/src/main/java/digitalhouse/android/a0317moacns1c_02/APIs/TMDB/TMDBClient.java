@@ -2,6 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import java.util.Map;
 
+import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
@@ -9,7 +10,6 @@ import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Request
 import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
 import digitalhouse.android.a0317moacns1c_02.Model.Configuration.Config;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieImages;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonImages;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieVideos;
@@ -55,7 +55,7 @@ public interface TMDBClient {
 
     //Obtener imagenes de película
     @GET("movie/{movie_id}/images?")
-    Call<MovieImages> obtainMovieImages(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+    Call<ImagesContainer> obtainMovieImages(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener videos
     @GET("movie/{movie_id}?")
@@ -88,16 +88,6 @@ public interface TMDBClient {
     //Obtener peliculas en las que trabajo (movie credits)
     @GET("person/{person_id}/movie_credits?")
     Call<PersonMovieCredits> obtainPersonMovieCredits(@Path("person_id") String person_id, @Query("api_key") String API_KEY);
-
-    //SERIES
-
-    //Obtener series populares
-    @GET("tv/popular?")
-    Call<SerieResultsContainer> obtainPopularSeries(@Query("api_key") String API_KEY);
-    @GET("tv/top_rated?")
-    Call<SerieResultsContainer> obtainTopRatedSeries(@Query("api_key") String API_KEY);
-    @GET("tv/airing_today?")
-    Call<SerieResultsContainer> obtainAiringTodaySeries(@Query("api_key") String API_KEY);
 
 
     //SEARCH

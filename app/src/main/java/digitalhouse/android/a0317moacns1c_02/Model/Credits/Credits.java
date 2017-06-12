@@ -4,6 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
 
 /**
  * Created by Pablo on 25/05/2017.
@@ -63,4 +68,19 @@ public class Credits implements Parcelable {
     public void setCrew(ArrayList<Crew> crew) {
         this.crew = crew;
     }
+
+    public ArrayList<ImageListItem> getImageListItems(){
+        ArrayList<ImageListItem> imageList = new ArrayList<>();
+        for (Cast castPerson : cast) {
+            ImageListItem imageListItem = new ImageListItem();
+            imageListItem.setId(castPerson.getId());
+            imageListItem.setTitle(castPerson.getName());
+            imageListItem.setSubtitle(castPerson.getCharacter());
+            String url = ImageHelper.getProfileURL(castPerson.getProfile_path(), 1);
+            imageListItem.setImageURL(url);
+            imageList.add(imageListItem);
+        }
+        return imageList;
+    }
+
 }

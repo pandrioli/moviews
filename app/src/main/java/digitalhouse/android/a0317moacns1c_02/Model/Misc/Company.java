@@ -3,6 +3,8 @@ package digitalhouse.android.a0317moacns1c_02.Model.Misc;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Created by dh3 on 24/05/17.
  */
@@ -19,6 +21,17 @@ public class Company implements Parcelable{
     public Company(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public static String getCompaniesInString(List<Company> companyList, String separator){
+        String companies = "";
+        if (!companyList.isEmpty()) {
+            companies = companyList.get(0).getName();
+            for (int i=1; i<companyList.size(); i++) {
+                companies += separator + companyList.get(i).getName();
+            }
+        }
+        return companies;
     }
 
     protected Company(Parcel in) {

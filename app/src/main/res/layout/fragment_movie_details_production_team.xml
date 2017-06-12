@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="14dp"
     android:orientation="vertical"
-    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsPosterTitleFragment$MovieDetailsProductionTeamFragment">
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsTitleFragment$MovieDetailsProductionTeamFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

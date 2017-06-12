@@ -3,34 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
+    android:layout_margin="4dp"
     tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsSummaryFragment"
     app:cardCornerRadius="2dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
         <TextView
             android:id="@+id/SDSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="Summary: "
-            android:textSize="18dp"
             android:layout_below="@+id/imageViewSDPoster"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            android:layout_gravity="start"
+            android:layout_marginBottom="5dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:text="Summary"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/textViewSDSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/SDSummary"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
             android:text="Set to the all-new sonic backdrop of Awesome Mixtape #2, Marvel Studios' Guardians of the Galaxy Vol. 2 continues the team's adventures as they traverse the outer reaches of the cosmos. The Guardians must fight to keep their newfound family together as they unravel the mystery of Peter Quill's true parentage. Old foes become new allies and fan-favorite characters from the classic comics will come to our heroes' aid as the Marvel Cinematic Universe continues to expand."
-            android:textSize="14dp" />
+            android:textSize="12sp"/>
 
     </LinearLayout>
 
