@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonCastCreditItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonCrewCreditItem;
+import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonImages;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonMovieCredits;
 import digitalhouse.android.a0317moacns1c_02.DAO.PersonDAO;
@@ -28,16 +31,15 @@ public class PersonController {
 
     public PersonController() {personDAO = new PersonDAO();}
 
-    public void getDetails(Integer id, TMDBClient.APICallback callback) {
-        personDAO.obtainDetails(id, callback);
+    public void getDetails(Integer id, ResultListener<PersonDetails> resultListener) {
+        personDAO.obtainDetails(id, resultListener);
     }
 
-    public void getImageList(Integer id, final TMDBClient.APICallback callback) {
-        personDAO.obtainImages(id, new TMDBClient.APICallback() {
+    public void getImageList(Integer id, final ResultListener<ArrayList<ImageListItem>> resultListener) {
+        personDAO.obtainImages(id, new ResultListener<PersonImages>() {
             @Override
-            public void onSuccess(Object result) {
-                PersonImages personImages = (PersonImages) result;
-                List<ImageListItem> imageList = new ArrayList<>();
+            public void finish(PersonImages personImages) {
+                ArrayList<ImageListItem> imageList = new ArrayList<>();
                 for (ImageData imageData : personImages.getProfiles()) {
                     ImageListItem imageListItem = new ImageListItem();
                     imageListItem.setImageURL(ImageHelper.getProfileURL(imageData.getFile_path(), 1));
@@ -46,17 +48,16 @@ public class PersonController {
                 }
                 // saca la primer imagen porque es igual a la de la foto de perfil
                 if (imageList.size()>0) imageList.remove(0);
-                callback.onSuccess(imageList);
+                resultListener.finish(imageList);
             }
         });
     }
 
-    public void getMovieCreditsImageList(Integer id, final TMDBClient.APICallback callback) {
-        personDAO.obtainMovieCredits(id, new TMDBClient.APICallback() {
+    public void getMovieCreditsImageList(Integer id, final ResultListener<ArrayList<ImageListItem>> resultListener) {
+        personDAO.obtainMovieCredits(id, new ResultListener<PersonMovieCredits>() {
             @Override
-            public void onSuccess(Object result) {
-                PersonMovieCredits movieCredits = (PersonMovieCredits) result;
-                List<ImageListItem> imageList = new ArrayList<ImageListItem>();
+            public void finish(PersonMovieCredits movieCredits) {
+                ArrayList<ImageListItem> imageList = new ArrayList<ImageListItem>();
                 for (PersonCastCreditItem cast : movieCredits.getCast()) {
                     ImageListItem imageListItem = new ImageListItem();
                     imageListItem.setId(cast.getId());
@@ -73,7 +74,7 @@ public class PersonController {
                     imageListItem.setImageURL(ImageHelper.getPosterURL(crew.getPoster_path(), 1));
                     imageList.add(imageListItem);
                 }
-                callback.onSuccess(imageList);
+                resultListener.finish(imageList);
             }
         });
     }

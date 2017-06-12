@@ -2,7 +2,8 @@ package digitalhouse.android.a0317moacns1c_02.DAO;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.SeriesClient;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Callbacks.RetrofitTMDBCallBack;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
@@ -21,34 +22,34 @@ public class SerieDAO {
         this.client = ServiceGenerator.createService(SeriesClient.class);
     }
 
-    public void obtainPopular(TMDBClient.APICallback callback){
+    public void obtainPopular(ResultListener<SerieResultsContainer> resultListener){
         Call<SerieResultsContainer> call = client.obtainPopularSeries(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<SerieResultsContainer>(callback));
+        call.enqueue(new TMDBCallBack<SerieResultsContainer>(resultListener));
     }
 
-    public void obtainTopRated(TMDBClient.APICallback callback) {
+    public void obtainTopRated(ResultListener<SerieResultsContainer> resultListener) {
         Call<SerieResultsContainer> call = client.obtainTopRatedSeries(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<SerieResultsContainer>(callback));
+        call.enqueue(new TMDBCallBack<SerieResultsContainer>(resultListener));
     }
 
-    public void obtainAiringToday(TMDBClient.APICallback callback) {
+    public void obtainAiringToday(ResultListener<SerieResultsContainer> resultListener) {
         Call<SerieResultsContainer> call = client.obtainAiringTodaySeries(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<SerieResultsContainer>(callback));
+        call.enqueue(new TMDBCallBack<SerieResultsContainer>(resultListener));
     }
 
-    public void obtainDetails(String ID, TMDBClient.APICallback callback){
+    public void obtainDetails(String ID, ResultListener<Serie> resultListener){
         Call<Serie> call = client.obtainDetails(ID, TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<Serie>(callback));
+        call.enqueue(new TMDBCallBack<Serie>(resultListener));
     }
 
-    public void obtainImages(String ID, TMDBClient.APICallback callback){
+    public void obtainImages(String ID, ResultListener<ImagesContainer> resultListener){
         Call<ImagesContainer> call = client.obtainImages(ID, TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<ImagesContainer>(callback));
+        call.enqueue(new TMDBCallBack<ImagesContainer>(resultListener));
     }
 
-    public void obtainCredits(String ID, TMDBClient.APICallback callback){
+    public void obtainCredits(String ID, ResultListener<Credits> resultListener){
         Call<Credits> call = client.obtainCredits(ID, TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<Credits>(callback));
+        call.enqueue(new TMDBCallBack<Credits>(resultListener));
     }
 
 }

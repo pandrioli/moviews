@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ActionsFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
@@ -51,10 +52,10 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
         Bundle bundleReceived = getIntent().getExtras();
         String id = bundleReceived.getString(SERIE_ID_KEY);
 
-        SerieController.getInstance().getDetails(id.toString(), new TMDBClient.APICallback() {
+        SerieController.getInstance().getDetails(id.toString(), new ResultListener<Serie>() {
             @Override
-            public void onSuccess(Object result) {
-                serie = (Serie) result;
+            public void finish(Serie result) {
+                serie = result;
                 startTitleFargment();
                 startSummaryFragment(serie.getOverview());
                 startInfoFragment();
@@ -63,18 +64,16 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
             }
         });
 
-        SerieController.getInstance().getImages(id, new TMDBClient.APICallback() {
+        SerieController.getInstance().getImages(id, new ResultListener<ImagesContainer>() {
             @Override
-            public void onSuccess(Object result) {
-                ImagesContainer imagesContainer = (ImagesContainer) result;
+            public void finish(ImagesContainer imagesContainer) {
                 startMediaListFragment(imagesContainer);
             }
         });
 
-        SerieController.getInstance().getCredits(id, new TMDBClient.APICallback() {
+        SerieController.getInstance().getCredits(id, new ResultListener<Credits>() {
             @Override
-            public void onSuccess(Object result) {
-                Credits credits = (Credits) result;
+            public void finish(Credits credits) {
                 ArrayList<ImageListItem> imageList = credits.getImageListItems();
                 startCastingFragment(imageList, "Cast");
             }

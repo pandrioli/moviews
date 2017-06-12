@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Controller.ConfigController;
@@ -29,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Carga los datos generales de la API
         //TODO: debería bloquearse la ejecución hasta obtener los datos
-        ConfigController.getInstance().loadConfigData(new TMDBClient.APICallback() {
+        ConfigController.getInstance().loadConfigData(new ResultListener<String>() {
             @Override
-            public void onSuccess(Object result) {
+            public void finish(String result) {
                 String status = generalAPIDataLoadStatus.getText().toString();
                 status += "\r\n" + result.toString();
                 generalAPIDataLoadStatus.setText(status);
@@ -39,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         });
         //Carga la lista de generos de peliculas
         //TODO: debería bloquearse la ejecución hasta obtener los datos
-        GenreController.getInstance().loadMovieGenres(new TMDBClient.APICallback() {
+        GenreController.getInstance().loadMovieGenres(new ResultListener<String>() {
             @Override
-            public void onSuccess(Object result) {
+            public void finish(String result) {
                 String status = generalAPIDataLoadStatus.getText().toString();
                 status += "\r\n" + result.toString();
                 generalAPIDataLoadStatus.setText(status);
@@ -49,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
         });
         //Carga la lista de generos de peliculas
         //TODO: debería bloquearse la ejecución hasta obtener los datos
-        GenreController.getInstance().loadSerieGenres(new TMDBClient.APICallback() {
+        GenreController.getInstance().loadSerieGenres(new ResultListener<String>() {
             @Override
-            public void onSuccess(Object result) {
+            public void finish(String result) {
                 String status = generalAPIDataLoadStatus.getText().toString();
                 status += "\r\n" + result.toString();
                 generalAPIDataLoadStatus.setText(status);

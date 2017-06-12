@@ -11,16 +11,16 @@ import retrofit2.Response;
  * Created by Pablo on 03/06/2017.
  */
 
-public class RetrofitTMDBCallBack<T> implements Callback<T> {
-    private TMDBClient.APICallback callback;
+public class TMDBCallBack<T> implements Callback<T> {
+    private ResultListener<T> resultListener;
 
-    public RetrofitTMDBCallBack(TMDBClient.APICallback callback) {
-        this.callback = callback;
+    public TMDBCallBack(ResultListener<T> resultListener) {
+        this.resultListener = resultListener;
     }
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-        callback.onSuccess(response.body());
+        resultListener.finish(response.body());
     }
 
     // aquí se deberían handlear los errores de la API

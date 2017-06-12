@@ -1,7 +1,8 @@
 package digitalhouse.android.a0317moacns1c_02.DAO;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Callbacks.RetrofitTMDBCallBack;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Configuration.Config;
 import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;
@@ -15,8 +16,8 @@ public class ConfigDAO {
     public ConfigDAO() {
         this.client = ServiceGenerator.createService(TMDBClient.class);
     }
-    public void obtainConfigData(TMDBClient.APICallback callback) {
+    public void obtainConfigData(ResultListener<Config> resultListener) {
         Call<Config> call = client.obtainConfiguration(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<Config>(callback));
+        call.enqueue(new TMDBCallBack<Config>(resultListener));
     }
 }

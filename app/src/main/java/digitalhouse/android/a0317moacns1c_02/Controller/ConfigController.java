@@ -3,6 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Controller;
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.DAO.ConfigDAO;
 import digitalhouse.android.a0317moacns1c_02.Model.Configuration.Config;
 
@@ -49,18 +50,17 @@ public class ConfigController {
         return instance;
     }
 
-    public void loadConfigData(final TMDBClient.APICallback callback) {
+    public void loadConfigData(final ResultListener<String> resultListener) {
         //obtener datos config
-        configDAO.obtainConfigData(new TMDBClient.APICallback() {
+        configDAO.obtainConfigData(new ResultListener<Config>() {
             @Override
-            public void onSuccess(Object result) {
-                Config config = (Config) result;
+            public void finish(Config config) {
                 imagesBaseURL = config.getImages().getBase_url();
                 posterSizes = config.getImages().getPoster_sizes();
                 backdropSizes = config.getImages().getBackdrop_sizes();
                 profileSizes = config.getImages().getProfile_sizes();
                 changeKeys = config.getChange_keys();
-                callback.onSuccess("Config OK");
+                resultListener.finish("Config OK");
             }
         });
     }

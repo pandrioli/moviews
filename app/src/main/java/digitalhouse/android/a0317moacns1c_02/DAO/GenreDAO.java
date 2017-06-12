@@ -1,7 +1,8 @@
 package digitalhouse.android.a0317moacns1c_02.DAO;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Callbacks.RetrofitTMDBCallBack;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;
@@ -15,12 +16,12 @@ public class GenreDAO {
     public GenreDAO() {
         this.client = ServiceGenerator.createService(TMDBClient.class);
     }
-    public void obtainMovieGenres(TMDBClient.APICallback callback) {
+    public void obtainMovieGenres(ResultListener<Genres> resultListener) {
         Call<Genres> call = client.obtainMovieGenres(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<Genres>(callback));
+        call.enqueue(new TMDBCallBack<Genres>(resultListener));
     }
-    public void obtainSerieGenres(TMDBClient.APICallback callback) {
+    public void obtainSerieGenres(ResultListener<Genres> resultListener) {
         Call<Genres> call = client.obtainSerieGenres(TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<Genres>(callback));
+        call.enqueue(new TMDBCallBack<Genres>(resultListener));
     }
 }

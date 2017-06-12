@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.DAO.GenreDAO;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
@@ -26,25 +27,23 @@ public class GenreController {
         return instance;
     }
 
-    public void loadMovieGenres(final TMDBClient.APICallback callback) {
+    public void loadMovieGenres(final ResultListener<String> resultListener) {
         GenreDAO genreDAO = new GenreDAO();
-        genreDAO.obtainMovieGenres(new TMDBClient.APICallback() {
+        genreDAO.obtainMovieGenres(new ResultListener<Genres>() {
             @Override
-            public void onSuccess(Object result) {
-                Genres genres = (Genres) result;
+            public void finish(Genres genres) {
                 movieGenres = genres.getGenres();
-                callback.onSuccess("Movie genres OK");
+                resultListener.finish("Movie genres OK");
             }
         });
     }
-    public void loadSerieGenres(final TMDBClient.APICallback callback) {
+    public void loadSerieGenres(final ResultListener<String> resultListener) {
         GenreDAO genreDAO = new GenreDAO();
-        genreDAO.obtainSerieGenres(new TMDBClient.APICallback() {
+        genreDAO.obtainSerieGenres(new ResultListener<Genres>() {
             @Override
-            public void onSuccess(Object result) {
-                Genres genres = (Genres) result;
+            public void finish(Genres genres) {
                 serieGenres = genres.getGenres();
-                callback.onSuccess("Serie genres OK");
+                resultListener.finish("Serie genres OK");
             }
         });
     }

@@ -3,7 +3,8 @@ package digitalhouse.android.a0317moacns1c_02.DAO;
 import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Callbacks.RetrofitTMDBCallBack;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
@@ -21,18 +22,18 @@ public class SearchDAO {
         this.client = ServiceGenerator.createService(TMDBClient.class);
     }
 
-    public void searchMovies(Map<String, String> parameters, TMDBClient.APICallback callback) {
+    public void searchMovies(Map<String, String> parameters, ResultListener<MovieResultsContainer> resultListener) {
         Call<MovieResultsContainer> call = client.obtainMovies(parameters);
-        call.enqueue(new RetrofitTMDBCallBack<MovieResultsContainer>(callback));
+        call.enqueue(new TMDBCallBack<MovieResultsContainer>(resultListener));
     }
 
-    public void searchSeries(Map<String, String> parameters, TMDBClient.APICallback callback) {
+    public void searchSeries(Map<String, String> parameters, ResultListener<SerieResultsContainer> resultListener) {
         Call<SerieResultsContainer> call = client.obtainSeries(parameters);
-        call.enqueue(new RetrofitTMDBCallBack<SerieResultsContainer>(callback));
+        call.enqueue(new TMDBCallBack<SerieResultsContainer>(resultListener));
     }
 
-    public void searchPeople(Map<String, String> parameters, TMDBClient.APICallback callback) {
+    public void searchPeople(Map<String, String> parameters, ResultListener<PersonResultsContainer> resultListener) {
         Call<PersonResultsContainer> call = client.obtainPeople(parameters);
-        call.enqueue(new RetrofitTMDBCallBack<PersonResultsContainer>(callback));
+        call.enqueue(new TMDBCallBack<PersonResultsContainer>(resultListener));
     }
 }

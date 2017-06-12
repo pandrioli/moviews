@@ -15,11 +15,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.ItemListPagerAdapter;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
@@ -57,10 +59,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         loadedCounter = 0; // flag de carga
 
         //carga de datos
-        MovieController.getInstance().getPopular(new TMDBClient.APICallback() {
+        MovieController.getInstance().getPopular(new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
-                itemList = (ArrayList<ListItem>) result;
+            public void finish(ArrayList<ListItem> itemList) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
                 bundle.putString(ItemListFragment.TITLE_KEY, "Popular");
@@ -70,10 +71,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             }
         });
 
-        MovieController.getInstance().getNowPlaying(new TMDBClient.APICallback() {
+        MovieController.getInstance().getNowPlaying(new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
-                itemList = (ArrayList<ListItem>) result;
+            public void finish(ArrayList<ListItem> itemList) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
                 bundle.putString(ItemListFragment.TITLE_KEY, "Now playing");
@@ -83,10 +83,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             }
         });
 
-        MovieController.getInstance().getUpcoming(new TMDBClient.APICallback() {
+        MovieController.getInstance().getUpcoming(new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
-                itemList = (ArrayList<ListItem>) result;
+            public void finish(ArrayList<ListItem> itemList) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
                 bundle.putString(ItemListFragment.TITLE_KEY, "Upcoming");
@@ -100,10 +99,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     private void loadSeries() {
         bundleList = new Bundle[3];
         loadedCounter = 0;
-        SerieController.getInstance().getPopular(new TMDBClient.APICallback() {
+        SerieController.getInstance().getPopular(new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
-                itemList = (ArrayList<ListItem>) result;
+            public void finish(ArrayList<ListItem> itemList) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
                 bundle.putString(ItemListFragment.TITLE_KEY, "Popular");
@@ -112,10 +110,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
                 loadViewPager();
             }
         });
-        SerieController.getInstance().getTopRated(new TMDBClient.APICallback() {
+        SerieController.getInstance().getTopRated(new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
-                itemList = (ArrayList<ListItem>) result;
+            public void finish(ArrayList<ListItem> itemList) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
                 bundle.putString(ItemListFragment.TITLE_KEY, "Top Rated");
@@ -124,10 +121,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
                 loadViewPager();
             }
         });
-        SerieController.getInstance().getAiringToday(new TMDBClient.APICallback() {
+        SerieController.getInstance().getAiringToday(new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
-                itemList = (ArrayList<ListItem>) result;
+            public void finish(ArrayList<ListItem> itemList) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
                 bundle.putString(ItemListFragment.TITLE_KEY, "Airing today");

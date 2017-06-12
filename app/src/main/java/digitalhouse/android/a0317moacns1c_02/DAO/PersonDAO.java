@@ -1,7 +1,8 @@
 package digitalhouse.android.a0317moacns1c_02.DAO;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Callbacks.RetrofitTMDBCallBack;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonImages;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonMovieCredits;
@@ -17,16 +18,16 @@ public class PersonDAO {
     public PersonDAO() {
         client = ServiceGenerator.createService(TMDBClient.class);
     }
-    public void obtainDetails(Integer id, TMDBClient.APICallback callback) {
+    public void obtainDetails(Integer id, ResultListener<PersonDetails> resultListener) {
         Call<PersonDetails> call = client.obtainPersonDetails(id.toString(), TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<PersonDetails>(callback));
+        call.enqueue(new TMDBCallBack<PersonDetails>(resultListener));
     }
-    public void obtainImages(Integer id, TMDBClient.APICallback callback) {
+    public void obtainImages(Integer id, ResultListener<PersonImages> resultListener) {
         Call<PersonImages> call = client.obtainPersonImages(id.toString(), TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<PersonImages>(callback));
+        call.enqueue(new TMDBCallBack<PersonImages>(resultListener));
     }
-    public void obtainMovieCredits(Integer id, TMDBClient.APICallback callback) {
+    public void obtainMovieCredits(Integer id, ResultListener<PersonMovieCredits> resultListener) {
         Call<PersonMovieCredits> call = client.obtainPersonMovieCredits(id.toString(), TMDBClient.API_KEY);
-        call.enqueue(new RetrofitTMDBCallBack<PersonMovieCredits>(callback));
+        call.enqueue(new TMDBCallBack<PersonMovieCredits>(resultListener));
     }
 }

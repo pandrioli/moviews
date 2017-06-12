@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.PersonController;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
@@ -28,27 +30,24 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         ActivityStackManager.getInstance().addActivity(this);
         Bundle bundleReceived = getIntent().getExtras();
         Integer id = bundleReceived.getInt(PERSON_ID_KEY);
-        PersonController.getInstance().getDetails(id, new TMDBClient.APICallback() {
+        PersonController.getInstance().getDetails(id, new ResultListener<PersonDetails>() {
             @Override
-            public void onSuccess(Object result) {
-                PersonDetails personDetails = (PersonDetails) result;
+            public void finish(PersonDetails personDetails) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(PersonDetails.tag, personDetails);
                 startPersonDetailsInfoFragment(bundle);
                 startPersonDetailsBioFragment(bundle);
             }
         });
-        PersonController.getInstance().getImageList(id, new TMDBClient.APICallback() {
+        PersonController.getInstance().getImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
             @Override
-            public void onSuccess(Object result) {
-                ArrayList<ImageListItem> imageList = (ArrayList<ImageListItem>) result;
-                startPersonDetailsImageFragment(imageList, "ImagesContainer");
+            public void finish(ArrayList<ImageListItem> imageList) {
+                startPersonDetailsImageFragment(imageList, "Images");
             }
         });
-        PersonController.getInstance().getMovieCreditsImageList(id, new TMDBClient.APICallback() {
+        PersonController.getInstance().getMovieCreditsImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
             @Override
-            public void onSuccess(Object result) {
-                ArrayList<ImageListItem> imageList = (ArrayList<ImageListItem>) result;
+            public void finish(ArrayList<ImageListItem> imageList) {
                 Bundle bundle = new Bundle();
                 bundle.putString(ImageListFragment.TITLE_KEY, "Movie credits");
                 bundle.putParcelableArrayList(ImageListFragment.IMAGE_LIST_KEY, imageList);

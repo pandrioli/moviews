@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
@@ -119,12 +120,11 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
     private void onButtonSearchPressed(String query){
         // buscar movies
         MovieSearchRequest movieSearchRequest = new MovieSearchRequest(query);
-        SearchController.getInstance().searchMovies(movieSearchRequest, new TMDBClient.APICallback() {
+        SearchController.getInstance().searchMovies(movieSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
+            public void finish(ArrayList<ListItem> movieList) {
                 ItemListFragment itemListFragment = new ItemListFragment();
                 Bundle bundle = new Bundle();
-                ArrayList<Parcelable> movieList = (ArrayList<Parcelable>) result;
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, movieList);
                 itemListFragment.setArguments(bundle);
                 adapter.getFragments().set(0, itemListFragment);
@@ -133,12 +133,11 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         });
         // buscar series
         SerieSearchRequest serieSearchRequest = new SerieSearchRequest(query);
-        SearchController.getInstance().searchSeries(serieSearchRequest, new TMDBClient.APICallback() {
+        SearchController.getInstance().searchSeries(serieSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
+            public void finish(ArrayList<ListItem> serieList) {
                 ItemListFragment itemListFragment = new ItemListFragment();
                 Bundle bundle = new Bundle();
-                ArrayList<Parcelable> serieList = (ArrayList<Parcelable>) result;
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, serieList);
                 itemListFragment.setArguments(bundle);
                 adapter.getFragments().set(1, itemListFragment);
@@ -147,12 +146,11 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         });
         // buscar gente
         PersonSearchRequest personSearchRequest = new PersonSearchRequest(query);
-        SearchController.getInstance().searchPeople(personSearchRequest, new TMDBClient.APICallback() {
+        SearchController.getInstance().searchPeople(personSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
-            public void onSuccess(Object result) {
+            public void finish(ArrayList<ListItem> personList) {
                 ItemListFragment itemListFragment = new ItemListFragment();
                 Bundle bundle = new Bundle();
-                ArrayList<Parcelable> personList = (ArrayList<Parcelable>) result;
                 bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, personList);
                 itemListFragment.setArguments(bundle);
                 adapter.getFragments().set(2, itemListFragment);

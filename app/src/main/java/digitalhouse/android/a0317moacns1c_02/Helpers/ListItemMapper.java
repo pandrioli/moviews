@@ -54,8 +54,8 @@ public class ListItemMapper {
 
 
     //mapeo de listas
-    public static <T> List<ListItem> map(List<T> results) {
-        List<ListItem> listItems = new ArrayList<>();
+    public static <T> ArrayList<ListItem> map(List<T> results) {
+        ArrayList<ListItem> listItems = new ArrayList<>();
         for (T result : results) {
             if (result instanceof MovieResult) listItems.add(map((MovieResult)result));
             if (result instanceof SerieResult) listItems.add(map((SerieResult)result));
