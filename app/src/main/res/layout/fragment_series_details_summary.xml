@@ -20,7 +20,6 @@
             android:id="@+id/SDSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageViewSDPoster"
             android:layout_gravity="start"
             android:layout_marginBottom="5dp"
             android:paddingBottom="12dp"

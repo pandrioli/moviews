@@ -6,11 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -29,6 +33,7 @@ public class SeriesDetailsInfoFragment extends Fragment {
     @BindView(R.id.textViewSDLaunchCont) protected TextView launchDate;
     @BindView(R.id.textViewSDSeasonsCont) protected TextView numberOfSeasons;
     @BindView(R.id.textViewSDChaptersCont) protected TextView numberOfChapters;
+    @BindView(R.id.imageViewPoster) protected ImageView poster;
 
 
     public SeriesDetailsInfoFragment() {
@@ -62,6 +67,8 @@ public class SeriesDetailsInfoFragment extends Fragment {
         launchDate.setText(serie.getFirstAirDate());
         numberOfSeasons.setText(serie.getNumberOfSeasons().toString());
         numberOfChapters.setText(serie.getNumberOfEpisodes().toString());
+        String url = ImageHelper.getPosterURL(serie.getPosterPath(), 2);
+        Glide.with(this).load(url).into(poster);
         return view;
     }
 

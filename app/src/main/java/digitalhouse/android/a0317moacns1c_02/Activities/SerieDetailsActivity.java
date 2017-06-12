@@ -9,13 +9,10 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ActionsFragment;
@@ -25,7 +22,6 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.RateProgressBarFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsInfoFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsTitleFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsSummaryFragment;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
@@ -37,7 +33,6 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
     public static final String SERIE_ID_KEY = "serieID";
 
     @BindView(R.id.linearLayoutSDRatings) LinearLayout linearLayoutRatings;
-    @BindView(R.id.imageViewPoster) ImageView imageViewPoster;
 
     private FragmentManager fragmentManager;
     private Serie serie;
@@ -59,7 +54,6 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
                 startTitleFargment();
                 startSummaryFragment(serie.getOverview());
                 startInfoFragment();
-                setUpPoster();
                 setUpRatings();
             }
         });
@@ -80,11 +74,6 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
         });
 
         startActionsFragment();
-    }
-
-    private void setUpPoster(){
-        String url = ImageHelper.getPosterURL(serie.getPosterPath(), 2);
-        Picasso.with(this).load(url).fit().centerCrop().into(imageViewPoster);
     }
 
     private void startTitleFargment(){
