@@ -125,7 +125,21 @@ public class SerieResult implements Parcelable {
     }
 
     public String getFirstAirDate() {
-        return firstAirDate;
+        String year = null;
+        String month = null;
+        String day = null;
+        if(firstAirDate != null && firstAirDate.length() > 9){
+            year = firstAirDate.substring(0,4);
+            month = firstAirDate.substring(5,7);
+            day = firstAirDate.substring(8,10);
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(day).append("/");
+        stringBuilder.append(month).append("/");
+        stringBuilder.append(year);
+
+        return stringBuilder.toString();
     }
 
     public void setFirstAirDate(String firstAirDate) {

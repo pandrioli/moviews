@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.+.com/apk/res-auto"
-    android:layout_margin="4dp"
+    android:layout_margin="8dp"
     android:orientation="vertical"
     tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsTitleFragment"
     app:cardCornerRadius="2dp">

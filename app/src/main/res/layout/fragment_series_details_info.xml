@@ -3,23 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="4dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="2dp"
     tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsInfoFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="start"
             android:orientation="horizontal"
             android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingTop="16dp">
+            android:paddingTop="16dp"
+            android:layout_toEndOf="@+id/imageViewPoster"
+            android:id="@+id/relativeLayoutSDInfo">
             <TextView
                 android:id="@+id/textViewSDDetails"
                 android:layout_width="wrap_content"
@@ -28,7 +30,6 @@
                 android:text="Detalles"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/textViewSDNetwork"
                 android:layout_width="wrap_content"
@@ -36,7 +37,6 @@
                 android:layout_below="@id/textViewSDDetails"
                 android:text="Emitido por:"
                 android:textSize="12sp" />
-
             <TextView
                 android:id="@+id/textViewSDNetworkCont"
                 android:layout_width="wrap_content"
@@ -45,7 +45,6 @@
                 android:paddingLeft="4dp"
                 android:text="Netflix"
                 android:textSize="12sp" />
-
             <TextView
                 android:id="@+id/textViewSDLaunch"
                 android:layout_width="wrap_content"
@@ -53,16 +52,15 @@
                 android:layout_below="@+id/textViewSDNetworkCont"
                 android:text="Primera Emisión:"
                 android:textSize="12sp" />
-
             <TextView
                 android:id="@+id/textViewSDLaunchCont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewSDLaunch"
+                android:layout_alignBottom="@id/textViewSDLaunch"
+                android:layout_toEndOf="@id/textViewSDLaunch"
                 android:paddingLeft="4dp"
                 android:text="25/06/1992"
                 android:textSize="12sp" />
-
             <TextView
                 android:id="@+id/textViewSDSeasons"
                 android:layout_width="wrap_content"
@@ -70,16 +68,6 @@
                 android:layout_below="@id/textViewSDLaunchCont"
                 android:text="Temporadas:"
                 android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/textViewSDChapters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewSDSeasons"
-                android:text="Capítulos:"
-                android:textSize="12sp" />
-
-
             <TextView
                 android:id="@+id/textViewSDSeasonsCont"
                 android:layout_width="wrap_content"
@@ -89,7 +77,13 @@
                 android:paddingLeft="4dp"
                 android:text="18"
                 android:textSize="12sp" />
-
+            <TextView
+                android:id="@+id/textViewSDChapters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewSDSeasons"
+                android:text="Capítulos:"
+                android:textSize="12sp" />
             <TextView
                 android:id="@+id/textViewSDChaptersCont"
                 android:layout_width="wrap_content"
@@ -101,11 +95,54 @@
                 android:textSize="12sp" />
         </RelativeLayout>
 
-        <ImageView
-            android:layout_width="120dp"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/separatorLineSD"
+            android:layout_below="@+id/relativeLayoutSDInfo"
+            android:background="@android:color/darker_gray"
+            android:layout_toEndOf="@+id/imageViewPoster"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/linearLayoutSDActions"
+            android:layout_below="@+id/separatorLineSD"
+            android:layout_alignLeft="@+id/separatorLineSD"
+            android:layout_alignBottom="@+id/imageViewPoster"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bookmark_black_24dp"
+                android:layout_weight="1"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite_black_24dp"
+                android:layout_weight="1"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share_black_24dp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="127dp"
+            android:layout_height="191dp"
             android:id="@+id/imageViewPoster"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             />
     </RelativeLayout>
 

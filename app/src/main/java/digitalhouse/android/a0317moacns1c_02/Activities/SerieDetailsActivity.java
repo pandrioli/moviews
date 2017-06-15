@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,13 +15,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
-import digitalhouse.android.a0317moacns1c_02.Fragments.ActionsFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MediaListFragment;
-import digitalhouse.android.a0317moacns1c_02.Fragments.RateProgressBarFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsInfoFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsTitleFragment;
-import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsSummaryFragment;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
@@ -32,7 +29,7 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
 
     public static final String SERIE_ID_KEY = "serieID";
 
-    @BindView(R.id.linearLayoutSDRatings) LinearLayout linearLayoutRatings;
+    @BindView(R.id.textViewSDSummary) protected TextView textViewSummary;
 
     private FragmentManager fragmentManager;
     private Serie serie;
@@ -52,9 +49,8 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
             public void finish(Serie result) {
                 serie = result;
                 startTitleFargment();
-                startSummaryFragment(serie.getOverview());
                 startInfoFragment();
-                setUpRatings();
+                textViewSummary.setText(serie.getOverview());
             }
         });
 
@@ -72,8 +68,6 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
                 startCastingFragment(imageList, "Cast");
             }
         });
-
-        startActionsFragment();
     }
 
     private void startTitleFargment(){
@@ -91,13 +85,6 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
         fragmentTransaction.commit();
     }
 
-    private void startSummaryFragment(String summary){
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        SeriesDetailsSummaryFragment fragment = SeriesDetailsSummaryFragment.newInstance(summary);
-        fragmentTransaction.replace(R.id.frameLayoutSDSummary, fragment);
-        fragmentTransaction.commit();
-    }
-
     private void startCastingFragment(ArrayList<ImageListItem> imageList, String title){
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         ImageListFragment imageListFragment = ImageListFragment.newInstance(imageList, title);
@@ -105,43 +92,10 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
         fragmentTransaction.commit();
     }
 
-    private void startActionsFragment(){
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ActionsFragment fragment = new ActionsFragment();
-        fragmentTransaction.replace(R.id.frameLayoutSDActions, fragment);
-        fragmentTransaction.commit();
-    }
-
     private void startInfoFragment(){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SeriesDetailsInfoFragment fragment = SeriesDetailsInfoFragment.newInstance(serie);
         fragmentTransaction.replace(R.id.frameLayoutSDInfo, fragment);
-        fragmentTransaction.commit();
-    }
-
-    private void setUpRatings(){
-        Fragment fragment;
-        Double subTotalVoteAverage = serie.getVoteAverage() * 10.0;
-        Integer voteAverage = subTotalVoteAverage.intValue();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = RateProgressBarFragment.newInstance("TMDB", voteAverage);
-        fragmentTransaction.add(linearLayoutRatings.getId(), fragment);
-        fragmentTransaction.commit();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = RateProgressBarFragment.newInstance("Tomatometer", 97);
-        fragmentTransaction.add(linearLayoutRatings.getId(), fragment);
-        fragmentTransaction.commit();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = RateProgressBarFragment.newInstance("IMDb", 95);
-        fragmentTransaction.add(linearLayoutRatings.getId(), fragment);
-        fragmentTransaction.commit();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = RateProgressBarFragment.newInstance("Letterboxd", 95);
-        fragmentTransaction.add(linearLayoutRatings.getId(), fragment);
-        fragmentTransaction.commit();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = RateProgressBarFragment.newInstance("Metascore", 95);
-        fragmentTransaction.add(linearLayoutRatings.getId(), fragment);
         fragmentTransaction.commit();
     }
 
