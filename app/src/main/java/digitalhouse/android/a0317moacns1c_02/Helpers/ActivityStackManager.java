@@ -5,6 +5,8 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.Activities.MainActivity;
+
 /**
  * Created by Pablo on 29/05/2017.
  */
@@ -49,5 +51,11 @@ public class ActivityStackManager {
 
     public void removeLastActivity() {
         if (activities.size()>0) activities.remove(activities.size()-1);
+    }
+
+    public void removeMainActivity() {
+        for(Activity activity : activities){
+            if(activity instanceof MainActivity) activity.finish();
+        }
     }
 }

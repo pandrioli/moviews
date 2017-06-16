@@ -25,6 +25,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -45,6 +46,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityStackManager.getInstance().removeMainActivity();
         //Remove title bar
         setContentView(R.layout.activity_tabs);
         ButterKnife.bind(this);
