@@ -92,6 +92,7 @@ public class RatingsContainer implements Serializable {
     }
 
     public void setTmdbRate(Double tmdbRate){
+        totalOfVoteSources++;
         this.tmdbRate = tmdbRate;
         this.tmdbMaxRateString = tmdbRate.toString();
     }

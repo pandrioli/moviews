@@ -19,6 +19,7 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.MediaListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.RateFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsInfoFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsTitleFragment;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
@@ -44,6 +45,7 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
         setContentView(R.layout.activity_series_details);
         ButterKnife.bind(this);
         fragmentManager = getSupportFragmentManager();
+        ActivityStackManager.getInstance().addActivity(this); // agrego la activity al stack manager
 
         Bundle bundleReceived = getIntent().getExtras();
         String id = bundleReceived.getString(SERIE_ID_KEY);
@@ -111,6 +113,12 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
         RateFragment fragment = RateController.instanceRateFragment(serie);
         fragmentTransaction.replace(R.id.framelayoutSDRatings, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ActivityStackManager.getInstance().removeLastActivity(); // saco la activity del stack manager
     }
 
     @Override

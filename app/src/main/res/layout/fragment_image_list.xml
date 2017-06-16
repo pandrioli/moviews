@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment"
     app:cardCornerRadius="2dp"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:id="@+id/cardViewImageList">
 
     <LinearLayout
         android:layout_width="match_parent"

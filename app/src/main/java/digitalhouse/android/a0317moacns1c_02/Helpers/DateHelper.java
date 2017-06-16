@@ -9,6 +9,7 @@ public class DateHelper {
 
     //TODO: implementar locale
 
+    public static final String FORMAT_FULL = "MMM d, yyyy";
     public static final String FORMAT_ARG = "dd-MM-yyyy";
     public static final String FORMAT_API = "yyyy-MM-dd";
 
