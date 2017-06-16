@@ -144,7 +144,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
 
     @Override
     public void onClick(ListItem listItem) {
-        // se define la accion a tomar segun el tipo del listitem (movie o serie)
+        // se define la accion a tomar segun el tipo del listitem (movie o serieDetails)
         if (listItem.getType().equals("movie")) {
             Intent intent = new Intent(this,MovieDetailsActivity.class);
             Bundle bundle = new Bundle();
@@ -152,7 +152,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             intent.putExtras(bundle);
             startActivity(intent);
         }
-        if (listItem.getType().equals("serie")) {
+        if (listItem.getType().equals("serieDetails")) {
             Intent intent = new Intent(this, SerieDetailsActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(SerieDetailsActivity.SERIE_ID_KEY, listItem.getId().toString());

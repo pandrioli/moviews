@@ -1,18 +1,16 @@
 package digitalhouse.android.a0317moacns1c_02.Controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.SerieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.DAO.SerieDAO;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
-import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
 
 /**
  * Created by Gregorio Martin on 4/6/2017.
@@ -40,8 +38,7 @@ public class SerieController {
     public void getAiringToday(ResultListener<ArrayList<ListItem>> resultListener) {
         seriesDAO.obtainAiringToday(new SerieResultsCallback(resultListener));
     }
-
-    public void getDetails(String ID, ResultListener<Serie> resultListener){
+    public void getDetails(String ID, ResultListener<SerieDetails> resultListener){
         seriesDAO.obtainDetails(ID, resultListener);
     }
 
@@ -51,6 +48,15 @@ public class SerieController {
 
     public void getCredits(String ID, ResultListener<Credits> resultListener){
         seriesDAO.obtainCredits(ID, resultListener);
+    }
+
+    public SerieOmdb getSerie(String title){
+        return seriesDAO.obtainDetailsShort(title);
+    }
+
+    public Serie map(SerieDetails serieDetails, SerieOmdb serieFromOmdb){
+        Serie serie = new Serie(serieDetails, serieFromOmdb);
+        return serie;
     }
 
 }

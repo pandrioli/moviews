@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
-import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -26,7 +26,7 @@ public interface SeriesClient {
     @GET("tv/airing_today?")
     Call<SerieResultsContainer> obtainAiringTodaySeries(@Query("api_key") String API_KEY);
     @GET("tv/{tv_id}?")
-    Call<Serie> obtainDetails(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
+    Call<SerieDetails> obtainDetails(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/images")
     Call<ImagesContainer> obtainImages(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/credits")

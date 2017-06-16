@@ -1,12 +1,10 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,15 +12,19 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Controller.RateController;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MediaListFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.RateFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsInfoFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsTitleFragment;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 public class SerieDetailsActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable {
@@ -32,6 +34,8 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
     @BindView(R.id.textViewSDSummary) protected TextView textViewSummary;
 
     private FragmentManager fragmentManager;
+    private SerieDetails serieDetails;
+    private SerieOmdb serieOmdb;
     private Serie serie;
 
     @Override
@@ -44,13 +48,16 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
         Bundle bundleReceived = getIntent().getExtras();
         String id = bundleReceived.getString(SERIE_ID_KEY);
 
-        SerieController.getInstance().getDetails(id.toString(), new ResultListener<Serie>() {
+        SerieController.getInstance().getDetails(id.toString(), new ResultListener<SerieDetails>() {
             @Override
-            public void finish(Serie result) {
-                serie = result;
+            public void finish(SerieDetails result) {
+                serieDetails = result;
+                serieOmdb = SerieController.getInstance().getSerie(serieDetails.getName());
+                serie = SerieController.getInstance().map(serieDetails, serieOmdb);
+                textViewSummary.setText(serieDetails.getOverview());
+                startRatingsFragment(serie);
                 startTitleFargment();
                 startInfoFragment();
-                textViewSummary.setText(serie.getOverview());
             }
         });
 
@@ -72,7 +79,7 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
 
     private void startTitleFargment(){
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-        SeriesDetailsTitleFragment fragment = SeriesDetailsTitleFragment.newInstance(serie);
+        SeriesDetailsTitleFragment fragment = SeriesDetailsTitleFragment.newInstance(serieDetails);
         fragmentTransaction.replace(R.id.frameLayoutSDTitle, fragment);
         fragmentTransaction.commit();
     }
@@ -94,8 +101,15 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
 
     private void startInfoFragment(){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        SeriesDetailsInfoFragment fragment = SeriesDetailsInfoFragment.newInstance(serie);
+        SeriesDetailsInfoFragment fragment = SeriesDetailsInfoFragment.newInstance(serieDetails);
         fragmentTransaction.replace(R.id.frameLayoutSDInfo, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void startRatingsFragment(Serie serie){
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        RateFragment fragment = RateController.instanceRateFragment(serie);
+        fragmentTransaction.replace(R.id.framelayoutSDRatings, fragment);
         fragmentTransaction.commit();
     }
 

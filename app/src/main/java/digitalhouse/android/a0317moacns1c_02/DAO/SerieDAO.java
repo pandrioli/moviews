@@ -6,7 +6,8 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
-import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;
@@ -37,9 +38,9 @@ public class SerieDAO {
         call.enqueue(new TMDBCallBack<SerieResultsContainer>(resultListener));
     }
 
-    public void obtainDetails(String ID, ResultListener<Serie> resultListener){
-        Call<Serie> call = client.obtainDetails(ID, TMDBClient.API_KEY);
-        call.enqueue(new TMDBCallBack<Serie>(resultListener));
+    public void obtainDetails(String ID, ResultListener<SerieDetails> resultListener){
+        Call<SerieDetails> call = client.obtainDetails(ID, TMDBClient.API_KEY);
+        call.enqueue(new TMDBCallBack<SerieDetails>(resultListener));
     }
 
     public void obtainImages(String ID, ResultListener<ImagesContainer> resultListener){
@@ -50,6 +51,72 @@ public class SerieDAO {
     public void obtainCredits(String ID, ResultListener<Credits> resultListener){
         Call<Credits> call = client.obtainCredits(ID, TMDBClient.API_KEY);
         call.enqueue(new TMDBCallBack<Credits>(resultListener));
+    }
+
+    public SerieOmdb obtainDetailsLong(String title){
+        return mockSerieLong();
+    }
+
+    public SerieOmdb obtainDetailsShort(String title){
+        return mockSerieShort();
+    }
+
+    public SerieOmdb obtainDetailsLong(Integer imdbID){
+        return mockSerieLong();
+    }
+
+    public SerieOmdb obtainDetailsShort(Integer imdbID){
+        return mockSerieShort();
+    }
+
+    private SerieOmdb mockSerieShort(){
+        SerieOmdb mock = new SerieOmdb();
+        mock.setTitle("Breaking Bad");
+        mock.setYear("2008–2013");
+        mock.setRated("TV-14");
+        mock.setReleased("20 Jan 2008");
+        mock.setRuntime("49 min");
+        mock.setGenre("Crime, Drama, Thriller");
+        mock.setDirector("N/A");
+        mock.setWriter("Vince Gilligan");
+        mock.setActors("Bryan Cranston, Anna Gunn, Aaron Paul, Dean Norris");
+        mock.setPlot("A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future.");
+        mock.setLanguage("English, Spanish");
+        mock.setCountry("USA");
+        mock.setAwards("Won 2 Golden Globes. Another 139 wins & 223 nominations.");
+        mock.setPoster("https://images-na.ssl-images-amazon.com/images/M/MV5BZDNhNzhkNDctOTlmOS00NWNmLWEyODQtNWMxM2UzYmJiNGMyXkEyXkFqcGdeQXVyNTMxMjgxMzA@._V1_SX300.jpg");
+        mock.setMetascore("N/A");
+        mock.setImdbRating("9.5");
+        mock.setImdbVotes("983,682");
+        mock.setImdbID("tt0903747");
+        mock.setType("series");
+        mock.setTotalSeasons("5");
+        return mock;
+    }
+
+    private SerieOmdb mockSerieLong(){
+        SerieOmdb mock = new SerieOmdb();
+        mock.setTitle("Breaking Bad");
+        mock.setYear("2008–2013");
+        mock.setRated("TV-14");
+        mock.setReleased("20 Jan 2008");
+        mock.setRuntime("49 min");
+        mock.setGenre("Crime, Drama, Thriller");
+        mock.setDirector("N/A");
+        mock.setWriter("Vince Gilligan");
+        mock.setActors("Bryan Cranston, Anna Gunn, Aaron Paul, Dean Norris");
+        mock.setPlot("When chemistry teacher Walter White is diagnosed with Stage III cancer and given only two years to live, he decides he has nothing to lose. He lives with his teenage son, who has cerebral palsy, and his wife, in New Mexico. Determined to ensure that his family will have a secure future, Walt embarks on a career of drugs and crime. He proves to be remarkably proficient in this new world as he begins manufacturing and selling methamphetamine with one of his former students. The series tracks the impacts of a fatal diagnosis on a regular, hard working man, and explores how a fatal diagnosis affects his morality and transforms him into a major player of the drug trade.");
+        mock.setLanguage("English, Spanish");
+        mock.setCountry("USA");
+        mock.setAwards("Won 2 Golden Globes. Another 139 wins & 223 nominations.");
+        mock.setPoster("https://images-na.ssl-images-amazon.com/images/M/MV5BZDNhNzhkNDctOTlmOS00NWNmLWEyODQtNWMxM2UzYmJiNGMyXkEyXkFqcGdeQXVyNTMxMjgxMzA@._V1_SX300.jpg");
+        mock.setMetascore("N/A");
+        mock.setImdbRating("9.5");
+        mock.setImdbVotes("983,682");
+        mock.setImdbID("tt0903747");
+        mock.setType("series");
+        mock.setTotalSeasons("5");
+        return mock;
     }
 
 }

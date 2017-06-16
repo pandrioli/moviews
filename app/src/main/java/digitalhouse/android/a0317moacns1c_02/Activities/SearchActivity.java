@@ -190,7 +190,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
             intent.putExtras(bundle);
             startActivity(intent);
         }
-        if (listItem.getType().equals("serie")) {
+        if (listItem.getType().equals("serieDetails")) {
 
         }
         if (listItem.getType().equals("person")) {

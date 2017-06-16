@@ -43,7 +43,7 @@ public class GenreController {
             @Override
             public void finish(Genres genres) {
                 serieGenres = genres.getGenres();
-                resultListener.finish("Serie genres OK");
+                resultListener.finish("SerieDetails genres OK");
             }
         });
     }

@@ -1,193 +1,205 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Series;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
+import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
 import digitalhouse.android.a0317moacns1c_02.Model.Misc.Company;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonBase;
 
 /**
- * Created by Gregorio Martin on 11/6/2017.
+ * Created by forev on 15-Jun-17.
  */
 
-public class Serie extends SerieResult implements Parcelable {
+public class Serie {
 
-    @SerializedName("created_by") protected List<PersonBase> createdBy;
-    @SerializedName("episode_run_time") protected List<Integer> episodeRunTimes;
-    protected List<Genre> genres;
-    protected String homepage;
-    @SerializedName("in_production") protected Boolean inProduction;
-    protected List<String> languages;
-    @SerializedName("last_air_date") protected String lastAirDate;
-    protected List<Network> networks;
-    @SerializedName("number_of_episodes") protected Integer numberOfEpisodes;
-    @SerializedName("number_of_seasons") protected Integer numberOfSeasons;
-    @SerializedName("production_companies") protected List<Company> productionCompanies;
-    protected List<Season> seasons;
-    protected String status;
-    protected String type;
+    private SerieDetails serieDetails;
+    private SerieOmdb serieOmdb;
+    private String longPlot;
+    private String shortPlot;
 
-    protected Serie(Parcel in) {
-        super(in);
-        createdBy = in.createTypedArrayList(PersonBase.CREATOR);
-        homepage = in.readString();
-        languages = in.createStringArrayList();
-        lastAirDate = in.readString();
-        productionCompanies = in.createTypedArrayList(Company.CREATOR);
-        status = in.readString();
-        type = in.readString();
+    public Serie(SerieDetails serieDetails, SerieOmdb serieOmdb){
+        this.serieDetails = serieDetails;
+        this.serieOmdb = serieOmdb;
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeTypedList(createdBy);
-        dest.writeString(homepage);
-        dest.writeStringList(languages);
-        dest.writeString(lastAirDate);
-        dest.writeTypedList(productionCompanies);
-        dest.writeString(status);
-        dest.writeString(type);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Serie> CREATOR = new Creator<Serie>() {
-        @Override
-        public Serie createFromParcel(Parcel in) {
-            return new Serie(in);
-        }
-
-        @Override
-        public Serie[] newArray(int size) {
-            return new Serie[size];
-        }
-    };
 
     public List<PersonBase> getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(List<PersonBase> createdBy) {
-        this.createdBy = createdBy;
+        return serieDetails.createdBy;
     }
 
     public List<Integer> getEpisodeRunTimes() {
-        return episodeRunTimes;
-    }
-
-    public void setEpisodeRunTimes(List<Integer> episodeRunTimes) {
-        this.episodeRunTimes = episodeRunTimes;
+        return serieDetails.episodeRunTimes;
     }
 
     public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
+        return serieDetails.genres;
     }
 
     public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
+        return serieDetails.homepage;
     }
 
     public Boolean getInProduction() {
-        return inProduction;
-    }
-
-    public void setInProduction(Boolean inProduction) {
-        this.inProduction = inProduction;
+        return serieDetails.inProduction;
     }
 
     public List<String> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(List<String> languages) {
-        this.languages = languages;
+        return serieDetails.languages;
     }
 
     public String getLastAirDate() {
-        return lastAirDate;
-    }
-
-    public void setLastAirDate(String lastAirDate) {
-        this.lastAirDate = lastAirDate;
+        return serieDetails.lastAirDate;
     }
 
     public List<Network> getNetworks() {
-        return networks;
-    }
-
-    public void setNetworks(List<Network> networks) {
-        this.networks = networks;
+        return serieDetails.networks;
     }
 
     public String getNumberOfEpisodes() {
-        if(numberOfEpisodes != null)
-            return numberOfEpisodes.toString();
+        if(serieDetails.numberOfEpisodes != null)
+            return serieDetails.numberOfEpisodes.toString();
         else
             return "N/A";
-    }
-
-    public void setNumberOfEpisodes(Integer numberOfEpisodes) {
-        this.numberOfEpisodes = numberOfEpisodes;
     }
 
     public String getNumberOfSeasons() {
-        if(numberOfSeasons != null)
-            return numberOfSeasons.toString();
+        if(serieDetails.numberOfSeasons != null)
+            return serieDetails.numberOfSeasons.toString();
         else
             return "N/A";
     }
 
-    public void setNumberOfSeasons(Integer numberOfSeasons) {
-        this.numberOfSeasons = numberOfSeasons;
-    }
-
     public List<Company> getProductionCompanies() {
-        return productionCompanies;
-    }
-
-    public void setProductionCompanies(List<Company> productionCompanies) {
-        this.productionCompanies = productionCompanies;
+        return serieDetails.productionCompanies;
     }
 
     public List<Season> getSeasons() {
-        return seasons;
-    }
-
-    public void setSeasons(List<Season> seasons) {
-        this.seasons = seasons;
+        return serieDetails.seasons;
     }
 
     public String getStatus() {
-        return status;
+        return serieDetails.status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getFirstAirDate() {
+        String year = null;
+        String month = null;
+        String day = null;
+        if(serieDetails.firstAirDate != null && serieDetails.firstAirDate.length() > 9){
+            year = serieDetails.firstAirDate.substring(0,4);
+            month = serieDetails.firstAirDate.substring(5,7);
+            day = serieDetails.firstAirDate.substring(8,10);
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(day).append("/");
+        stringBuilder.append(month).append("/");
+        stringBuilder.append(year);
+
+        return stringBuilder.toString();
     }
 
-    public String getType() {
-        return type;
+    public List<String> getOriginCountries() {
+        return serieDetails.originCountries;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public List<Integer> getGenreIds() {
+        return serieDetails.genreIds;
     }
+
+    public String getOriginalLanguage() {
+        return serieDetails.originalLanguage;
+    }
+
+    public Integer getVoteCount() {
+        return serieDetails.voteCount;
+    }
+
+    public String getTmdbRating(){
+        return serieDetails.getVoteAverage().toString();
+    }
+
+    public String getName() {
+        return serieDetails.name;
+    }
+
+    public String getOriginalName() {
+        return serieDetails.originalName;
+    }
+
+    public String getYear() {
+        if (serieDetails.firstAirDate==null) return "";
+        if (serieDetails.firstAirDate.length()>4) return serieDetails.firstAirDate.substring(0,4);
+        return "";
+    }
+
+    public String getMetascore() {
+        return serieOmdb.getMetascore();
+    }
+
+    public String getYearPeriod() {
+        return serieOmdb.getYear();
+    }
+
+    public String getRated() {
+        return serieOmdb.getRated();
+    }
+
+    public String getRuntimeString() {
+        return serieOmdb.getRuntime();
+    }
+
+    public String getGenreString() {
+        return serieOmdb.getGenre();
+    }
+
+    public String getDirector() {
+        return serieOmdb.getDirector();
+    }
+
+    public String getWriter() {
+        return serieOmdb.getWriter();
+    }
+
+    public String getActorsString() {
+        return serieOmdb.getActors();
+    }
+
+    public String getPlot() {
+        return serieOmdb.getPlot();
+    }
+
+    public String getLanguagesString() {
+        return serieOmdb.getLanguage();
+    }
+
+    public String getCountriesString() {
+        return serieOmdb.getCountry();
+    }
+
+    public String getAwardsString() {
+        return serieOmdb.getAwards();
+    }
+
+    public String getPosterURL() {
+        return serieOmdb.getPoster();
+    }
+
+    public String getImdbRating() {
+        return serieOmdb.getImdbRating();
+    }
+
+    public String getImdbNumberOfVotes() {
+        return serieOmdb.getImdbVotes();
+    }
+
+    public String getImdbID() {
+        return serieOmdb.getImdbID();
+    }
+
+    public List<RateOmdb> getRatings() {
+        return serieOmdb.getRatings();
+    }
+
 }

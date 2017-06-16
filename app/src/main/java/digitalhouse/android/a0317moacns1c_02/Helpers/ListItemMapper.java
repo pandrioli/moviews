@@ -37,7 +37,7 @@ public class ListItemMapper {
         DecimalFormat df = new DecimalFormat("#.0");
         item.setRating(df.format(serie.getVoteAverage()));
         item.setImageURL(ImageHelper.getPosterURL(serie.getPosterPath(),1));
-        item.setType("serie");
+        item.setType("serieDetails");
         return item;
     }
     // mapeo PersonResult a ListItem

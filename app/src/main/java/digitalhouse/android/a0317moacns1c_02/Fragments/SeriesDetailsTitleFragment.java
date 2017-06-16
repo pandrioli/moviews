@@ -16,11 +16,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
-import digitalhouse.android.a0317moacns1c_02.Model.Misc.Company;
-import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
-
-import static android.view.View.GONE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,16 +31,16 @@ public class SeriesDetailsTitleFragment extends Fragment {
     private Unbinder unbinder;
 
     public static final String SERIE_TITLE_KEY = "serieTitle";
-    protected Serie serie;
+    protected SerieDetails serieDetails;
 
     public SeriesDetailsTitleFragment() {
         // Required empty public constructor
     }
 
-    public static SeriesDetailsTitleFragment newInstance(Serie serie) {
+    public static SeriesDetailsTitleFragment newInstance(SerieDetails serieDetails) {
         SeriesDetailsTitleFragment fragment = new SeriesDetailsTitleFragment();
         Bundle args = new Bundle();
-        args.putParcelable(SERIE_TITLE_KEY, serie);
+        args.putParcelable(SERIE_TITLE_KEY, serieDetails);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +49,7 @@ public class SeriesDetailsTitleFragment extends Fragment {
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         if(getArguments() != null){
-            serie = getArguments().getParcelable(SERIE_TITLE_KEY);
+            serieDetails = getArguments().getParcelable(SERIE_TITLE_KEY);
         }
     }
 
@@ -73,14 +70,14 @@ public class SeriesDetailsTitleFragment extends Fragment {
     }
 
     private void setUpTextViews(){
-        title.setText(serie.getName() + " (" + serie.getYear() + ") ");
-        genres.setText(GenreController.getInstance().getGenresString(serie.getGenres(), " | "));
-        if(!serie.getStatus().equals("Returning Series"))
+        title.setText(serieDetails.getName() + " (" + serieDetails.getYear() + ") ");
+        genres.setText(GenreController.getInstance().getGenresString(serieDetails.getGenres(), " | "));
+        if(!serieDetails.getStatus().equals("Returning Series"))
             onTheAir.setVisibility(View.GONE);
     }
 
     private void setUpImages(){
-        String url = ImageHelper.getPosterURL(serie.getBackdropPath(), 4);
+        String url = ImageHelper.getPosterURL(serieDetails.getBackdropPath(), 4);
         Picasso.with(getContext()).load(url).fit().centerCrop().into(backdrop);
     }
 }
