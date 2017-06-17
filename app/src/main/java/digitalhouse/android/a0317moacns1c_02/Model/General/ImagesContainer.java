@@ -18,6 +18,11 @@ public class ImagesContainer implements Parcelable {
     private ArrayList<ImageData> backdrops;
     private ArrayList<ImageData> posters;
 
+    public ImagesContainer(){
+        backdrops = new ArrayList<>();
+        posters = new ArrayList<>();
+    }
+
     protected ImagesContainer(Parcel in) {
         backdrops = in.createTypedArrayList(ImageData.CREATOR);
         posters = in.createTypedArrayList(ImageData.CREATOR);

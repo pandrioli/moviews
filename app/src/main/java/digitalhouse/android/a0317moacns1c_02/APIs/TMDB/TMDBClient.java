@@ -6,8 +6,6 @@ import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.RequestToken;
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.Session;
 import digitalhouse.android.a0317moacns1c_02.Model.Configuration.Config;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
@@ -30,12 +28,6 @@ public interface TMDBClient {
 
     String BASE_URL = "https://api.themoviedb.org/3/";
     String API_KEY = "91a255db2e1d0761c2dc886c0ed08709";
-
-    @GET("authentication/token/new?")
-    Call<RequestToken> obtainRequestToken(@Query("api_key") String API_KEY);
-
-    @GET("authentication/session/new?")
-    Call<Session> obtainSession(@QueryMap Map<String, String> options);
 
     //Obtener la configuracion de las imagenes y un array change_keys que todavía no sé para qué es
     //pero por las dudas lo traigo

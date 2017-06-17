@@ -23,10 +23,12 @@ public class MultimediaRecyclerAdapter extends RecyclerView.Adapter<MultimediaRe
 
     private Context context;
     private List<String> mDataSet;
+    private View.OnClickListener listener;
 
-    public MultimediaRecyclerAdapter(Context context, List<String> myDataSet){
+    public MultimediaRecyclerAdapter(Context context, List<String> myDataSet, View.OnClickListener listener){
         this.context = context;
         mDataSet = myDataSet;
+        this.listener = listener;
     }
 
     @Override
@@ -46,9 +48,25 @@ public class MultimediaRecyclerAdapter extends RecyclerView.Adapter<MultimediaRe
         // - obtenemos un elemento del dataset según su posición
         // - reemplazamos el contenido de los views según tales datos
 
+        Picasso picasso = Picasso.with(context);
+        View v = holder.itemView.findViewById(R.id.imageViewPlayButton);
+        holder.picture.setOnClickListener(listener);
         String URL = mDataSet.get(position);
+        picasso.load(URL)
+                .fit()
+                .centerCrop()
+                .into(holder.picture);
+        if(isYouTubeURL(URL))
+        {
+            v.setVisibility(View.VISIBLE);
+            holder.picture.setTag(URL);
+        }
+        else
+        {
+            holder.picture.setTag(URL);
+            v.setVisibility(View.GONE);
+        }
 
-        Picasso.with(context).load(URL).fit().centerCrop().into(holder.picture);
     }
 
     // Método que define la cantidad de elementos del RecyclerView
@@ -67,9 +85,7 @@ public class MultimediaRecyclerAdapter extends RecyclerView.Adapter<MultimediaRe
         }
     }
 
-
-
-
-
-
+    private boolean isYouTubeURL(String URL){
+        return URL.contains("youtube");
+    }
 }

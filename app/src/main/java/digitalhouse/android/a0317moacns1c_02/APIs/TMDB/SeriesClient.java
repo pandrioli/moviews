@@ -2,6 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.General.VideosContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 import retrofit2.Call;
@@ -17,7 +18,6 @@ public interface SeriesClient {
 
     String API_KEY = "91a255db2e1d0761c2dc886c0ed08709";
 
-
     //Obtener series populares
     @GET("tv/popular?")
     Call<SerieResultsContainer> obtainPopularSeries(@Query("api_key") String API_KEY);
@@ -31,5 +31,7 @@ public interface SeriesClient {
     Call<ImagesContainer> obtainImages(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/credits")
     Call<Credits> obtainCredits(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
+    @GET("tv/{tv_id}/videos")
+    Call<VideosContainer> obtainVideos(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
 
 }

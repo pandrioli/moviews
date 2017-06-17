@@ -33,6 +33,10 @@ public class SerieDetails extends SerieResult implements Parcelable {
     protected String status;
     protected String type;
 
+    public SerieDetails(){
+
+    }
+
     protected SerieDetails(Parcel in) {
         super(in);
         createdBy = in.createTypedArrayList(PersonBase.CREATOR);

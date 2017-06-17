@@ -15,12 +15,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
-import digitalhouse.android.a0317moacns1c_02.Adapters.ItemListPagerAdapter;
+import digitalhouse.android.a0317moacns1c_02.Adapters.TabItemListPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
@@ -139,7 +137,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
 
     private void loadViewPager() {
         if (loadedCounter<bundleList.length) return; // si todavia no se cargaron todos los bundles, cancelar
-        PagerAdapter adapter = new ItemListPagerAdapter(getSupportFragmentManager(), bundleList);
+        PagerAdapter adapter = new TabItemListPagerAdapter(getSupportFragmentManager(), bundleList);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

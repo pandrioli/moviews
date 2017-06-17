@@ -2,8 +2,11 @@ package digitalhouse.android.a0317moacns1c_02.Model.Series;
 
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
+import digitalhouse.android.a0317moacns1c_02.Model.General.VideosContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
 import digitalhouse.android.a0317moacns1c_02.Model.Misc.Company;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonBase;
@@ -16,12 +19,48 @@ public class Serie {
 
     private SerieDetails serieDetails;
     private SerieOmdb serieOmdb;
-    private String longPlot;
-    private String shortPlot;
+    private ImagesContainer imagesContainer;
+    private Credits credits;
+    private VideosContainer videosContainer;
 
-    public Serie(SerieDetails serieDetails, SerieOmdb serieOmdb){
+    public SerieDetails getSerieDetails() {
+        return serieDetails;
+    }
+
+    public void setSerieDetails(SerieDetails serieDetails) {
         this.serieDetails = serieDetails;
+    }
+
+    public SerieOmdb getSerieOmdb() {
+        return serieOmdb;
+    }
+
+    public void setSerieOmdb(SerieOmdb serieOmdb) {
         this.serieOmdb = serieOmdb;
+    }
+
+    public ImagesContainer getImagesContainer() {
+        return imagesContainer;
+    }
+
+    public void setImagesContainer(ImagesContainer imagesContainer) {
+        this.imagesContainer = imagesContainer;
+    }
+
+    public Credits getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Credits credits) {
+        this.credits = credits;
+    }
+
+    public VideosContainer getVideosContainer() {
+        return videosContainer;
+    }
+
+    public void setVideosContainer(VideosContainer videosContainer) {
+        this.videosContainer = videosContainer;
     }
 
     public List<PersonBase> getCreatedBy() {

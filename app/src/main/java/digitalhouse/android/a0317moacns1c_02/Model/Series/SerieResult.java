@@ -36,6 +36,10 @@ public class SerieResult implements Parcelable {
     @SerializedName("original_name")
     protected String originalName;
 
+    public SerieResult(){
+
+    }
+
     protected SerieResult(Parcel in) {
         posterPath = in.readString();
         backdropPath = in.readString();

@@ -19,6 +19,10 @@ public class Credits implements Parcelable {
     private ArrayList<Cast> cast;
     private ArrayList<Crew> crew;
 
+    public Credits(){
+
+    }
+
     protected Credits(Parcel in) {
         cast = in.createTypedArrayList(Cast.CREATOR);
     }

@@ -1,8 +1,5 @@
 package digitalhouse.android.a0317moacns1c_02.Services;
 
-import android.text.TextUtils;
-
-import digitalhouse.android.a0317moacns1c_02.Entities.API.Authentication.TokenInterceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -28,10 +25,10 @@ public class ServiceGenerator {
     }
 
 
-    public <S> S createService(Class<S> serviceClass) {
+    public <S> S createService(Class<S> serviceClass, String connectionURL) {
         Retrofit.Builder builder =
                 new Retrofit.Builder()
-                        .baseUrl()
+                        .baseUrl(connectionURL)
                         .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
@@ -49,9 +46,5 @@ public class ServiceGenerator {
         }
 
         return retrofit.create(serviceClass);
-    }
-
-    public class TMDB extends ServiceGenerator {
-
     }
 }

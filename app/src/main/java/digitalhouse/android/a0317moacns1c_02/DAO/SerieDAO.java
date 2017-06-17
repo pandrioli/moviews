@@ -1,11 +1,14 @@
 package digitalhouse.android.a0317moacns1c_02.DAO;
 
+import java.io.IOException;
+
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.SeriesClient;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.General.VideosContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
@@ -51,6 +54,63 @@ public class SerieDAO {
     public void obtainCredits(String ID, ResultListener<Credits> resultListener){
         Call<Credits> call = client.obtainCredits(ID, TMDBClient.API_KEY);
         call.enqueue(new TMDBCallBack<Credits>(resultListener));
+    }
+
+    public void obtainVideos(String ID, ResultListener<VideosContainer> resultListener){
+        Call<VideosContainer> call = client.obtainVideos(ID, TMDBClient.API_KEY);
+        call.enqueue(new TMDBCallBack<VideosContainer>(resultListener));
+    }
+
+    public VideosContainer obtainVideos(String ID){
+        VideosContainer videosContainer;
+        try {
+            Call<VideosContainer> call = client.obtainVideos(ID, SeriesClient.API_KEY);
+            videosContainer = call.execute().body();
+            return videosContainer;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        videosContainer = new VideosContainer();
+        return videosContainer;
+    }
+
+    public ImagesContainer obtainImages(String ID){
+        ImagesContainer imagesContainer;
+        try {
+            Call<ImagesContainer> call = client.obtainImages(ID, SeriesClient.API_KEY);
+            imagesContainer = call.execute().body();
+            return imagesContainer;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        imagesContainer = new ImagesContainer();
+        return imagesContainer;
+    }
+
+    public SerieDetails obtainDetails(String ID){
+        SerieDetails serieDetails;
+        try {
+            Call<SerieDetails> call = client.obtainDetails(ID, SeriesClient.API_KEY);
+            serieDetails = call.execute().body();
+            return serieDetails;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        serieDetails = new SerieDetails();
+        return serieDetails;
+    }
+
+    public Credits obtainCredits(String ID){
+        Credits credits;
+        try {
+            Call<Credits> call = client.obtainCredits(ID, SeriesClient.API_KEY);
+            credits = call.execute().body();
+            return credits;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        credits = new Credits();
+        return credits;
     }
 
     public SerieOmdb obtainDetailsLong(String title){

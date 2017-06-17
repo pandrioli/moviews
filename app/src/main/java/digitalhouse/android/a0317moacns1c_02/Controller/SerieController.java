@@ -1,5 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.Controller;
 
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
@@ -8,6 +10,7 @@ import digitalhouse.android.a0317moacns1c_02.DAO.SerieDAO;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.General.VideosContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
@@ -50,13 +53,22 @@ public class SerieController {
         seriesDAO.obtainCredits(ID, resultListener);
     }
 
-    public SerieOmdb getSerie(String title){
+    public void getVideos(String ID, ResultListener<VideosContainer> resultListener){
+        seriesDAO.obtainVideos(ID, resultListener);
+    }
+
+    public SerieOmdb getSerieOmdbShort(String title){
         return seriesDAO.obtainDetailsShort(title);
     }
 
-    public Serie map(SerieDetails serieDetails, SerieOmdb serieFromOmdb){
-        Serie serie = new Serie(serieDetails, serieFromOmdb);
+    public Serie getSerieSync(String ID){
+        Serie serie = new Serie();
+        serie.setVideosContainer(seriesDAO.obtainVideos(ID));
+        serie.setImagesContainer(seriesDAO.obtainImages(ID));
+        serie.setSerieDetails(seriesDAO.obtainDetails(ID));
+        serie.setSerieOmdb(seriesDAO.obtainDetailsShort(ID));
+        serie.setCredits(seriesDAO.obtainCredits(ID));
+        serie.setVideosContainer(seriesDAO.obtainVideos(ID));
         return serie;
     }
-
 }

@@ -66,8 +66,8 @@ public class RateFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rate, container, false);
         unbinder = ButterKnife.bind(this, view);
         setUpImdbRate();
-        setUpMetascore();
-        setUpRottenTomatoesPercentage();
+        setAndToggleMetascore();
+        setAndToggleRottenTomatoes();
         setUpTmdbRate();
         setUpMoviewsScore();
         return view;
@@ -81,12 +81,12 @@ public class RateFragment extends Fragment {
 
     private void setUpMoviewsScore(){
         circularProgressBar.setProgress(0);
-        int animationDurationMSegs = 2000;
+        int animationDurationMSegs = 2500;
         circularProgressBar.setProgressWithAnimation(ratingsContainer.getAverageScore(), animationDurationMSegs);
         textViewMoviewsScore.setText(ratingsContainer.getAverageScore().toString());
     }
 
-    private void setUpMetascore(){
+    private void setAndToggleMetascore(){
         if(ratingsContainer.getMetascore() != null)
         {
             metascore.setText(ratingsContainer.getMetascore());
@@ -97,7 +97,7 @@ public class RateFragment extends Fragment {
         }
     }
 
-    private void setUpRottenTomatoesPercentage(){
+    private void setAndToggleRottenTomatoes(){
         if(ratingsContainer.getRottenTomatoesPercentage() != null){
             rottenTomatoesRate.setText(ratingsContainer.getRottenTomatoesPercentage());
         } else{

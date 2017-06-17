@@ -1,6 +1,8 @@
 package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearSnapHelper;
@@ -20,20 +22,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MultimediaRecyclerAdapter;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ImageMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
-import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
+import digitalhouse.android.a0317moacns1c_02.Model.General.Video;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MediaListFragment extends Fragment {
+public class MediaListFragment extends Fragment implements View.OnClickListener {
 
-    public static final String MEDIA_IMAGE_CONTAINER_KEY = "mediaContainer";
+    public static final String MEDIA_URLS_KEY = "mediaContainer";
     private Unbinder unbinder;
 
-    private ImagesContainer imagesContainer;
+    private List<String> URLs;
 
     @BindView(R.id.multimedia_recycler_view) protected DiscreteScrollView mRecyclerView;
 
@@ -41,10 +42,10 @@ public class MediaListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static MediaListFragment newInstance(ImagesContainer imagesContainer){
+    public static MediaListFragment newInstance(ArrayList<String> URLs){
         MediaListFragment fragment = new MediaListFragment();
         Bundle args = new Bundle();
-        args.putParcelable(MEDIA_IMAGE_CONTAINER_KEY, imagesContainer);
+        args.putStringArrayList(MEDIA_URLS_KEY, URLs);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +54,7 @@ public class MediaListFragment extends Fragment {
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         if(getArguments() != null){
-            imagesContainer = getArguments().getParcelable(MEDIA_IMAGE_CONTAINER_KEY);
+            URLs = getArguments().getStringArrayList(MEDIA_URLS_KEY);
         }
     }
 
@@ -66,7 +67,7 @@ public class MediaListFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         MultimediaRecyclerAdapter mAdapter = new MultimediaRecyclerAdapter(view.getContext(),
-                imagesContainer.getURLsList());
+                URLs, this);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
@@ -76,7 +77,7 @@ public class MediaListFragment extends Fragment {
                 .setPivotX(Pivot.X.CENTER) // CENTER is a default one
                 .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
                 .build());
-        mRecyclerView.setOffscreenItems(2);
+        mRecyclerView.setOffscreenItems(3);
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(mRecyclerView);
@@ -88,5 +89,27 @@ public class MediaListFragment extends Fragment {
     public void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.multimedia_recycler_image_view:
+                onTrailerClick(view);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void onTrailerClick(View view){
+        String URL = (String) view.getTag();
+        if(URL.contains("youtube")) {
+            URL = Video.thumbnailToVideoURL(URL);
+            Intent playVideoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
+            startActivity(playVideoIntent);
+        } else { //TODO: agrandar imagen
+        }
     }
 }
