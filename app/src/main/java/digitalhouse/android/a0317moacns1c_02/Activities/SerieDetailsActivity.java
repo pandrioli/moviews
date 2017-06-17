@@ -21,8 +21,7 @@ import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.MediaListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.RateFragment;
-import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsInfoFragment;
-import digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsTitleFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
@@ -33,9 +32,7 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
 
     public static final String SERIE_ID_KEY = "serieID";
 
-    @BindView(R.id.textViewSDSummary) protected TextView textViewSummary;
     @BindView(R.id.progressBarSD) ProgressBar progressBar;
-    @BindView(R.id.cardViewSDSummary) CardView summary;
 
     private FragmentManager fragmentManager;
     private Serie serie;
@@ -56,21 +53,19 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
             public void finish(Serie result) {
                 serie = result;
                 progressBar.setVisibility(View.GONE);
-                startRatingsFragment();
-                startTitleFargment();
-                startInfoFragment();
+                startSerieDetailsFragment();
                 startMediaListFragment();
                 startCastingFragment();
-                summary.setVisibility(View.VISIBLE);
             }
         };
         task.execute(id);
     }
 
-    private void startTitleFargment(){
+    private void startSerieDetailsFragment(){
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-        SeriesDetailsTitleFragment fragment = SeriesDetailsTitleFragment.newInstance(serie.getSerieDetails());
-        fragmentTransaction.replace(R.id.frameLayoutSDTitle, fragment);
+        RateFragment rateFragment = RateController.instanceRateFragment(serie);
+        SerieDetailsFragment fragment = SerieDetailsFragment.newInstance(serie.getSerieDetails(), rateFragment);
+        fragmentTransaction.replace(R.id.frameLayoutSerieDetails, fragment);
         fragmentTransaction.commit();
     }
 
@@ -90,20 +85,6 @@ public class SerieDetailsActivity extends AppCompatActivity implements ImageList
         ArrayList<ImageListItem> imageList = serie.getCredits().getImageListItems();
         ImageListFragment imageListFragment = ImageListFragment.newInstance(imageList, "Cast");
         fragmentTransaction.replace(R.id.frameLayoutSDCasting, imageListFragment);
-        fragmentTransaction.commit();
-    }
-
-    private void startInfoFragment(){
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        SeriesDetailsInfoFragment fragment = SeriesDetailsInfoFragment.newInstance(serie.getSerieDetails());
-        fragmentTransaction.replace(R.id.frameLayoutSDInfo, fragment);
-        fragmentTransaction.commit();
-    }
-
-    private void startRatingsFragment(){
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        RateFragment fragment = RateController.instanceRateFragment(serie);
-        fragmentTransaction.replace(R.id.framelayoutSDRatings, fragment);
         fragmentTransaction.commit();
     }
 

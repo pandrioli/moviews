@@ -11,10 +11,10 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
  * Created by Pablo on 23/05/2017.
  */
 
-public class ItemListPagerAdapter extends FragmentStatePagerAdapter {
+public class TabItemListPagerAdapter extends FragmentStatePagerAdapter {
     private Bundle[] bundleList;
 
-    public ItemListPagerAdapter(FragmentManager fm, Bundle[] bundleList) {
+    public TabItemListPagerAdapter(FragmentManager fm, Bundle[] bundleList) {
         super(fm);
         this.bundleList = bundleList;
     }

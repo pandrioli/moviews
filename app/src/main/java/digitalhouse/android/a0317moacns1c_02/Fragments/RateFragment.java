@@ -2,6 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
-import org.w3c.dom.Text;
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,13 +25,18 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * Use the {@link RateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RateFragment extends Fragment {
+public class RateFragment extends Fragment implements Serializable {
     @BindView(R.id.textViewIMDbRate) protected TextView imdbRate;
     @BindView(R.id.textViewTMDBRate) protected TextView tmdbRate;
+    @Nullable
     @BindView(R.id.imageViewRottenTomatoes) protected ImageView rottenTomatoesLogo;
+    @Nullable
     @BindView(R.id.textViewRottenTomatoesPercentage) protected  TextView rottenTomatoesRate;
+    @Nullable
     @BindView(R.id.imageViewMetacritic) protected ImageView metacriticLogo;
+    @Nullable
     @BindView(R.id.textViewMetacriticRate) protected TextView metascore;
+    @Nullable
     @BindView(R.id.textViewMetacriticMaxRate) protected TextView maxMetascore;
     @BindView(R.id.circularProgressBarMVSScore) protected CircularProgressBar circularProgressBar;
     @BindView(R.id.textViewMoviewsScore) protected TextView textViewMoviewsScore;
@@ -63,11 +69,19 @@ public class RateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rate, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        View view;
+        if(ratingsContainer.hasMetascoreAndRottenScore())
+        {
+            view  = inflater.inflate(R.layout.fragment_rate_full, container, false);
+            unbinder = ButterKnife.bind(this, view);
+            setAndToggleMetascore();
+            setAndToggleRottenTomatoes();
+        } else {
+            view = inflater.inflate(R.layout.fragment_rate_reduced, container, false);
+            unbinder = ButterKnife.bind(this, view);
+        }
+
         setUpImdbRate();
-        setAndToggleMetascore();
-        setAndToggleRottenTomatoes();
         setUpTmdbRate();
         setUpMoviewsScore();
         return view;

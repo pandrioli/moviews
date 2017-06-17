@@ -20,57 +20,12 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/frameLayoutSDTitle" />
-    <FrameLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:id="@+id/frameLayoutSDInfo"
-         android:layout_below="@id/frameLayoutSDTitle"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/framelayoutSDRatings"
-        android:layout_below="@+id/frameLayoutSDInfo"/>
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="2dp"
-        android:layout_below="@+id/framelayoutSDRatings"
-        android:id="@+id/cardViewSDSummary"
-        android:visibility="gone">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-            <TextView
-                android:id="@+id/SDSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginBottom="5dp"
-                android:paddingBottom="12dp"
-                android:paddingTop="16dp"
-                android:text="Summary"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/textViewSDSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/SDSummary"
-                android:text="Set to the all-new sonic backdrop of Awesome Mixtape #2, Marvel Studios' Guardians of the Galaxy Vol. 2 continues the team's adventures as they traverse the outer reaches of the cosmos. The Guardians must fight to keep their newfound family together as they unravel the mystery of Peter Quill's true parentage. Old foes become new allies and fan-favorite characters from the classic comics will come to our heroes' aid as the Marvel Cinematic Universe continues to expand."
-                android:textSize="12sp"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+        android:id="@+id/frameLayoutSerieDetails" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/frameLayoutSDMedia"
-        android:layout_below="@+id/cardViewSDSummary" />
+        android:layout_below="@+id/frameLayoutSerieDetails" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

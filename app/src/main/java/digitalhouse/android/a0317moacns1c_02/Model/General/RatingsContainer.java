@@ -116,4 +116,8 @@ public class RatingsContainer implements Serializable {
             this.rottenTomatoesPercentage = Integer.parseInt(rottenTomatoesPercentage.substring(0,3));
         }
     }
+
+    public boolean hasMetascoreAndRottenScore(){
+        return metascore != null && rottenTomatoesPercentage != null;
+    }
 }

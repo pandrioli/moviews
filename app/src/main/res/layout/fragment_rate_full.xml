@@ -143,25 +143,11 @@
                 android:id="@+id/circularProgressBarMVSScore"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                app:cpb_background_progressbar_color="#8c387bf5"
-                app:cpb_background_progressbar_width="6dp"
+                app:cpb_background_progressbar_color="#43387bf5"
+                app:cpb_background_progressbar_width="8dp"
                 app:cpb_progressbar_color="@color/colorPrimaryDark"
                 app:cpb_progress="85"
-                app:cpb_progressbar_width="9dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:paddingTop="10dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Moviews Score"
-                    android:textSize="10dp"
-                    android:layout_gravity="center_horizontal"
-                    />
+                app:cpb_progressbar_width="10dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:textStyle="bold"
@@ -169,10 +155,9 @@
                     android:textColor="#000000"
                     android:id="@+id/textViewMoviewsScore"
                     android:text="85"
-                    android:textSize="45dp"
+                    android:textSize="65dp"
                     android:layout_gravity="center"
                     />
-            </LinearLayout>
         </FrameLayout>
     </RelativeLayout>
 
