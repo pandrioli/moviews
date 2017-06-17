@@ -16,7 +16,7 @@ import retrofit2.Call;
 public class PersonDAO {
     private TMDBClient client;
     public PersonDAO() {
-        client = ServiceGenerator.createService(TMDBClient.class);
+        client = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
     }
     public void obtainDetails(Integer id, ResultListener<PersonDetails> resultListener) {
         Call<PersonDetails> call = client.obtainPersonDetails(id.toString(), TMDBClient.API_KEY);

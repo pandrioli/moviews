@@ -14,7 +14,7 @@ import retrofit2.Call;
 public class ConfigDAO {
     private TMDBClient client;
     public ConfigDAO() {
-        this.client = ServiceGenerator.createService(TMDBClient.class);
+        this.client = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
     }
     public void obtainConfigData(ResultListener<Config> resultListener) {
         Call<Config> call = client.obtainConfiguration(TMDBClient.API_KEY);

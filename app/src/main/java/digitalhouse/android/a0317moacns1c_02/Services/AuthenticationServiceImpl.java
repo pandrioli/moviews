@@ -24,7 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     protected AuthenticationServiceImpl(){
-        tmdbClient = ServiceGenerator.createService(TMDBClient.class);
+        tmdbClient = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
     }
 
     @Override

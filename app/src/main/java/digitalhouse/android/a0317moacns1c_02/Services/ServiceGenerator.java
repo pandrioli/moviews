@@ -20,22 +20,28 @@ The createService method takes a serviceClass, which is the annotated interface 
  as a parameter and creates a usable client from it. On the resulting client you'll be able to execute your network requests.*/
 public class ServiceGenerator {
 
-    private static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private static ServiceGenerator instance;
 
-    private static Retrofit.Builder builder =
-            new Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create());
+    public static ServiceGenerator getInstance() {
+        if (instance==null) instance = new ServiceGenerator();
+        return instance;
+    }
 
-    private static Retrofit retrofit = builder.build();
 
-    private static HttpLoggingInterceptor logging =
-            new HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY);
+    public <S> S createService(Class<S> serviceClass) {
+        Retrofit.Builder builder =
+                new Retrofit.Builder()
+                        .baseUrl()
+                        .addConverterFactory(GsonConverterFactory.create());
 
-    private static OkHttpClient.Builder httpClient = new OkHttpClient().newBuilder();
+        Retrofit retrofit = builder.build();
 
-    public static <S> S createService(Class<S> serviceClass) {
+        HttpLoggingInterceptor logging =
+                new HttpLoggingInterceptor()
+                        .setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient = new OkHttpClient().newBuilder();
+
         if (!httpClient.interceptors().contains(logging)) {
             httpClient.addInterceptor(logging);
             builder.client(httpClient.build());
@@ -45,21 +51,7 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
-    public static <S> S createService(
-            Class<S> serviceClass, final String authToken) {
-        if (!TextUtils.isEmpty(authToken)) {
-            TokenInterceptor interceptor =
-                    new TokenInterceptor(authToken);
+    public class TMDB extends ServiceGenerator {
 
-            if (!httpClient.interceptors().contains(interceptor)) {
-                httpClient.addInterceptor(interceptor);
-
-                builder.client(httpClient.build());
-                retrofit = builder.build();
-            }
-        }
-
-        return retrofit.create(serviceClass);
     }
-
 }

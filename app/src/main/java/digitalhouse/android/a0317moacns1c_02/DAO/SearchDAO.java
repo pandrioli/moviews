@@ -18,8 +18,9 @@ import retrofit2.Call;
 public class SearchDAO {
     private TMDBClient client;
 
+
     public SearchDAO() {
-        this.client = ServiceGenerator.createService(TMDBClient.class);
+        this.client = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
     }
 
     public void searchMovies(Map<String, String> parameters, ResultListener<MovieResultsContainer> resultListener) {

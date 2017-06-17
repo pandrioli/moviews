@@ -20,7 +20,7 @@ public class SerieDAO {
     private SeriesClient client;
 
     public SerieDAO() {
-        this.client = ServiceGenerator.createService(SeriesClient.class);
+        this.client = ServiceGenerator.getInstance().createService(SeriesClient.class, TMDBClient.BASE_URL);
     }
 
     public void obtainPopular(ResultListener<SerieResultsContainer> resultListener){

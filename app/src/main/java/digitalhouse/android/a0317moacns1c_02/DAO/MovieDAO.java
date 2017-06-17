@@ -22,7 +22,7 @@ import retrofit2.Call;
 public class MovieDAO {
     private TMDBClient client;
     public MovieDAO() {
-        this.client = ServiceGenerator.createService(TMDBClient.class);
+        this.client = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
     }
     public void obtainPopular(ResultListener<MovieResultsContainer> resultListener) {
         Call<MovieResultsContainer> call = client.obtainPopularMovies(TMDBClient.API_KEY);

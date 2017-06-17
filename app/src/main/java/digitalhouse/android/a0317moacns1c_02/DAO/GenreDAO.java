@@ -14,7 +14,7 @@ import retrofit2.Call;
 public class GenreDAO {
     private TMDBClient client;
     public GenreDAO() {
-        this.client = ServiceGenerator.createService(TMDBClient.class);
+        this.client = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
     }
     public void obtainMovieGenres(ResultListener<Genres> resultListener) {
         Call<Genres> call = client.obtainMovieGenres(TMDBClient.API_KEY);

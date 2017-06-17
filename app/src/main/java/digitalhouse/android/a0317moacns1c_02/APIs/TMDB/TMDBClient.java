@@ -28,6 +28,7 @@ import retrofit2.http.QueryMap;
 
 public interface TMDBClient {
 
+    String BASE_URL = "https://api.themoviedb.org/3/";
     String API_KEY = "91a255db2e1d0761c2dc886c0ed08709";
 
     @GET("authentication/token/new?")
