@@ -22,6 +22,10 @@ public class PersonBase implements Parcelable {
         name = in.readString();
     }
 
+    public PersonBase(){
+
+    }
+
     public static final Creator<PersonBase> CREATOR = new Creator<PersonBase>() {
         @Override
         public PersonBase createFromParcel(Parcel in) {

@@ -10,7 +10,7 @@ import java.util.List;
  * Created by forev on 17-Jun-17.
  */
 
-public class VideosContainer implements Serializable {
+public class VideoContainer implements Serializable {
 
     private Integer id;
     @SerializedName("results")

@@ -29,7 +29,7 @@ public class SerieDetails extends SerieResult implements Parcelable {
     @SerializedName("number_of_episodes") protected Integer numberOfEpisodes;
     @SerializedName("number_of_seasons") protected Integer numberOfSeasons;
     @SerializedName("production_companies") protected List<Company> productionCompanies;
-    protected List<Season> seasons;
+    protected List<SeasonResult> seasonResults;
     protected String status;
     protected String type;
 
@@ -171,12 +171,12 @@ public class SerieDetails extends SerieResult implements Parcelable {
         this.productionCompanies = productionCompanies;
     }
 
-    public List<Season> getSeasons() {
-        return seasons;
+    public List<SeasonResult> getSeasonResults() {
+        return seasonResults;
     }
 
-    public void setSeasons(List<Season> seasons) {
-        this.seasons = seasons;
+    public void setSeasonResults(List<SeasonResult> seasonResults) {
+        this.seasonResults = seasonResults;
     }
 
     public String getStatus() {

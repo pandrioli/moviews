@@ -1,12 +1,13 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Series;
 
+import java.io.Serializable;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
-import digitalhouse.android.a0317moacns1c_02.Model.General.VideosContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
 import digitalhouse.android.a0317moacns1c_02.Model.Misc.Company;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonBase;
@@ -15,13 +16,13 @@ import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonBase;
  * Created by forev on 15-Jun-17.
  */
 
-public class Serie {
+public class Serie implements Serializable {
 
     private SerieDetails serieDetails;
     private SerieOmdb serieOmdb;
     private ImagesContainer imagesContainer;
     private Credits credits;
-    private VideosContainer videosContainer;
+    private VideoContainer videoContainer;
 
     public SerieDetails getSerieDetails() {
         return serieDetails;
@@ -55,12 +56,20 @@ public class Serie {
         this.credits = credits;
     }
 
-    public VideosContainer getVideosContainer() {
-        return videosContainer;
+    public VideoContainer getVideoContainer() {
+        return videoContainer;
     }
 
-    public void setVideosContainer(VideosContainer videosContainer) {
-        this.videosContainer = videosContainer;
+    public void setVideoContainer(VideoContainer videoContainer) {
+        this.videoContainer = videoContainer;
+    }
+
+    public String getPosterPath(){
+        return serieDetails.getPosterPath();
+    }
+
+    public String getBackDropPath(){
+        return serieDetails.getBackdropPath();
     }
 
     public List<PersonBase> getCreatedBy() {
@@ -113,8 +122,8 @@ public class Serie {
         return serieDetails.productionCompanies;
     }
 
-    public List<Season> getSeasons() {
-        return serieDetails.seasons;
+    public List<SeasonResult> getSeasons() {
+        return serieDetails.seasonResults;
     }
 
     public String getStatus() {
@@ -171,6 +180,10 @@ public class Serie {
         if (serieDetails.firstAirDate==null) return "";
         if (serieDetails.firstAirDate.length()>4) return serieDetails.firstAirDate.substring(0,4);
         return "";
+    }
+
+    public String getOverview(){
+        return serieDetails.getOverview();
     }
 
     public String getMetascore() {

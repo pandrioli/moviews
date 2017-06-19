@@ -153,9 +153,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             startActivity(intent);
         }
         if (listItem.getType().equals("serieDetails")) {
-            Intent intent = new Intent(this, SerieDetailsActivity.class);
+            Intent intent = new Intent(this, SerieActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(SerieDetailsActivity.SERIE_ID_KEY, listItem.getId().toString());
+            bundle.putString(SerieActivity.SERIE_ID_KEY, listItem.getId().toString());
             intent.putExtras(bundle);
             startActivity(intent);
         }

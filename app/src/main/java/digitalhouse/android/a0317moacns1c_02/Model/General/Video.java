@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Model.General;
+package digitalhouse.android.a0317moacns1c_02.Model.Media;
 
 import java.io.Serializable;
 

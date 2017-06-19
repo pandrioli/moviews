@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Gregorio Martin on 11/6/2017.
  */
 
-public class Season {
+public class SeasonResult {
 
     @SerializedName("air_date")
     protected String airDate;

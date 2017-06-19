@@ -7,8 +7,10 @@ import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ExternalIDs;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
-import digitalhouse.android.a0317moacns1c_02.Model.General.VideosContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
@@ -56,22 +58,22 @@ public class SerieDAO {
         call.enqueue(new TMDBCallBack<Credits>(resultListener));
     }
 
-    public void obtainVideos(String ID, ResultListener<VideosContainer> resultListener){
-        Call<VideosContainer> call = client.obtainVideos(ID, TMDBClient.API_KEY);
-        call.enqueue(new TMDBCallBack<VideosContainer>(resultListener));
+    public void obtainVideos(String ID, ResultListener<VideoContainer> resultListener){
+        Call<VideoContainer> call = client.obtainVideos(ID, TMDBClient.API_KEY);
+        call.enqueue(new TMDBCallBack<VideoContainer>(resultListener));
     }
 
-    public VideosContainer obtainVideos(String ID){
-        VideosContainer videosContainer;
+    public VideoContainer obtainVideos(String ID){
+        VideoContainer videoContainer;
         try {
-            Call<VideosContainer> call = client.obtainVideos(ID, SeriesClient.API_KEY);
-            videosContainer = call.execute().body();
-            return videosContainer;
+            Call<VideoContainer> call = client.obtainVideos(ID, SeriesClient.API_KEY);
+            videoContainer = call.execute().body();
+            return videoContainer;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        videosContainer = new VideosContainer();
-        return videosContainer;
+        videoContainer = new VideoContainer();
+        return videoContainer;
     }
 
     public ImagesContainer obtainImages(String ID){
@@ -112,6 +114,73 @@ public class SerieDAO {
         credits = new Credits();
         return credits;
     }
+
+    public SeasonDetails obtainSeasonDetails(String serieID, String seasonNumber){
+        SeasonDetails seasonDetails;
+        try{
+            Call<SeasonDetails> call = client.obtainSeasonDetails(serieID, seasonNumber, SeriesClient.API_KEY);
+            seasonDetails = call.execute().body();
+            return seasonDetails;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        seasonDetails = new SeasonDetails();
+        return seasonDetails;
+    }
+
+    public Credits obtainSeasonCredits(String serieID, String seasonNumber){
+        Credits credits;
+        try{
+            Call<Credits> call = client.obtainSeasonCredits(serieID, seasonNumber, SeriesClient.API_KEY);
+            credits = call.execute().body();
+            return credits;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        credits = new Credits();
+        return credits;
+    }
+
+    public ImagesContainer obtainSeasonImages(String serieID, String seasonNumber){
+        ImagesContainer images;
+        try{
+            Call<ImagesContainer> call = client.obtainSeasonImages(serieID, seasonNumber, SeriesClient.API_KEY);
+            images = call.execute().body();
+            return images;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        images = new ImagesContainer();
+        return images;
+    }
+
+    public VideoContainer obtainSeasonVideos(String serieID, String seasonNumber){
+        VideoContainer videoContainer;
+        try{
+            Call<VideoContainer> call = client.obtainSeasonVideos(serieID, seasonNumber, SeriesClient.API_KEY);
+            videoContainer = call.execute().body();
+            return videoContainer;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        videoContainer = new VideoContainer();
+        return videoContainer;
+    }
+
+    public ExternalIDs obtainExternalIDs(String serieID, String seasonNumber){
+        ExternalIDs externalIDs;
+        try{
+            Call<ExternalIDs> call = client.obtainExternalIDs(serieID, seasonNumber, SeriesClient.API_KEY);
+            externalIDs = call.execute().body();
+            return externalIDs;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        externalIDs = new ExternalIDs();
+        return externalIDs;
+    }
+
+
 
     public SerieOmdb obtainDetailsLong(String title){
         return mockSerieLong();
