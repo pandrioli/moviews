@@ -4,12 +4,15 @@ package digitalhouse.android.a0317moacns1c_02.Fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.Pivot;
@@ -22,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MultimediaRecyclerAdapter;
+import digitalhouse.android.a0317moacns1c_02.Adapters.PageIndicator;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Video;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -36,6 +40,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
     private List<String> URLs;
 
     @BindView(R.id.multimedia_recycler_view) protected DiscreteScrollView mRecyclerView;
+    @BindView(R.id.linearLayourMediaListPageIndicator) protected LinearLayout pageIndicatorContainer;
 
     public MediaListFragment() {
         // Required empty public constructor
@@ -68,6 +73,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
         MultimediaRecyclerAdapter mAdapter = new MultimediaRecyclerAdapter(view.getContext(),
                 URLs, this);
 
+
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemTransformer(new ScaleTransformer.Builder()
@@ -77,6 +83,14 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
                 .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
                 .build());
         mRecyclerView.setOffscreenItems(3);
+        final PageIndicator pageIndicator = new PageIndicator(pageIndicatorContainer, URLs.size());
+        mRecyclerView.addOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
+            @Override
+            public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+                pageIndicator.setPage(adapterPosition);
+            }
+        });
+
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(mRecyclerView);

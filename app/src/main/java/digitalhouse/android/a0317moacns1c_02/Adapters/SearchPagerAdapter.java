@@ -17,7 +17,7 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragments;
 
-    public SearchPagerAdapter(FragmentManager fragmentManager, Integer NumOfTabs){
+    public SearchPagerAdapter(FragmentManager fragmentManager){
         super(fragmentManager);
         fragments = new ArrayList<>();
         fragments.add(new Fragment());

@@ -79,7 +79,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
 
 
     private void loadViewPager() {
-        adapter = new SearchPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new SearchPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -190,7 +190,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
             intent.putExtras(bundle);
             startActivity(intent);
         }
-        if (listItem.getType().equals("serieDetails")) {
+        if (listItem.getType().equals("serie")) {
 
         }
         if (listItem.getType().equals("person")) {
