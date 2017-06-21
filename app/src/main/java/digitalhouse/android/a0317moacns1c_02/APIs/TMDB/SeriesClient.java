@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ExternalIDs;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
@@ -36,7 +36,7 @@ public interface SeriesClient {
     @GET("tv/{tv_id}/videos")
     Call<VideoContainer> obtainVideos(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/season/{season_number}")
-    Call<SeasonDetails> obtainSeasonDetails(@Path("tv_id") String serie_id, @Query("season_number") String seasonNumber, @Query("api_key") String API_KEY);
+    Call<SeasonDetails> obtainSeasonDetails(@Path("tv_id") String serie_id, @Path("season_number") String seasonNumber, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/season/{season_number}/credits")
     Call<Credits> obtainSeasonCredits(@Path("tv_id") String serie_id, @Path("season_number") String seasonNumber, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/season/{season_number}/images")

@@ -3,13 +3,14 @@ package digitalhouse.android.a0317moacns1c_02.Model.Misc;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by dh3 on 24/05/17.
  */
 
-public class Company implements Parcelable{
+public class Company implements Parcelable, Serializable {
     private Integer id;
     private String name;
 

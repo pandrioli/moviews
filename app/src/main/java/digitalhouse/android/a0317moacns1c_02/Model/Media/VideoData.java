@@ -3,11 +3,13 @@ package digitalhouse.android.a0317moacns1c_02.Model.Media;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Pablo on 25/05/2017.
  */
 
-public class VideoData implements Parcelable {
+public class VideoData implements Parcelable, Serializable {
     private String id;
     private String iso_639_1;
     private String iso_3166_1;

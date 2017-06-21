@@ -1,10 +1,12 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Genres;
 
+import java.io.Serializable;
+
 /**
  * Created by Pablo on 22/05/2017.
  */
 
-public class Genre {
+public class Genre implements Serializable {
     private Integer id;
     private String name;
 

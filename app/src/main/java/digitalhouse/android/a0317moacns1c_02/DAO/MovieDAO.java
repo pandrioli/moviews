@@ -10,7 +10,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieVideos;
 import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;

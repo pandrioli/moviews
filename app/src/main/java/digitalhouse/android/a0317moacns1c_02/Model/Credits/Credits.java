@@ -3,6 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Model.Credits;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
  * Created by Pablo on 25/05/2017.
  */
 
-public class Credits implements Parcelable {
+public class Credits implements Parcelable, Serializable {
     private Integer id;
     private ArrayList<Cast> cast;
     private ArrayList<Crew> crew;

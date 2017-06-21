@@ -4,11 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
+import java.io.Serializable;
+
 /**
  * Created by Pablo on 26/05/2017.
  */
 
-public class ImageListItem implements Parcelable, View.OnClickListener {
+public class ImageListItem implements Parcelable, View.OnClickListener, Serializable {
     private Integer id;
     private String title;
     private String subtitle;

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
@@ -16,7 +17,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonBase;
  * Created by Gregorio Martin on 11/6/2017.
  */
 
-public class SerieDetails extends SerieResult implements Parcelable {
+public class SerieDetails extends SerieResult implements Parcelable, Serializable {
 
     @SerializedName("created_by") protected List<PersonBase> createdBy;
     @SerializedName("episode_run_time") protected List<Integer> episodeRunTimes;
@@ -29,7 +30,7 @@ public class SerieDetails extends SerieResult implements Parcelable {
     @SerializedName("number_of_episodes") protected Integer numberOfEpisodes;
     @SerializedName("number_of_seasons") protected Integer numberOfSeasons;
     @SerializedName("production_companies") protected List<Company> productionCompanies;
-    protected List<SeasonResult> seasonResults;
+    protected List<SeasonResult> seasons;
     protected String status;
     protected String type;
 
@@ -172,11 +173,11 @@ public class SerieDetails extends SerieResult implements Parcelable {
     }
 
     public List<SeasonResult> getSeasonResults() {
-        return seasonResults;
+        return seasons;
     }
 
     public void setSeasonResults(List<SeasonResult> seasonResults) {
-        this.seasonResults = seasonResults;
+        this.seasons = seasonResults;
     }
 
     public String getStatus() {

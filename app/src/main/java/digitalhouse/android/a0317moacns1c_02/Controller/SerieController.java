@@ -6,9 +6,11 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.SerieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.DAO.SerieDAO;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
@@ -68,5 +70,11 @@ public class SerieController {
         serie.setCredits(seriesDAO.obtainCredits(ID));
         serie.setVideoContainer(seriesDAO.obtainVideos(ID));
         return serie;
+    }
+
+    public Season getSeasonSync(String ID, String seasonNumber){
+        Season season = new Season();
+        season.setSeasonDetails(seriesDAO.obtainSeasonDetails(ID, seasonNumber));
+        return season;
     }
 }

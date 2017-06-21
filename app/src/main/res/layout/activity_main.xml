@@ -12,67 +12,16 @@
         android:layout_height="wrap_content"
         android:text="Moviews"
         android:textSize="30dp"
-        android:paddingTop="150dp"
+        android:paddingTop="40dp"
         android:layout_gravity="center_horizontal"
         />
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationViewMainActivity"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:lottie_fileName="preloader.json"
+
         app:lottie_scale="5"
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="50dp"
-        android:layout_gravity="bottom"
-        >
-    </LinearLayout>
-
-
-   <!-- <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="por el momento es solo para testeo el activity main, así que cada vez que se quiera agregar una pantalla primero se debe agregar un botón que genere la nueva actividad"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
-        android:text="Cargando datos generales de la API..."
-        android:id="@+id/textViewStatusDatosGenerales"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonToLoginActivity"
-        android:text="Login Activity"
-        android:layout_gravity="center_horizontal"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonToTabsTestActivity"
-        android:text="Tabs Activity"
-        android:layout_gravity="center_horizontal"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonToMovieDetailsActivity"
-        android:text="MOVIE DETAILS ACTIVITY"
-        android:layout_gravity="center_horizontal"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonToPersonDetailsActivity"
-        android:text="PERSON DETAILS ACTIVITY"
-        android:layout_gravity="center_horizontal"/> -->
-
 </FrameLayout>

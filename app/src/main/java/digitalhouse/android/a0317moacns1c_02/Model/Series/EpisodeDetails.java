@@ -2,6 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Model.Series;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Crew;
@@ -10,7 +11,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Credits.Crew;
  * Created by forev on 18-Jun-17.
  */
 
-public class EpisodeDetails {
+public class EpisodeDetails implements Serializable {
     @SerializedName("air_date")
     protected String  airDate;
     protected List<Crew> crew;

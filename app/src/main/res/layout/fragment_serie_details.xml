@@ -1,5 +1,5 @@
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/main_content"
+    android:id="@+id/fragment_serie_details"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -205,7 +205,7 @@
                         android:layout_height="1dp"
                         android:layout_below="@+id/relativeLayoutSDInfo"
                         android:layout_toEndOf="@+id/imageViewPoster"
-                        android:background="@android:color/darker_gray" />
+                        android:background="@color/divider" />
 
                     <LinearLayout
                         android:id="@+id/linearLayoutSDActions"

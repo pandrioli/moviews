@@ -3,8 +3,9 @@ package digitalhouse.android.a0317moacns1c_02.Model.Series;
 import java.io.Serializable;
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImagesContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
@@ -62,6 +63,10 @@ public class Serie implements Serializable {
 
     public void setVideoContainer(VideoContainer videoContainer) {
         this.videoContainer = videoContainer;
+    }
+
+    public Integer getID(){
+        return serieDetails.getId();
     }
 
     public String getPosterPath(){
@@ -123,7 +128,11 @@ public class Serie implements Serializable {
     }
 
     public List<SeasonResult> getSeasons() {
-        return serieDetails.seasonResults;
+        return serieDetails.seasons;
+    }
+
+    public SeasonResult getSeason(Integer position){
+        return serieDetails.seasons.get(position);
     }
 
     public String getStatus() {
@@ -131,21 +140,7 @@ public class Serie implements Serializable {
     }
 
     public String getFirstAirDate() {
-        String year = null;
-        String month = null;
-        String day = null;
-        if(serieDetails.firstAirDate != null && serieDetails.firstAirDate.length() > 9){
-            year = serieDetails.firstAirDate.substring(0,4);
-            month = serieDetails.firstAirDate.substring(5,7);
-            day = serieDetails.firstAirDate.substring(8,10);
-        }
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(day).append("/");
-        stringBuilder.append(month).append("/");
-        stringBuilder.append(year);
-
-        return stringBuilder.toString();
+        return serieDetails.getFirstAirDate();
     }
 
     public List<String> getOriginCountries() {
