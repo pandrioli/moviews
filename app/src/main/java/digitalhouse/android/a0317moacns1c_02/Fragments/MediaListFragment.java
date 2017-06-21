@@ -24,8 +24,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import digitalhouse.android.a0317moacns1c_02.Activities.ImageViewActivity;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MultimediaRecyclerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Adapters.PageIndicator;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Video;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -122,7 +124,13 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
             URL = Video.thumbnailToVideoURL(URL);
             Intent playVideoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
             startActivity(playVideoIntent);
-        } else { //TODO: agrandar imagen
+        } else {
+            Intent intent = new Intent(getContext(), ImageViewActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(ImageViewActivity.IMAGE_PATH_KEY, ImageHelper.getImagePathFromFullURL(URL));
+            bundle.putBoolean(ImageViewActivity.LANDSCAPE_KEY, true);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 }
