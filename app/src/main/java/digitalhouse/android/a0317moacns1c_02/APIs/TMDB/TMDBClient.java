@@ -2,15 +2,15 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import java.util.Map;
 
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Configuration.Config;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonImages;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieVideos;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonMovieCredits;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
@@ -48,11 +48,11 @@ public interface TMDBClient {
 
     //Obtener imagenes de película
     @GET("movie/{movie_id}/images?")
-    Call<ImagesContainer> obtainMovieImages(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+    Call<ImageContainer> obtainMovieImages(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener videos
     @GET("movie/{movie_id}?")
-    Call<MovieVideos> obtainMovieVideos(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
+    Call<VideoContainer> obtainMovieVideos(@Path("movie_id") String movie_id, @Query("api_key") String API_KEY);
 
     //Obtener créditos
     @GET("movie/{movie_id}/credits?")

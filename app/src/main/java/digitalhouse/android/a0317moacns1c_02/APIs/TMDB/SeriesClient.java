@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.APIs.TMDB;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ExternalIDs;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
@@ -30,7 +30,7 @@ public interface SeriesClient {
     @GET("tv/{tv_id}?")
     Call<SerieDetails> obtainDetails(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/images")
-    Call<ImagesContainer> obtainImages(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
+    Call<ImageContainer> obtainImages(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/credits")
     Call<Credits> obtainCredits(@Path("tv_id") String serie_id, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/videos")
@@ -40,7 +40,7 @@ public interface SeriesClient {
     @GET("tv/{tv_id}/season/{season_number}/credits")
     Call<Credits> obtainSeasonCredits(@Path("tv_id") String serie_id, @Path("season_number") String seasonNumber, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/season/{season_number}/images")
-    Call<ImagesContainer> obtainSeasonImages(@Path("tv_id") String serie_id, @Path("season_number") String seasonNumber, @Query("api_key") String API_KEY);
+    Call<ImageContainer> obtainSeasonImages(@Path("tv_id") String serie_id, @Path("season_number") String seasonNumber, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/season/{season_number}/videos")
     Call<VideoContainer> obtainSeasonVideos(@Path("tv_id") String serie_id, @Path("season_number") String seasonNumber, @Query("api_key") String API_KEY);
     @GET("tv/{tv_id}/season/{season_number}/external_ids")

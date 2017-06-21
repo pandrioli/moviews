@@ -4,7 +4,7 @@ package digitalhouse.android.a0317moacns1c_02.Helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.Image;
 import digitalhouse.android.a0317moacns1c_02.Controller.ConfigController;
 
 /**
@@ -13,18 +13,18 @@ import digitalhouse.android.a0317moacns1c_02.Controller.ConfigController;
 
 public class ImageMapper {
 
-    public static ArrayList<String> map(List<ImageData> imageDataList){
+    public static ArrayList<String> map(List<Image> imageList){
         ArrayList<String> listaUrls = new ArrayList<>();
-        for(ImageData imageData : imageDataList){
-            listaUrls.add(map(imageData));
+        for(Image image : imageList){
+            listaUrls.add(map(image));
         }
         return listaUrls;
     }
 
-    public static String map(ImageData imageData){
+    public static String map(Image image){
         String url = ConfigController.getInstance().getImagesBaseURL();
         url += ConfigController.getInstance().getBackdropSizes().get(1);
-        url += imageData.getFile_path();
+        url += image.getFile_path();
         return url;
     }
 }

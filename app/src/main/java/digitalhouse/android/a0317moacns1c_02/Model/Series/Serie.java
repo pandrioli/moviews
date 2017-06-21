@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
@@ -20,7 +20,7 @@ public class Serie implements Serializable {
 
     private SerieDetails serieDetails;
     private SerieOmdb serieOmdb;
-    private ImagesContainer imagesContainer;
+    private ImageContainer imagesContainer;
     private Credits credits;
     private VideoContainer videoContainer;
 
@@ -40,11 +40,11 @@ public class Serie implements Serializable {
         this.serieOmdb = serieOmdb;
     }
 
-    public ImagesContainer getImagesContainer() {
+    public ImageContainer getImagesContainer() {
         return imagesContainer;
     }
 
-    public void setImagesContainer(ImagesContainer imagesContainer) {
+    public void setImagesContainer(ImageContainer imagesContainer) {
         this.imagesContainer = imagesContainer;
     }
 

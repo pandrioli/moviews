@@ -3,6 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Model.Movie;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
@@ -14,7 +15,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Misc.Language;
  * Created by Gregorio Martin on 20/5/2017.
  */
 
-public class MovieDetails implements Parcelable{
+public class MovieDetails implements Serializable {
     public static final String tag = "movieDetails";
     private Boolean adult;
     private String backdrop_path;
@@ -40,58 +41,6 @@ public class MovieDetails implements Parcelable{
     private Boolean video;
     private Double vote_average;
     private Integer vote_count;
-
-    protected MovieDetails(Parcel in) {
-        backdrop_path = in.readString();
-        homepage = in.readString();
-        imdb_id = in.readString();
-        original_language = in.readString();
-        original_title = in.readString();
-        overview = in.readString();
-        poster_path = in.readString();
-        production_companies = in.createTypedArrayList(Company.CREATOR);
-        production_countries = in.createTypedArrayList(Country.CREATOR);
-        release_date = in.readString();
-        spoken_languages = in.createTypedArrayList(Language.CREATOR);
-        status = in.readString();
-        tagline = in.readString();
-        title = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(backdrop_path);
-        dest.writeString(homepage);
-        dest.writeString(imdb_id);
-        dest.writeString(original_language);
-        dest.writeString(original_title);
-        dest.writeString(overview);
-        dest.writeString(poster_path);
-        dest.writeTypedList(production_companies);
-        dest.writeTypedList(production_countries);
-        dest.writeString(release_date);
-        dest.writeTypedList(spoken_languages);
-        dest.writeString(status);
-        dest.writeString(tagline);
-        dest.writeString(title);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<MovieDetails> CREATOR = new Creator<MovieDetails>() {
-        @Override
-        public MovieDetails createFromParcel(Parcel in) {
-            return new MovieDetails(in);
-        }
-
-        @Override
-        public MovieDetails[] newArray(int size) {
-            return new MovieDetails[size];
-        }
-    };
 
     public Boolean getAdult() {
         return adult;

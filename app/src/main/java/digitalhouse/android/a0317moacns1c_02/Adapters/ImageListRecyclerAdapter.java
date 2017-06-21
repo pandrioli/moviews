@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
-import android.text.Layout;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**

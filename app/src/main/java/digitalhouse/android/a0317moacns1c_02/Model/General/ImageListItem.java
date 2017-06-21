@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Model.Media;
+package digitalhouse.android.a0317moacns1c_02.Model.General;
 
 import android.os.Parcel;
 import android.os.Parcelable;

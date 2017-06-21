@@ -6,7 +6,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.SerieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.DAO.SerieDAO;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
@@ -43,7 +43,7 @@ public class SerieController {
         seriesDAO.obtainDetails(ID, resultListener);
     }
 
-    public void getImages(String ID, ResultListener<ImagesContainer> resultListener){
+    public void getImages(String ID, ResultListener<ImageContainer> resultListener){
         seriesDAO.obtainImages(ID, resultListener);
     }
 

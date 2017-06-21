@@ -3,11 +3,13 @@ package digitalhouse.android.a0317moacns1c_02.Model.Media;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Pablo on 25/05/2017.
  */
 
-public class ImageData implements Parcelable {
+public class Image implements Serializable {
     private Double aspect_ratio;
     private String file_path;
     private Integer height;
@@ -16,33 +18,10 @@ public class ImageData implements Parcelable {
     private Double vote_count;
     private Integer width;
 
-    protected ImageData(Parcel in) {
+    protected Image(Parcel in) {
         file_path = in.readString();
         iso_639_1 = in.readString();
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(file_path);
-        dest.writeString(iso_639_1);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<ImageData> CREATOR = new Creator<ImageData>() {
-        @Override
-        public ImageData createFromParcel(Parcel in) {
-            return new ImageData(in);
-        }
-
-        @Override
-        public ImageData[] newArray(int size) {
-            return new ImageData[size];
-        }
-    };
 
     public Double getAspect_ratio() {
         return aspect_ratio;

@@ -8,7 +8,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ExternalIDs;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
@@ -48,9 +48,9 @@ public class SerieDAO {
         call.enqueue(new TMDBCallBack<SerieDetails>(resultListener));
     }
 
-    public void obtainImages(String ID, ResultListener<ImagesContainer> resultListener){
-        Call<ImagesContainer> call = client.obtainImages(ID, TMDBClient.API_KEY);
-        call.enqueue(new TMDBCallBack<ImagesContainer>(resultListener));
+    public void obtainImages(String ID, ResultListener<ImageContainer> resultListener){
+        Call<ImageContainer> call = client.obtainImages(ID, TMDBClient.API_KEY);
+        call.enqueue(new TMDBCallBack<ImageContainer>(resultListener));
     }
 
     public void obtainCredits(String ID, ResultListener<Credits> resultListener){
@@ -76,16 +76,16 @@ public class SerieDAO {
         return videoContainer;
     }
 
-    public ImagesContainer obtainImages(String ID){
-        ImagesContainer imagesContainer;
+    public ImageContainer obtainImages(String ID){
+        ImageContainer imagesContainer;
         try {
-            Call<ImagesContainer> call = client.obtainImages(ID, SeriesClient.API_KEY);
+            Call<ImageContainer> call = client.obtainImages(ID, SeriesClient.API_KEY);
             imagesContainer = call.execute().body();
             return imagesContainer;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        imagesContainer = new ImagesContainer();
+        imagesContainer = new ImageContainer();
         return imagesContainer;
     }
 
@@ -141,16 +141,16 @@ public class SerieDAO {
         return credits;
     }
 
-    public ImagesContainer obtainSeasonImages(String serieID, String seasonNumber){
-        ImagesContainer images;
+    public ImageContainer obtainSeasonImages(String serieID, String seasonNumber){
+        ImageContainer images;
         try{
-            Call<ImagesContainer> call = client.obtainSeasonImages(serieID, seasonNumber, SeriesClient.API_KEY);
+            Call<ImageContainer> call = client.obtainSeasonImages(serieID, seasonNumber, SeriesClient.API_KEY);
             images = call.execute().body();
             return images;
         } catch (IOException e){
             e.printStackTrace();
         }
-        images = new ImagesContainer();
+        images = new ImageContainer();
         return images;
     }
 

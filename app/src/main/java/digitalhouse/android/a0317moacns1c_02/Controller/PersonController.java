@@ -1,13 +1,10 @@
 package digitalhouse.android.a0317moacns1c_02.Controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
-import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
-import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.Image;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonCastCreditItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonCrewCreditItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
@@ -40,10 +37,10 @@ public class PersonController {
             @Override
             public void finish(PersonImages personImages) {
                 ArrayList<ImageListItem> imageList = new ArrayList<>();
-                for (ImageData imageData : personImages.getProfiles()) {
+                for (Image image : personImages.getProfiles()) {
                     ImageListItem imageListItem = new ImageListItem();
-                    imageListItem.setImagePath(imageData.getFile_path());
-                    imageListItem.setImageURL(ImageHelper.getProfileURL(imageData.getFile_path(), 1));
+                    imageListItem.setImagePath(image.getFile_path());
+                    imageListItem.setImageURL(ImageHelper.getProfileURL(image.getFile_path(), 1));
                     imageListItem.setId(0);
                     imageList.add(imageListItem);
                 }

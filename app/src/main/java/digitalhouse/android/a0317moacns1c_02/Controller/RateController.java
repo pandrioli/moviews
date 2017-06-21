@@ -2,6 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Controller;
 
 import digitalhouse.android.a0317moacns1c_02.Fragments.RateFragment;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RatingsContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 
@@ -25,15 +26,14 @@ public class RateController {
     }
 
     //temp
-    public static RateFragment instanceRateFragment(MovieDetails movieDetails){
+    public static RateFragment instanceRateFragment(Movie movie){
         RatingsContainer ratingsContainer = new RatingsContainer();
         ratingsContainer.setImdbMaxRate("/10");
-        ratingsContainer.setImdbRate("8");
+        ratingsContainer.setImdbRate(movie.getMovieOMDB().getImdbRating());
         ratingsContainer.setTmdbMaxRate("/10");
-        ratingsContainer.setTmdbRate(movieDetails.getVote_average());
-        ratingsContainer.setMetascore("83");
+        ratingsContainer.setTmdbRate(movie.getMovieDetails().getVote_average());
+        ratingsContainer.setMetascore("77");
         ratingsContainer.setMaxMetascore("100");
-        ratingsContainer.setRottenTomatoesPercentage("100");
         return RateFragment.newInstance(ratingsContainer);
     }
 

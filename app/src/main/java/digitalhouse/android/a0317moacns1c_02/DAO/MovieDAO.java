@@ -1,17 +1,23 @@
 package digitalhouse.android.a0317moacns1c_02.DAO;
 
+import android.os.AsyncTask;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
+import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.OMDBClient;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieOmdb;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImagesContainer;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieVideos;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieOMDB;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.Requests.OMDBRequest;
 import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;
 
@@ -20,49 +26,88 @@ import retrofit2.Call;
  */
 
 public class MovieDAO {
-    private TMDBClient client;
+    private TMDBClient tmdbClient;
+    private OMDBClient omdbClient;
+
     public MovieDAO() {
-        this.client = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
+        this.tmdbClient = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
+        this.omdbClient = ServiceGenerator.getInstance().createService(OMDBClient.class, OMDBClient.BASE_URL);
     }
+
+
+    // obtener todos los datos de una pelicula (clase Movie)
+    public void obtainMovie(Integer id, ResultListener<Movie> resultListener) {
+        ObtainMovieTask obtainMovieTask = new ObtainMovieTask(resultListener);
+        obtainMovieTask.execute(id.toString());
+    }
+
+    // obtencion de listas de peliculas (TODO: usar DISCOVER)
     public void obtainPopular(ResultListener<MovieResultsContainer> resultListener) {
-        Call<MovieResultsContainer> call = client.obtainPopularMovies(TMDBClient.API_KEY);
+        Call<MovieResultsContainer> call = tmdbClient.obtainPopularMovies(TMDBClient.API_KEY);
         call.enqueue(new TMDBCallBack<MovieResultsContainer>(resultListener));
     }
     public void obtainNowPlaying(ResultListener<MovieResultsContainer> resultListener) {
-        Call<MovieResultsContainer> call = client.obtainNowPlayingMovies(TMDBClient.API_KEY);
+        Call<MovieResultsContainer> call = tmdbClient.obtainNowPlayingMovies(TMDBClient.API_KEY);
         call.enqueue(new TMDBCallBack<MovieResultsContainer>(resultListener));
     }
     public void obtainUpcoming(ResultListener<MovieResultsContainer> resultListener) {
-        Call<MovieResultsContainer> call = client.obtainUpcomingMovies(TMDBClient.API_KEY);
+        Call<MovieResultsContainer> call = tmdbClient.obtainUpcomingMovies(TMDBClient.API_KEY);
         call.enqueue(new TMDBCallBack<MovieResultsContainer>(resultListener));
     }
-    public void obtainDetails(Integer id, ResultListener<MovieDetails> resultListener) {
-        Call<MovieDetails> call = client.obtainMovieDetails(id.toString(), TMDBClient.API_KEY);
-        call.enqueue(new TMDBCallBack<MovieDetails>(resultListener));
-    }
-    public void obtainCredits(Integer id, ResultListener<Credits> resultListener) {
-        Call<Credits> call = client.obtainMovieCredits(id.toString(), TMDBClient.API_KEY);
-        call.enqueue(new TMDBCallBack<Credits>(resultListener));
-    }
-    public void obtainImages(Integer id, ResultListener<ImagesContainer> resultListener) {
-        Call<ImagesContainer> call = client.obtainMovieImages(id.toString(), TMDBClient.API_KEY);
-        call.enqueue(new TMDBCallBack<ImagesContainer>(resultListener));
-    }
-    public void obtainVideos(Integer id, ResultListener<MovieVideos> resultListener) {
-        Call<MovieVideos> call = client.obtainMovieVideos(id.toString(), TMDBClient.API_KEY);
-        call.enqueue(new TMDBCallBack<MovieVideos>(resultListener));
-    }
 
-    public MovieOmdb obtainDetailsShort(String title){
+    public MovieOMDB obtainDetailsShort(String title){
         return mockMovieShort();
     }
 
-    public MovieOmdb obtainDetailsLong(String title){
+    public MovieOMDB obtainDetailsLong(String title){
         return mockMovieLong();
     }
 
-    private MovieOmdb mockMovieLong(){
-        MovieOmdb mock = new MovieOmdb();
+
+    // task para obtener todos los datos de una Movie
+    private class ObtainMovieTask extends AsyncTask<String, Void, Movie> {
+
+        private ResultListener<Movie> resultListener;
+
+        public ObtainMovieTask(ResultListener<Movie> resultListener) {
+            this.resultListener = resultListener;
+        }
+
+        @Override
+        protected Movie doInBackground(String... params) {
+            String id = params[0];
+            Movie movie = new Movie();
+            Call<MovieDetails> callDetails = tmdbClient.obtainMovieDetails(id, TMDBClient.API_KEY);
+            Call<Credits> callCredits = tmdbClient.obtainMovieCredits(id, TMDBClient.API_KEY);
+            Call<ImageContainer> callImages = tmdbClient.obtainMovieImages(id, TMDBClient.API_KEY);
+            Call<VideoContainer> callVideos = tmdbClient.obtainMovieVideos(id, TMDBClient.API_KEY);
+            try {
+                movie.setMovieDetails(callDetails.execute().body());
+                movie.setCredits(callCredits.execute().body());
+                movie.setImageContainer(callImages.execute().body());
+                movie.setVideoContainer(callVideos.execute().body());
+                if (movie.getMovieDetails().getImdb_id() != null) {
+                    OMDBRequest request = new OMDBRequest();
+                    request.setImdbId(movie.getMovieDetails().getImdb_id());
+                    Call<MovieOMDB> callOMDB = omdbClient.obtainMovie(request.getQueryMap());
+                    movie.setMovieOMDB(callOMDB.execute().body());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return movie;
+        }
+
+        @Override
+        protected void onPostExecute(Movie movie) {
+            super.onPostExecute(movie);
+            resultListener.finish(movie);
+        }
+    }
+
+
+    private MovieOMDB mockMovieLong(){
+        MovieOMDB mock = new MovieOMDB();
         mock.setTitle("Wonder Woman");
         mock.setYear("2017");
         mock.setRated("PG-13");
@@ -102,8 +147,8 @@ public class MovieDAO {
         return mock;
     }
 
-    private MovieOmdb mockMovieShort(){
-        MovieOmdb mock = new MovieOmdb();
+    private MovieOMDB mockMovieShort(){
+        MovieOMDB mock = new MovieOMDB();
         mock.setTitle("Wonder Woman");
         mock.setYear("2017");
         mock.setRated("PG-13");

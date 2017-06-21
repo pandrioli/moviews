@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Model.Person;
 
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
+import digitalhouse.android.a0317moacns1c_02.Model.Media.Image;
 
 /**
  * Created by Pablo on 25/05/2017.
@@ -10,7 +10,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageData;
 
 public class PersonImages {
     private Integer id;
-    private ArrayList<ImageData> profiles;
+    private ArrayList<Image> profiles;
 
     public Integer getId() {
         return id;
@@ -20,11 +20,11 @@ public class PersonImages {
         this.id = id;
     }
 
-    public ArrayList<ImageData> getProfiles() {
+    public ArrayList<Image> getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(ArrayList<ImageData> profiles) {
+    public void setProfiles(ArrayList<Image> profiles) {
         this.profiles = profiles;
     }
 }
