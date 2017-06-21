@@ -66,8 +66,9 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            //da error esto!!!
+            mIdView = null;
+            mContentView = null;
         }
 
         @Override
