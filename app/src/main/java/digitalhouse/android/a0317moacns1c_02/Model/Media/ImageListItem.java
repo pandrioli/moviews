@@ -13,6 +13,7 @@ public class ImageListItem implements Parcelable, View.OnClickListener {
     private String title;
     private String subtitle;
     private String imageURL;
+    private String imagePath;
 
     public ImageListItem() {
     }
@@ -22,6 +23,7 @@ public class ImageListItem implements Parcelable, View.OnClickListener {
         title = in.readString();
         subtitle = in.readString();
         imageURL = in.readString();
+        imagePath = in.readString();
     }
 
     @Override
@@ -30,6 +32,7 @@ public class ImageListItem implements Parcelable, View.OnClickListener {
         dest.writeString(title);
         dest.writeString(subtitle);
         dest.writeString(imageURL);
+        dest.writeString(imagePath);
     }
 
     @Override
@@ -79,6 +82,14 @@ public class ImageListItem implements Parcelable, View.OnClickListener {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override

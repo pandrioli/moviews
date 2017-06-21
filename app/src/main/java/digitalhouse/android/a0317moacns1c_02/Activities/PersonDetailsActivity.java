@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,7 +74,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         });
     }
 
-    private void setupViews(PersonDetails personDetails) {
+    private void setupViews(final PersonDetails personDetails) {
         textViewName.setText(personDetails.getName());
         Date birthday = personDetails.getBirthdayDate();
         Date deathday = personDetails.getDeathdayDate();
@@ -94,12 +95,26 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         textViewBio.setText(personDetails.getBiography());
         String url = ImageHelper.getProfileURL(personDetails.getProfile_path(), 2);
         Picasso.with(this).load(url).fit().centerCrop().into(imageViewProfile);
+        imageViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startImageViewActivity(personDetails.getProfile_path());
+            }
+        });
+    }
+
+    private void startImageViewActivity(String imagePath) {
+        Intent intent = new Intent(this, ImageViewActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(ImageViewActivity.IMAGE_PATH_KEY, imagePath);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void startPersonDetailsImageFragment(ArrayList<ImageListItem> imageList) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ImageListFragment imgFragment = ImageListFragment.newInstance(imageList, null);
+        ImageListFragment imgFragment = ImageListFragment.newInstance(imageList, "Images", true);
         ft.replace(R.id.frameLayoutPDImages, imgFragment);
         ft.commit();
     }
@@ -113,13 +128,16 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     }
 
     @Override
-    public void onClick(Integer id, String title) {
+    public void onClick(ImageListItem imageListItem, String title) {
         if (title.equals("Movie credits")) {
             Bundle bundle = new Bundle();
-            bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, id);
+            bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, imageListItem.getId());
             Intent intent = new Intent(this, MovieDetailsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
+        }
+        if (title.equals("Images")) {
+            startImageViewActivity(imageListItem.getImagePath());
         }
     }
 

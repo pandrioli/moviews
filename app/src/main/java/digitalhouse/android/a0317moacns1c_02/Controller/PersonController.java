@@ -42,6 +42,7 @@ public class PersonController {
                 ArrayList<ImageListItem> imageList = new ArrayList<>();
                 for (ImageData imageData : personImages.getProfiles()) {
                     ImageListItem imageListItem = new ImageListItem();
+                    imageListItem.setImagePath(imageData.getFile_path());
                     imageListItem.setImageURL(ImageHelper.getProfileURL(imageData.getFile_path(), 1));
                     imageListItem.setId(0);
                     imageList.add(imageListItem);

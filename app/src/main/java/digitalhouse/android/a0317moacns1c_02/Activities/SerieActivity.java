@@ -109,10 +109,10 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     }
 
     @Override
-    public void onClick(Integer id, String title) {
+    public void onClick(ImageListItem imageListItem, String title) {
         if (title.equals("Cast")) {
             Bundle bundle = new Bundle();
-            bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, id);
+            bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, imageListItem.getId());
             Intent intent = new Intent(this, PersonDetailsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);

@@ -27,6 +27,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
 public class ImageListFragment extends Fragment implements View.OnClickListener {
     public final static String TITLE_KEY = "title";
     public final static String IMAGE_LIST_KEY = "imageList";
+    public final static String NO_CARDVIEW_MODE_KEY = "noCardViewMode";
 
     private List<ImageListItem> imageList;
     @BindView(R.id.recyclerViewPersons) RecyclerView recyclerView;
@@ -34,20 +35,27 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
     @BindView(R.id.cardViewImageList) CardView cardView;
     private RecyclerView.Adapter adapter;
     private String title;
+    private Boolean noCardViewMode;
     private Unbinder unbinder;
 
     public ImageListFragment() {
         // Required empty public constructor
     }
 
-    public static ImageListFragment newInstance(ArrayList<ImageListItem> imageList, String title){
+    public static ImageListFragment newInstance(ArrayList<ImageListItem> imageList, String title, Boolean noCardViewMode){
         ImageListFragment fragment = new ImageListFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(IMAGE_LIST_KEY ,imageList);
         args.putString(TITLE_KEY, title);
+        args.putBoolean(NO_CARDVIEW_MODE_KEY, noCardViewMode);
         fragment.setArguments(args);
         return fragment;
     }
+
+    public static ImageListFragment newInstance(ArrayList<ImageListItem> imageList, String title){
+        return newInstance(imageList, title, false);
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -55,6 +63,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
         if(getArguments() != null){
             imageList = getArguments().getParcelableArrayList(IMAGE_LIST_KEY);
             title = getArguments().getString(TITLE_KEY);
+            noCardViewMode = getArguments().getBoolean(NO_CARDVIEW_MODE_KEY);
         }
     }
 
@@ -71,8 +80,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
         textViewtitle.setText(title);
-        if (title == null) {
-            title = "";
+        if (noCardViewMode) {
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) cardView.getLayoutParams();
             layoutParams.setMargins(0, 0, 0, 0);
             textViewtitle.setVisibility(View.GONE);
@@ -84,7 +92,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         ImageListItem selectedItem = imageList.get((Integer)v.getTag());
         ImageClickeable myActivity = (ImageClickeable)getActivity();
-        myActivity.onClick(selectedItem.getId(), title);
+        myActivity.onClick(selectedItem, title);
     }
 
     @Override
@@ -93,7 +101,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
         unbinder.unbind();
     }
     public interface ImageClickeable {
-        void onClick(Integer id, String title);
+        void onClick(ImageListItem imageListItem, String title);
     }
 
 }

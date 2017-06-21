@@ -26,4 +26,11 @@ public class ImageHelper {
         return url;
     }
 
+    public static String getOriginalSizeURL(String filePath) {
+        String url = ConfigController.getInstance().getImagesBaseURL();
+        url += "original/" + filePath;
+        return url;
+    }
+
+
 }
