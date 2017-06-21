@@ -1,11 +1,16 @@
 package digitalhouse.android.a0317moacns1c_02.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
+import android.text.Layout;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,22 +25,45 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * Created by Pablo on 25/05/2017.
  */
 
-public class ImageListRecyclerAdapter extends Adapter implements View.OnClickListener{
+public class ImageListRecyclerAdapter extends Adapter {
     private Context context;
     private List<ImageListItem> imgList;
     private View.OnClickListener onClickListener;
+    private Integer width;
+    private Boolean headerMode = false;
 
     public ImageListRecyclerAdapter(List<ImageListItem> personList, Context context, View.OnClickListener onClickListener) {
         this.context = context;
         this.imgList = personList;
         this.onClickListener = onClickListener;
+        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        try {
+            display.getRealSize(size);
+        } catch (NoSuchMethodError err) {
+            display.getSize(size);
+        }
+        width = size.x;
+    }
+
+    public void setHeaderMode() {
+        this.headerMode = true;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View cellView = inflater.inflate(R.layout.cell_image_list, parent, false);
-        cellView.setOnClickListener(this);
+        cellView.setOnClickListener(onClickListener);
+
+        // ajustar tamaño de celda si el ancho de la lista es menor al ancho de la pantalla (si esta en modo encabezado)
+        FrameLayout cellLayout = (FrameLayout) cellView.findViewById(R.id.frameLayoutImageListCell);
+        Integer cellWidth = cellLayout.getLayoutParams().width;
+        Integer listWidth = imgList.size() * cellWidth;
+        if (listWidth<width && headerMode) {
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width/imgList.size(), cellLayout.getLayoutParams().height);
+            cellLayout.setLayoutParams(lp);
+        }
         ImageViewHolder imgViewHolder = new ImageViewHolder(cellView);
         return imgViewHolder;
     }
@@ -55,11 +83,6 @@ public class ImageListRecyclerAdapter extends Adapter implements View.OnClickLis
     @Override
     public int getItemCount() {
         return imgList.size();
-    }
-
-    @Override
-    public void onClick(View v) {
-        onClickListener.onClick(v);
     }
 
     private class ImageViewHolder extends RecyclerView.ViewHolder {
