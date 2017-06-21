@@ -3,11 +3,13 @@ package digitalhouse.android.a0317moacns1c_02.Model.Person;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Gregorio Martin on 11/6/2017.
  */
 
-public class PersonBase implements Parcelable {
+public class PersonBase implements Parcelable, Serializable {
 
     protected Integer id;
     protected Integer gender;

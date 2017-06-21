@@ -18,14 +18,19 @@ import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonResult;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -37,8 +42,10 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     @BindView(R.id.container) protected ViewPager mViewPager;
 
     private Serie serie;
+    private ArrayList<Season> seasons;
+    private Season temporalVar;
     private SerieDetailsFragment serieDetailsFragment;
-    private SerieDetailsFragment serieDetailsFragment2;
+    private SeasonsFragment seasonsFragment;
     private SerieDetailsFragment serieDetailsFragment3;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -66,26 +73,31 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         });
 
         Bundle bundleReceived = getIntent().getExtras();
-        final String id;
-        if(bundleReceived != null)
-            id = bundleReceived.getString(SERIE_ID_KEY);
-        else id = "3232";
-        SerieActivity.ObtainSerieTask task = new SerieActivity.ObtainSerieTask(){
+        final String id = bundleReceived.getString(SERIE_ID_KEY);
+        final ObtainSeasonsTask seasonsTask = new ObtainSeasonsTask(){
             @Override
-            public void finish(Serie result) {
-                serie = result;
-                LottieAnimationView animation = (LottieAnimationView) findViewById(R.id.animationViewAS);
-                animation.cancelAnimation();
-                animation.setVisibility(View.GONE);
-                serieDetailsFragment = SerieDetailsFragment.newInstance(serie);
-                serieDetailsFragment2 = SerieDetailsFragment.newInstance(serie);
-                serieDetailsFragment3 = SerieDetailsFragment.newInstance(serie);
+            public void finish(Season result){
+                seasonsFragment = SeasonsFragment.newInstance(result);
                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
                 mViewPager.setAdapter(mSectionsPagerAdapter);
                 tabLayout.setupWithViewPager(mViewPager);
+                LottieAnimationView animation = (LottieAnimationView) findViewById(R.id.animationViewAS);
+                animation.cancelAnimation();
+                animation.setVisibility(View.GONE);
             }
         };
-        task.execute(id);
+        ObtainSerieTask serieTask = new ObtainSerieTask(){
+            @Override
+            public void finish(Serie result) {
+                serie = result;
+                serieDetailsFragment = SerieDetailsFragment.newInstance(serie);
+                serieDetailsFragment3 = SerieDetailsFragment.newInstance(serie);
+                seasonsTask.execute(serie.getSeason(2));
+            }
+        };
+        serieTask.execute(id);
+
+
 
     }
 
@@ -117,10 +129,6 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         SectionsPagerAdapter(FragmentManager fm) {
@@ -134,16 +142,14 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
                 case 0:
                     return serieDetailsFragment;
                 case 1:
-                    return serieDetailsFragment2;
-                case 2:
-                    return serieDetailsFragment3;
+                    return seasonsFragment;
             }
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -152,9 +158,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
                 case 0:
                     return "DETAILS";
                 case 1:
-                    return "SEASONS";
-                case 2:
-                    return "EPISODES";
+                    return "SEASONS & ESPISODES";
             }
             return null;
         }
@@ -176,12 +180,29 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        public void finish(Serie result) {
+        }
+    }
+
+    private class ObtainSeasonsTask extends AsyncTask<SeasonResult, Void, Season> implements ResultListener<Season> {
+
+        Season season;
+
+        @Override
+        protected Season doInBackground(SeasonResult... params) {
+            season = SerieController.getInstance().getSeasonSync(serie.getID().toString(),
+                    params[0].getSeasonNumber().toString());
+            return season;
         }
 
         @Override
-        public void finish(Serie result) {
+        protected void onPostExecute(Season season) {
+            super.onPostExecute(season);
+            finish(season);
+        }
+
+        @Override
+        public void finish(Season result) {
         }
     }
 }

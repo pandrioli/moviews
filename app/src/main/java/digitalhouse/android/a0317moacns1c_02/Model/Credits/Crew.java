@@ -3,11 +3,13 @@ package digitalhouse.android.a0317moacns1c_02.Model.Credits;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Pablo on 25/05/2017.
  */
 
-public class Crew implements Parcelable {
+public class Crew implements Parcelable, Serializable {
     private String credit_id;
     private String department;
     private Integer id;

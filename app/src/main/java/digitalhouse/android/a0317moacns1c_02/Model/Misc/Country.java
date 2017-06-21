@@ -3,11 +3,13 @@ package digitalhouse.android.a0317moacns1c_02.Model.Misc;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by dh3 on 24/05/17.
  */
 
-public class Country implements Parcelable {
+public class Country implements Parcelable, Serializable {
     private String iso_3166_1;
     private String name;
 
