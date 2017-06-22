@@ -9,10 +9,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right|bottom"
+        <digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_gravity="right|bottom"
+            android:gravity="right"
             android:orientation="horizontal"
-            android:id="@+id/linearLayourMediaListPageIndicator"/>
+            android:id="@+id/pageIndicatorMediaList"/>
 </FrameLayout>

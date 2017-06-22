@@ -12,7 +12,6 @@ import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.Pivot;
@@ -26,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Activities.ImageViewActivity;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MultimediaRecyclerAdapter;
-import digitalhouse.android.a0317moacns1c_02.Adapters.PageIndicator;
+import digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Video;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -42,7 +41,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
     private List<String> URLs;
 
     @BindView(R.id.multimedia_recycler_view) protected DiscreteScrollView mRecyclerView;
-    @BindView(R.id.linearLayourMediaListPageIndicator) protected LinearLayout pageIndicatorContainer;
+    @BindView(R.id.pageIndicatorMediaList) PageIndicator pageIndicator;
 
     public MediaListFragment() {
         // Required empty public constructor
@@ -61,6 +60,14 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
         super.onCreate(saveInstanceState);
         if(getArguments() != null){
             URLs = getArguments().getStringArrayList(MEDIA_URLS_KEY);
+            Integer itemCounter = 0;
+            List<String> newURLS = new ArrayList<>();
+            for (String url : URLs) {
+                itemCounter++;
+                if (itemCounter>15) break;
+                newURLS.add(url);
+            }
+            URLs = newURLS;
         }
     }
 
@@ -75,7 +82,6 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
         MultimediaRecyclerAdapter mAdapter = new MultimediaRecyclerAdapter(view.getContext(),
                 URLs, this);
 
-
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemTransformer(new ScaleTransformer.Builder()
@@ -85,7 +91,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
                 .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
                 .build());
         mRecyclerView.setOffscreenItems(3);
-        final PageIndicator pageIndicator = new PageIndicator(pageIndicatorContainer, URLs.size());
+        pageIndicator.setTotalDots(URLs.size());
         mRecyclerView.addOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
             @Override
             public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
