@@ -91,7 +91,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
                 .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
                 .build());
         mRecyclerView.setOffscreenItems(3);
-        pageIndicator.setTotalDots(URLs.size());
+        pageIndicator.setTotalPages(URLs.size());
         mRecyclerView.addOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
             @Override
             public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {

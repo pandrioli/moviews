@@ -5,24 +5,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.Attributes;
 
 /**
  * Created by Pablo on 20/06/2017.
  */
 
 public class PageIndicator extends LinearLayout {
-    private Integer totalDots = 5;
+    private Integer totalPages = 5;
     private Integer currentPage = 0;
     private List<IndicatorDot> dotList;
     private Context context;
@@ -31,36 +26,55 @@ public class PageIndicator extends LinearLayout {
     public PageIndicator(Context context) {
         super(context);
         this.context = context;
+        dotList = new ArrayList<>();
     }
 
     public PageIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
+        dotList = new ArrayList<>();
     }
 
     public PageIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
+        dotList = new ArrayList<>();
     }
 
-    public void setTotalDots(Integer totalDots) {
-        this.totalDots = totalDots;
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (isInEditMode()) {
+            setTotalPages(5);
+            setPage(0);
+        }
+    }
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
         createDots();
     }
 
     private void createDots(){
-        dotList = new ArrayList<>();
-        for (int i = 0; i< totalDots; i++) {
-            IndicatorDot dot = new IndicatorDot(context, this.getLayoutParams().height);
-            dotList.add(dot);
-            this.addView(dot);
+        if (totalPages>1) {
+            for (IndicatorDot dot : dotList) {
+                this.removeView(dot);
+            }
+            dotList = new ArrayList<>();
+            for (int i = 0; i < totalPages; i++) {
+                IndicatorDot dot = new IndicatorDot(context, this.getLayoutParams().height);
+                dotList.add(dot);
+                this.addView(dot);
+            }
         }
     }
 
     public void setPage(Integer page) {
-        dotList.get(currentPage).selected(false);
-        dotList.get(page).selected(true);
-        currentPage = page;
+        if (totalPages>1) {
+            dotList.get(currentPage).selected(false);
+            dotList.get(page).selected(true);
+            currentPage = page;
+        }
     }
 
 
