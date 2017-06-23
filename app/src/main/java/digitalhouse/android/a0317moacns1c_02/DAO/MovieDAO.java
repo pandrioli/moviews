@@ -11,6 +11,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
+import digitalhouse.android.a0317moacns1c_02.Model.General.RatingsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
@@ -92,6 +93,7 @@ public class MovieDAO {
                     Call<MovieOMDB> callOMDB = omdbClient.obtainMovie(request.getQueryMap());
                     movie.setMovieOMDB(callOMDB.execute().body());
                 }
+                movie.calculateRatings();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -24,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
-import digitalhouse.android.a0317moacns1c_02.Controller.RateController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
@@ -149,7 +148,7 @@ public class SerieDetailsFragment extends Fragment {
     }
 
     private void startRatingsFragment(){
-        RateFragment rateFragment = RateController.instanceRateFragment(serie);
+        RateFragment rateFragment = RateFragment.newInstance(serie.getRatingsContainer());
         getChildFragmentManager()
                 .beginTransaction()
                 .add(R.id.framelayoutSDRatings, rateFragment)

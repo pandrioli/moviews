@@ -94,16 +94,21 @@ public class RateFragment extends Fragment implements Serializable {
     }
 
     private void setUpMoviewsScore(){
+        Integer moviewsScore = ratingsContainer.getMoviews();
         circularProgressBar.setProgress(0);
         int animationDurationMSegs = 2500;
-        circularProgressBar.setProgressWithAnimation(ratingsContainer.getAverageScore(), animationDurationMSegs);
-        textViewMoviewsScore.setText(ratingsContainer.getAverageScore().toString());
+        circularProgressBar.setProgressWithAnimation(ratingsContainer.getMoviews().floatValue(), animationDurationMSegs);
+        if (moviewsScore>0) {
+            textViewMoviewsScore.setText(ratingsContainer.getMoviews().toString());
+        } else {
+            textViewMoviewsScore.setText("N/A");
+        }
     }
 
     private void setAndToggleMetascore(){
-        if(ratingsContainer.getMetascore() != null)
+        if(ratingsContainer.getMetaScore() != null)
         {
-            metascore.setText(ratingsContainer.getMetascore());
+            metascore.setText(ratingsContainer.getMetaScore().toString());
         } else {
             metacriticLogo.setVisibility(View.INVISIBLE);
             metascore.setVisibility(View.INVISIBLE);
@@ -112,8 +117,8 @@ public class RateFragment extends Fragment implements Serializable {
     }
 
     private void setAndToggleRottenTomatoes(){
-        if(ratingsContainer.getRottenTomatoesPercentage() != null){
-            rottenTomatoesRate.setText(ratingsContainer.getRottenTomatoesPercentage());
+        if(ratingsContainer.getRottenTomatoes() != null){
+            rottenTomatoesRate.setText(ratingsContainer.getRottenTomatoes().toString()+"%");
         } else{
             rottenTomatoesLogo.setVisibility(View.INVISIBLE);
             rottenTomatoesRate.setVisibility(View.INVISIBLE);
@@ -121,14 +126,14 @@ public class RateFragment extends Fragment implements Serializable {
     }
 
     private void setUpTmdbRate(){
-        if(ratingsContainer.getTmdbRate() != null){
-            tmdbRate.setText(ratingsContainer.getTmdbRate());
+        if(ratingsContainer.getTmdb() != null){
+            tmdbRate.setText(ratingsContainer.getTmdb().toString());
         }
     }
 
     private void setUpImdbRate(){
-        if(ratingsContainer.getImdbRate() != null){
-            imdbRate.setText(ratingsContainer.getImdbRate());
+        if(ratingsContainer.getImdb() != null){
+            imdbRate.setText(ratingsContainer.getImdb().toString());
         }
     }
 

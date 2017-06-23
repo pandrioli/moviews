@@ -38,7 +38,7 @@
             android:layout_alignBottom="@+id/imageViewRateIMDB"
             android:layout_alignTop="@+id/imageViewRateIMDB"
             android:gravity="center"
-            android:text="9.5"
+            android:text="N/A"
             android:textSize="17dp" />
         <TextView
             android:id="@+id/textViewIMDbMaxRate"
@@ -67,7 +67,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:layout_toEndOf="@+id/imageViewTMDB"
-            android:text="6.5"
+            android:text="N/A"
             android:textSize="17dp" />
         <TextView
             android:id="@+id/textViewTMDBMaxRate"
@@ -100,7 +100,7 @@
             android:layout_alignBottom="@+id/imageViewRottenTomatoes"
             android:layout_alignTop="@+id/imageViewRottenTomatoes"
             android:layout_toEndOf="@+id/imageViewRottenTomatoes"
-            android:text="79%"
+            android:text="N/A"
             android:textSize="17dp"/>
         <ImageView
             android:id="@+id/imageViewMetacritic"
@@ -121,7 +121,7 @@
             android:layout_alignTop="@+id/imageViewMetacritic"
             android:layout_toEndOf="@+id/imageViewMetacritic"
             android:textStyle="bold"
-            android:text="76"
+            android:text="N/A"
             android:textSize="17dp" />
         <TextView
             android:id="@+id/textViewMetacriticMaxRate"

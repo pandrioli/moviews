@@ -1,123 +1,146 @@
 package digitalhouse.android.a0317moacns1c_02.Model.General;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.List;
+
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 
 /**
  * Created by forev on 15-Jun-17.
  */
 
 public class RatingsContainer implements Serializable {
-
+    private static final String IMDB_SOURCE = "Internet Movie Database";
+    private static final String ROTTEN_TOMATOES_SOURCE = "Rotten Tomatoes";
+    private static final String METACRITIC_SOURCE = "Metacritic";
     private static final String NO_RATE = "N/A";
-    private String imdbRateString;
-    private Double imdbRate;
-    private String imdbMaxRateString;
-    private String metascoreString;
-    private Integer metascore;
-    private String maxMetascoreString;
-    private String tmdbRateString;
-    private Double tmdbRate;
-    private String tmdbMaxRateString;
-    private String rottenTomatoesPercentageString;
-    private Integer rottenTomatoesPercentage;
-    private Integer totalOfVoteSources = 0;
-    private Integer averageScore;
+    private static final Double TMDB_TOTAL = 10.0;
+    private static final Double IMDB_TOTAL = 10.0;
+    private static final Double ROTTEN_TOMATOES_TOTAL = 100.0;
+    private static final Double METACRITIC_TOTAL = 100.0;
+    private static final Integer TMDB_MIN_VOTES = 20;
+    private static final Integer IMDB_MIN_VOTES = 100;
+    private Double tmdb;
+    private Double imdb;
+    private Double rottenTomatoes;
+    private Double metaScore;
+    private Double moviews;
 
-    public Integer getAverageScore(){
-        if(averageScore == null){
-            int total = 0;
-            total += metascore != null ? metascore : 0;
-            total += tmdbRate != null ? tmdbRate * 10 : 0;
-            total += rottenTomatoesPercentage != null ? rottenTomatoesPercentage : 0;
-            total += imdbRate != null ? imdbRate * 10 : 0;
-            averageScore = total / totalOfVoteSources;
-        }
-        return averageScore;
+    public RatingsContainer(Movie movie) {
+        validateTmdbRating(movie.getMovieDetails().getVote_average(), movie.getMovieDetails().getVote_count());
+        parseOmdbRatings(movie.getMovieOMDB());
+        calculateMoviewsRating();
     }
 
-    public String getImdbRate() {
-        return imdbRateString;
+    public RatingsContainer(Serie serie) {
+        validateTmdbRating(serie.getSerieDetails().getVoteAverage(), serie.getVoteCount());
+        parseOmdbRatings(serie.getSerieOmdb());
+        calculateMoviewsRating();
     }
 
-    public void setImdbRate(String imdbRate) {
-        this.imdbRateString = imdbRate;
-        if(imdbRate != null && imdbRate != NO_RATE)
-        {
-            this.imdbRate = Double.parseDouble(imdbRate);
-            totalOfVoteSources++;
-        }
-
+    public Double getTmdb() {
+        return tmdb;
     }
 
-    public String getImdbMaxRate() {
-        return imdbMaxRateString;
+    public Double getImdb() {
+        return imdb;
     }
 
-    public void setImdbMaxRate(String imdbMaxRate) {
-        this.imdbMaxRateString = imdbMaxRate;
+    public Integer getRottenTomatoes() {
+        return rottenTomatoes.intValue();
     }
 
-    public String getMetascore() {
-        return metascoreString;
+    public Integer getMetaScore() {
+        return metaScore.intValue();
     }
 
-    public void setMetascore(String metascore) {
-        if(metascore != null && metascore != NO_RATE){
-            this.metascoreString = metascore;
-            totalOfVoteSources++;
-            this.metascore = Integer.parseInt(metascore);
-        }
-
+    public Integer getMoviews() {
+        return moviews.intValue();
     }
 
-    public String getMaxMetascore() {
-        return maxMetascoreString;
-    }
+    private void validateTmdbRating(Double voteAverage, Integer totalVotes) {
+        if (totalVotes>TMDB_MIN_VOTES) tmdb = voteAverage;
+    };
 
-    public void setMaxMetascore(String maxMetascore) {
-        this.maxMetascoreString = maxMetascore;
-    }
-
-    public String getTmdbRate() {
-        return tmdbRateString;
-    }
-
-    public void setTmdbRate(String tmdbRate) {
-        if(tmdbRate != null && tmdbRate != NO_RATE){
-            this.tmdbRateString = tmdbRate;
-            totalOfVoteSources++;
-            this.tmdbRate = Double.parseDouble(tmdbRate);
-        }
-
-    }
-
-    public void setTmdbRate(Double tmdbRate){
-        totalOfVoteSources++;
-        this.tmdbRate = tmdbRate;
-        this.tmdbMaxRateString = tmdbRate.toString();
-    }
-
-    public String getTmdbMaxRate() {
-        return tmdbMaxRateString;
-    }
-
-    public void setTmdbMaxRate(String tmdbMaxRate) {
-        this.tmdbMaxRateString = tmdbMaxRate;
-    }
-
-    public String getRottenTomatoesPercentage() {
-        return rottenTomatoesPercentageString;
-    }
-
-    public void setRottenTomatoesPercentage(String rottenTomatoesPercentage) {
-        if(rottenTomatoesPercentage != null && rottenTomatoesPercentage != NO_RATE){
-            this.rottenTomatoesPercentageString = rottenTomatoesPercentage;
-            totalOfVoteSources++;
-            this.rottenTomatoesPercentage = Integer.parseInt(rottenTomatoesPercentage.substring(0,3));
+    private void parseOmdbRatings(OmdbBaseResponse omdbData) {
+        if (omdbData==null) return;
+        if (omdbData.getRatings()==null) return;
+        List<RateOmdb> ratings = omdbData.getRatings();
+        Integer imdbVotes = parseImdbVotes(omdbData.getImdbVotes());
+        for (RateOmdb rating : ratings) {
+            Double ratingValue = parseRating(rating.getValue());
+            switch (rating.getSource()) {
+                case IMDB_SOURCE:
+                    if (imdbVotes>IMDB_MIN_VOTES) imdb = ratingValue;
+                    break;
+                case ROTTEN_TOMATOES_SOURCE:
+                    rottenTomatoes = ratingValue;
+                    break;
+                case METACRITIC_SOURCE:
+                    metaScore = ratingValue;
+                    break;
+            }
         }
     }
 
-    public boolean hasMetascoreAndRottenScore(){
-        return metascore != null && rottenTomatoesPercentage != null;
+    private Integer parseImdbVotes(String imdbVotesString) {
+        if (imdbVotesString==null) return 0;
+        Integer commaPos = imdbVotesString.indexOf(",");
+        if (commaPos>-1) {
+            imdbVotesString = imdbVotesString.substring(0,commaPos) +
+                    imdbVotesString.substring(commaPos+1, imdbVotesString.length());
+        }
+        Integer imdbVotes;
+        try {
+            imdbVotes = Integer.parseInt(imdbVotesString);
+        } catch (Exception e) {
+            imdbVotes = null;
+        }
+        return imdbVotes;
+    }
+    private Double parseRating(String ratingString) {
+        Integer slashPos = ratingString.indexOf("/");
+        Integer percentPos = ratingString.indexOf("%");
+        if (slashPos!=-1) {
+            ratingString = ratingString.substring(0, slashPos);
+        }
+        if (percentPos!=-1) {
+            ratingString = ratingString.substring(0, percentPos);
+        }
+        Double ratingValue = null;
+        try {
+            ratingValue = Double.parseDouble(ratingString);
+        } catch (Exception e) {
+            ratingValue = null;
+        }
+        return ratingValue;
+    }
+
+    private void calculateMoviewsRating() {
+        Integer ratingCounter = 0;
+        Double ratingAccum = 0.0;
+        if (tmdb!=null) {
+            ratingCounter++;
+            ratingAccum += tmdb/TMDB_TOTAL;
+        }
+        if (imdb!=null) {
+            ratingCounter++;
+            ratingAccum += imdb/IMDB_TOTAL;
+        }
+        if (rottenTomatoes!=null) {
+            ratingCounter++;
+            ratingAccum += rottenTomatoes/ROTTEN_TOMATOES_TOTAL;
+        }
+        if (metaScore !=null) {
+            ratingCounter++;
+            ratingAccum += metaScore /METACRITIC_TOTAL;
+        }
+        moviews = (double)Math.round(ratingAccum/ratingCounter*100);
+    }
+
+    public Boolean hasMetascoreAndRottenScore(){
+        return metaScore !=null && rottenTomatoes!=null;
     }
 }

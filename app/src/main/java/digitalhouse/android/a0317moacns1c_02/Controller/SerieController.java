@@ -69,6 +69,7 @@ public class SerieController {
         serie.setSerieOmdb(seriesDAO.obtainDetailsShort(ID));
         serie.setCredits(seriesDAO.obtainCredits(ID));
         serie.setVideoContainer(seriesDAO.obtainVideos(ID));
+        serie.calculateRatings();
         return serie;
     }
 
