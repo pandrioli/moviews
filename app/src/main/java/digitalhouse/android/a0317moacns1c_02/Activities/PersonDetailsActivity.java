@@ -6,9 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
 public class PersonDetailsActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable {
     public final static String PERSON_ID_KEY = "personId";
 
+    @BindView(R.id.frameLayoutLoaderPersonDetails) FrameLayout loaderContainer;
     @BindView(R.id.textViewPDName)
     TextView textViewName;
     @BindView(R.id.textViewPDBirthDay)
@@ -40,6 +43,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     @BindView(R.id.imageViewPDprofile)
     ImageView imageViewProfile;
 
+    private Integer loadCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +53,22 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         ActivityStackManager.getInstance().addActivity(this);
         Bundle bundleReceived = getIntent().getExtras();
         Integer id = bundleReceived.getInt(PERSON_ID_KEY);
+        loaderContainer.setVisibility(View.VISIBLE);
+
         PersonController.getInstance().getDetails(id, new ResultListener<PersonDetails>() {
             @Override
             public void finish(PersonDetails personDetails) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(PersonDetails.tag, personDetails);
                 setupViews(personDetails);
+                stopLoader();
             }
         });
         PersonController.getInstance().getImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
             @Override
             public void finish(ArrayList<ImageListItem> imageList) {
                 startPersonDetailsImageFragment(imageList);
+                stopLoader();
             }
         });
         PersonController.getInstance().getMovieCreditsImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
@@ -70,8 +78,14 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
                 bundle.putString(ImageListFragment.TITLE_KEY, "Movie credits");
                 bundle.putParcelableArrayList(ImageListFragment.IMAGE_LIST_KEY, imageList);
                 startPersonDetailsMovieCreditsFragment(bundle);
+                stopLoader();
             }
         });
+    }
+
+    private void stopLoader() {
+        loadCounter++;
+        if (loadCounter==3) loaderContainer.setVisibility(View.GONE);
     }
 
     private void setupViews(final PersonDetails personDetails) {
