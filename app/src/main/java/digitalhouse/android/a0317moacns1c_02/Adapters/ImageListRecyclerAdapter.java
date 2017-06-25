@@ -73,7 +73,8 @@ public class ImageListRecyclerAdapter extends Adapter {
         ImageViewHolder imgHolder = (ImageViewHolder) holder;
         imgHolder.title.setText(img.getTitle());
         imgHolder.subtitle.setText(img.getSubtitle());
-        Picasso.with(context).load(img.getImageURL()).fit().centerCrop().into(imgHolder.picture);
+        if (imgList.size()==1) Picasso.with(context).load(img.getImageURL()).resize(width,0).into(imgHolder.picture);
+        else Picasso.with(context).load(img.getImageURL()).fit().centerCrop().into(imgHolder.picture);
         imgHolder.view.setTag(position);
         if (img.getTitle()==null) imgHolder.title.setHeight(0);
         if (img.getSubtitle()==null) imgHolder.subtitle.setHeight(0);

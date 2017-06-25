@@ -14,13 +14,15 @@ public class ImageListMapper {
     public static ArrayList<ImageListItem> map(Credits credits) {
         ArrayList<ImageListItem> imageList = new ArrayList<>();
         for (Cast cast : credits.getCast()) {
-            ImageListItem imageListItem = new ImageListItem();
-            imageListItem.setId(cast.getId());
-            imageListItem.setTitle(cast.getName());
-            imageListItem.setSubtitle(cast.getCharacter());
-            String url = ImageHelper.getProfileURL(cast.getProfile_path(), 1);
-            imageListItem.setImageURL(url);
-            imageList.add(imageListItem);
+            if (cast.getProfile_path() != null) {
+                ImageListItem imageListItem = new ImageListItem();
+                imageListItem.setId(cast.getId());
+                imageListItem.setTitle(cast.getName());
+                imageListItem.setSubtitle(cast.getCharacter());
+                String url = ImageHelper.getProfileURL(cast.getProfile_path(), 1);
+                imageListItem.setImageURL(url);
+                imageList.add(imageListItem);
+            }
         }
         return imageList;
     }
