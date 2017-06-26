@@ -45,7 +45,7 @@
             />
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="207dp"
             android:id="@+id/imageViewEpisode"
             android:layout_below="@+id/textViewEpisodeOverview"
             android:src="@drawable/episode_image"

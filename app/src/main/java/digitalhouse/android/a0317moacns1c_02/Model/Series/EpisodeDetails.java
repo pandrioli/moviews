@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Crew;
 
 /**
@@ -103,6 +104,10 @@ public class EpisodeDetails implements Serializable {
 
     public void setSeasonNumber(Integer seasonNumber) {
         this.seasonNumber = seasonNumber;
+    }
+
+    public String getStillUrl(Integer size){
+        return ImageHelper.getBackdropURL(stillPath, size);
     }
 
     public String getStillPath() {

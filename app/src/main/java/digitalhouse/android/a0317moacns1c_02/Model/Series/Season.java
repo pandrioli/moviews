@@ -17,6 +17,11 @@ public class Season implements Serializable {
     private ImageContainer imagesContainer;
     private VideoContainer videoContainer;
     private Credits credits;
+
+    public SeasonDetails getSeasonDetails() {
+        return seasonDetails;
+    }
+
     private ExternalIDs externalIDs;
 
     public void setSeasonDetails(SeasonDetails seasonDetails) {

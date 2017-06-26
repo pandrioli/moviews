@@ -19,14 +19,13 @@ import android.view.View;
 import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
-import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
@@ -46,7 +45,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     private ArrayList<Season> seasons;
     private Season temporalVar;
     private SerieDetailsFragment serieDetailsFragment;
-    private SeasonsFragment seasonsFragment;
+    private SeasonsAndEpisodesFragment seasonsAndEpisodesFragment;
     private SerieDetailsFragment serieDetailsFragment3;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -78,7 +77,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         final ObtainSeasonsTask seasonsTask = new ObtainSeasonsTask(){
             @Override
             public void finish(Season result){
-                seasonsFragment = SeasonsFragment.newInstance(result);
+                seasonsAndEpisodesFragment = SeasonsAndEpisodesFragment.newInstance(result);
                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
                 mViewPager.setAdapter(mSectionsPagerAdapter);
                 tabLayout.setupWithViewPager(mViewPager);
@@ -143,7 +142,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
                 case 0:
                     return serieDetailsFragment;
                 case 1:
-                    return seasonsFragment;
+                    return seasonsAndEpisodesFragment;
             }
         }
 

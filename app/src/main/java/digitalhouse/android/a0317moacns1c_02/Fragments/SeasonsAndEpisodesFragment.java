@@ -1,12 +1,13 @@
 package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +17,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import digitalhouse.android.a0317moacns1c_02.Adapters.EpisodeRecyclerViewAdapter;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.EpisodeDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SeasonsFragment#newInstance} factory method to
+ * Use the {@link SeasonsAndEpisodesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SeasonsFragment extends Fragment {
+public class SeasonsAndEpisodesFragment extends Fragment {
     @BindView(R.id.imageViewSeasonPoster) ImageView poster;
     @BindView(R.id.textViewSeasonAirDate) TextView seasonAirDate;
     @BindView(R.id.textViewSeasonOverview) TextView overview;
@@ -35,19 +40,23 @@ public class SeasonsFragment extends Fragment {
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.imageViewArrow) ImageView arrow;
+    @BindView(R.id.recyclerViewEpisodes) RecyclerView recyclerViewEpisodes;
+
+    private OnEpisodeListFragmentInteractionListener mListener;
 
 
     private static final String SEASON_KEY = "SEASON";
     private Season season;
+    private List<EpisodeDetails> episodes;
     private Unbinder unbinder;
 
 
-    public SeasonsFragment() {
+    public SeasonsAndEpisodesFragment() {
         // Required empty public constructor
     }
 
-    public static SeasonsFragment newInstance(Season season) {
-        SeasonsFragment fragment = new SeasonsFragment();
+    public static SeasonsAndEpisodesFragment newInstance(Season season) {
+        SeasonsAndEpisodesFragment fragment = new SeasonsAndEpisodesFragment();
         Bundle args = new Bundle();
         args.putSerializable(SEASON_KEY, season);
         fragment.setArguments(args);
@@ -59,6 +68,7 @@ public class SeasonsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             season = (Season)getArguments().getSerializable(SEASON_KEY);
+            episodes = season.getSeasonDetails().getEpisodes();
         }
     }
 
@@ -84,7 +94,23 @@ public class SeasonsFragment extends Fragment {
                 }
             }
         });
+
+        recyclerViewEpisodes.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewEpisodes.setAdapter(new EpisodeRecyclerViewAdapter(episodes, mListener));
+
         return view;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     private void setUpCollapsingToolbar(){
@@ -93,6 +119,11 @@ public class SeasonsFragment extends Fragment {
         collapsingToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedToolbar);
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedToolbar);
         collapsingToolbar.setTitleEnabled(true);
+    }
+
+    public interface OnEpisodeListFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(EpisodeDetails item);
     }
 
 }

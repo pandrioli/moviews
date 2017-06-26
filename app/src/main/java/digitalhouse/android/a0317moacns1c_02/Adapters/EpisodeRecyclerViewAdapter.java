@@ -4,25 +4,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import digitalhouse.android.a0317moacns1c_02.Fragments.EpisodeListFragment.OnListFragmentInteractionListener;
-import digitalhouse.android.a0317moacns1c_02.Model.Series.ListItems.EpisodeListContent;
+import com.bumptech.glide.Glide;
+
+import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragment;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.EpisodeDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link EpisodeListContent.EpisodeItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerViewAdapter.ViewHolder> {
 
-    private final List<EpisodeListContent.EpisodeItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<EpisodeDetails> mValues;
+    private final SeasonsAndEpisodesFragment.OnEpisodeListFragmentInteractionListener mListener;
 
-    public EpisodeRecyclerViewAdapter(List<EpisodeListContent.EpisodeItem> items, OnListFragmentInteractionListener listener) {
+    public EpisodeRecyclerViewAdapter(List<EpisodeDetails> items, SeasonsAndEpisodesFragment.OnEpisodeListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,8 +35,8 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+
+        holder.setUpViews();
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,22 +56,36 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public EpisodeListContent.EpisodeItem mItem;
+         final View mView;
+         final TextView title;
+         final TextView airDate;
+         final TextView overview;
+         final ImageView backdrop;
+         final TextView share;
+         final TextView save;
+         final ImageView like;
+         final TextView likeCount;
+         EpisodeDetails mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            //da error esto!!!
-            mIdView = null;
-            mContentView = null;
+            title = (TextView) mView.findViewById(R.id.textViewEpisodeTitle);
+            airDate = (TextView) mView.findViewById(R.id.textViewEpisodeAirDate);
+            overview = (TextView) mView.findViewById(R.id.textViewEpisodeOverview);
+            backdrop = (ImageView) mView.findViewById(R.id.imageViewEpisode);
+            share = (TextView) mView.findViewById(R.id.textViewEpisodeShare);
+            save = (TextView) mView.findViewById(R.id.textViewEpisodeSave);
+            like = (ImageView) mView.findViewById(R.id.imageViewEpisodeLike);
+            likeCount = (TextView) mView.findViewById(R.id.textViewEpisodeLikeCount);
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+        public void setUpViews(){
+            title.setText(mItem.getName());
+            airDate.setText(mItem.getAirDate());
+            overview.setText(mItem.getOverview());
+            likeCount.setText("143");
+            Glide.with(mView).load(mItem.getStillUrl(2)).into(backdrop);
         }
     }
 }
