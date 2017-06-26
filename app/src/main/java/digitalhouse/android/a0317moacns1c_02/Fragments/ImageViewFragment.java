@@ -59,7 +59,7 @@ public class ImageViewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_image_view, container, false);
         PhotoView photoView = (PhotoView) view.findViewById(R.id.photoViewImageView);
-        Picasso.with(getContext()).load(imageURL).fit().centerCrop().into(photoView);
+        Picasso.with(getContext()).load(imageURL).fit().centerInside().into(photoView);
         return view;
     }
 

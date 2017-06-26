@@ -33,7 +33,8 @@ public class ImageViewActivity extends AppCompatActivity {
         Boolean landscape = bundle.getBoolean(LANDSCAPE_KEY);
         landscape = landscape == null ? false : landscape;
         if (landscape) {
-            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            //el cambio de orientacion causa error al volver a MovieDetails en mi telefono (no en el emulador)
+            //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         List<String> imagesURL = new ArrayList<>();
         if (bundle.containsKey(IMAGE_INDEX_KEY)) {
