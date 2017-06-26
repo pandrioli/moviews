@@ -20,13 +20,14 @@ public class RatingsContainer implements Serializable {
     private static final Double IMDB_TOTAL = 10.0;
     private static final Double ROTTEN_TOMATOES_TOTAL = 100.0;
     private static final Double METACRITIC_TOTAL = 100.0;
-    private static final Integer TMDB_MIN_VOTES = 20;
+    private static final Integer TMDB_MIN_VOTES = 10;
     private static final Integer IMDB_MIN_VOTES = 100;
     private Double tmdb;
     private Double imdb;
     private Double rottenTomatoes;
     private Double metaScore;
     private Double moviews;
+    private Integer imdbVotes;
 
     public RatingsContainer(Movie movie) {
         validateTmdbRating(movie.getMovieDetails().getVote_average(), movie.getMovieDetails().getVote_count());
@@ -60,6 +61,10 @@ public class RatingsContainer implements Serializable {
         return moviews.intValue();
     }
 
+    public Integer getImdbVotes() {
+        return imdbVotes;
+    }
+
     private void validateTmdbRating(Double voteAverage, Integer totalVotes) {
         if (totalVotes>TMDB_MIN_VOTES) tmdb = voteAverage;
     };
@@ -68,7 +73,7 @@ public class RatingsContainer implements Serializable {
         if (omdbData==null) return;
         if (omdbData.getRatings()==null) return;
         List<RateOmdb> ratings = omdbData.getRatings();
-        Integer imdbVotes = parseImdbVotes(omdbData.getImdbVotes());
+        imdbVotes = parseImdbVotes(omdbData.getImdbVotes());
         for (RateOmdb rating : ratings) {
             Double ratingValue = parseRating(rating.getValue());
             switch (rating.getSource()) {
@@ -87,16 +92,12 @@ public class RatingsContainer implements Serializable {
 
     private Integer parseImdbVotes(String imdbVotesString) {
         if (imdbVotesString==null) return 0;
-        Integer commaPos = imdbVotesString.indexOf(",");
-        if (commaPos>-1) {
-            imdbVotesString = imdbVotesString.substring(0,commaPos) +
-                    imdbVotesString.substring(commaPos+1, imdbVotesString.length());
-        }
+        imdbVotesString = imdbVotesString.replace(",","");
         Integer imdbVotes;
         try {
             imdbVotes = Integer.parseInt(imdbVotesString);
         } catch (Exception e) {
-            imdbVotes = null;
+            imdbVotes = 0;
         }
         return imdbVotes;
     }
