@@ -144,10 +144,10 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 app:cpb_background_progressbar_color="#43387bf5"
-                app:cpb_background_progressbar_width="8dp"
+                app:cpb_background_progressbar_width="14dp"
                 app:cpb_progressbar_color="@color/colorPrimaryDark"
                 app:cpb_progress="85"
-                app:cpb_progressbar_width="10dp" />
+                app:cpb_progressbar_width="15dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:textStyle="bold"
@@ -155,7 +155,7 @@
                     android:textColor="#000000"
                     android:id="@+id/textViewMoviewsScore"
                     android:text="85"
-                    android:textSize="65dp"
+                    android:textSize="60dp"
                     android:layout_gravity="center"
                     />
         </FrameLayout>

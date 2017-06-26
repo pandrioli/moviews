@@ -85,9 +85,12 @@ public class RatingsContainer implements Serializable {
         }
     }
 
-    private Integer parseImdbVotes(String imdbVotesString) {
-        if (imdbVotesString==null) return 0;
-        Integer commaPos = imdbVotesString.indexOf(",");
+    private Integer parseImdbVotes(String imdbVotes) {
+        if (imdbVotes==null) return 0;
+        String votesStr = imdbVotes.replace(",", "");
+        Integer votesInt = Integer.parseInt(votesStr);
+        return votesInt;
+/*        Integer commaPos = imdbVotesString.indexOf(",");
         if (commaPos>-1) {
             imdbVotesString = imdbVotesString.substring(0,commaPos) +
                     imdbVotesString.substring(commaPos+1, imdbVotesString.length());
@@ -96,9 +99,9 @@ public class RatingsContainer implements Serializable {
         try {
             imdbVotes = Integer.parseInt(imdbVotesString);
         } catch (Exception e) {
-            imdbVotes = null;
+            imdbVotes = 0;
         }
-        return imdbVotes;
+        return imdbVotes;*/
     }
     private Double parseRating(String ratingString) {
         Integer slashPos = ratingString.indexOf("/");
