@@ -11,4 +11,9 @@
         android:layout_height="match_parent"
         android:id="@+id/viewPagerImageView">
     </android.support.v4.view.ViewPager>
+    <digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/pageIndicatorImageView"/>
 </FrameLayout>

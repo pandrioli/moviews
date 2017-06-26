@@ -11,6 +11,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Adapters.ImageViewPagerAdapter;
+import digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 public class ImageViewActivity extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class ImageViewActivity extends AppCompatActivity {
 
     @BindView(R.id.viewPagerImageView)
     ViewPager viewPager;
+    @BindView(R.id.pageIndicatorImageView)
+    PageIndicator pageIndicator;
 
 
     @Override
@@ -44,9 +47,28 @@ public class ImageViewActivity extends AppCompatActivity {
         }
         ImageViewPagerAdapter adapter = new ImageViewPagerAdapter(getSupportFragmentManager(), imagesURL);
         viewPager.setAdapter(adapter);
+        Integer imageIndex = 0;
         if (bundle.containsKey(IMAGE_INDEX_KEY)) {
-            Integer imageIndex = bundle.getInt(IMAGE_INDEX_KEY);
+            imageIndex = bundle.getInt(IMAGE_INDEX_KEY);
             viewPager.setCurrentItem(imageIndex);
         }
+        pageIndicator.setTotalPages(imagesURL.size());
+        pageIndicator.setPage(imageIndex);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                pageIndicator.setPage(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }
