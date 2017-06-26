@@ -26,7 +26,7 @@ import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Activities.ImageViewActivity;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MultimediaRecyclerAdapter;
 import digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageViewMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Video;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -79,7 +79,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_media_list, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        MultimediaRecyclerAdapter mAdapter = new MultimediaRecyclerAdapter(view.getContext(),
+        MultimediaRecyclerAdapter mAdapter = new MultimediaRecyclerAdapter(getActivity(),
                 URLs, this);
 
         mRecyclerView.setHasFixedSize(true);
@@ -125,18 +125,21 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
     }
 
     private void onTrailerClick(View view){
-        String URL = (String) view.getTag();
+        Integer index = (Integer) view.getTag();
+        String URL = URLs.get(index);
         if(URL.contains("youtube")) {
             URL = Video.thumbnailToVideoURL(URL);
             Intent playVideoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
-            startActivity(playVideoIntent);
+            getActivity().startActivity(playVideoIntent);
         } else {
-            Intent intent = new Intent(getContext(), ImageViewActivity.class);
+            Intent intent = new Intent(getActivity(), ImageViewActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(ImageViewActivity.IMAGE_PATH_KEY, ImageHelper.getImagePathFromFullURL(URL));
+            bundle.putStringArrayList(ImageViewActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(URLs));
+            bundle.putInt(ImageViewActivity.IMAGE_INDEX_KEY, index);
             bundle.putBoolean(ImageViewActivity.LANDSCAPE_KEY, true);
             intent.putExtras(bundle);
-            startActivity(intent);
+            getActivity().startActivity(intent);
         }
     }
+
 }

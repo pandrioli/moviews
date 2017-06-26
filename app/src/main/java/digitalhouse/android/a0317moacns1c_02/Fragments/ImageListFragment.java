@@ -97,9 +97,10 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        ImageListItem selectedItem = imageList.get((Integer)v.getTag());
+        Integer index = (Integer)v.getTag();
+        ImageListItem selectedItem = imageList.get(index);
         ImageClickeable myActivity = (ImageClickeable)getActivity();
-        myActivity.onClick(selectedItem, title);
+        myActivity.onClick(selectedItem, title, index);
     }
 
     @Override
@@ -108,7 +109,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
         unbinder.unbind();
     }
     public interface ImageClickeable {
-        void onClick(ImageListItem imageListItem, String title);
+        void onClick(ImageListItem imageListItem, String title, Integer index);
     }
 
 }

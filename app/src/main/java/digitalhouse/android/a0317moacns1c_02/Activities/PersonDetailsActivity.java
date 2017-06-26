@@ -22,6 +22,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.PersonController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageViewMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
@@ -44,6 +45,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     ImageView imageViewProfile;
 
     private Integer loadCounter = 0;
+    private ArrayList<ImageListItem> personImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         PersonController.getInstance().getImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
             @Override
             public void finish(ArrayList<ImageListItem> imageList) {
+                personImages = imageList;
                 startPersonDetailsImageFragment(imageList);
                 stopLoader();
             }
@@ -120,7 +123,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     private void startImageViewActivity(String imagePath) {
         Intent intent = new Intent(this, ImageViewActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(ImageViewActivity.IMAGE_PATH_KEY, imagePath);
+        bundle.putString(ImageViewActivity.IMAGE_URL_KEY, ImageViewMapper.map(imagePath));
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -142,7 +145,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     }
 
     @Override
-    public void onClick(ImageListItem imageListItem, String title) {
+    public void onClick(ImageListItem imageListItem, String title, Integer index) {
         if (title.equals("Movie credits")) {
             Bundle bundle = new Bundle();
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, imageListItem.getId());
@@ -151,7 +154,12 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             startActivity(intent);
         }
         if (title.equals("Images")) {
-            startImageViewActivity(imageListItem.getImagePath());
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList(ImageViewActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(personImages));
+            bundle.putInt(ImageViewActivity.IMAGE_INDEX_KEY, index);
+            Intent intent = new Intent(this, ImageViewActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 

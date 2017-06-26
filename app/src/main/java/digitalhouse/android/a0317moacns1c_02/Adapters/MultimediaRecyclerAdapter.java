@@ -59,11 +59,11 @@ public class MultimediaRecyclerAdapter extends RecyclerView.Adapter<MultimediaRe
         if(isYouTubeURL(URL))
         {
             v.setVisibility(View.VISIBLE);
-            holder.picture.setTag(URL);
+            holder.picture.setTag(position);
         }
         else
         {
-            holder.picture.setTag(URL);
+            holder.picture.setTag(position);
             v.setVisibility(View.GONE);
         }
 

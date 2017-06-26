@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:background="#000"
     tools:context="digitalhouse.android.a0317moacns1c_02.Activities.ImageViewActivity">
-    <com.github.chrisbanes.photoview.PhotoView
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageViewImageView" />
+        android:id="@+id/viewPagerImageView">
+    </android.support.v4.view.ViewPager>
 </FrameLayout>

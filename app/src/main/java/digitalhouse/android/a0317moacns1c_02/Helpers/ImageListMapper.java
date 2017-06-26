@@ -19,6 +19,7 @@ public class ImageListMapper {
                 imageListItem.setId(cast.getId());
                 imageListItem.setTitle(cast.getName());
                 imageListItem.setSubtitle(cast.getCharacter());
+                imageListItem.setImagePath(cast.getProfile_path());
                 String url = ImageHelper.getProfileURL(cast.getProfile_path(), 1);
                 imageListItem.setImageURL(url);
                 imageList.add(imageListItem);
