@@ -137,7 +137,7 @@ public class RatingsContainer implements Serializable {
         } catch (Exception e) {
             imdbVotes = 0;
         }
-        return imdbVotes;*/
+        return imdbVotes;
     }
     private Double parseRating(String ratingString) {
         Integer slashPos = ratingString.indexOf("/");
