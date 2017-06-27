@@ -1,7 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +16,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
-import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.PersonSearchRequest;

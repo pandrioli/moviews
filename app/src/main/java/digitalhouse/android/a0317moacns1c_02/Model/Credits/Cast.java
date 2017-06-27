@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Pablo on 25/05/2017.
  */
 
-public class Cast implements Parcelable, Serializable {
+public class Cast implements Serializable {
     private Integer cast_id;
     private String character;
     private String credit_id;
@@ -17,39 +17,6 @@ public class Cast implements Parcelable, Serializable {
     private String name;
     private Integer order;
     private String profile_path;
-
-
-    protected Cast(Parcel in) {
-        character = in.readString();
-        credit_id = in.readString();
-        name = in.readString();
-        profile_path = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(character);
-        dest.writeString(credit_id);
-        dest.writeString(name);
-        dest.writeString(profile_path);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Cast> CREATOR = new Creator<Cast>() {
-        @Override
-        public Cast createFromParcel(Parcel in) {
-            return new Cast(in);
-        }
-
-        @Override
-        public Cast[] newArray(int size) {
-            return new Cast[size];
-        }
-    };
 
     public Integer getCast_id() {
         return cast_id;

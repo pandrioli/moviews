@@ -26,11 +26,11 @@ import retrofit2.Call;
  * Created by Pablo on 03/06/2017.
  */
 
-public class MovieDAO {
+public class MovieDAOInternet {
     private TMDBClient tmdbClient;
     private OMDBClient omdbClient;
 
-    public MovieDAO() {
+    public MovieDAOInternet() {
         this.tmdbClient = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
         this.omdbClient = ServiceGenerator.getInstance().createService(OMDBClient.class, OMDBClient.BASE_URL);
     }

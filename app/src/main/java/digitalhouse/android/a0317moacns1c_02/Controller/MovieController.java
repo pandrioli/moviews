@@ -1,28 +1,25 @@
 package digitalhouse.android.a0317moacns1c_02.Controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
-import digitalhouse.android.a0317moacns1c_02.Model.Credits.Cast;
-import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
-import digitalhouse.android.a0317moacns1c_02.Model.Media.Image;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
-import digitalhouse.android.a0317moacns1c_02.DAO.MovieDAO;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ImageMapper;
+import digitalhouse.android.a0317moacns1c_02.DAO.MovieDAOLocal;
+import digitalhouse.android.a0317moacns1c_02.Helpers.DTO2POJOMapper;
+import digitalhouse.android.a0317moacns1c_02.Helpers.POJO2DTOMapper;
+import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.MovieDTO;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
+import digitalhouse.android.a0317moacns1c_02.DAO.MovieDAOInternet;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
 
 /**
  * Created by Pablo on 03/06/2017.
  */
 
 public class MovieController {
-    private MovieDAO movieDAO;
+    private MovieDAOInternet movieDAOInternet;
+    private MovieDAOLocal movieDAOLocal;
     private static MovieController instance;
 
     public static MovieController getInstance() {
@@ -31,23 +28,42 @@ public class MovieController {
     }
 
     public MovieController() {
-        movieDAO = new MovieDAO();
+        movieDAOInternet = new MovieDAOInternet();
+        movieDAOLocal = new MovieDAOLocal();
     }
 
 
-    //nuevo llamado para obtener los datos de una pelicula de una vez (clase Movie)
-    public void getMovie(Integer id, ResultListener<Movie> resultListener) {
-        movieDAO.obtainMovie(id, resultListener);
+    // Prueba de base de datos Realm
+    // La primera vez que se entra a la movie carga de internet y guarda en la base de datos
+    // Una vez que la movie esta en la base de datos, la proxima vez la trae de ahí
+    // NOTA: en MainActivity se borra toda la base de datos al arrancar la app
+    // esto es para poder hacer pruebas sin tener que buscar peliculas que no esten ya guardadas
+    public void getMovie(Integer id, final ResultListener<Movie> resultListener) {
+        MovieDTO movieDTO = movieDAOLocal.obtainMovie(id);
+        if (movieDTO==null) {
+            // no esta en la base de datos local, pide movie a internet y guarda local
+            movieDAOInternet.obtainMovie(id, new ResultListener<Movie>() {
+                @Override
+                public void finish(Movie movie) {
+                    movieDAOLocal.saveMovie(POJO2DTOMapper.map(movie));
+                    resultListener.finish(movie);
+                    Toaster.getInstance().toast("Datos traidos de internet");
+                }
+            });
+        } else { // esta guardada en la base local, mapea movieDTO recibida y devuelve movie
+            resultListener.finish(DTO2POJOMapper.map(movieDTO));
+            Toaster.getInstance().toast("Datos en base de datos local");
+        }
     }
 
     //llamados a listas de peliculas
     public void getPopular(ResultListener<ArrayList<ListItem>> resultListener) {
-        movieDAO.obtainPopular(new MovieResultsCallback(resultListener));
+        movieDAOInternet.obtainPopular(new MovieResultsCallback(resultListener));
     }
     public void getNowPlaying(ResultListener<ArrayList<ListItem>> resultListener) {
-        movieDAO.obtainNowPlaying(new MovieResultsCallback(resultListener));
+        movieDAOInternet.obtainNowPlaying(new MovieResultsCallback(resultListener));
     }
     public void getUpcoming(ResultListener<ArrayList<ListItem>> resultListener) {
-        movieDAO.obtainUpcoming(new MovieResultsCallback(resultListener));
+        movieDAOInternet.obtainUpcoming(new MovieResultsCallback(resultListener));
     }
 }

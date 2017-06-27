@@ -24,7 +24,7 @@ import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 

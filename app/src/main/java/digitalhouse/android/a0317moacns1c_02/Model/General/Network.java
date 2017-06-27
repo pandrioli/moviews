@@ -3,8 +3,6 @@ package digitalhouse.android.a0317moacns1c_02.Model.General;
 import java.io.Serializable;
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Model.Misc.Company;
-
 /**
  * Created by Gregorio Martin on 11/6/2017.
  */

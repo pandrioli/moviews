@@ -3,7 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 
 /**
  * Created by Pablo on 25/06/2017.

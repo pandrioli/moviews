@@ -9,8 +9,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
+import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import digitalhouse.android.a0317moacns1c_02.R;
 import digitalhouse.android.a0317moacns1c_02.Controller.ConfigController;
+import io.realm.Realm;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +26,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         animationView = (LottieAnimationView) findViewById(R.id.animationViewMainActivity);
-        ActivityStackManager.getInstance().addActivity(this);
+
+        //Inicializar Toaster (tostadora para hacer tostadas desde cualquier lugar sin necesidad de contexto)
+        Toaster.init(this);
+
+        //Inicializar Realm
+        Realm.init(this);
+
+        //Provisorio: borra toda la base de datos
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.deleteAll();
+        realm.commitTransaction();
+
+
         //Carga los datos generales de la API
         //TODO: debería bloquearse la ejecución hasta obtener los datos
         ConfigController.getInstance().loadConfigData(new ResultListener<String>() {

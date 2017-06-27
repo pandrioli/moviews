@@ -1,4 +1,4 @@
-package digitalhouse.android.a0317moacns1c_02.Model.General;
+package digitalhouse.android.a0317moacns1c_02.Model.ListItems;
 
 import android.os.Parcel;
 import android.os.Parcelable;

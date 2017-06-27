@@ -1,15 +1,12 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Movie;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
-import digitalhouse.android.a0317moacns1c_02.Model.Misc.Company;
-import digitalhouse.android.a0317moacns1c_02.Model.Misc.Country;
-import digitalhouse.android.a0317moacns1c_02.Model.Misc.Language;
+import digitalhouse.android.a0317moacns1c_02.Model.General.Company;
+import digitalhouse.android.a0317moacns1c_02.Model.General.Country;
+import digitalhouse.android.a0317moacns1c_02.Model.General.Language;
 
 /**
  * Created by Gregorio Martin on 20/5/2017.

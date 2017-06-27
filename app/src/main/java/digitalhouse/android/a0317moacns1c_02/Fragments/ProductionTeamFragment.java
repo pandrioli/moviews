@@ -39,7 +39,7 @@ public class ProductionTeamFragment extends Fragment {
     public static ProductionTeamFragment newInstance(ArrayList<Crew> crewList) {
         ProductionTeamFragment fragment = new ProductionTeamFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(CREW_LIST_KEY, crewList);
+        args.putSerializable(CREW_LIST_KEY, crewList);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +48,7 @@ public class ProductionTeamFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            crewList = getArguments().getParcelableArrayList(CREW_LIST_KEY);
+            crewList = (ArrayList)getArguments().getSerializable(CREW_LIST_KEY);
         }
     }
 

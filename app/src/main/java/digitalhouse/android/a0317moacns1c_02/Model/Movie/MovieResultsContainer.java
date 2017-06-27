@@ -2,8 +2,6 @@ package digitalhouse.android.a0317moacns1c_02.Model.Movie;
 
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
-
 /**
  * Created by Pablo on 22/05/2017.
  */

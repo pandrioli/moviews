@@ -20,13 +20,19 @@ public class RatingsContainer implements Serializable {
     private static final Double IMDB_TOTAL = 10.0;
     private static final Double ROTTEN_TOMATOES_TOTAL = 100.0;
     private static final Double METACRITIC_TOTAL = 100.0;
-    private static final Integer TMDB_MIN_VOTES = 20;
+    private static final Integer TMDB_MIN_VOTES = 10;
     private static final Integer IMDB_MIN_VOTES = 100;
     private Double tmdb;
     private Double imdb;
     private Double rottenTomatoes;
     private Double metaScore;
     private Double moviews;
+    private Integer imdbVotes;
+    private Integer tmdbVotes;
+
+    public RatingsContainer() {
+
+    }
 
     public RatingsContainer(Movie movie) {
         validateTmdbRating(movie.getMovieDetails().getVote_average(), movie.getMovieDetails().getVote_count());
@@ -48,19 +54,56 @@ public class RatingsContainer implements Serializable {
         return imdb;
     }
 
-    public Integer getRottenTomatoes() {
-        return rottenTomatoes.intValue();
+    public Double getRottenTomatoes() {
+        return rottenTomatoes;
     }
 
-    public Integer getMetaScore() {
-        return metaScore.intValue();
+    public Double getMetaScore() {
+        return metaScore;
     }
 
-    public Integer getMoviews() {
-        return moviews.intValue();
+    public Double getMoviews() {
+        return moviews;
+    }
+
+    public Integer getImdbVotes() {
+        return imdbVotes;
+    }
+
+    public Integer getTmdbVotes() {
+        return tmdbVotes;
+    }
+
+    public void setTmdb(Double tmdb) {
+        this.tmdb = tmdb;
+    }
+
+    public void setImdb(Double imdb) {
+        this.imdb = imdb;
+    }
+
+    public void setRottenTomatoes(Double rottenTomatoes) {
+        this.rottenTomatoes = rottenTomatoes;
+    }
+
+    public void setMetaScore(Double metaScore) {
+        this.metaScore = metaScore;
+    }
+
+    public void setMoviews(Double moviews) {
+        this.moviews = moviews;
+    }
+
+    public void setImdbVotes(Integer imdbVotes) {
+        this.imdbVotes = imdbVotes;
+    }
+
+    public void setTmdbVotes(Integer tmdbVotes) {
+        this.tmdbVotes = tmdbVotes;
     }
 
     private void validateTmdbRating(Double voteAverage, Integer totalVotes) {
+        tmdbVotes = totalVotes;
         if (totalVotes>TMDB_MIN_VOTES) tmdb = voteAverage;
     };
 
@@ -68,7 +111,7 @@ public class RatingsContainer implements Serializable {
         if (omdbData==null) return;
         if (omdbData.getRatings()==null) return;
         List<RateOmdb> ratings = omdbData.getRatings();
-        Integer imdbVotes = parseImdbVotes(omdbData.getImdbVotes());
+        imdbVotes = parseImdbVotes(omdbData.getImdbVotes());
         for (RateOmdb rating : ratings) {
             Double ratingValue = parseRating(rating.getValue());
             switch (rating.getSource()) {
@@ -85,16 +128,9 @@ public class RatingsContainer implements Serializable {
         }
     }
 
-    private Integer parseImdbVotes(String imdbVotes) {
-        if (imdbVotes==null) return 0;
-        String votesStr = imdbVotes.replace(",", "");
-        Integer votesInt = Integer.parseInt(votesStr);
-        return votesInt;
-/*        Integer commaPos = imdbVotesString.indexOf(",");
-        if (commaPos>-1) {
-            imdbVotesString = imdbVotesString.substring(0,commaPos) +
-                    imdbVotesString.substring(commaPos+1, imdbVotesString.length());
-        }
+    private Integer parseImdbVotes(String imdbVotesString) {
+        if (imdbVotesString==null) return 0;
+        imdbVotesString = imdbVotesString.replace(",","");
         Integer imdbVotes;
         try {
             imdbVotes = Integer.parseInt(imdbVotesString);

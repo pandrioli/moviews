@@ -18,11 +18,6 @@ public class Image implements Serializable {
     private Double vote_count;
     private Integer width;
 
-    protected Image(Parcel in) {
-        file_path = in.readString();
-        iso_639_1 = in.readString();
-    }
-
     public Double getAspect_ratio() {
         return aspect_ratio;
     }

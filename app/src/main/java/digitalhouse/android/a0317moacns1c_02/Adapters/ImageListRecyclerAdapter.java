@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
