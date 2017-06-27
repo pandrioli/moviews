@@ -10,7 +10,7 @@ import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
-import digitalhouse.android.a0317moacns1c_02.Model.Misc.Company;
+import digitalhouse.android.a0317moacns1c_02.Model.General.Company;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonBase;
 
 /**

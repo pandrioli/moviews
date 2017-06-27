@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Image;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonCastCreditItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonCrewCreditItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;

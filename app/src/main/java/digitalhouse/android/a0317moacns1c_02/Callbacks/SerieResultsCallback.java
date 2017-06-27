@@ -1,12 +1,9 @@
 package digitalhouse.android.a0317moacns1c_02.Callbacks;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ListItemMapper;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 
 /**

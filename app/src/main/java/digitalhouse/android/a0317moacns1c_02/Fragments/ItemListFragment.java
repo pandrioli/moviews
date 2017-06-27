@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Adapters.ListItemRecyclerAdapter;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 

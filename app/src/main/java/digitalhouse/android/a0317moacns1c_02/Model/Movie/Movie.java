@@ -63,6 +63,10 @@ public class Movie implements Serializable {
         return ratingsContainer;
     }
 
+    public void setRatingsContainer(RatingsContainer ratingsContainer) {
+        this.ratingsContainer = ratingsContainer;
+    }
+
     public void calculateRatings() {
         this.ratingsContainer = new RatingsContainer(this);
     }

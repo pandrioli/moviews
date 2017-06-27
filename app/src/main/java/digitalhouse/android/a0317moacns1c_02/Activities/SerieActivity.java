@@ -19,7 +19,6 @@ import android.view.View;
 import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +28,7 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonResult;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;

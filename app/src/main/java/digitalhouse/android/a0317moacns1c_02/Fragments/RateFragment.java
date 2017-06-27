@@ -94,12 +94,13 @@ public class RateFragment extends Fragment implements Serializable {
     }
 
     private void setUpMoviewsScore(){
-        Integer moviewsScore = ratingsContainer.getMoviews();
+        if(ratingsContainer.getMoviews()==null) return;
+        Integer moviewsScore = ratingsContainer.getMoviews().intValue();
         circularProgressBar.setProgress(0);
         int animationDurationMSegs = 2500;
         circularProgressBar.setProgressWithAnimation(ratingsContainer.getMoviews().floatValue(), animationDurationMSegs);
         if (moviewsScore>0) {
-            textViewMoviewsScore.setText(ratingsContainer.getMoviews().toString());
+            textViewMoviewsScore.setText(String.format("%1$d",moviewsScore));
         } else {
             textViewMoviewsScore.setText("N/A");
         }
@@ -108,7 +109,7 @@ public class RateFragment extends Fragment implements Serializable {
     private void setAndToggleMetascore(){
         if(ratingsContainer.getMetaScore() != null)
         {
-            metascore.setText(ratingsContainer.getMetaScore().toString());
+            metascore.setText(String.format("%1$d",ratingsContainer.getMetaScore().intValue()));
         } else {
             metacriticLogo.setVisibility(View.INVISIBLE);
             metascore.setVisibility(View.INVISIBLE);
@@ -118,7 +119,7 @@ public class RateFragment extends Fragment implements Serializable {
 
     private void setAndToggleRottenTomatoes(){
         if(ratingsContainer.getRottenTomatoes() != null){
-            rottenTomatoesRate.setText(ratingsContainer.getRottenTomatoes().toString()+"%");
+            rottenTomatoesRate.setText(String.format("%1$d",ratingsContainer.getRottenTomatoes().intValue()) + "%");
         } else{
             rottenTomatoesLogo.setVisibility(View.INVISIBLE);
             rottenTomatoesRate.setVisibility(View.INVISIBLE);

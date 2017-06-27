@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Cast;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ImageListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 
 /**
  * Created by Pablo on 21/06/2017.

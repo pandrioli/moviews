@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary_text"
                 android:id="@+id/textViewMoviewsScore"
-                android:text="85"
+                android:text="00"
                 android:textSize="35dp"
                 android:layout_gravity="center"
                 />

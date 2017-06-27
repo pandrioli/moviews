@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResult;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonResult;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResult;

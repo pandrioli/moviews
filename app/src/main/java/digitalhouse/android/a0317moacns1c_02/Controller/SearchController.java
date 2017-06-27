@@ -2,7 +2,6 @@ package digitalhouse.android.a0317moacns1c_02.Controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
@@ -11,8 +10,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.SerieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.DAO.SearchDAO;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ListItemMapper;
-import digitalhouse.android.a0317moacns1c_02.Model.General.ListItem;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Helpers.RequestsMapper;
