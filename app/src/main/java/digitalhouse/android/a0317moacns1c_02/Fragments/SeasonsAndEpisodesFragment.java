@@ -1,7 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -75,7 +74,7 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_seasons, container, false);
+        View view = inflater.inflate(R.layout.fragment_seasons_episodes, container, false);
         unbinder = ButterKnife.bind(this, view);
         Glide.with(this).load(season.getPosterUrl(4)).into(poster);
         seasonAirDate.setText(season.getAirDate());
