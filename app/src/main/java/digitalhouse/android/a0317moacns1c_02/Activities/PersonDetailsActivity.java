@@ -21,7 +21,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.PersonController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ImageViewMapper;
+import digitalhouse.android.a0317moacns1c_02.Mappers.ImageViewMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;

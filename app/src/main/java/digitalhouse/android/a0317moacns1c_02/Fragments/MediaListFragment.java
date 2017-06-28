@@ -26,7 +26,7 @@ import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Activities.ImageViewActivity;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MultimediaRecyclerAdapter;
 import digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ImageViewMapper;
+import digitalhouse.android.a0317moacns1c_02.Mappers.ImageViewMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Video;
 import digitalhouse.android.a0317moacns1c_02.R;
 

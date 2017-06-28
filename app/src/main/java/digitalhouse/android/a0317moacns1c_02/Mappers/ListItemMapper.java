@@ -1,10 +1,12 @@
-package digitalhouse.android.a0317moacns1c_02.Helpers;
+package digitalhouse.android.a0317moacns1c_02.Mappers;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.ListItemDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResult;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonResult;
@@ -52,14 +54,26 @@ public class ListItemMapper {
         return item;
     }
 
+    // mapeo ListItemDTO a ListItem
+    public static ListItem map(ListItemDTO listItemDTO) {
+        ListItem item = new ListItem();
+        item.setId(listItemDTO.getId());
+        item.setYear(listItemDTO.getYear());
+        item.setGenres(listItemDTO.getGenres());
+        item.setRating(listItemDTO.getRating());
+        item.setImageURL(listItemDTO.getImageURL());
+        item.setType(listItemDTO.getType());
+        return item;
+    }
 
     //mapeo de listas
-    public static <T> ArrayList<ListItem> map(List<T> results) {
+    public static <T> ArrayList<ListItem> map(List<T> items) {
         ArrayList<ListItem> listItems = new ArrayList<>();
-        for (T result : results) {
-            if (result instanceof MovieResult) listItems.add(map((MovieResult)result));
-            if (result instanceof SerieResult) listItems.add(map((SerieResult)result));
-            if (result instanceof PersonResult) listItems.add(map((PersonResult)result));
+        for (T item : items) {
+            if (item instanceof MovieResult) listItems.add(map((MovieResult)item));
+            if (item instanceof SerieResult) listItems.add(map((SerieResult)item));
+            if (item instanceof PersonResult) listItems.add(map((PersonResult)item));
+            if (item instanceof ListItemDTO) listItems.add(map((ListItemDTO)item));
         }
         return listItems;
     }

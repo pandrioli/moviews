@@ -9,11 +9,11 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.SerieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.DAO.SearchDAO;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ListItemMapper;
+import digitalhouse.android.a0317moacns1c_02.Mappers.ListItemMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
-import digitalhouse.android.a0317moacns1c_02.Helpers.RequestsMapper;
+import digitalhouse.android.a0317moacns1c_02.Mappers.RequestsMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.PersonSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.SerieSearchRequest;
 

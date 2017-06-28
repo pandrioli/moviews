@@ -1,8 +1,9 @@
-package digitalhouse.android.a0317moacns1c_02.Helpers;
+package digitalhouse.android.a0317moacns1c_02.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 
 /**

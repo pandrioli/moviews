@@ -2,7 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Callbacks;
 
 import java.util.ArrayList;
 
-import digitalhouse.android.a0317moacns1c_02.Helpers.ListItemMapper;
+import digitalhouse.android.a0317moacns1c_02.Mappers.ListItemMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 

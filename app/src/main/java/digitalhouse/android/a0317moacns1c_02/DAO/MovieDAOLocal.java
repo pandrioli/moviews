@@ -1,8 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.DAO;
 
-import digitalhouse.android.a0317moacns1c_02.Helpers.POJO2DTOMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.MovieDTO;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
 import io.realm.Realm;
 import io.realm.RealmResults;
 

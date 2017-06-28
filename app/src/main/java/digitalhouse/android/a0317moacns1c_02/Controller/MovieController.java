@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.DAO.MovieDAOLocal;
-import digitalhouse.android.a0317moacns1c_02.Helpers.DTO2POJOMapper;
-import digitalhouse.android.a0317moacns1c_02.Helpers.POJO2DTOMapper;
+import digitalhouse.android.a0317moacns1c_02.Mappers.DTOMovieMapper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.MovieDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
@@ -45,13 +44,13 @@ public class MovieController {
             movieDAOInternet.obtainMovie(id, new ResultListener<Movie>() {
                 @Override
                 public void finish(Movie movie) {
-                    movieDAOLocal.saveMovie(POJO2DTOMapper.map(movie));
+                    movieDAOLocal.saveMovie(DTOMovieMapper.map(movie));
                     resultListener.finish(movie);
                     Toaster.getInstance().toast("Datos traidos de internet");
                 }
             });
         } else { // esta guardada en la base local, mapea movieDTO recibida y devuelve movie
-            resultListener.finish(DTO2POJOMapper.map(movieDTO));
+            resultListener.finish(DTOMovieMapper.map(movieDTO));
             Toaster.getInstance().toast("Datos en base de datos local");
         }
     }
