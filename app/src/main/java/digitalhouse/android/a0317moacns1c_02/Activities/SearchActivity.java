@@ -120,11 +120,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         SearchController.getInstance().searchMovies(movieSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> movieList) {
-                ItemListFragment itemListFragment = new ItemListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, movieList);
-                itemListFragment.setArguments(bundle);
-                adapter.getFragments().set(0, itemListFragment);
+                adapter.getFragments().set(0, ItemListFragment.newInstance(movieList));
                 adapter.notifyDataSetChanged();
             }
         });
@@ -133,11 +129,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         SearchController.getInstance().searchSeries(serieSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> serieList) {
-                ItemListFragment itemListFragment = new ItemListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, serieList);
-                itemListFragment.setArguments(bundle);
-                adapter.getFragments().set(1, itemListFragment);
+                adapter.getFragments().set(1, ItemListFragment.newInstance(serieList));
                 adapter.notifyDataSetChanged();
             }
         });
@@ -146,11 +138,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         SearchController.getInstance().searchPeople(personSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> personList) {
-                ItemListFragment itemListFragment = new ItemListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, personList);
-                itemListFragment.setArguments(bundle);
-                adapter.getFragments().set(2, itemListFragment);
+                adapter.getFragments().set(2, ItemListFragment.newInstance(personList));
                 adapter.notifyDataSetChanged();
             }
         });
@@ -180,17 +168,17 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
 
     @Override
     public void onClick(ListItem listItem) {
-        if (listItem.getType().equals("movie")) {
+        if (listItem.getType().equals(ListItem.TYPE_MOVIE)) {
             Bundle bundle = new Bundle();
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
             Intent intent = new Intent(this, MovieDetailsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }
-        if (listItem.getType().equals("serie")) {
+        if (listItem.getType().equals(ListItem.TYPE_SERIE)) {
 
         }
-        if (listItem.getType().equals("person")) {
+        if (listItem.getType().equals(ListItem.TYPE_PERSON)) {
             Bundle bundle = new Bundle();
             bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, listItem.getId());
             Intent intent = new Intent(this, PersonDetailsActivity.class);

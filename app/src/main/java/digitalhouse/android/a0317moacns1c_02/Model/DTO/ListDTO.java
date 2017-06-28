@@ -9,9 +9,12 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class ListDTO extends RealmObject {
-    public final static String MOVIES_POPULAR = "_movies_popular";
-    public final static String MOVIES_NOWPLAYING = "_movies_nowplaying";
-    public final static String MOVIES_UPCOMING = "_movies_upcoming";
+    public final static String MOVIES_POPULAR = "appList:movies_popular";
+    public final static String MOVIES_NOWPLAYING = "appList:movies_nowplaying";
+    public final static String MOVIES_UPCOMING = "appList:movies_upcoming";
+    public final static String FAVORITES = "appList:favorites";
+    public final static String USER_LIST_TEST = "userListTest";
+
     @PrimaryKey
     private String id;
     private Boolean isUserList;
@@ -25,11 +28,11 @@ public class ListDTO extends RealmObject {
         this.id = id;
     }
 
-    public Boolean getUserList() {
+    public Boolean getIsUserList() {
         return isUserList;
     }
 
-    public void setUserList(Boolean userList) {
+    public void setIsUserList(Boolean userList) {
         isUserList = userList;
     }
 

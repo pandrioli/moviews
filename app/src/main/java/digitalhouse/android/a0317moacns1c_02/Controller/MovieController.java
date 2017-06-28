@@ -26,7 +26,7 @@ public class MovieController {
         return instance;
     }
 
-    public MovieController() {
+    private MovieController() {
         movieDAOInternet = new MovieDAOInternet();
         movieDAOLocal = new MovieDAOLocal();
     }

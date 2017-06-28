@@ -15,15 +15,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Adapters.TabItemListPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Controller.ListController;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.ListDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -37,7 +40,8 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     @BindView(R.id.tab_act_toolbar) protected Toolbar toolbar;
 
     private ArrayList<ListItem> itemList;
-    private Bundle[] bundleList;
+    private List<ItemListFragment> fragments;
+    private List<String> titles;
     private Integer loadedCounter;
 
 
@@ -55,17 +59,21 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     }
 
     private void loadMovies() {
-        bundleList = new Bundle[3]; // array de bundles que se envia al adapter
         loadedCounter = 0; // flag de carga
+        fragments = new ArrayList<>();
+        fragments.add(null);
+        fragments.add(null);
+        fragments.add(null);
+        titles = new ArrayList<>();
+        titles.add("Popular");
+        titles.add("Now playing");
+        titles.add("Upcoming");
 
         //carga de datos
         MovieController.getInstance().getPopular(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
-                bundle.putString(ItemListFragment.TITLE_KEY, "Popular");
-                bundleList[0] = bundle; // de esta manera se puede especificar la posicion (tab) en la que va cada lista
+                fragments.set(0,ItemListFragment.newInstance(itemList));
                 loadedCounter++;
                 loadViewPager();
             }
@@ -74,10 +82,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         MovieController.getInstance().getNowPlaying(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
-                bundle.putString(ItemListFragment.TITLE_KEY, "Now playing");
-                bundleList[1] = bundle;
+                fragments.set(1,ItemListFragment.newInstance(itemList));
                 loadedCounter++;
                 loadViewPager();
             }
@@ -86,10 +91,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         MovieController.getInstance().getUpcoming(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
-                bundle.putString(ItemListFragment.TITLE_KEY, "Upcoming");
-                bundleList[2] = bundle;
+                fragments.set(2,ItemListFragment.newInstance(itemList));
                 loadedCounter++;
                 loadViewPager();
             }
@@ -97,15 +99,20 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     }
 
     private void loadSeries() {
-        bundleList = new Bundle[3];
-        loadedCounter = 0;
+        loadedCounter = 0; // flag de carga
+        fragments = new ArrayList<>();
+        fragments.add(null);
+        fragments.add(null);
+        fragments.add(null);
+        titles = new ArrayList<>();
+        titles.add("Popular");
+        titles.add("Top rated");
+        titles.add("Airing today");
+
         SerieController.getInstance().getPopular(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
-                bundle.putString(ItemListFragment.TITLE_KEY, "Popular");
-                bundleList[0] = bundle;
+                fragments.set(0,ItemListFragment.newInstance(itemList));
                 loadedCounter++;
                 loadViewPager();
             }
@@ -113,10 +120,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         SerieController.getInstance().getTopRated(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
-                bundle.putString(ItemListFragment.TITLE_KEY, "Top Rated");
-                bundleList[1] = bundle;
+                fragments.set(1,ItemListFragment.newInstance(itemList));
                 loadedCounter++;
                 loadViewPager();
             }
@@ -124,20 +128,30 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         SerieController.getInstance().getAiringToday(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(ItemListFragment.ITEM_LIST_KEY, itemList);
-                bundle.putString(ItemListFragment.TITLE_KEY, "Airing today");
-                bundleList[2] = bundle;
+                fragments.set(2,ItemListFragment.newInstance(itemList));
                 loadedCounter++;
                 loadViewPager();
             }
         });
     }
 
+    private void loadLists() {
+        fragments = new ArrayList<>();
+        titles = new ArrayList<>();
+        titles.add("Favorites");
+        titles.add("User list test");
+        ArrayList<ListItem> listItemsFavorites = ListController.getInstance().getFavorites();
+        ArrayList<ListItem> listItemsUserList = ListController.getInstance().getUserList(ListDTO.USER_LIST_TEST);
+        fragments.add(ItemListFragment.newInstance(listItemsFavorites));
+        fragments.add(ItemListFragment.newInstance(listItemsUserList));
+        loadViewPager();
+    }
+
+
 
     private void loadViewPager() {
-        if (loadedCounter<bundleList.length) return; // si todavia no se cargaron todos los bundles, cancelar
-        PagerAdapter adapter = new TabItemListPagerAdapter(getSupportFragmentManager(), bundleList);
+        if (loadedCounter<fragments.size()) return; // si todavia no se cargaron todos los fragments, cancelar
+        PagerAdapter adapter = new TabItemListPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -145,14 +159,14 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     @Override
     public void onClick(ListItem listItem) {
         // se define la accion a tomar segun el tipo del listitem (movie o serieDetails)
-        if (listItem.getType().equals("movie")) {
+        if (listItem.getType().equals(ListItem.TYPE_MOVIE)) {
             Intent intent = new Intent(this,MovieDetailsActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
             intent.putExtras(bundle);
             startActivity(intent);
         }
-        if (listItem.getType().equals("serieDetails")) {
+        if (listItem.getType().equals(ListItem.TYPE_SERIE)) {
             Intent intent = new Intent(this, SerieActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(SerieActivity.SERIE_ID_KEY, listItem.getId().toString());
@@ -227,6 +241,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
                 case 1:
                     searchEditText.setHint("Search series...");
                     loadSeries();
+                    break;
+                case 2:
+                    loadLists();
                     break;
             }
         }

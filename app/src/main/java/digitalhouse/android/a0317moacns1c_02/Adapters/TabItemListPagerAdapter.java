@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.List;
+
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
 
 /**
@@ -12,28 +14,27 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
  */
 
 public class TabItemListPagerAdapter extends FragmentStatePagerAdapter {
-    private Bundle[] bundleList;
+    private List<ItemListFragment> fragmentList;
+    private List<String> titles;
 
-    public TabItemListPagerAdapter(FragmentManager fm, Bundle[] bundleList) {
+    public TabItemListPagerAdapter(FragmentManager fm, List<ItemListFragment> fragmentList, List<String> titles) {
         super(fm);
-        this.bundleList = bundleList;
+        this.fragmentList = fragmentList;
+        this.titles = titles;
     }
 
     @Override
     public Fragment getItem(int position) {
-        Bundle bundle = bundleList[position];
-        ItemListFragment itemListFragment = new ItemListFragment();
-        itemListFragment.setArguments(bundle);
-        return itemListFragment;
+        return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return bundleList.length;
+        return fragmentList.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return bundleList[position].getString(ItemListFragment.TITLE_KEY);
+        return titles.get(position);
     }
 }

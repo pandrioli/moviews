@@ -26,6 +26,14 @@ public class ItemListFragment extends Fragment implements View.OnClickListener {
     RecyclerView recyclerViewItems;
     ArrayList<ListItem> itemList;
 
+    public static ItemListFragment newInstance(ArrayList<ListItem> listItems) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ITEM_LIST_KEY, listItems);
+        ItemListFragment itemListFragment = new ItemListFragment();
+        itemListFragment.setArguments(bundle);
+        return itemListFragment;
+    }
+
     public ItemListFragment() {
         // Required empty public constructor
     }
@@ -37,7 +45,7 @@ public class ItemListFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         final ItemClickeable myActivity = (ItemClickeable)getActivity();
         Bundle bundle = getArguments();
-        itemList = bundle.getParcelableArrayList(ITEM_LIST_KEY);
+        itemList = (ArrayList)bundle.getSerializable(ITEM_LIST_KEY);
         ListItemRecyclerAdapter movieAdapter = new ListItemRecyclerAdapter(view.getContext(), itemList, this);
         recyclerViewItems = (RecyclerView) view.findViewById(R.id.recyclerViewMovies);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));

@@ -58,6 +58,7 @@ public class ListItemMapper {
     public static ListItem map(ListItemDTO listItemDTO) {
         ListItem item = new ListItem();
         item.setId(listItemDTO.getId());
+        item.setTitle(listItemDTO.getTitle());
         item.setYear(listItemDTO.getYear());
         item.setGenres(listItemDTO.getGenres());
         item.setRating(listItemDTO.getRating());
