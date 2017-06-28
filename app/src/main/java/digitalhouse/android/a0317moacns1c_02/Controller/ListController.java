@@ -63,4 +63,54 @@ public class ListController {
         //TODO: guardar serie en Realm
     }
 
+    public void removeMovieFromFavorites(Integer itemId) {
+        listDAOLocal.removeItemFromList(ListDTO.FAVORITES, itemId, ListItem.TYPE_MOVIE);
+    }
+
+    public void removeSerieFromFavorites(Integer itemId) {
+        listDAOLocal.removeItemFromList(ListDTO.FAVORITES, itemId, ListItem.TYPE_SERIE);
+    }
+
+    public void removeMovieFromUserList(String listId, Integer itemId) {
+        listDAOLocal.removeItemFromList(listId, itemId, ListItem.TYPE_MOVIE);
+    }
+
+    public void removeSerieFromUserList(String listId, Integer itemId) {
+        listDAOLocal.removeItemFromList(listId, itemId, ListItem.TYPE_SERIE);
+    }
+
+    public Boolean isMovieFavorited(Integer id) {
+        return isItemFavorited(id, ListItem.TYPE_MOVIE);
+    }
+
+    public Boolean isSerieFavorited(Integer id) {
+        return isItemFavorited(id, ListItem.TYPE_SERIE);
+    }
+
+    public Boolean isMovieInUserList(Integer id) {
+        return isItemInUserList(id, ListItem.TYPE_MOVIE);
+    }
+
+    public Boolean isSerieInUserList(Integer id) {
+        return isItemInUserList(id, ListItem.TYPE_SERIE);
+    }
+
+    private Boolean isItemFavorited(Integer id, String type) {
+        List<ListItem> favorites = getFavorites();
+        for (ListItem item : favorites) {
+            if (item.getId().equals(id) && item.getType().equals(type)) return true;
+        }
+        return false;
+    }
+
+    private Boolean isItemInUserList(Integer id, String type) {
+        List<ListDTO> lists = listDAOLocal.obtainAllUserLists();
+        for (ListDTO list : lists) {
+            for (ListItemDTO item : list.getList()) {
+                if (item.getId().equals(id) && item.getType().equals(type)) return true;
+            }
+        }
+        return false;
+    }
+
 }

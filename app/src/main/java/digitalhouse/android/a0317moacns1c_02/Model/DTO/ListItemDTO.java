@@ -75,6 +75,6 @@ public class ListItemDTO extends RealmObject {
     @Override
     public boolean equals(Object obj) {
         ListItemDTO listItemDTO = (ListItemDTO) obj;
-        return listItemDTO.getId().equals(id);
+        return listItemDTO.getId().equals(id) && listItemDTO.getType().equals(type);
     }
 }

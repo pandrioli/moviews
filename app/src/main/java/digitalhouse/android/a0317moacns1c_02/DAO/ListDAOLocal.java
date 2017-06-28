@@ -34,6 +34,22 @@ public class ListDAOLocal {
         saveItemToList(id, listItemDTO, true);
     }
 
+    public void removeItemFromList(String listId, Integer itemId, String type) {
+        final ListDTO listDTO = realm.where(ListDTO.class).equalTo("id", listId).findFirst();
+        ListItemDTO itemToRemove = null;
+        for (ListItemDTO item : listDTO.getList()) {
+            if (item.getId().equals(itemId) && item.getType().equals(type)) {
+                itemToRemove = item;
+                break;
+            }
+        }
+        if (itemToRemove!=null) {
+            realm.beginTransaction();
+            listDTO.getList().remove(itemToRemove);
+            realm.commitTransaction();
+        }
+    }
+
     public List<ListDTO> obtainAllUserLists() {
         RealmResults<ListDTO> results = realm.where(ListDTO.class).equalTo("isUserList", true).findAll();
         return results;
