@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Model.DTO;
 
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import io.realm.RealmObject;
 
 /**
@@ -69,5 +70,11 @@ public class ListItemDTO extends RealmObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        ListItemDTO listItemDTO = (ListItemDTO) obj;
+        return listItemDTO.getId().equals(id);
     }
 }

@@ -41,12 +41,14 @@ public class ListDAOLocal {
 
     private void saveItemToList(String id, final ListItemDTO listItemDTO, Boolean isUserList) {
         final ListDTO listDTO = obtainList(id, isUserList);
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                listDTO.getList().add(listItemDTO);
-            }
-        });
+        if (!listDTO.getList().contains(listItemDTO)) {
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    listDTO.getList().add(listItemDTO);
+                }
+            });
+        }
     }
 
     private ListDTO obtainList(String id, Boolean isUserList) {
@@ -56,12 +58,9 @@ public class ListDAOLocal {
             listDTO.setId(id);
             listDTO.setIsUserList(isUserList);
             listDTO.setList(new RealmList<ListItemDTO>());
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    realm.copyToRealmOrUpdate(listDTO);
-                }
-            });
+            realm.beginTransaction();
+            listDTO = realm.copyToRealmOrUpdate(listDTO);
+            realm.commitTransaction();
         }
         return listDTO;
     }
