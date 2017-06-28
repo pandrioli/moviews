@@ -26,7 +26,7 @@ public class ListItemMapper {
         item.setYear(movie.getYear());
         item.setRating(movie.getVote_average().toString());
         item.setImageURL(ImageHelper.getPosterURL(movie.getPoster_path(),1));
-        item.setType("movie");
+        item.setType(ListItem.TYPE_MOVIE);
         return item;
     }
     // mapeo SerieResult a ListItem
@@ -39,7 +39,7 @@ public class ListItemMapper {
         DecimalFormat df = new DecimalFormat("#.0");
         item.setRating(df.format(serie.getVoteAverage()));
         item.setImageURL(ImageHelper.getPosterURL(serie.getPosterPath(),1));
-        item.setType("serieDetails");
+        item.setType(ListItem.TYPE_SERIE);
         return item;
     }
     // mapeo PersonResult a ListItem
@@ -50,7 +50,7 @@ public class ListItemMapper {
         DecimalFormat df = new DecimalFormat("#.0");
         item.setRating(df.format(person.getPopularity()));
         item.setImageURL(ImageHelper.getProfileURL(person.getProfile_path(),1));
-        item.setType("person");
+        item.setType(ListItem.TYPE_PERSON);
         return item;
     }
 
