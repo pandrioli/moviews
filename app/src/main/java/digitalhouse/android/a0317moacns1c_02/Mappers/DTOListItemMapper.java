@@ -10,5 +10,6 @@ import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 public class DTOListItemMapper {
     public static ListItemDTO map(ListItem listItem) {
         ListItemDTO listItemDTO = new ListItemDTO();
+        return listItemDTO;
     }
 }
