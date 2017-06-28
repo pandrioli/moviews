@@ -1,11 +1,13 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Person;
 
 
+import java.io.Serializable;
+
 /**
  * Created by Pablo on 11/06/2017.
  */
 
-public class PersonResult {
+public class PersonResult implements Serializable {
     private String profile_path;
     private Integer id;
     private String name;

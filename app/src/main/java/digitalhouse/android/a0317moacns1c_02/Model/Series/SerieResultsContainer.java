@@ -1,12 +1,13 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Series;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Gregorio Martin on 4/6/2017.
  */
 
-public class SerieResultsContainer {
+public class SerieResultsContainer implements Serializable {
 
     private Integer page;
     private List<SerieResult> results;

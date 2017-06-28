@@ -40,7 +40,7 @@ public class ImageViewActivity extends AppCompatActivity {
             //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         List<String> imagesURL = new ArrayList<>();
-        if (bundle.containsKey(IMAGE_INDEX_KEY)) {
+        if (bundle.containsKey(IMAGE_LIST_URL_KEY)) {
             imagesURL = bundle.getStringArrayList(IMAGE_LIST_URL_KEY);
         } else if (bundle.containsKey(IMAGE_URL_KEY)) {
             imagesURL.add(bundle.getString(IMAGE_URL_KEY));

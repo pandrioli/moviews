@@ -45,7 +45,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
     public static ImageListFragment newInstance(ArrayList<ImageListItem> imageList, String title, Boolean headerMode){
         ImageListFragment fragment = new ImageListFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(IMAGE_LIST_KEY ,imageList);
+        args.putSerializable(IMAGE_LIST_KEY ,imageList);
         args.putString(TITLE_KEY, title);
         args.putBoolean(HEADER_MODE_KEY, headerMode);
         fragment.setArguments(args);
@@ -61,7 +61,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
-            imageList = getArguments().getParcelableArrayList(IMAGE_LIST_KEY);
+            imageList = (ArrayList)getArguments().getSerializable(IMAGE_LIST_KEY);
             title = getArguments().getString(TITLE_KEY);
             headerMode = getArguments().getBoolean(HEADER_MODE_KEY);
         }

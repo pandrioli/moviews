@@ -48,7 +48,6 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityStackManager.getInstance().removeMainActivity();
         //Remove title bar
         setContentView(R.layout.activity_tabs);
         ButterKnife.bind(this);

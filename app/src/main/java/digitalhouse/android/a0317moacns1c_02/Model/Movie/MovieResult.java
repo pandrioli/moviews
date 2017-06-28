@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Movie;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * Created by Pablo on 09/06/2017.
  */
 
-public class MovieResult {
+public class MovieResult implements Serializable {
     private String poster_path;
     private Boolean adult;
     private String overview;

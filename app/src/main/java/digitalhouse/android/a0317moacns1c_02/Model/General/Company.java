@@ -10,7 +10,7 @@ import java.util.List;
  * Created by dh3 on 24/05/17.
  */
 
-public class Company implements Parcelable, Serializable {
+public class Company implements Serializable {
     private Integer id;
     private String name;
 
@@ -35,31 +35,6 @@ public class Company implements Parcelable, Serializable {
         return companies;
     }
 
-    protected Company(Parcel in) {
-        name = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Company> CREATOR = new Creator<Company>() {
-        @Override
-        public Company createFromParcel(Parcel in) {
-            return new Company(in);
-        }
-
-        @Override
-        public Company[] newArray(int size) {
-            return new Company[size];
-        }
-    };
 
     public Integer getId() {
         return id;

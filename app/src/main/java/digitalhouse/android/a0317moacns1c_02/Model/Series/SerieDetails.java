@@ -17,7 +17,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonBase;
  * Created by Gregorio Martin on 11/6/2017.
  */
 
-public class SerieDetails extends SerieResult implements Parcelable, Serializable {
+public class SerieDetails extends SerieResult implements Serializable {
 
     @SerializedName("created_by") protected List<PersonBase> createdBy;
     @SerializedName("episode_run_time") protected List<Integer> episodeRunTimes;
@@ -37,46 +37,6 @@ public class SerieDetails extends SerieResult implements Parcelable, Serializabl
     public SerieDetails(){
 
     }
-
-    protected SerieDetails(Parcel in) {
-        super(in);
-        createdBy = in.createTypedArrayList(PersonBase.CREATOR);
-        homepage = in.readString();
-        languages = in.createStringArrayList();
-        lastAirDate = in.readString();
-        productionCompanies = in.createTypedArrayList(Company.CREATOR);
-        status = in.readString();
-        type = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeTypedList(createdBy);
-        dest.writeString(homepage);
-        dest.writeStringList(languages);
-        dest.writeString(lastAirDate);
-        dest.writeTypedList(productionCompanies);
-        dest.writeString(status);
-        dest.writeString(type);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<SerieDetails> CREATOR = new Creator<SerieDetails>() {
-        @Override
-        public SerieDetails createFromParcel(Parcel in) {
-            return new SerieDetails(in);
-        }
-
-        @Override
-        public SerieDetails[] newArray(int size) {
-            return new SerieDetails[size];
-        }
-    };
 
     public List<PersonBase> getCreatedBy() {
         return createdBy;

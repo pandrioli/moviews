@@ -1,10 +1,12 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Person;
 
+import java.io.Serializable;
+
 /**
  * Created by Pablo on 28/05/2017.
  */
 
-public class PersonCrewCreditItem {
+public class PersonCrewCreditItem implements Serializable {
     private Boolean adult;
     private String credit_id;
     private String department;

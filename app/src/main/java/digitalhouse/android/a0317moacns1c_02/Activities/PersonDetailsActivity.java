@@ -60,7 +60,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             @Override
             public void finish(PersonDetails personDetails) {
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(PersonDetails.tag, personDetails);
+                bundle.putSerializable(PersonDetails.tag, personDetails);
                 setupViews(personDetails);
                 stopLoader();
             }
@@ -78,7 +78,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             public void finish(ArrayList<ImageListItem> imageList) {
                 Bundle bundle = new Bundle();
                 bundle.putString(ImageListFragment.TITLE_KEY, "Movie credits");
-                bundle.putParcelableArrayList(ImageListFragment.IMAGE_LIST_KEY, imageList);
+                bundle.putSerializable(ImageListFragment.IMAGE_LIST_KEY, imageList);
                 startPersonDetailsMovieCreditsFragment(bundle);
                 stopLoader();
             }

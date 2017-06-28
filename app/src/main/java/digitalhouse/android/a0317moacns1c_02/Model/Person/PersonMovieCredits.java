@@ -1,12 +1,13 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Person;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Pablo on 28/05/2017.
  */
 
-public class PersonMovieCredits {
+public class PersonMovieCredits implements Serializable {
     private Integer id;
     private ArrayList<PersonCastCreditItem> cast;
     private ArrayList<PersonCrewCreditItem> crew;

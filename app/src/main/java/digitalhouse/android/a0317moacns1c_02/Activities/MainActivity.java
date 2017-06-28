@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         animationView = (LottieAnimationView) findViewById(R.id.animationViewMainActivity);
 
         //Inicializar Toaster (tostadora para hacer tostadas desde cualquier lugar sin necesidad de contexto)
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if(isLoadFinished()){
             Intent intent = new Intent(this, ItemTabsActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

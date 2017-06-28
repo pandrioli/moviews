@@ -1,12 +1,13 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Movie;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Pablo on 22/05/2017.
  */
 
-public class MovieResultsContainer {
+public class MovieResultsContainer implements Serializable {
     private Integer page;
     private ArrayList<MovieResult> results;
     private Integer total_results;

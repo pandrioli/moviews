@@ -3,6 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Model.Person;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
@@ -11,7 +12,7 @@ import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
  * Created by Pablo on 27/05/2017.
  */
 
-public class PersonDetails extends PersonBase implements Parcelable {
+public class PersonDetails extends PersonBase implements Serializable {
     public static final String tag = "personDetails";
     private Boolean adult;
     private String biography;
@@ -22,48 +23,6 @@ public class PersonDetails extends PersonBase implements Parcelable {
     private String place_of_birth;
     private Double popularity;
 
-    protected PersonDetails(Parcel in) {
-        super(in);
-        biography = in.readString();
-        birthday = in.readString();
-        deathday = in.readString();
-        homepage = in.readString();
-        imdb_id = in.readString();
-        name = in.readString();
-        place_of_birth = in.readString();
-        profile_path = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(biography);
-        dest.writeString(birthday);
-        dest.writeString(deathday);
-        dest.writeString(homepage);
-        dest.writeString(imdb_id);
-        dest.writeString(name);
-        dest.writeString(place_of_birth);
-        dest.writeString(profile_path);
-        dest.writeInt(gender);
-        dest.writeInt(id);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<PersonDetails> CREATOR = new Creator<PersonDetails>() {
-        @Override
-        public PersonDetails createFromParcel(Parcel in) {
-            return new PersonDetails(in);
-        }
-
-        @Override
-        public PersonDetails[] newArray(int size) {
-            return new PersonDetails[size];
-        }
-    };
 
     public Boolean getAdult() {
         return adult;

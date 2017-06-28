@@ -2,11 +2,13 @@ package digitalhouse.android.a0317moacns1c_02.Model.General;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by forev on 15-Jun-17.
  */
 
-public class RateOmdb {
+public class RateOmdb implements Serializable {
     public String getSource() {
         return source;
     }

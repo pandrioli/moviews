@@ -9,49 +9,17 @@ import java.io.Serializable;
  * Created by Gregorio Martin on 11/6/2017.
  */
 
-public class PersonBase implements Parcelable, Serializable {
+public class PersonBase implements Serializable {
 
     protected Integer id;
     protected Integer gender;
     protected String profile_path;
     protected String name;
 
-    protected PersonBase(Parcel in) {
-        profile_path = in.readString();
-        name = in.readString();
-        gender = in.readInt();
-        id = in.readInt();
-        name = in.readString();
-    }
-
     public PersonBase(){
 
     }
 
-    public static final Creator<PersonBase> CREATOR = new Creator<PersonBase>() {
-        @Override
-        public PersonBase createFromParcel(Parcel in) {
-            return new PersonBase(in);
-        }
-
-        @Override
-        public PersonBase[] newArray(int size) {
-            return new PersonBase[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(profile_path);
-        dest.writeInt(gender);
-        dest.writeInt(id);
-    }
 
     public Integer getId() {
         return id;

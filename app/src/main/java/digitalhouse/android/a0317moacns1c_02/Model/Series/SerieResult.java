@@ -14,7 +14,7 @@ import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
  * Created by Gregorio Martin on 4/6/2017.
  */
 
-public class SerieResult implements Parcelable, Serializable {
+public class SerieResult implements Serializable {
 
     @SerializedName("poster_path")
     protected String posterPath;
@@ -43,45 +43,6 @@ public class SerieResult implements Parcelable, Serializable {
 
     }
 
-    protected SerieResult(Parcel in) {
-        posterPath = in.readString();
-        backdropPath = in.readString();
-        overview = in.readString();
-        firstAirDate = in.readString();
-        originCountries = in.createStringArrayList();
-        originalLanguage = in.readString();
-        name = in.readString();
-        originalName = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(posterPath);
-        dest.writeString(backdropPath);
-        dest.writeString(overview);
-        dest.writeString(firstAirDate);
-        dest.writeStringList(originCountries);
-        dest.writeString(originalLanguage);
-        dest.writeString(name);
-        dest.writeString(originalName);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<SerieResult> CREATOR = new Creator<SerieResult>() {
-        @Override
-        public SerieResult createFromParcel(Parcel in) {
-            return new SerieResult(in);
-        }
-
-        @Override
-        public SerieResult[] newArray(int size) {
-            return new SerieResult[size];
-        }
-    };
 
     public String getPosterPath() {
         return posterPath;

@@ -1,12 +1,13 @@
 package digitalhouse.android.a0317moacns1c_02.Model.Person;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Pablo on 11/06/2017.
  */
 
-public class PersonResultsContainer {
+public class PersonResultsContainer implements Serializable {
     private Integer page;
     private ArrayList<PersonResult> results;
     private Integer total_results;
