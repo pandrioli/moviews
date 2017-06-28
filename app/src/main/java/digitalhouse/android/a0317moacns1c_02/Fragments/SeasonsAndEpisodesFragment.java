@@ -84,13 +84,9 @@ public class SeasonsAndEpisodesFragment extends Fragment {
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(overview.getVisibility() == View.GONE){
-                    overview.setVisibility(View.VISIBLE);
-                    arrow.setImageResource(R.drawable.ic_keyboard_arrow_up_black_36dp);
-                } else {
-                    overview.setVisibility(View.GONE);
-                    arrow.setImageResource(R.drawable.ic_keyboard_arrow_down_black_36dp);
-                }
+                overview.setVisibility(View.VISIBLE);
+                arrow.setVisibility(View.GONE);
+                arrow.setOnClickListener(null);
             }
         });
 

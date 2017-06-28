@@ -76,21 +76,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageViewEpisodeLike"
-            android:src="@drawable/fav_black_xhdpi"
+            android:src="@drawable/fav_border_xhdpi"
             android:layout_alignBottom="@+id/textViewEpisodeShare"
             android:layout_alignTop="@+id/textViewEpisodeShare"
-            android:layout_toStartOf="@+id/textViewEpisodeLikeCount"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewEpisodeLikeCount"
-            android:layout_alignBottom="@+id/textViewEpisodeShare"
             android:layout_alignParentEnd="true"
-            android:text="154"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
+            android:layout_marginRight="8dp"
             />
 
 

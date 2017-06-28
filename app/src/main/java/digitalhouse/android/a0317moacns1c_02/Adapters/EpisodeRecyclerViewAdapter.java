@@ -1,5 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.Adapters;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,8 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cell_episode_list, parent, false);
+        ImageView like = (ImageView) view.findViewById(R.id.imageViewEpisodeLike);
+        like.setColorFilter(Color.parseColor("#009688"), PorterDuff.Mode.SRC_IN);
         return new ViewHolder(view);
     }
 
@@ -64,7 +68,6 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
          final TextView share;
          final TextView save;
          final ImageView like;
-         final TextView likeCount;
          EpisodeDetails mItem;
 
         public ViewHolder(View view) {
@@ -77,14 +80,13 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
             share = (TextView) mView.findViewById(R.id.textViewEpisodeShare);
             save = (TextView) mView.findViewById(R.id.textViewEpisodeSave);
             like = (ImageView) mView.findViewById(R.id.imageViewEpisodeLike);
-            likeCount = (TextView) mView.findViewById(R.id.textViewEpisodeLikeCount);
         }
 
         public void setUpViews(){
+
             title.setText(mItem.getName());
             airDate.setText(mItem.getAirDate());
             overview.setText(mItem.getOverview());
-            likeCount.setText("143");
             Glide.with(mView).load(mItem.getStillUrl(2)).into(backdrop);
         }
     }

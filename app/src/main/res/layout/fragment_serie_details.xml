@@ -223,13 +223,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:src="@drawable/bookmark_black_xhdpi" />
+                            android:src="@drawable/bookmark_border_xhdpi" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:src="@drawable/fav_black_xhdpi" />
+                            android:src="@drawable/fav_border_xhdpi" />
 
                         <ImageView
                             android:layout_width="wrap_content"
