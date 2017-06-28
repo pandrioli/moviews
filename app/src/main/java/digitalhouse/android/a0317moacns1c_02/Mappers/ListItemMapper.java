@@ -22,7 +22,7 @@ public class ListItemMapper {
         ListItem item = new ListItem();
         item.setId(movie.getId());
         item.setTitle(movie.getTitle());
-        item.setGenres(GenreController.getInstance().getMovieGenresStringbyIds(movie.getGenre_ids(), ", "));
+        item.setGenres(GenreController.getInstance().getGenresStringbyIds(movie.getGenre_ids(), ", "));
         item.setYear(movie.getYear());
         item.setRating(movie.getVote_average().toString());
         item.setImageURL(ImageHelper.getPosterURL(movie.getPoster_path(),1));
@@ -34,7 +34,7 @@ public class ListItemMapper {
         ListItem item = new ListItem();
         item.setId(serie.getId());
         item.setTitle(serie.getName());
-        item.setGenres(GenreController.getInstance().getSerieGenresStringbyIds(serie.getGenreIds(), ", "));
+        item.setGenres(GenreController.getInstance().getGenresStringbyIds(serie.getGenreIds(), ", "));
         item.setYear(serie.getYear());
         DecimalFormat df = new DecimalFormat("#.0");
         item.setRating(df.format(serie.getVoteAverage()));

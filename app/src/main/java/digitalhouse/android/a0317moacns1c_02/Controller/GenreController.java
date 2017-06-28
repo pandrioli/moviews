@@ -15,11 +15,9 @@ import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 
 public class GenreController {
     private static GenreController instance;
-    private List<Genre> movieGenres;
-    private List<Genre> serieGenres;
+    private List<Genre> genreList;
     private GenreController() {
-        movieGenres = new ArrayList<>();
-        serieGenres = new ArrayList<>();
+        genreList = new ArrayList<>();
     }
 
     public static GenreController getInstance() {
@@ -32,7 +30,7 @@ public class GenreController {
         genreDAO.obtainMovieGenres(new ResultListener<Genres>() {
             @Override
             public void finish(Genres genres) {
-                movieGenres = genres.getGenres();
+                genreList.addAll(genres.getGenres());
                 resultListener.finish("Movie genres OK");
             }
         });
@@ -42,20 +40,14 @@ public class GenreController {
         genreDAO.obtainSerieGenres(new ResultListener<Genres>() {
             @Override
             public void finish(Genres genres) {
-                serieGenres = genres.getGenres();
+                genreList.addAll(genres.getGenres());
                 resultListener.finish("SerieDetails genres OK");
             }
         });
     }
 
-    public String getMovieGenreNameById(Integer id) {
-        for (Genre genre : movieGenres) {
-            if (genre.getId().equals(id)) return genre.getName();
-        }
-        return "";
-    }
-    public String getSerieGenreNameById(Integer id) {
-        for (Genre genre : serieGenres) {
+    public String getGenreNameById(Integer id) {
+        for (Genre genre : genreList) {
             if (genre.getId().equals(id)) return genre.getName();
         }
         return "";
@@ -72,22 +64,12 @@ public class GenreController {
         return genres;
     }
 
-    public String getMovieGenresStringbyIds(List<Integer> genreIdList, String separator) {
+    public String getGenresStringbyIds(List<Integer> genreIdList, String separator) {
         List<Genre> genreList = new ArrayList<>();
         for (Integer id : genreIdList) {
             Genre genre = new Genre();
             genre.setId(id);
-            genre.setName(getMovieGenreNameById(id));
-            genreList.add(genre);
-        }
-        return getGenresString(genreList, separator);
-    }
-    public String getSerieGenresStringbyIds(List<Integer> genreIdList, String separator) {
-        List<Genre> genreList = new ArrayList<>();
-        for (Integer id : genreIdList) {
-            Genre genre = new Genre();
-            genre.setId(id);
-            genre.setName(getSerieGenreNameById(id));
+            genre.setName(getGenreNameById(id));
             genreList.add(genre);
         }
         return getGenresString(genreList, separator);
