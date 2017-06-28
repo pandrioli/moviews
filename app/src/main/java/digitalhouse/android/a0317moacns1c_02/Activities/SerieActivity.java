@@ -46,7 +46,6 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     private Season temporalVar;
     private SerieDetailsFragment serieDetailsFragment;
     private SeasonsAndEpisodesFragment seasonsAndEpisodesFragment;
-    private SerieDetailsFragment serieDetailsFragment3;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -64,41 +63,30 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         ButterKnife.bind(this);
         ActivityStackManager.getInstance().addActivity(this);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         Bundle bundleReceived = getIntent().getExtras();
         final String id = bundleReceived.getString(SERIE_ID_KEY);
-        final ObtainSeasonsTask seasonsTask = new ObtainSeasonsTask(){
-            @Override
-            public void finish(Season result){
-                seasonsAndEpisodesFragment = SeasonsAndEpisodesFragment.newInstance(result);
-                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-                mViewPager.setAdapter(mSectionsPagerAdapter);
-                tabLayout.setupWithViewPager(mViewPager);
-                LottieAnimationView animation = (LottieAnimationView) findViewById(R.id.animationViewAS);
-                animation.cancelAnimation();
-                animation.setVisibility(View.GONE);
-            }
-        };
-        ObtainSerieTask serieTask = new ObtainSerieTask(){
+        SerieController.getInstance().getSerie(id, new ResultListener<Serie>() {
             @Override
             public void finish(Serie result) {
                 serie = result;
-                serieDetailsFragment = SerieDetailsFragment.newInstance(serie);
-                serieDetailsFragment3 = SerieDetailsFragment.newInstance(serie);
-                seasonsTask.execute(serie.getSeason(2));
+                setUpFragmentsAndViewPager();
+                stopAnimation();
             }
-        };
-        serieTask.execute(id);
+        });
+    }
 
+    private void setUpFragmentsAndViewPager(){
+        serieDetailsFragment = SerieDetailsFragment.newInstance(serie);
+        seasonsAndEpisodesFragment = SeasonsAndEpisodesFragment.newInstance(serie.getSeason(0));
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        tabLayout.setupWithViewPager(mViewPager);
+    }
 
-
+    private void stopAnimation(){
+        LottieAnimationView animation = (LottieAnimationView) findViewById(R.id.animationViewAS);
+        animation.cancelAnimation();
+        animation.setVisibility(View.GONE);
     }
 
     @Override
@@ -161,48 +149,6 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
                     return "SEASONS & ESPISODES";
             }
             return null;
-        }
-    }
-
-    private class ObtainSerieTask extends AsyncTask<String, Void, Serie> implements ResultListener<Serie> {
-
-        @Override
-        protected Serie doInBackground(String... params) {
-            String ID = params[0];
-            serie = SerieController.getInstance().getSerieSync(ID);
-            return serie;
-        }
-
-        @Override
-        protected void onPostExecute(Serie serie) {
-            super.onPostExecute(serie);
-            finish(serie);
-        }
-
-        @Override
-        public void finish(Serie result) {
-        }
-    }
-
-    private class ObtainSeasonsTask extends AsyncTask<SeasonResult, Void, Season> implements ResultListener<Season> {
-
-        Season season;
-
-        @Override
-        protected Season doInBackground(SeasonResult... params) {
-            season = SerieController.getInstance().getSeasonSync(serie.getID().toString(),
-                    params[0].getSeasonNumber().toString());
-            return season;
-        }
-
-        @Override
-        protected void onPostExecute(Season season) {
-            super.onPostExecute(season);
-            finish(season);
-        }
-
-        @Override
-        public void finish(Season result) {
         }
     }
 }

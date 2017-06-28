@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Crew;
 
@@ -35,7 +36,7 @@ public class EpisodeDetails implements Serializable {
     protected Integer voteCount;
 
     public String getAirDate() {
-        return airDate;
+        return DateHelper.apiDateToString(airDate);
     }
 
     public void setAirDate(String airDate) {
