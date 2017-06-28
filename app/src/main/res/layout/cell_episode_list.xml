@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageViewEpisodeLike"
-            android:src="@drawable/ic_favorite_black_24dp"
+            android:src="@drawable/fav_black_xhdpi"
             android:layout_alignBottom="@+id/textViewEpisodeShare"
             android:layout_alignTop="@+id/textViewEpisodeShare"
             android:layout_toStartOf="@+id/textViewEpisodeLikeCount"

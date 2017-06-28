@@ -86,19 +86,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_bookmark_black_24dp" />
+                    android:id="@+id/bookmark"
+                    android:src="@drawable/bookmark_border_xhdpi" />
 
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_favorite_black_24dp" />
+                    android:id="@+id/like"
+                    android:src="@drawable/fav_border_xhdpi" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_share_black_24dp" />
+                    android:id="@+id/share"
+                    android:src="@drawable/share_black_xhdpi" />
 
             </LinearLayout>
             <FrameLayout
