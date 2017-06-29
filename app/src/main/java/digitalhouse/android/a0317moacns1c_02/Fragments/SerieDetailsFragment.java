@@ -26,10 +26,11 @@ import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
-public class SerieDetailsFragment extends Fragment {
+public class SerieDetailsFragment extends Fragment implements ImageListFragment.ImageClickeable {
     public static final String SERIE_KEY = "serie";
 
     @BindView(R.id.imageViewSDBackDrop) protected ImageView backdrop;
@@ -175,4 +176,11 @@ public class SerieDetailsFragment extends Fragment {
                 .commit();
     }
 
+    @Override
+    public void onClick(ImageListItem imageListItem, String title, Integer index) {
+        if (title.equals("Casting")) {
+            ImageListFragment.ImageClickeable act = (ImageListFragment.ImageClickeable) getActivity();
+            act.onClick(imageListItem, title, index);
+        }
+    }
 }
