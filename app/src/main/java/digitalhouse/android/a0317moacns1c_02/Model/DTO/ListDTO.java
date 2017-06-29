@@ -13,6 +13,7 @@ public class ListDTO extends RealmObject {
     public final static String MOVIES_NOWPLAYING = "appList:movies_nowplaying";
     public final static String MOVIES_UPCOMING = "appList:movies_upcoming";
     public final static String FAVORITES = "appList:favorites";
+    public final static String BOOKMARKS = "appList:bookmarks";
     public final static String USER_LIST_TEST = "userListTest";
 
     @PrimaryKey
