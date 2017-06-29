@@ -137,12 +137,12 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     private void loadLists() {
         fragments = new ArrayList<>();
         titles = new ArrayList<>();
+        titles.add("Bookmarks");
         titles.add("Favorites");
-        titles.add("User list test");
+        ArrayList<ListItem> listItemsBookmarks = ListController.getInstance().getBookmarks();
         ArrayList<ListItem> listItemsFavorites = ListController.getInstance().getFavorites();
-        ArrayList<ListItem> listItemsUserList = ListController.getInstance().getUserList(ListDTO.USER_LIST_TEST);
+        fragments.add(ItemListFragment.newInstance(listItemsBookmarks));
         fragments.add(ItemListFragment.newInstance(listItemsFavorites));
-        fragments.add(ItemListFragment.newInstance(listItemsUserList));
         loadViewPager();
     }
 
