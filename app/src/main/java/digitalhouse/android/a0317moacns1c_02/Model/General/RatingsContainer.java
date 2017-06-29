@@ -20,7 +20,7 @@ public class RatingsContainer implements Serializable {
     private static final Double IMDB_TOTAL = 10.0;
     private static final Double ROTTEN_TOMATOES_TOTAL = 100.0;
     private static final Double METACRITIC_TOTAL = 100.0;
-    private static final Integer TMDB_MIN_VOTES = 10;
+    public static final Integer TMDB_MIN_VOTES = 10;
     private static final Integer IMDB_MIN_VOTES = 100;
     private Double tmdb;
     private Double imdb;

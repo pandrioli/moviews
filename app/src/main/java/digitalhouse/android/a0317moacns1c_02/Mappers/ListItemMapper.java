@@ -7,6 +7,7 @@ import java.util.List;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.ListItemDTO;
+import digitalhouse.android.a0317moacns1c_02.Model.General.RatingsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResult;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonResult;
@@ -24,7 +25,10 @@ public class ListItemMapper {
         item.setTitle(movie.getTitle());
         item.setGenres(GenreController.getInstance().getGenresStringbyIds(movie.getGenre_ids(), ", "));
         item.setYear(movie.getYear());
-        item.setRating(movie.getVote_average().toString());
+        if (movie.getVote_count()>RatingsContainer.TMDB_MIN_VOTES)
+            item.setRating(movie.getVote_average().toString());
+        else
+            item.setRating("");
         item.setImageURL(ImageHelper.getPosterURL(movie.getPoster_path(),1));
         item.setType(ListItem.TYPE_MOVIE);
         return item;
@@ -37,7 +41,10 @@ public class ListItemMapper {
         item.setGenres(GenreController.getInstance().getGenresStringbyIds(serie.getGenreIds(), ", "));
         item.setYear(serie.getYear());
         DecimalFormat df = new DecimalFormat("#.0");
-        item.setRating(df.format(serie.getVoteAverage()));
+        if (serie.getVoteCount()>RatingsContainer.TMDB_MIN_VOTES)
+            item.setRating(df.format(serie.getVoteAverage()));
+        else
+            item.setRating("");
         item.setImageURL(ImageHelper.getPosterURL(serie.getPosterPath(),1));
         item.setType(ListItem.TYPE_SERIE);
         return item;
@@ -76,6 +83,12 @@ public class ListItemMapper {
             if (item instanceof PersonResult) listItems.add(map((PersonResult)item));
             if (item instanceof ListItemDTO) listItems.add(map((ListItemDTO)item));
         }
-        return listItems;
+        ArrayList<ListItem> listItemsWithImage = new ArrayList<>();
+        for (ListItem item : listItems) {
+            if (!item.getImageURL().contains("null")
+                    && item.getImageURL()!=null)
+                    listItemsWithImage.add(item);
+        }
+        return listItemsWithImage;
     }
 }

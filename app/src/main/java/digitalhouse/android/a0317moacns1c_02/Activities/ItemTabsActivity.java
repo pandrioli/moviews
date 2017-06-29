@@ -21,12 +21,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Adapters.TabItemListPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
-import digitalhouse.android.a0317moacns1c_02.Controller.ListController;
+import digitalhouse.android.a0317moacns1c_02.Controller.ListTmdbController;
+import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
-import digitalhouse.android.a0317moacns1c_02.Model.DTO.ListDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -65,11 +64,11 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         fragments.add(null);
         titles = new ArrayList<>();
         titles.add("Popular");
-        titles.add("Now playing");
+        titles.add("Latest");
         titles.add("Upcoming");
 
         //carga de datos
-        MovieController.getInstance().getPopular(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance().getMoviesPopular(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(0,ItemListFragment.newInstance(itemList));
@@ -78,7 +77,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             }
         });
 
-        MovieController.getInstance().getNowPlaying(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance().getMoviesLatest(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(1,ItemListFragment.newInstance(itemList));
@@ -87,7 +86,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             }
         });
 
-        MovieController.getInstance().getUpcoming(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance().getMoviesUpcoming(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(2,ItemListFragment.newInstance(itemList));
@@ -139,8 +138,8 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         titles = new ArrayList<>();
         titles.add("Bookmarks");
         titles.add("Favorites");
-        ArrayList<ListItem> listItemsBookmarks = ListController.getInstance().getBookmarks();
-        ArrayList<ListItem> listItemsFavorites = ListController.getInstance().getFavorites();
+        ArrayList<ListItem> listItemsBookmarks = ListUserController.getInstance().getBookmarks();
+        ArrayList<ListItem> listItemsFavorites = ListUserController.getInstance().getFavorites();
         fragments.add(ItemListFragment.newInstance(listItemsBookmarks));
         fragments.add(ItemListFragment.newInstance(listItemsFavorites));
         loadViewPager();

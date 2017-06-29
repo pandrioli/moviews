@@ -1,6 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.DAO;
 
 import java.io.IOException;
+import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.OMDBClient;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.SeriesClient;
@@ -12,6 +13,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.General.ExternalIDs;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieOMDB;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.OMDBRequest;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
@@ -24,14 +26,24 @@ import retrofit2.Call;
  * Created by Gregorio Martin on 4/6/2017.
  */
 
-public class SerieDAO {
+public class SerieDAOInternet {
     private SeriesClient client;
     private OMDBClient omdbClient;
+    private TMDBClient tmdbClient;
 
-    public SerieDAO() {
+    public SerieDAOInternet() {
+        this.tmdbClient = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
         this.client = ServiceGenerator.getInstance().createService(SeriesClient.class, TMDBClient.BASE_URL);
         this.omdbClient = ServiceGenerator.getInstance().createService(OMDBClient.class, OMDBClient.BASE_URL);
     }
+
+    //discover series
+    public void discoverSeries(Map<String, String> queryMap, ResultListener<SerieResultsContainer> resultListener) {
+        queryMap.put("api_key", TMDBClient.API_KEY);
+        Call<SerieResultsContainer> call = tmdbClient.discoverSeries(queryMap);
+        call.enqueue(new TMDBCallBack<SerieResultsContainer>(resultListener));
+    }
+
 
     public void obtainPopular(ResultListener<SerieResultsContainer> resultListener){
         Call<SerieResultsContainer> call = client.obtainPopularSeries(TMDBClient.API_KEY);

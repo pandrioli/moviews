@@ -136,10 +136,12 @@ public class DTOMovieMapper {
         movieDTO.setVotesTmdb(movie.getRatingsContainer().getTmdbVotes());
 
         //OMDB extra data
-        movieDTO.setOmdbAwards(movie.getMovieOMDB().getAwards());
-        movieDTO.setOmdbRated(movie.getMovieOMDB().getRated());
-        movieDTO.setOmdbPlot(movie.getMovieOMDB().getPlot());
-        movieDTO.setOmdbCountry(movie.getMovieOMDB().getCountry());
+        if (movie.getMovieOMDB()!=null) {
+            movieDTO.setOmdbAwards(movie.getMovieOMDB().getAwards());
+            movieDTO.setOmdbRated(movie.getMovieOMDB().getRated());
+            movieDTO.setOmdbPlot(movie.getMovieOMDB().getPlot());
+            movieDTO.setOmdbCountry(movie.getMovieOMDB().getCountry());
+        }
 
         return movieDTO;
     }

@@ -24,7 +24,7 @@ public class DateHelper {
         }
     }
 
-    //form
+    //format
     public static String format(Date date, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
@@ -38,6 +38,12 @@ public class DateHelper {
         long diffDays = diffTime / (1000 * 60 * 60 * 24);
         return (int)diffDays/360;
     }
+
+    public static Date todayOffset(Integer offset) {
+        Calendar today = Calendar.getInstance();
+        today.add(Calendar.DAY_OF_MONTH, offset);
+        return today.getTime();
+    };
 
     public static String apiDateToString(String apiDate) {
         String year = null;

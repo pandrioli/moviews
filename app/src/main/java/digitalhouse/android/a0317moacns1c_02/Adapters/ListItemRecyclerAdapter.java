@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -48,6 +49,11 @@ public class ListItemRecyclerAdapter extends RecyclerView.Adapter implements Vie
         movieViewHolder.year.setText(listItem.getYear());
         movieViewHolder.genres.setText(listItem.getGenres());
         movieViewHolder.rating.setText(listItem.getRating());
+        if (listItem.getRating().isEmpty()) {
+            movieViewHolder.tmdbIcon.setVisibility(View.INVISIBLE);
+        } else {
+            movieViewHolder.tmdbIcon.setVisibility(View.VISIBLE);
+        }
         Picasso.with(context).load(listItem.getImageURL()).fit().centerInside().into(movieViewHolder.poster);
     }
 
@@ -67,6 +73,7 @@ public class ListItemRecyclerAdapter extends RecyclerView.Adapter implements Vie
         private TextView genres;
         private TextView rating;
         private ImageView poster;
+        private ImageView tmdbIcon;
         public MovieViewHolder(View view) {
             super(view);
             this.view = view;
@@ -75,6 +82,7 @@ public class ListItemRecyclerAdapter extends RecyclerView.Adapter implements Vie
             genres = (TextView) view.findViewById(R.id.textViewMovieListGenres);
             rating = (TextView) view.findViewById(R.id.textViewMovieListRating);
             poster = (ImageView) view.findViewById(R.id.imageViewMovieListPoster);
+            tmdbIcon = (ImageView) view.findViewById(R.id.imageViewMovieListTMDBicon);
         }
     }
 }

@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.OMDBClient;
 import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
@@ -42,7 +44,14 @@ public class MovieDAOInternet {
         obtainMovieTask.execute(id.toString());
     }
 
-    // obtencion de listas de peliculas (TODO: usar DISCOVER)
+    // discover
+    public void discoverMovies(Map<String, String> queryMap, ResultListener<MovieResultsContainer> resultListener) {
+        queryMap.put("api_key", TMDBClient.API_KEY);
+        Call<MovieResultsContainer> call = tmdbClient.discoverMovies(queryMap);
+        call.enqueue(new TMDBCallBack<MovieResultsContainer>(resultListener));
+    }
+
+    // obtencion de listas de peliculas
     public void obtainPopular(ResultListener<MovieResultsContainer> resultListener) {
         Call<MovieResultsContainer> call = tmdbClient.obtainPopularMovies(TMDBClient.API_KEY);
         call.enqueue(new TMDBCallBack<MovieResultsContainer>(resultListener));

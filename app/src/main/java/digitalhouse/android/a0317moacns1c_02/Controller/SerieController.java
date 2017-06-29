@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.SerieResultsCallback;
-import digitalhouse.android.a0317moacns1c_02.DAO.SerieDAO;
+import digitalhouse.android.a0317moacns1c_02.DAO.SerieDAOInternet;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ExternalIDs;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
@@ -22,7 +22,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
  */
 
 public class SerieController {
-    private SerieDAO seriesDAO;
+    private SerieDAOInternet seriesDAO;
     private static SerieController instance;
 
     public static SerieController getInstance(){
@@ -31,7 +31,7 @@ public class SerieController {
     }
 
     protected SerieController(){
-        this.seriesDAO = new SerieDAO();
+        this.seriesDAO = new SerieDAOInternet();
     }
 
     //public void getSeasonAndFragmentInstance()

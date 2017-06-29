@@ -18,17 +18,19 @@ import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
  * Created by Pablo on 27/06/2017.
  */
 
-public class ListController {
+// Controller para listas bookmarks, favoritos, y listas de usuario
+
+public class ListUserController {
     private ListDAOLocal listDAOLocal;
     private MovieDAOLocal movieDAOLocal;
 
-    private static ListController instance;
-    public static ListController getInstance() {
-        if (instance==null) instance = new ListController();
+    private static ListUserController instance;
+    public static ListUserController getInstance() {
+        if (instance==null) instance = new ListUserController();
         return instance;
     }
 
-    private ListController() {
+    private ListUserController() {
         listDAOLocal = new ListDAOLocal();
         movieDAOLocal = new MovieDAOLocal();
     }
