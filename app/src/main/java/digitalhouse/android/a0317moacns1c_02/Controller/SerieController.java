@@ -34,6 +34,8 @@ public class SerieController {
         this.seriesDAO = new SerieDAO();
     }
 
+    //public void getSeasonAndFragmentInstance()
+
     public void getPopular(ResultListener<ArrayList<ListItem>> resultListener) {
         seriesDAO.obtainPopular(new SerieResultsCallback(resultListener));
     }

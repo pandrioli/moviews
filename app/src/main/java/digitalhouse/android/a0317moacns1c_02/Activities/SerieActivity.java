@@ -1,10 +1,8 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 
@@ -30,7 +28,6 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
-import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonResult;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -59,7 +56,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_serie);
+        setContentView(R.layout.activity_series);
         ButterKnife.bind(this);
         ActivityStackManager.getInstance().addActivity(this);
 

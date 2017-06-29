@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +37,7 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     @BindView(R.id.imageViewSeasonPoster) ImageView poster;
     @BindView(R.id.textViewSeasonAirDate) TextView seasonAirDate;
     @BindView(R.id.textViewSeasonOverview) TextView overview;
+    @BindView(R.id.cardViewSeasonOverview) CardView cardViewOverview;
     @BindView(R.id.textViewSeasonName) TextView title;
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -78,22 +81,29 @@ public class SeasonsAndEpisodesFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         Glide.with(this).load(season.getPosterUrl(4)).into(poster);
         seasonAirDate.setText(season.getAirDate());
-        overview.setText(season.getOverview());
         title.setText(season.getName());
         setUpCollapsingToolbar();
-        arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                overview.setVisibility(View.VISIBLE);
-                arrow.setVisibility(View.GONE);
-                arrow.setOnClickListener(null);
-            }
-        });
-
+        setUpOverview();
         recyclerViewEpisodes.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewEpisodes.setAdapter(new EpisodeRecyclerViewAdapter(episodes, mListener));
 
         return view;
+    }
+
+    private void setUpOverview(){
+        if(season.getOverview() != null && !season.getOverview().isEmpty()){
+            overview.setText(season.getOverview());
+            arrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    overview.setVisibility(View.VISIBLE);
+                    arrow.setVisibility(View.GONE);
+                    arrow.setOnClickListener(null);
+                }
+            });
+        } else {
+            cardViewOverview.setVisibility(View.GONE);
+        }
     }
 
     @Override
