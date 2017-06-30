@@ -44,7 +44,9 @@ public class DTOListItemMapper {
         listItemDTO.setTitle(movie.getMovieDetails().getTitle());
         listItemDTO.setYear(movie.getMovieDetails().getYear());
         listItemDTO.setGenres(GenreController.getInstance().getGenresString(movie.getMovieDetails().getGenres(), ", "));
-        listItemDTO.setRating(movie.getRatingsContainer().getTmdb().toString());
+        Double rating = movie.getRatingsContainer().getTmdb();
+        if (rating!=null) listItemDTO.setRating(rating.toString());
+        else listItemDTO.setRating("");
         listItemDTO.setImageURL(ImageHelper.getPosterURL(movie.getMovieDetails().getPoster_path(),1));
         listItemDTO.setType(ListItem.TYPE_MOVIE);
         return listItemDTO;
@@ -57,7 +59,9 @@ public class DTOListItemMapper {
         listItemDTO.setTitle(serie.getSerieDetails().getName());
         listItemDTO.setYear(serie.getSerieDetails().getYear());
         listItemDTO.setGenres(GenreController.getInstance().getGenresString(serie.getSerieDetails().getGenres(), ", "));
-        listItemDTO.setRating(serie.getRatingsContainer().getTmdb().toString());
+        Double rating = serie.getRatingsContainer().getTmdb();
+        if (rating!=null) listItemDTO.setRating(rating.toString());
+        else listItemDTO.setRating("");
         listItemDTO.setImageURL(ImageHelper.getPosterURL(serie.getSerieDetails().getPosterPath(), 1));
         listItemDTO.setType(ListItem.TYPE_SERIE);
         return listItemDTO;
