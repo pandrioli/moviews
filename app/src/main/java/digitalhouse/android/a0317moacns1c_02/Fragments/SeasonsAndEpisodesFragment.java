@@ -2,9 +2,11 @@ package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -24,8 +27,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Adapters.EpisodeRecyclerViewAdapter;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.EpisodeDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -43,11 +49,19 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.imageViewArrow) ImageView arrow;
     @BindView(R.id.recyclerViewEpisodes) RecyclerView recyclerViewEpisodes;
+    @BindView(R.id.appbar) AppBarLayout appBarLayout;
+    @BindView(R.id.scrolling_container) NestedScrollView nestedScrollView;
+
+    private LottieAnimationView loaderAnim;
 
     private OnEpisodeListFragmentInteractionListener mListener;
 
 
     private static final String SEASON_KEY = "SEASON";
+    private static final String SEASON_NUMBER_KEY = "seasonNumber";
+    private static final String SERIE_ID_KEY = "serieIdKey";
+    private String serieId;
+    private Integer seasonNumber;
     private Season season;
     private List<EpisodeDetails> episodes;
     private Unbinder unbinder;
@@ -65,12 +79,23 @@ public class SeasonsAndEpisodesFragment extends Fragment {
         return fragment;
     }
 
+    public static SeasonsAndEpisodesFragment newInstance(String serieId, Integer seasonNumber) {
+        SeasonsAndEpisodesFragment fragment = new SeasonsAndEpisodesFragment();
+        Bundle args = new Bundle();
+        args.putString(SERIE_ID_KEY, serieId);
+        args.putInt(SEASON_NUMBER_KEY, seasonNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            season = (Season)getArguments().getSerializable(SEASON_KEY);
-            episodes = season.getSeasonDetails().getEpisodes();
+            //season = (Season)getArguments().getSerializable(SEASON_KEY);
+            //episodes = season.getSeasonDetails().getEpisodes();
+            serieId = getArguments().getString(SERIE_ID_KEY);
+            seasonNumber = getArguments().getInt(SEASON_NUMBER_KEY);
         }
     }
 
@@ -79,15 +104,41 @@ public class SeasonsAndEpisodesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_seasons_episodes, container, false);
         unbinder = ButterKnife.bind(this, view);
-        Glide.with(this).load(season.getPosterUrl(4)).into(poster);
+        loaderAnim = (LottieAnimationView) view.findViewById(R.id.loaderAnimSeasons);
+        loaderAnim.setAnimation("loader.json");
+        loaderAnim.playAnimation();
+        SerieController.getInstance().getSeasonDetails(serieId, seasonNumber, new ResultListener<SeasonDetails>() {
+            @Override
+            public void finish(SeasonDetails result) {
+                season = new Season();
+                season.setSeasonDetails(result);
+                episodes = result.getEpisodes();
+                toggleViews();
+            }
+        });
+        return view;
+    }
+
+    private void toggleViews(){
+        appBarLayout.setVisibility(View.VISIBLE);
+        nestedScrollView.setVisibility(View.VISIBLE);
+        setUpTitle();
+        setUpCollapsingToolbar();
+        setUpEpisodes();
+        setUpOverview();
+        loaderAnim.cancelAnimation();
+        loaderAnim.setVisibility(View.GONE);
+    }
+
+    private void setUpTitle(){
+        Glide.with(this).load(season.getPosterUrl(3)).into(poster);
         seasonAirDate.setText(season.getAirDate());
         title.setText(season.getName());
-        setUpCollapsingToolbar();
-        setUpOverview();
+    }
+
+    private void setUpEpisodes(){
         recyclerViewEpisodes.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewEpisodes.setAdapter(new EpisodeRecyclerViewAdapter(episodes, mListener));
-
-        return view;
     }
 
     private void setUpOverview(){

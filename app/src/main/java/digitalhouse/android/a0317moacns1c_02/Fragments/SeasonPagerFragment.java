@@ -18,8 +18,10 @@ import digitalhouse.android.a0317moacns1c_02.R;
 
 public class SeasonPagerFragment extends Fragment {
     private static final String ARG_NUMBER_OF_SEASONS = "numberOfSeasons";
+    private static final String ARG_SEASON_ID = "seasonId";
 
     private Integer numberOfSeasons;
+    private String serieId;
 
 
     public SeasonPagerFragment() {
@@ -27,10 +29,11 @@ public class SeasonPagerFragment extends Fragment {
     }
 
 
-    public static SeasonPagerFragment newInstance(Integer numberOfSeasons) {
+    public static SeasonPagerFragment newInstance(Integer numberOfSeasons, String serieId) {
         SeasonPagerFragment fragment = new SeasonPagerFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER_OF_SEASONS, numberOfSeasons);
+        args.putString(ARG_SEASON_ID, serieId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,6 +43,7 @@ public class SeasonPagerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             numberOfSeasons = getArguments().getInt(ARG_NUMBER_OF_SEASONS);
+            serieId = getArguments().getString(ARG_SEASON_ID);
         }
     }
 
@@ -48,19 +52,10 @@ public class SeasonPagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_season_pager, container, false);
-        ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.viewPagerSeasons);
-        SeasonPagerAdapter seasonPagerAdapter = new SeasonPagerAdapter(getActivity().getSupportFragmentManager(),
-                numberOfSeasons, new SeasonSwitchable() {
-            @Override
-            public SeasonsAndEpisodesFragment onSeasonPageSwiped(Integer seasonNumber) {
-                return SeasonsAndEpisodesFragment.newInstance(new Season());
-            }
-        });
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPagerSeasons);
+        SeasonPagerAdapter seasonPagerAdapter = new SeasonPagerAdapter(getActivity().getSupportFragmentManager(), numberOfSeasons,  serieId);
+        viewPager.setAdapter(seasonPagerAdapter);
         return view;
-    }
-
-    public interface SeasonSwitchable{
-        SeasonsAndEpisodesFragment onSeasonPageSwiped(Integer seasonNumber);
     }
 
 }

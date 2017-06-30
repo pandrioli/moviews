@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonPagerFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
@@ -42,7 +43,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     private ArrayList<Season> seasons;
     private Season temporalVar;
     private SerieDetailsFragment serieDetailsFragment;
-    private SeasonsAndEpisodesFragment seasonsAndEpisodesFragment;
+    private SeasonPagerFragment seasonPagerFragment;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -74,7 +75,8 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
 
     private void setUpFragmentsAndViewPager(){
         serieDetailsFragment = SerieDetailsFragment.newInstance(serie);
-        seasonsAndEpisodesFragment = SeasonsAndEpisodesFragment.newInstance(serie.getSeason(0));
+        Integer numOfSeason = Integer.parseInt(serie.getNumberOfSeasons());
+        seasonPagerFragment = SeasonPagerFragment.newInstance(numOfSeason, serie.getSerieIdIMDB() );
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
@@ -127,7 +129,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
                 case 0:
                     return serieDetailsFragment;
                 case 1:
-                    return seasonsAndEpisodesFragment;
+                    return seasonPagerFragment;
             }
         }
 

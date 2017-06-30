@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonPagerFragment;
@@ -16,22 +18,21 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragmen
 public class SeasonPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragments;
-    private Integer nos;
-    private SeasonPagerFragment.SeasonSwitchable ss;
+    private String serieId;
 
 
         public SeasonPagerAdapter(FragmentManager fm, Integer numberOfSeasons,
-                                  SeasonPagerFragment.SeasonSwitchable ss){
+                                  String serieId){
             super(fm);
-            nos = numberOfSeasons;
-            this.ss = ss;
+            fragments = Arrays.asList(new Fragment[numberOfSeasons]);
+            this.serieId = serieId;
     }
 
     @Override
     public Fragment getItem(int position) {
-        if(position > nos) throw new ArrayIndexOutOfBoundsException("Posición mayor a la cantidad de fragments del Adapter.");
+        if(position > fragments.size()) throw new ArrayIndexOutOfBoundsException("Posición mayor a la cantidad de fragments del Adapter.");
         if(fragments.get(position) == null) {
-            SeasonsAndEpisodesFragment seasonFrag = ss.onSeasonPageSwiped(position);
+            SeasonsAndEpisodesFragment seasonFrag = SeasonsAndEpisodesFragment.newInstance(serieId, position);
             fragments.set(position, seasonFrag);
         }
         return fragments.get(position);
@@ -39,6 +40,6 @@ public class SeasonPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return nos;
+        return fragments.size();
     }
 }

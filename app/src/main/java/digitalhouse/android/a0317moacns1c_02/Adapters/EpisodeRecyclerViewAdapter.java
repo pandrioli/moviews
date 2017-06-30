@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragment;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.EpisodeDetails;
@@ -87,7 +88,7 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
             title.setText(mItem.getName());
             airDate.setText(mItem.getAirDate());
             overview.setText(mItem.getOverview());
-            Glide.with(mView).load(mItem.getStillUrl(2)).into(backdrop);
+            Picasso.with(mView.getContext()).load(mItem.getStillUrl(1)).into(backdrop);
         }
     }
 }

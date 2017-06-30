@@ -13,6 +13,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
@@ -65,14 +66,46 @@ public class SerieController {
         return seriesDAO.obtainExternalIDs(ID);
     }
 
+    public void getSeasonDetails(String serieId, Integer seasonNumber, ResultListener<SeasonDetails> rl){
+        ObtainSeasonDetailsTask seasonTask = new ObtainSeasonDetailsTask(rl);
+        if(serieId != null && seasonNumber != null){
+            seasonTask.execute(serieId, seasonNumber.toString());
+        }
+
+    }
+
 
     public void getSerie(String ID, ResultListener<Serie> resultListener){
         ObtainSerieTask serieTask = new ObtainSerieTask(resultListener);
+        if(ID != null)
         serieTask.execute(ID);
     }
 
     public SerieOmdb getSerieOmdb(String imdbID){
         return seriesDAO.obtainDetailsShort(imdbID);
+    }
+
+    private class ObtainSeasonDetailsTask extends AsyncTask<String, Void, SeasonDetails>{
+
+        ResultListener<SeasonDetails> rl;
+
+        ObtainSeasonDetailsTask(ResultListener<SeasonDetails> rl){
+            this.rl = rl;
+        }
+
+        @Override
+        protected SeasonDetails doInBackground(String... params) {
+            String serieId = params[0];
+            String numberOfSeason = params[1];
+            SeasonDetails seasonDetails = seriesDAO.obtainSeasonDetails(serieId, numberOfSeason);
+            return seasonDetails;
+        }
+
+        @Override
+        protected void onPostExecute(SeasonDetails seasonDetails) {
+            super.onPostExecute(seasonDetails);
+            rl.finish(seasonDetails);
+        }
     }
 
     private class ObtainSerieTask extends AsyncTask<String, Void, Serie> {
@@ -87,17 +120,14 @@ public class SerieController {
         protected Serie doInBackground(String... params) {
             String ID = params[0];
             Serie serie = new Serie();
-            Season season = new Season();
             ExternalIDs externalIDs = getExternalIDs(ID);
             serie.setSerieOmdb(getSerieOmdb(externalIDs.getImdb_id()));
             serie.setExternalIDs(externalIDs);
-            season.setSeasonDetails(seriesDAO.obtainSeasonDetails(ID, "1"));
             serie.setVideoContainer(seriesDAO.obtainVideos(ID));
             serie.setImagesContainer(seriesDAO.obtainImages(ID));
             serie.setSerieDetails(seriesDAO.obtainDetails(ID));
             serie.setCredits(seriesDAO.obtainCredits(ID));
             serie.setVideoContainer(seriesDAO.obtainVideos(ID));
-            serie.putSeason(season);
             serie.calculateRatings();
             return serie;
         }
