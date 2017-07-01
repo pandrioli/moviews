@@ -68,7 +68,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         titles.add("Upcoming");
 
         //carga de datos
-        ListTmdbController.getInstance().getMoviesPopular(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getMoviesPopular(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(0,ItemListFragment.newInstance(itemList));
@@ -77,7 +77,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             }
         });
 
-        ListTmdbController.getInstance().getMoviesLatest(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getMoviesLatest(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(1,ItemListFragment.newInstance(itemList));
@@ -86,7 +86,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             }
         });
 
-        ListTmdbController.getInstance().getMoviesUpcoming(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getMoviesUpcoming(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(2,ItemListFragment.newInstance(itemList));
