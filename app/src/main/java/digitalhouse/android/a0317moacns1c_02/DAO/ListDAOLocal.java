@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.ListDTO;
@@ -34,6 +35,19 @@ public class ListDAOLocal {
         saveItemToList(id, listItemDTO, true);
     }
 
+    public void saveAndReplaceAppList(final String id, final RealmList<ListItemDTO> list) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                ListDTO listDTO = new ListDTO();
+                listDTO.setId(id);
+                listDTO.setList(list);
+                realm.copyToRealmOrUpdate(listDTO);
+            }
+        });
+    }
+
+
     public void removeItemFromList(String listId, Integer itemId, String type) {
         final ListDTO listDTO = realm.where(ListDTO.class).equalTo("id", listId).findFirst();
         ListItemDTO itemToRemove = null;
@@ -54,6 +68,8 @@ public class ListDAOLocal {
         RealmResults<ListDTO> results = realm.where(ListDTO.class).equalTo("isUserList", true).findAll();
         return results;
     }
+
+    // private methods
 
     private void saveItemToList(String id, final ListItemDTO listItemDTO, Boolean isUserList) {
         final ListDTO listDTO = obtainList(id, isUserList);

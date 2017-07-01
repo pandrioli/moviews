@@ -85,8 +85,7 @@ public class ListItemMapper {
         }
         ArrayList<ListItem> listItemsWithImage = new ArrayList<>();
         for (ListItem item : listItems) {
-            if (!item.getImageURL().contains("null")
-                    && item.getImageURL()!=null)
+            if (!item.getImageURL().contains("null"))
                     listItemsWithImage.add(item);
         }
         return listItemsWithImage;

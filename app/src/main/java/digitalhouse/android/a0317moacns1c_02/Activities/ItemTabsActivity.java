@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,17 +59,14 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
 
     private void loadMovies() {
         loadedCounter = 0; // flag de carga
-        fragments = new ArrayList<>();
-        fragments.add(null);
-        fragments.add(null);
-        fragments.add(null);
+        fragments = Arrays.asList(new ItemListFragment[3]);
         titles = new ArrayList<>();
         titles.add("Popular");
         titles.add("Latest");
         titles.add("Upcoming");
 
         //carga de datos
-        ListTmdbController.getInstance().getMoviesPopular(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getMoviesPopular(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(0,ItemListFragment.newInstance(itemList));
@@ -77,7 +75,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             }
         });
 
-        ListTmdbController.getInstance().getMoviesLatest(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getMoviesLatest(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(1,ItemListFragment.newInstance(itemList));
@@ -86,7 +84,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
             }
         });
 
-        ListTmdbController.getInstance().getMoviesUpcoming(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getMoviesUpcoming(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(2,ItemListFragment.newInstance(itemList));
@@ -98,16 +96,13 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
 
     private void loadSeries() {
         loadedCounter = 0; // flag de carga
-        fragments = new ArrayList<>();
-        fragments.add(null);
-        fragments.add(null);
-        fragments.add(null);
+        fragments = Arrays.asList(new ItemListFragment[3]);
         titles = new ArrayList<>();
         titles.add("Popular");
-        titles.add("Top rated");
+        titles.add("Latest");
         titles.add("Airing today");
 
-        SerieController.getInstance().getPopular(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getSeriesPopular(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(0,ItemListFragment.newInstance(itemList));
@@ -115,7 +110,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
                 loadViewPager();
             }
         });
-        SerieController.getInstance().getTopRated(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getSeriesLatest(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(1,ItemListFragment.newInstance(itemList));
@@ -123,7 +118,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
                 loadViewPager();
             }
         });
-        SerieController.getInstance().getAiringToday(new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance(this).getSeriesAiringToday(new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> itemList) {
                 fragments.set(2,ItemListFragment.newInstance(itemList));

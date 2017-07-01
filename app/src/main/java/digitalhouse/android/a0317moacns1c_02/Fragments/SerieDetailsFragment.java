@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
+import digitalhouse.android.a0317moacns1c_02.Mappers.ImageListMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
@@ -169,7 +170,7 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
 
     private void startCastListFragment(){
         ImageListFragment imageListFragment = ImageListFragment.newInstance(
-                serie.getCredits().getImageListItems(), "Casting");
+                ImageListMapper.map(serie.getCredits()), "Casting");
         getChildFragmentManager()
                 .beginTransaction()
                 .add(R.id.frameLayoutSDCasting, imageListFragment)
