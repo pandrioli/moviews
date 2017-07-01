@@ -49,17 +49,22 @@ public class DateHelper {
         String year = null;
         String month = null;
         String day = null;
-        if(apiDate.length() > 9){
-            year = apiDate.substring(0,4);
-            month = apiDate.substring(5,7);
-            day = apiDate.substring(8,10);
+        if(apiDate != null){
+            if(apiDate.length() > 9){
+                year = apiDate.substring(0,4);
+                month = apiDate.substring(5,7);
+                day = apiDate.substring(8,10);
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(day).append("/");
+            stringBuilder.append(month).append("/");
+            stringBuilder.append(year);
+            return stringBuilder.toString();
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(day).append("/");
-        stringBuilder.append(month).append("/");
-        stringBuilder.append(year);
+        return apiDate;
 
-        return stringBuilder.toString();
+
+
     }
 
     public static Date now() {

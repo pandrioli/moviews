@@ -108,7 +108,8 @@ public class EpisodeDetails implements Serializable {
     }
 
     public String getStillUrl(Integer size){
-        return ImageHelper.getBackdropURL(stillPath, size);
+        if(stillPath == null) return null;
+        else return ImageHelper.getBackdropURL(stillPath, size);
     }
 
     public String getStillPath() {

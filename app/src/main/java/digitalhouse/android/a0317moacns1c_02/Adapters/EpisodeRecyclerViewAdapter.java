@@ -60,7 +60,7 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
          final View mView;
          final TextView title;
          final TextView airDate;
@@ -71,7 +71,7 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
          final ImageView like;
          EpisodeDetails mItem;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
             title = (TextView) mView.findViewById(R.id.textViewEpisodeTitle);
@@ -83,12 +83,15 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
             like = (ImageView) mView.findViewById(R.id.imageViewEpisodeLike);
         }
 
-        public void setUpViews(){
+        void setUpViews(){
 
             title.setText(mItem.getName());
-            airDate.setText(mItem.getAirDate());
+            if(mItem.getAirDate() == null) airDate.setVisibility(View.GONE);
+            else airDate.setText(mItem.getAirDate());
             overview.setText(mItem.getOverview());
-            Picasso.with(mView.getContext()).load(mItem.getStillUrl(1)).into(backdrop);
+            String stillUrl = mItem.getStillUrl(1);
+            if(stillUrl == null) backdrop.setVisibility(View.GONE);
+            else Picasso.with(mView.getContext()).load(mItem.getStillUrl(1)).into(backdrop);
         }
     }
 }
