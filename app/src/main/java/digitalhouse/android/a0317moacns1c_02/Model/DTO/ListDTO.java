@@ -10,8 +10,12 @@ import io.realm.annotations.PrimaryKey;
 
 public class ListDTO extends RealmObject {
     public final static String MOVIES_POPULAR = "appList:movies_popular";
-    public final static String MOVIES_NOWPLAYING = "appList:movies_nowplaying";
+    public final static String MOVIES_LATEST = "appList:movies_latest";
     public final static String MOVIES_UPCOMING = "appList:movies_upcoming";
+    public final static String SERIES_POPULAR = "appList:series_popular";
+    public final static String SERIES_LATEST = "appList:series_latest";
+    public final static String SERIES_UPCOMING = "appList:series_upcoming";
+    public final static String SERIES_AIRING_TODAY = "appList:airing_today";
     public final static String FAVORITES = "appList:favorites";
     public final static String BOOKMARKS = "appList:bookmarks";
     public final static String USER_LIST_TEST = "userListTest";
