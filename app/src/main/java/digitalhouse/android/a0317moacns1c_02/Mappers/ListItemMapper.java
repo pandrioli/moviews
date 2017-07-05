@@ -61,18 +61,6 @@ public class ListItemMapper {
         return item;
     }
 
-    // mapeo ListItemDTO a ListItem
-    public static ListItem map(ListItemDTO listItemDTO) {
-        ListItem item = new ListItem();
-        item.setId(listItemDTO.getId());
-        item.setTitle(listItemDTO.getTitle());
-        item.setYear(listItemDTO.getYear());
-        item.setGenres(listItemDTO.getGenres());
-        item.setRating(listItemDTO.getRating());
-        item.setImageURL(listItemDTO.getImageURL());
-        item.setType(listItemDTO.getType());
-        return item;
-    }
 
     //mapeo de listas
     public static <T> ArrayList<ListItem> map(List<T> items) {
@@ -81,7 +69,6 @@ public class ListItemMapper {
             if (item instanceof MovieResult) listItems.add(map((MovieResult)item));
             if (item instanceof SerieResult) listItems.add(map((SerieResult)item));
             if (item instanceof PersonResult) listItems.add(map((PersonResult)item));
-            if (item instanceof ListItemDTO) listItems.add(map((ListItemDTO)item));
         }
         ArrayList<ListItem> listItemsWithImage = new ArrayList<>();
         for (ListItem item : listItems) {

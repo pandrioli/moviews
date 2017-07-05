@@ -37,6 +37,29 @@ public class DTOListItemMapper {
         return listItemDTOs;
     }
 
+    // mapeo ListItemDTO a ListItem
+    public static ListItem map(ListItemDTO listItemDTO) {
+        ListItem item = new ListItem();
+        item.setId(listItemDTO.getId());
+        item.setTitle(listItemDTO.getTitle());
+        item.setYear(listItemDTO.getYear());
+        item.setGenres(listItemDTO.getGenres());
+        item.setRating(listItemDTO.getRating());
+        item.setImageURL(listItemDTO.getImageURL());
+        item.setType(listItemDTO.getType());
+        return item;
+    }
+
+    //mapeo list de RealmList de ListItemDTO a Arraylist de ListItems
+    public static ArrayList<ListItem> map(RealmList<ListItemDTO> listItemsDTO) {
+        ArrayList<ListItem> listItems = new ArrayList<>();
+        for (ListItemDTO listItemDTO : listItemsDTO) {
+            listItems.add(map(listItemDTO));
+        }
+        return listItems;
+    }
+
+
     //mapeo de Movie a ListItemDTO
     public static ListItemDTO map(Movie movie) {
         ListItemDTO listItemDTO = new ListItemDTO();

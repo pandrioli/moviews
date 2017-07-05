@@ -1,6 +1,5 @@
 package digitalhouse.android.a0317moacns1c_02.Model.DTO;
 
-import digitalhouse.android.a0317moacns1c_02.Model.General.Company;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -33,9 +32,9 @@ public class MovieDTO extends RealmObject {
 
     //DETAILS LISTS
     private RealmList<GenreDTO> genres;
-    private RealmList<StringDTO> spokenLanguages;
-    private RealmList<StringDTO> productionCompanies;
-    private RealmList<StringDTO> productionCountries;
+    private RealmList<RealmString> spokenLanguages;
+    private RealmList<RealmString> productionCompanies;
+    private RealmList<RealmString> productionCountries;
 
 
     //CREDITS
@@ -43,9 +42,9 @@ public class MovieDTO extends RealmObject {
     private RealmList<CrewDTO> crew;
 
     //MEDIA
-    private RealmList<StringDTO> posters;
-    private RealmList<StringDTO> backdrops;
-    private RealmList<StringDTO> videos;
+    private RealmList<RealmString> posters;
+    private RealmList<RealmString> backdrops;
+    private RealmList<RealmString> videos;
 
     //RATINGS
     private Double ratingImdb;
@@ -150,19 +149,19 @@ public class MovieDTO extends RealmObject {
         this.posterPath = posterPath;
     }
 
-    public RealmList<StringDTO> getProductionCompanies() {
+    public RealmList<RealmString> getProductionCompanies() {
         return productionCompanies;
     }
 
-    public void setProductionCompanies(RealmList<StringDTO> productionCompanies) {
+    public void setProductionCompanies(RealmList<RealmString> productionCompanies) {
         this.productionCompanies = productionCompanies;
     }
 
-    public RealmList<StringDTO> getProductionCountries() {
+    public RealmList<RealmString> getProductionCountries() {
         return productionCountries;
     }
 
-    public void setProductionCountries(RealmList<StringDTO> productionCountries) {
+    public void setProductionCountries(RealmList<RealmString> productionCountries) {
         this.productionCountries = productionCountries;
     }
 
@@ -190,11 +189,11 @@ public class MovieDTO extends RealmObject {
         this.runtime = runtime;
     }
 
-    public RealmList<StringDTO> getSpokenLanguages() {
+    public RealmList<RealmString> getSpokenLanguages() {
         return spokenLanguages;
     }
 
-    public void setSpokenLanguages(RealmList<StringDTO> spokenLanguages) {
+    public void setSpokenLanguages(RealmList<RealmString> spokenLanguages) {
         this.spokenLanguages = spokenLanguages;
     }
 
@@ -246,27 +245,27 @@ public class MovieDTO extends RealmObject {
         this.crew = crew;
     }
 
-    public RealmList<StringDTO> getPosters() {
+    public RealmList<RealmString> getPosters() {
         return posters;
     }
 
-    public void setPosters(RealmList<StringDTO> posters) {
+    public void setPosters(RealmList<RealmString> posters) {
         this.posters = posters;
     }
 
-    public RealmList<StringDTO> getBackdrops() {
+    public RealmList<RealmString> getBackdrops() {
         return backdrops;
     }
 
-    public void setBackdrops(RealmList<StringDTO> backdrops) {
+    public void setBackdrops(RealmList<RealmString> backdrops) {
         this.backdrops = backdrops;
     }
 
-    public RealmList<StringDTO> getVideos() {
+    public RealmList<RealmString> getVideos() {
         return videos;
     }
 
-    public void setVideos(RealmList<StringDTO> videos) {
+    public void setVideos(RealmList<RealmString> videos) {
         this.videos = videos;
     }
 

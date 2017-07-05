@@ -7,8 +7,17 @@ import io.realm.annotations.PrimaryKey;
  * Created by Pablo on 26/06/2017.
  */
 
-public class StringDTO extends RealmObject {
+public class RealmString extends RealmObject {
+    @PrimaryKey
     private String value;
+
+    public RealmString(String value) {
+        this.value = value;
+    }
+
+    public RealmString() {
+
+    }
 
     public String getValue() {
         return value;

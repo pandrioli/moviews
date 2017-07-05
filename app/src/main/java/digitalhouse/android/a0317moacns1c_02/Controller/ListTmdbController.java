@@ -18,6 +18,7 @@ import digitalhouse.android.a0317moacns1c_02.Mappers.DTOListItemMapper;
 import digitalhouse.android.a0317moacns1c_02.Mappers.ListItemMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.ListDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 
@@ -64,7 +65,8 @@ public class ListTmdbController {
         if (offline(ListDTO.MOVIES_POPULAR)) {
             resultListener.finish(getLocalList(ListDTO.MOVIES_POPULAR));
         } else {
-            movieDAOInternet.discoverMovies(new HashMap<String, String>(), new ListResultsManager(resultListener, ListDTO.MOVIES_POPULAR));
+            movieDAOInternet.discoverMovies(new HashMap<String, String>(),
+                    new ListResultsManager<MovieResultsContainer>(resultListener, ListDTO.MOVIES_POPULAR));
         }
     }
 
@@ -75,7 +77,7 @@ public class ListTmdbController {
             Date dateFrom = DateHelper.todayOffset(-LATEST_DAY_RANGE);
             Date dateTo = DateHelper.todayOffset(0);
             movieDAOInternet.discoverMovies(getMovieDateRangeQuery(dateFrom, dateTo),
-                    new ListResultsManager(resultListener, ListDTO.MOVIES_LATEST));
+                    new ListResultsManager<MovieResultsContainer>(resultListener, ListDTO.MOVIES_LATEST));
         }
     }
 
@@ -86,7 +88,7 @@ public class ListTmdbController {
             Date dateFrom = DateHelper.todayOffset(1);
             Date dateTo = DateHelper.todayOffset(UPCOMING_DAY_RANGE);
             movieDAOInternet.discoverMovies(getMovieDateRangeQuery(dateFrom, dateTo),
-                    new ListResultsManager(resultListener, ListDTO.MOVIES_UPCOMING));
+                    new ListResultsManager<MovieResultsContainer>(resultListener, ListDTO.MOVIES_UPCOMING));
         }
     }
 
@@ -97,7 +99,7 @@ public class ListTmdbController {
             resultListener.finish(getLocalList(ListDTO.SERIES_POPULAR));
         } else {
             serieDAOInternet.discoverSeries(new HashMap<String, String>(),
-                    new ListResultsManager(resultListener, ListDTO.SERIES_POPULAR));
+                    new ListResultsManager<SerieResultsContainer>(resultListener, ListDTO.SERIES_POPULAR));
         }
     }
 
@@ -108,7 +110,7 @@ public class ListTmdbController {
             Date dateFrom = DateHelper.todayOffset(-LATEST_DAY_RANGE);
             Date dateTo = DateHelper.todayOffset(0);
             serieDAOInternet.discoverSeries(getSerieDateRangeQuery(dateFrom, dateTo),
-                    new ListResultsManager(resultListener, ListDTO.SERIES_LATEST));
+                    new ListResultsManager<SerieResultsContainer>(resultListener, ListDTO.SERIES_LATEST));
         }
     }
 
@@ -119,7 +121,7 @@ public class ListTmdbController {
             Date dateFrom = DateHelper.todayOffset(1);
             Date dateTo = DateHelper.todayOffset(UPCOMING_DAY_RANGE);
             serieDAOInternet.discoverSeries(getSerieDateRangeQuery(dateFrom, dateTo),
-                    new ListResultsManager(resultListener, ListDTO.SERIES_UPCOMING));
+                    new ListResultsManager<SerieResultsContainer>(resultListener, ListDTO.SERIES_UPCOMING));
         }
     }
 
@@ -131,7 +133,7 @@ public class ListTmdbController {
         } else {
             Date today = new Date();
             serieDAOInternet.discoverSeries(getSerieEpisodesDateRangeQuery(today, today),
-                    new ListResultsManager(resultListener, ListDTO.SERIES_AIRING_TODAY));
+                    new ListResultsManager<SerieResultsContainer>(resultListener, ListDTO.SERIES_AIRING_TODAY));
         }
     }
 
@@ -140,10 +142,9 @@ public class ListTmdbController {
     // private methods
 
 
-
     private ArrayList<ListItem> getLocalList(String id) {
         ListDTO listDTO = listDAOLocal.obtainAppList(id);
-        return ListItemMapper.map(listDTO.getList());
+        return DTOListItemMapper.map(listDTO.getList());
     }
 
     private Map<String,String> getMovieDateRangeQuery(Date from, Date to) {
@@ -181,7 +182,7 @@ public class ListTmdbController {
 
     // private classes
 
-    private class ListResultsManager implements ResultListener {
+    private class ListResultsManager<T> implements ResultListener<T> {
         private ResultListener<ArrayList<ListItem>> resultListener;
         private String listID;
 
@@ -192,7 +193,7 @@ public class ListTmdbController {
         }
 
         @Override
-        public void finish(Object result) {
+        public void finish(T result) {
             // agregar lista a las ya bajadas de la API
             downloadedLists.add(listID);
             // mapear resultados a listitems
@@ -200,8 +201,25 @@ public class ListTmdbController {
             if (result instanceof MovieResultsContainer) listItems = ListItemMapper.map(((MovieResultsContainer)result).getResults());
             if (result instanceof SerieResultsContainer) listItems = ListItemMapper.map(((SerieResultsContainer)result).getResults());
             resultListener.finish(listItems);
-            // guardar resultados en Realm
+            // guardar lista en Realm
             listDAOLocal.saveAndReplaceAppList(listID, DTOListItemMapper.map(listItems));
+
+            // guardar peliculas
+            /*
+
+            lo probé y no sólo es lento sino que se interrumpe luego de cierta cantidad de peticiones
+            debido a una limitacion de la API
+
+            if (result instanceof MovieResultsContainer) {
+                for (ListItem listItem : listItems) {
+                    MovieController.getInstance().getMovie(listItem.getId(), new ResultListener<Movie>() {
+                        @Override
+                        public void finish(Movie result) {
+                            MovieController.getInstance().saveMovie(result);
+                        }
+                    });
+                }
+            }*/
         }
     }
 

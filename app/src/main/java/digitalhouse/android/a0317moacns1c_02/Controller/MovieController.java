@@ -35,18 +35,18 @@ public class MovieController {
     // Prueba de base de datos Realm
     // La primera vez que se entra a la movie carga de internet y guarda en la base de datos
     // Una vez que la movie esta en la base de datos, la proxima vez la trae de ahí
-    // NOTA: en MainActivity se borra toda la base de datos al arrancar la app
-    // esto es para poder hacer pruebas sin tener que buscar peliculas que no esten ya guardadas
     public void getMovie(Integer id, final ResultListener<Movie> resultListener) {
         MovieDTO movieDTO = movieDAOLocal.obtainMovie(id);
         if (movieDTO==null) {
-            // no esta en la base de datos local, pide movie a internet y guarda local
+            // no esta en la base de datos local, pide movie a internet y guarda en base de datos local
             movieDAOInternet.obtainMovie(id, new ResultListener<Movie>() {
                 @Override
                 public void finish(Movie movie) {
-                    movieDAOLocal.saveMovie(DTOMovieMapper.map(movie));
+                    if (movie!=null) {
+                        movieDAOLocal.saveMovie(DTOMovieMapper.map(movie));
+                        Toaster.getInstance().toast("Datos traidos de internet");
+                    }
                     resultListener.finish(movie);
-                    Toaster.getInstance().toast("Datos traidos de internet");
                 }
             });
         } else { // esta guardada en la base local, mapea movieDTO recibida y devuelve movie
@@ -55,14 +55,7 @@ public class MovieController {
         }
     }
 
-    //llamados a listas de peliculas
-    public void getPopular(ResultListener<ArrayList<ListItem>> resultListener) {
-        movieDAOInternet.obtainPopular(new MovieResultsCallback(resultListener));
-    }
-    public void getNowPlaying(ResultListener<ArrayList<ListItem>> resultListener) {
-        movieDAOInternet.obtainNowPlaying(new MovieResultsCallback(resultListener));
-    }
-    public void getUpcoming(ResultListener<ArrayList<ListItem>> resultListener) {
-        movieDAOInternet.obtainUpcoming(new MovieResultsCallback(resultListener));
+    public void saveMovie(Movie movie) {
+        movieDAOLocal.saveMovie(DTOMovieMapper.map(movie));
     }
 }

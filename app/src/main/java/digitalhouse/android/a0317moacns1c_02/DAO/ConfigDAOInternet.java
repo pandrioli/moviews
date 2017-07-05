@@ -11,9 +11,9 @@ import retrofit2.Call;
  * Created by Pablo on 03/06/2017.
  */
 
-public class ConfigDAO {
+public class ConfigDAOInternet {
     private TMDBClient client;
-    public ConfigDAO() {
+    public ConfigDAOInternet() {
         this.client = ServiceGenerator.getInstance().createService(TMDBClient.class, TMDBClient.BASE_URL);
     }
     public void obtainConfigData(ResultListener<Config> resultListener) {

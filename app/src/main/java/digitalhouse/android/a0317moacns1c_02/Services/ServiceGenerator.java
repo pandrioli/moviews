@@ -1,5 +1,11 @@
 package digitalhouse.android.a0317moacns1c_02.Services;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.RealmString;
+import io.realm.RealmList;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -26,10 +32,14 @@ public class ServiceGenerator {
 
 
     public <S> S createService(Class<S> serviceClass, String connectionURL) {
+        Gson gson = new GsonBuilder().registerTypeAdapter(
+                new TypeToken<RealmList<RealmString>>(){}.getType(),
+                RealmStringListTypeAdapter.INSTANCE)
+                .create();
         Retrofit.Builder builder =
                 new Retrofit.Builder()
                         .baseUrl(connectionURL)
-                        .addConverterFactory(GsonConverterFactory.create());
+                        .addConverterFactory(GsonConverterFactory.create(gson));
 
         Retrofit retrofit = builder.build();
 

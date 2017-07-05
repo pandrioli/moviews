@@ -8,6 +8,7 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class CrewDTO extends RealmObject {
+    @PrimaryKey
     private Integer id;
     private String department;
     private String job;

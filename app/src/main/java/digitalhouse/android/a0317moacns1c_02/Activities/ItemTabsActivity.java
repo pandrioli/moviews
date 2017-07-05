@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +28,13 @@ import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
 import digitalhouse.android.a0317moacns1c_02.Controller.MovieController;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
+import digitalhouse.android.a0317moacns1c_02.Model.Credits.Cast;
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.CastDTO;
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.RealmString;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 public class ItemTabsActivity extends AppCompatActivity implements ItemListFragment.ItemClickeable {
@@ -54,6 +60,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         setSupportActionBar(toolbar);
         tabLayoutModes.addOnTabSelectedListener(new TabModeListener());
         searchEditText.setHint("Search movies...");
+        loadSeries();
         loadMovies();
     }
 

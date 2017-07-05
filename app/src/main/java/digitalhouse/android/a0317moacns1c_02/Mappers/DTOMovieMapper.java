@@ -9,7 +9,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.DTO.CastDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.CrewDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.GenreDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.MovieDTO;
-import digitalhouse.android.a0317moacns1c_02.Model.DTO.StringDTO;
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.RealmString;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Company;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Country;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Language;
@@ -60,27 +60,21 @@ public class DTOMovieMapper {
         }
         movieDTO.setGenres(genres);
 
-        RealmList<StringDTO> productionCompanies = new RealmList<>();
+        RealmList<RealmString> productionCompanies = new RealmList<>();
         for (Company company : movie.getMovieDetails().getProduction_companies()) {
-            StringDTO stringDTO = new StringDTO();
-            stringDTO.setValue(company.getName());
-            productionCompanies.add(stringDTO);
+            productionCompanies.add(new RealmString(company.getName()));
         }
         movieDTO.setProductionCountries(productionCompanies);
 
-        RealmList<StringDTO> productionCountries = new RealmList<>();
+        RealmList<RealmString> productionCountries = new RealmList<>();
         for (Country country : movie.getMovieDetails().getProduction_countries()) {
-            StringDTO stringDTO = new StringDTO();
-            stringDTO.setValue(country.getName());
-            productionCountries.add(stringDTO);
+            productionCountries.add(new RealmString(country.getName()));
         }
         movieDTO.setProductionCountries(productionCountries);
 
-        RealmList<StringDTO> spokenLanguages = new RealmList<>();
+        RealmList<RealmString> spokenLanguages = new RealmList<>();
         for (Language language : movie.getMovieDetails().getSpoken_languages()) {
-            StringDTO stringDTO = new StringDTO();
-            stringDTO.setValue(language.getName());
-            spokenLanguages.add(stringDTO);
+            spokenLanguages.add(new RealmString(language.getName()));
         }
         movieDTO.setSpokenLanguages(spokenLanguages);
 
@@ -100,29 +94,23 @@ public class DTOMovieMapper {
         movieDTO.setCrew(crewList);
 
         //Posters
-        RealmList<StringDTO> posters = new RealmList<>();
+        RealmList<RealmString> posters = new RealmList<>();
         for (Image image : movie.getImageContainer().getPosters()) {
-            StringDTO stringDTO = new StringDTO();
-            stringDTO.setValue(image.getFile_path());
-            posters.add(stringDTO);
+            posters.add(new RealmString(image.getFile_path()));
         }
         movieDTO.setPosters(posters);
 
         //Backdrops
-        RealmList<StringDTO> backdrops = new RealmList<>();
+        RealmList<RealmString> backdrops = new RealmList<>();
         for (Image image : movie.getImageContainer().getBackdrops()) {
-            StringDTO stringDTO = new StringDTO();
-            stringDTO.setValue(image.getFile_path());
-            backdrops.add(stringDTO);
+            backdrops.add(new RealmString(image.getFile_path()));
         }
         movieDTO.setBackdrops(backdrops);
 
         //Videos
-        RealmList<StringDTO> videos = new RealmList<>();
+        RealmList<RealmString> videos = new RealmList<>();
         for (Video video : movie.getVideoContainer().getVideos()) {
-            StringDTO stringDTO = new StringDTO();
-            stringDTO.setValue(video.getKey());
-            videos.add(stringDTO);
+            videos.add(new RealmString(video.getKey()));
         }
         movieDTO.setVideos(videos);
 
@@ -187,7 +175,7 @@ public class DTOMovieMapper {
         movie.getMovieDetails().setGenres(genres);
 
         ArrayList<Language> languages = new ArrayList<>();
-        for (StringDTO stringDTO : movieDTO.getSpokenLanguages()) {
+        for (RealmString stringDTO : movieDTO.getSpokenLanguages()) {
             Language language = new Language();
             language.setName(stringDTO.getValue());
             languages.add(language);
@@ -195,7 +183,7 @@ public class DTOMovieMapper {
         movie.getMovieDetails().setSpoken_languages(languages);
 
         ArrayList<Company> companies = new ArrayList<>();
-        for (StringDTO stringDTO : movieDTO.getProductionCompanies()) {
+        for (RealmString stringDTO : movieDTO.getProductionCompanies()) {
             Company company = new Company();
             company.setName(stringDTO.getValue());
             companies.add(company);
@@ -203,7 +191,7 @@ public class DTOMovieMapper {
         movie.getMovieDetails().setProduction_companies(companies);
 
         ArrayList<Country> countries = new ArrayList<>();
-        for (StringDTO stringDTO : movieDTO.getProductionCountries()) {
+        for (RealmString stringDTO : movieDTO.getProductionCountries()) {
             Country country = new Country();
             country.setName(stringDTO.getValue());
             countries.add(country);
@@ -227,7 +215,7 @@ public class DTOMovieMapper {
         //Media
 
         ArrayList<Image> posters = new ArrayList<>();
-        for (StringDTO stringDTO : movieDTO.getPosters()) {
+        for (RealmString stringDTO : movieDTO.getPosters()) {
             Image image = new Image();
             image.setFile_path(stringDTO.getValue());
             posters.add(image);
@@ -235,7 +223,7 @@ public class DTOMovieMapper {
         movie.getImageContainer().setPosters(posters);
 
         ArrayList<Image> backdrops = new ArrayList<>();
-        for (StringDTO stringDTO : movieDTO.getBackdrops()) {
+        for (RealmString stringDTO : movieDTO.getBackdrops()) {
             Image image = new Image();
             image.setFile_path(stringDTO.getValue());
             backdrops.add(image);
@@ -243,7 +231,7 @@ public class DTOMovieMapper {
         movie.getImageContainer().setBackdrops(backdrops);
 
         ArrayList<Video> videos = new ArrayList<>();
-        for (StringDTO stringDTO : movieDTO.getVideos()) {
+        for (RealmString stringDTO : movieDTO.getVideos()) {
             Video video = new Video();
             video.setKey(stringDTO.getValue());
             videos.add(video);

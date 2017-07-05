@@ -2,31 +2,40 @@ package digitalhouse.android.a0317moacns1c_02.Model.Configuration;
 
 import java.util.ArrayList;
 
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.RealmString;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Pablo on 22/05/2017.
  */
 
 // datos de las imagenes (base url y tamaños disponibles)
 
-public class ImageConfig {
+public class ImageConfig extends RealmObject {
+    public static final String ID = "imageConfig";
+
+    @PrimaryKey
+    private String id = ID;
     private String base_url;
-    private ArrayList<String> poster_sizes;
-    private ArrayList<String> backdrop_sizes;
-    private ArrayList<String> profile_sizes;
+    private RealmList<RealmString> poster_sizes;
+    private RealmList<RealmString> backdrop_sizes;
+    private RealmList<RealmString> profile_sizes;
 
     public String getBase_url() {
         return base_url;
     }
 
-    public ArrayList<String> getPoster_sizes() {
+    public RealmList<RealmString> getPoster_sizes() {
         return poster_sizes;
     }
 
-    public ArrayList<String> getBackdrop_sizes() {
+    public RealmList<RealmString> getBackdrop_sizes() {
         return backdrop_sizes;
     }
 
-    public ArrayList<String> getProfile_sizes() {
+    public RealmList<RealmString> getProfile_sizes() {
         return profile_sizes;
     }
 
@@ -34,15 +43,15 @@ public class ImageConfig {
         this.base_url = base_url;
     }
 
-    public void setPoster_sizes(ArrayList<String> poster_sizes) {
+    public void setPoster_sizes(RealmList<RealmString> poster_sizes) {
         this.poster_sizes = poster_sizes;
     }
 
-    public void setBackdrop_sizes(ArrayList<String> backdrop_sizes) {
+    public void setBackdrop_sizes(RealmList<RealmString> backdrop_sizes) {
         this.backdrop_sizes = backdrop_sizes;
     }
 
-    public void setProfile_sizes(ArrayList<String> profile_sizes) {
+    public void setProfile_sizes(RealmList<RealmString> profile_sizes) {
         this.profile_sizes = profile_sizes;
     }
 }

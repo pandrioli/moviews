@@ -1,11 +1,14 @@
 package digitalhouse.android.a0317moacns1c_02.Controller;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.APIs.TMDB.TMDBClient;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
-import digitalhouse.android.a0317moacns1c_02.DAO.GenreDAO;
+import digitalhouse.android.a0317moacns1c_02.DAO.GenreDAOInternet;
+import digitalhouse.android.a0317moacns1c_02.DAO.GenreDAOLocal;
+import digitalhouse.android.a0317moacns1c_02.Helpers.NetworkHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 
@@ -16,34 +19,34 @@ import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 public class GenreController {
     private static GenreController instance;
     private List<Genre> genreList;
-    private GenreController() {
-        genreList = new ArrayList<>();
-    }
+    private GenreDAOInternet genreDAOInternet;
+    private GenreDAOLocal genreDAOLocal;
 
     public static GenreController getInstance() {
         if (instance == null) instance = new GenreController();
         return instance;
     }
 
-    public void loadMovieGenres(final ResultListener<String> resultListener) {
-        GenreDAO genreDAO = new GenreDAO();
-        genreDAO.obtainMovieGenres(new ResultListener<Genres>() {
-            @Override
-            public void finish(Genres genres) {
-                genreList.addAll(genres.getGenres());
-                resultListener.finish("Movie genres OK");
-            }
-        });
+    private GenreController() {
+        genreList = new ArrayList<>();
+        genreDAOInternet = new GenreDAOInternet();
+        genreDAOLocal = new GenreDAOLocal();
     }
-    public void loadSerieGenres(final ResultListener<String> resultListener) {
-        GenreDAO genreDAO = new GenreDAO();
-        genreDAO.obtainSerieGenres(new ResultListener<Genres>() {
-            @Override
-            public void finish(Genres genres) {
-                genreList.addAll(genres.getGenres());
-                resultListener.finish("SerieDetails genres OK");
-            }
-        });
+
+    public void loadGenres(Context context, final ResultListener<Boolean> resultListener) {
+        if (NetworkHelper.isNetworkAvailable(context)) {
+            genreDAOInternet.obtainGenres(new ResultListener<List<Genre>>() {
+                @Override
+                public void finish(List<Genre> result) {
+                    genreList = result;
+                    genreDAOLocal.saveGenres(genreList);
+                    resultListener.finish(true);
+                }
+            });
+        } else {
+            genreList = genreDAOLocal.obtainGenres();
+            resultListener.finish(genreList!=null);
+        }
     }
 
     public String getGenreNameById(Integer id) {

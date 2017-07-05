@@ -2,12 +2,14 @@ package digitalhouse.android.a0317moacns1c_02.Model.DTO;
 
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Pablo on 27/06/2017.
  */
 
 public class ListItemDTO extends RealmObject {
+    @PrimaryKey
     private Integer id;
     private String title;
     private String year;

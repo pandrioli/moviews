@@ -8,6 +8,7 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class CastDTO extends RealmObject {
+    @PrimaryKey
     private Integer id;
     private String name;
     private String character;
