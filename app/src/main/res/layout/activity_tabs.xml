@@ -6,25 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.ItemTabsActivity">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tab_act_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_collapseMode="pin"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="@color/colorPrimary"
-        app:theme="@style/AppTheme">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/toolbar_editText"
-            android:hint="Search Movies..."
-            android:visibility="gone" />
-    </android.support.v7.widget.Toolbar>
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tab_act_toolbar"
         android:id="@+id/tabLayoutModes"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
