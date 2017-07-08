@@ -142,6 +142,11 @@ public class SeasonsAndEpisodesFragment extends Fragment {
         return view;
     }
 
+    private void finishFragment(){
+        Toaster.getInstance().toast("Sorry. We have no info for this series.");
+        getActivity().getFragmentManager().popBackStack();
+    }
+
     private void toggleViews(){
         // no se porque a veces noConnection es null y explota
         if (noConnection!=null) noConnection.setVisibility(View.INVISIBLE);

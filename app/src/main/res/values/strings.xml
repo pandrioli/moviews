@@ -4,32 +4,22 @@
     <string name="title_activity_serie">Serie Details</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-
     <string name="backdrop_sd_desc">Backdrop Serie Details</string>
-
     <string name="poster_sd_desc">Poster Serie Details</string>
-
+    <string name="frase">Movies, Series and Reviews \nare waiting for you.</string>
+    <string name="skip_login">Skip for now</string>
 
     <string name="button_like">Like Button</string>
-
     <string name="button_bookmark">Bookmark Button</string>
-
     <string name="button_share">Share Button</string>
-
 
     <string name="on_the_air">On the air</string>
 
-
     <string name="episodes">Episodes: </string>
-
     <string name="summary">Summary</string>
-
     <string name="seasons">Seasons: </string>
-
     <string name="first_air_date">First air date:</string>
-
     <string name="emited_by">Emited in:</string>
-
     <string name="details">Details</string>
 
     <string name="facebook_app_id">336882533400585</string>
