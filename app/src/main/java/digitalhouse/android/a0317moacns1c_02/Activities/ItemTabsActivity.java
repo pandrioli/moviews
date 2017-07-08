@@ -42,8 +42,6 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
     @BindView(R.id.pager) protected ViewPager viewPager;
     @BindView(R.id.tab_layout) protected TabLayout tabLayout;
     @BindView(R.id.tabLayoutModes) protected TabLayout tabLayoutModes;
-    @BindView(R.id.toolbar_editText) protected EditText searchEditText;
-    @BindView(R.id.tab_act_toolbar) protected Toolbar toolbar;
 
     private ArrayList<ListItem> itemList;
     private List<ItemListFragment> fragments;
@@ -57,9 +55,7 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         //Remove title bar
         setContentView(R.layout.activity_tabs);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
         tabLayoutModes.addOnTabSelectedListener(new TabModeListener());
-        searchEditText.setHint("Search movies...");
         loadSeries();
         loadMovies();
     }
@@ -182,51 +178,6 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         return true;
     }
 
-    @Override
-    public void onBackPressed(){
-        if(searchEditText.getVisibility() == View.VISIBLE)
-        {
-            searchEditText.setVisibility(View.GONE);
-        }
-        else
-        {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public void onResume(){
-        searchEditText.setVisibility(View.GONE);
-        searchEditText.setText("");
-        super.onResume();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                if(searchEditText.getVisibility() == View.VISIBLE && !searchEditText.getText().toString().isEmpty()){
-                    Intent intent = new Intent(this, SearchActivity.class);
-                    intent.putExtra(SearchActivity.SEARCH_ACTIVITY_QUERY_TAG, searchEditText.getText().toString());
-                    intent.putExtra(SearchActivity.SEARCH_ACTION_TAG, tabLayoutModes.getSelectedTabPosition());
-                    startActivity(intent);
-                }
-                else
-                {
-                    searchEditText.setVisibility(View.VISIBLE);
-                    searchEditText.requestFocus();
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT);
-                }
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
 
     // listener del tablayout de modos
     private class TabModeListener implements TabLayout.OnTabSelectedListener {
@@ -235,11 +186,9 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         public void onTabSelected(TabLayout.Tab tab) {
             switch (tab.getPosition()) {
                 case 0:
-                    searchEditText.setHint("Search movies...");
                     loadMovies();
                     break;
                 case 1:
-                    searchEditText.setHint("Search series...");
                     loadSeries();
                     break;
                 case 2:
