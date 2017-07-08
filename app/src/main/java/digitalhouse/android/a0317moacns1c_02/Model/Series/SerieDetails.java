@@ -102,22 +102,30 @@ public class SerieDetails extends SerieResult implements Serializable {
         this.networks = networks;
     }
 
-    public String getNumberOfEpisodes() {
+    public String getNumberOfEpisodesString() {
         if(numberOfEpisodes != null)
             return numberOfEpisodes.toString();
         else
             return "N/A";
     }
 
+    public Integer getNumberOfEpisodes() {
+        return numberOfEpisodes;
+    }
+
     public void setNumberOfEpisodes(Integer numberOfEpisodes) {
         this.numberOfEpisodes = numberOfEpisodes;
     }
 
-    public String getNumberOfSeasons() {
+    public String getNumberOfSeasonsString() {
         if(numberOfSeasons != null)
             return numberOfSeasons.toString();
         else
             return "N/A";
+    }
+
+    public Integer getNumberOfSeasons() {
+        return numberOfSeasons;
     }
 
     public void setNumberOfSeasons(Integer numberOfSeasons) {
