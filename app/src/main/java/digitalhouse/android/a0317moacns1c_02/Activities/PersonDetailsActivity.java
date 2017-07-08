@@ -11,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +30,7 @@ import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 public class PersonDetailsActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable {
@@ -61,8 +64,6 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             PersonController.getInstance().getDetails(id, new ResultListener<PersonDetails>() {
                 @Override
                 public void finish(PersonDetails personDetails) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(PersonDetails.tag, personDetails);
                     setupViews(personDetails);
                     stopLoader();
                 }
@@ -78,10 +79,14 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             PersonController.getInstance().getMovieCreditsImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
                 @Override
                 public void finish(ArrayList<ImageListItem> imageList) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(ImageListFragment.TITLE_KEY, "Movie credits");
-                    bundle.putSerializable(ImageListFragment.IMAGE_LIST_KEY, imageList);
-                    startPersonDetailsMovieCreditsFragment(bundle);
+                    startImageListCreditsFragment(R.id.frameLayoutPDMovieCredits, "Movie credits", imageList);
+                    stopLoader();
+                }
+            });
+            PersonController.getInstance().getTVCreditsImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
+                @Override
+                public void finish(ArrayList<ImageListItem> imageList) {
+                    startImageListCreditsFragment(R.id.frameLayoutPDTVCredits, "TV credits", imageList);
                     stopLoader();
                 }
             });
@@ -93,7 +98,11 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
 
     private void stopLoader() {
         loadCounter++;
-        if (loadCounter==3) loaderContainer.setVisibility(View.GONE);
+        if (loadCounter==4) {
+            LottieAnimationView loader = (LottieAnimationView)findViewById(R.id.animationViewLoaderPersonDetails);
+            loader.cancelAnimation();
+            loaderContainer.setVisibility(View.GONE);
+        }
     }
 
     private void setupViews(final PersonDetails personDetails) {
@@ -140,12 +149,10 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         ft.replace(R.id.frameLayoutPDImages, imgFragment);
         ft.commit();
     }
-    private void startPersonDetailsMovieCreditsFragment(Bundle bundle) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ImageListFragment imgFragment = new ImageListFragment();
-        imgFragment.setArguments(bundle);
-        ft.replace(R.id.frameLayoutPDCredits, imgFragment);
+
+    private void startImageListCreditsFragment(Integer layout, String title, ArrayList<ImageListItem> imageListItems) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(layout, ImageListFragment.newInstance(imageListItems, title));
         ft.commit();
     }
 
@@ -155,6 +162,13 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             Bundle bundle = new Bundle();
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, imageListItem.getId());
             Intent intent = new Intent(this, MovieDetailsActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        if (title.equals("TV credits")) {
+            Bundle bundle = new Bundle();
+            bundle.putString(SerieActivity.SERIE_ID_KEY, imageListItem.getId().toString());
+            Intent intent = new Intent(this, SerieActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }

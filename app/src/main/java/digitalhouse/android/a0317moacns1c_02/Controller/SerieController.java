@@ -137,7 +137,7 @@ public class SerieController {
             String serieId = params[0];
             String numberOfSeason = params[1];
             SeasonDetails seasonDetails = seriesDAOInternet.obtainSeasonDetails(serieId, numberOfSeason);
-            if (seasonDetails.get_id()!=null) {
+            if (seasonDetails!=null) {
                 seasonDetails.setSerieId(Integer.parseInt(serieId));
                 return seasonDetails;
             } else return null;

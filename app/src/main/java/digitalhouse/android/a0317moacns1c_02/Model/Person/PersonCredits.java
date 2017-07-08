@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Pablo on 28/05/2017.
  */
 
-public class PersonMovieCredits implements Serializable {
+public class PersonCredits implements Serializable {
     private Integer id;
     private ArrayList<PersonCastCreditItem> cast;
     private ArrayList<PersonCrewCreditItem> crew;

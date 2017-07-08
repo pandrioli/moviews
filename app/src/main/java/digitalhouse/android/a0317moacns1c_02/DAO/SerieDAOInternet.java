@@ -140,9 +140,8 @@ public class SerieDAOInternet {
             return seasonDetails;
         } catch (IOException e){
             e.printStackTrace();
+            return null;
         }
-        seasonDetails = new SeasonDetails();
-        return seasonDetails;
     }
 
     public Credits obtainSeasonCredits(String serieID, String seasonNumber){

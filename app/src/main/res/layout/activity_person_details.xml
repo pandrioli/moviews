@@ -86,8 +86,12 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/frameLayoutPDCredits">
-
+                android:id="@+id/frameLayoutPDMovieCredits">
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/frameLayoutPDTVCredits">
             </FrameLayout>
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
