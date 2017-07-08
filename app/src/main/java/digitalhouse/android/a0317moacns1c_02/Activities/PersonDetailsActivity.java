@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +22,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.PersonController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
+import digitalhouse.android.a0317moacns1c_02.Helpers.NetworkHelper;
 import digitalhouse.android.a0317moacns1c_02.Mappers.ImageViewMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
@@ -55,34 +57,38 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         Bundle bundleReceived = getIntent().getExtras();
         Integer id = bundleReceived.getInt(PERSON_ID_KEY);
         loaderContainer.setVisibility(View.VISIBLE);
-
-        PersonController.getInstance().getDetails(id, new ResultListener<PersonDetails>() {
-            @Override
-            public void finish(PersonDetails personDetails) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(PersonDetails.tag, personDetails);
-                setupViews(personDetails);
-                stopLoader();
-            }
-        });
-        PersonController.getInstance().getImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
-            @Override
-            public void finish(ArrayList<ImageListItem> imageList) {
-                personImages = imageList;
-                startPersonDetailsImageFragment(imageList);
-                stopLoader();
-            }
-        });
-        PersonController.getInstance().getMovieCreditsImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
-            @Override
-            public void finish(ArrayList<ImageListItem> imageList) {
-                Bundle bundle = new Bundle();
-                bundle.putString(ImageListFragment.TITLE_KEY, "Movie credits");
-                bundle.putSerializable(ImageListFragment.IMAGE_LIST_KEY, imageList);
-                startPersonDetailsMovieCreditsFragment(bundle);
-                stopLoader();
-            }
-        });
+        if (NetworkHelper.isNetworkAvailable(this)) {
+            PersonController.getInstance().getDetails(id, new ResultListener<PersonDetails>() {
+                @Override
+                public void finish(PersonDetails personDetails) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(PersonDetails.tag, personDetails);
+                    setupViews(personDetails);
+                    stopLoader();
+                }
+            });
+            PersonController.getInstance().getImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
+                @Override
+                public void finish(ArrayList<ImageListItem> imageList) {
+                    personImages = imageList;
+                    startPersonDetailsImageFragment(imageList);
+                    stopLoader();
+                }
+            });
+            PersonController.getInstance().getMovieCreditsImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
+                @Override
+                public void finish(ArrayList<ImageListItem> imageList) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ImageListFragment.TITLE_KEY, "Movie credits");
+                    bundle.putSerializable(ImageListFragment.IMAGE_LIST_KEY, imageList);
+                    startPersonDetailsMovieCreditsFragment(bundle);
+                    stopLoader();
+                }
+            });
+        } else {
+            Toast.makeText(this, "Not available without connection", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     private void stopLoader() {

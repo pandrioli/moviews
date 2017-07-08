@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
         Realm.init(this);
 
         //Provisorio: borra toda la base de datos
-        //Realm realm = Realm.getDefaultInstance();
-        //realm.beginTransaction();
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
         //realm.deleteAll();
-        //realm.commitTransaction();
+        realm.commitTransaction();
 
         loadCounter = 0;
 

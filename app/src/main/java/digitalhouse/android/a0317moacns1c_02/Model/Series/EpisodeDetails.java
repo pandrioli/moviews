@@ -18,7 +18,7 @@ public class EpisodeDetails implements Serializable {
     protected String  airDate;
     protected List<Crew> crew;
     @SerializedName("episode_number")
-    protected Integer espisodeNumber;
+    protected Integer episodeNumber;
     @SerializedName("guest_stars")
     protected Object guestStars;
     protected String name;
@@ -35,8 +35,12 @@ public class EpisodeDetails implements Serializable {
     @SerializedName("vote_count")
     protected Integer voteCount;
 
-    public String getAirDate() {
+    public String getFormattedAirDate() {
         return DateHelper.apiDateToString(airDate);
+    }
+
+    public String getAirDate() {
+        return airDate;
     }
 
     public void setAirDate(String airDate) {
@@ -51,12 +55,12 @@ public class EpisodeDetails implements Serializable {
         this.crew = crew;
     }
 
-    public Integer getEspisodeNumber() {
-        return espisodeNumber;
+    public Integer getEpisodeNumber() {
+        return episodeNumber;
     }
 
-    public void setEspisodeNumber(Integer espisodeNumber) {
-        this.espisodeNumber = espisodeNumber;
+    public void setEpisodeNumber(Integer episodeNumber) {
+        this.episodeNumber = episodeNumber;
     }
 
     public Object getGuestStars() {

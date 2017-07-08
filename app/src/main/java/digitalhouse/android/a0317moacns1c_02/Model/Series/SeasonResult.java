@@ -23,6 +23,9 @@ public class SeasonResult implements Serializable {
     protected Integer seasonNumber;
 
     public String getAirDate() {
+        return airDate;
+    }
+    public String getFormattedAirDate() {
         return DateHelper.apiDateToString(airDate);
     }
 

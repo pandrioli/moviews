@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
@@ -28,6 +29,7 @@ import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Adapters.EpisodeRecyclerViewAdapter;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
+import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.EpisodeDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
@@ -50,6 +52,7 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     @BindView(R.id.recyclerViewEpisodes) RecyclerView recyclerViewEpisodes;
     @BindView(R.id.appbar) AppBarLayout appBarLayout;
     @BindView(R.id.scrolling_container) NestedScrollView nestedScrollView;
+    @BindView(R.id.textViewSeasonsNoConnection) TextView noConnection;
 
     private LottieAnimationView loaderAnim;
 
@@ -125,16 +128,21 @@ public class SeasonsAndEpisodesFragment extends Fragment {
         SerieController.getInstance().getSeasonDetails(serieId, seasonNumber, new ResultListener<SeasonDetails>() {
             @Override
             public void finish(SeasonDetails result) {
-                season = new Season();
-                season.setSeasonDetails(result);
-                episodes = result.getEpisodes();
-                toggleViews();
+                    if (result!=null) {
+                        season = new Season();
+                        season.setSeasonDetails(result);
+                        episodes = result.getEpisodes();
+                        toggleViews();
+                    } else {
+                        noConnection.setVisibility(View.VISIBLE);
+                    }
             }
         });
         return view;
     }
 
     private void toggleViews(){
+        noConnection.setVisibility(View.INVISIBLE);
         appBarLayout.setVisibility(View.VISIBLE);
         nestedScrollView.setVisibility(View.VISIBLE);
         setUpTitle();

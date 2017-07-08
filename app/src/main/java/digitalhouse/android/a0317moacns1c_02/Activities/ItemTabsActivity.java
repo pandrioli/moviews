@@ -60,7 +60,6 @@ public class ItemTabsActivity extends AppCompatActivity implements ItemListFragm
         setSupportActionBar(toolbar);
         tabLayoutModes.addOnTabSelectedListener(new TabModeListener());
         searchEditText.setHint("Search movies...");
-        loadSeries();
         loadMovies();
     }
 

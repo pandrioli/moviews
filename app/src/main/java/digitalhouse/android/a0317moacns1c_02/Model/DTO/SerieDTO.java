@@ -34,6 +34,7 @@ public class SerieDTO extends RealmObject {
     private RealmList<RealmString> originCountries = new RealmList<>();
     private RealmList<RealmString> createdBy = new RealmList<>();
     private RealmList<RealmString> productionCompanies = new RealmList<>();
+    private RealmList<RealmString> networks = new RealmList<>();
 
     //EXTERNAL IDS
     private String imdbId;
@@ -196,6 +197,14 @@ public class SerieDTO extends RealmObject {
 
     public void setProductionCompanies(RealmList<RealmString> productionCompanies) {
         this.productionCompanies = productionCompanies;
+    }
+
+    public RealmList<RealmString> getNetworks() {
+        return networks;
+    }
+
+    public void setNetworks(RealmList<RealmString> networks) {
+        this.networks = networks;
     }
 
     public String getStatus() {

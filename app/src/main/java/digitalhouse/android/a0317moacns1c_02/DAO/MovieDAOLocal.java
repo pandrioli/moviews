@@ -22,10 +22,8 @@ public class MovieDAOLocal {
     }
 
     public MovieDTO obtainMovie(Integer id) {
-        RealmResults<MovieDTO> result = realm.where(MovieDTO.class).equalTo("id", id).findAll();
-        if (result.size()>0)
-            return result.get(0);
-        else return null;
+        MovieDTO result = realm.where(MovieDTO.class).equalTo("id", id).findFirst();
+        return result;
     }
 
 }

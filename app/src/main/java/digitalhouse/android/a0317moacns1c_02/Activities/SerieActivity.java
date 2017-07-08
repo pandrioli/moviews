@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -27,8 +28,10 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonPagerFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
+import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -66,12 +69,18 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         SerieController.getInstance().getSerie(id, new ResultListener<Serie>() {
             @Override
             public void finish(Serie result) {
-                serie = result;
-                setUpFragmentsAndViewPager();
-                stopAnimation();
+                if (result==null) {
+                    Toast.makeText(SerieActivity.this, "Not available without connection", Toast.LENGTH_SHORT).show();
+                    SerieActivity.this.finish();
+                } else {
+                    serie = result;
+                    setUpFragmentsAndViewPager();
+                    stopAnimation();
+                }
             }
         });
     }
+
 
     private void setUpFragmentsAndViewPager(){
         serieDetailsFragment = SerieDetailsFragment.newInstance(serie);

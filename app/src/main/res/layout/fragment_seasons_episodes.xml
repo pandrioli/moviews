@@ -129,6 +129,16 @@
                 tools:listitem="@layout/cell_episode_list" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="#fff"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Not available without connection"
+        android:visibility="gone"
+        android:id="@+id/textViewSeasonsNoConnection"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

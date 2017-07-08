@@ -18,11 +18,11 @@ public class Season implements Serializable {
     private VideoContainer videoContainer;
     private Credits credits;
 
+    private ExternalIDs externalIDs;
+
     public SeasonDetails getSeasonDetails() {
         return seasonDetails;
     }
-
-    private ExternalIDs externalIDs;
 
     public void setSeasonDetails(SeasonDetails seasonDetails) {
         this.seasonDetails = seasonDetails;

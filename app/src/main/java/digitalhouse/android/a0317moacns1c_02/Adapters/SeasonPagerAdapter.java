@@ -32,7 +32,9 @@ public class SeasonPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         if(position > fragments.size()) throw new ArrayIndexOutOfBoundsException("Posición mayor a la cantidad de fragments del Adapter.");
         if(fragments.get(position) == null) {
-            SeasonsAndEpisodesFragment seasonFrag = SeasonsAndEpisodesFragment.newInstance(serieId, position);
+            //TODO: solucionar lo del las season 0 (especiales)
+            // se le sumo 1 a la posicion para evitar el error y ademas obtener la ultima season (antes no llegaba)
+            SeasonsAndEpisodesFragment seasonFrag = SeasonsAndEpisodesFragment.newInstance(serieId, position+1);
             fragments.set(position, seasonFrag);
         }
         return fragments.get(position);

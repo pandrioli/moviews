@@ -8,10 +8,19 @@ import java.util.List;
  */
 
 public class SeasonDetails extends SeasonResult implements Serializable {
+    protected Integer serieId;
     protected String _id;
     protected String name;
     protected String overview;
     protected List<EpisodeDetails> episodes;
+
+    public Integer getSerieId() {
+        return serieId;
+    }
+
+    public void setSerieId(Integer serieId) {
+        this.serieId = serieId;
+    }
 
     public String get_id() {
         return _id;

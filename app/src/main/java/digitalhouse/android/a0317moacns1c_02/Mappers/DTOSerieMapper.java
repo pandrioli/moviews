@@ -1,14 +1,19 @@
 package digitalhouse.android.a0317moacns1c_02.Mappers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Cast;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Crew;
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.CastDTO;
+import digitalhouse.android.a0317moacns1c_02.Model.DTO.CrewDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.GenreDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.RealmString;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.SerieDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Company;
-import digitalhouse.android.a0317moacns1c_02.Model.General.Country;
 import digitalhouse.android.a0317moacns1c_02.Model.General.ExternalIDs;
+import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RatingsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genre;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Image;
@@ -25,6 +30,8 @@ import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieOmdb;
  */
 
 public class DTOSerieMapper {
+
+    //POJO A DTO
     public static SerieDTO map(Serie serie) {
         SerieDTO serieDTO = new SerieDTO();
 
@@ -37,7 +44,7 @@ public class DTOSerieMapper {
         serieDTO.setVoteAverage(serie.getSerieDetails().getVoteAverage());
         serieDTO.setVoteCount(serie.getSerieDetails().getVoteCount());
         serieDTO.setFirstAirDate(serie.getSerieDetails().getFirstAirDate());
-        serieDTO.setOriginalLenguage(serie.getSerieDetails().getFirstAirDate());
+        serieDTO.setOriginalLenguage(serie.getSerieDetails().getOriginalLanguage());
         serieDTO.setOriginalName(serie.getSerieDetails().getOriginalName());
         serieDTO.setHomepage(serie.getSerieDetails().getHomepage());
         serieDTO.setNumberOfEpisodes(serie.getSerieDetails().getNumberOfEpisodes());
@@ -54,6 +61,9 @@ public class DTOSerieMapper {
         }
         for (Company company : serie.getSerieDetails().getProductionCompanies()) {
             serieDTO.getProductionCompanies().add(new RealmString(company.getName()));
+        }
+        for (Network network : serie.getSerieDetails().getNetworks()) {
+            serieDTO.getNetworks().add(new RealmString(network.getName()));
         }
 
         //IMDB ID
@@ -100,6 +110,8 @@ public class DTOSerieMapper {
 
     }
 
+
+    //DTO a POJO
     public static Serie map(SerieDTO serieDTO) {
         Serie serie = new Serie();
         serie.setSerieDetails(new SerieDetails());
@@ -109,6 +121,113 @@ public class DTOSerieMapper {
         serie.setVideoContainer(new VideoContainer());
         serie.setRatingsContainer(new RatingsContainer());
         serie.setExternalIDs(new ExternalIDs());
+
+        //DETAILS
+        serie.getSerieDetails().setId(serieDTO.getId());
+        serie.getSerieDetails().setName(serieDTO.getName());
+        serie.getSerieDetails().setOverview(serieDTO.getOverview());
+        serie.getSerieDetails().setPosterPath(serieDTO.getPosterPath());
+        serie.getSerieDetails().setBackdropPath(serieDTO.getBackdropPath());
+        serie.getSerieDetails().setVoteAverage(serieDTO.getVoteAverage());
+        serie.getSerieDetails().setVoteCount(serieDTO.getVoteCount());
+        serie.getSerieDetails().setFirstAirDate(serieDTO.getFirstAirDate());
+        serie.getSerieDetails().setOriginalLanguage(serieDTO.getOriginalLenguage());
+        serie.getSerieDetails().setOriginalName(serieDTO.getOriginalName());
+        serie.getSerieDetails().setHomepage(serieDTO.getHomepage());
+        serie.getSerieDetails().setNumberOfEpisodes(serieDTO.getNumberOfEpisodes());
+        serie.getSerieDetails().setNumberOfSeasons(serieDTO.getNumberOfSeasons());
+        serie.getSerieDetails().setStatus(serieDTO.getStatus());
+        serie.getSerieDetails().setType(serieDTO.getType());
+
+        //DETAILS LISTS
+        List<Genre> genreList = new ArrayList<>();
+        for (GenreDTO genreDTO: serieDTO.getGenres()) {
+            genreList.add(DTOGeneralMapper.map(genreDTO));
+        }
+        serie.getSerieDetails().setGenres(genreList);
+
+        serie.getSerieDetails().setOriginCountries(RealmStringMapper.map(serieDTO.getOriginCountries()));
+
+        List<PersonBase> personList = new ArrayList<>();
+        for (RealmString realmString : serieDTO.getCreatedBy()) {
+            PersonBase personBase = new PersonBase();
+            personBase.setName(realmString.getValue());
+            personList.add(personBase);
+        }
+        serie.getSerieDetails().setCreatedBy(personList);
+
+        List<Company> companyList = new ArrayList<>();
+        for (RealmString realmString : serieDTO.getProductionCompanies()) {
+            Company company = new Company();
+            company.setName(realmString.getValue());
+            companyList.add(company);
+        }
+        serie.getSerieDetails().setProductionCompanies(companyList);
+
+        List<Network> networkList = new ArrayList<>();
+        for (RealmString realmString : serieDTO.getNetworks()) {
+            Network network = new Network();
+            network.setName(realmString.getValue());
+            networkList.add(network);
+        }
+        serie.getSerieDetails().setNetworks(networkList);
+
+        //EXTERNAL ID
+        serie.getExternalIDs().setImdb_id(serieDTO.getImdbId());
+
+        //CREDITS
+        ArrayList<Cast> castList = new ArrayList<>();
+        for (CastDTO castDTO : serieDTO.getCast()) {
+            castList.add(DTOGeneralMapper.map(castDTO));
+        }
+        serie.getCredits().setCast(castList);
+
+        ArrayList<Crew> crewList = new ArrayList<>();
+        for (CrewDTO crewDTO : serieDTO.getCrew()) {
+            crewList.add(DTOGeneralMapper.map(crewDTO));
+        }
+        serie.getCredits().setCrew(crewList);
+
+        //MEDIA
+        ArrayList<Image> posters = new ArrayList<>();
+        for (RealmString realmString : serieDTO.getPosters()) {
+            Image image = new Image();
+            image.setFile_path(realmString.getValue());
+            posters.add(image);
+        }
+        serie.getImagesContainer().setPosters(posters);
+
+        ArrayList<Image> backdrops = new ArrayList<>();
+        for (RealmString realmString : serieDTO.getBackdrops()) {
+            Image image = new Image();
+            image.setFile_path(realmString.getValue());
+            backdrops.add(image);
+        }
+        serie.getImagesContainer().setBackdrops(backdrops);
+
+        ArrayList<Video> videos = new ArrayList<>();
+        for (RealmString realmString : serieDTO.getVideos()) {
+            Video video = new Video();
+            video.setKey(realmString.getValue());
+            videos.add(video);
+        }
+        serie.getVideoContainer().setVideos(videos);
+
+        //RATINGS
+        serie.getRatingsContainer().setImdb(serieDTO.getRatingImdb());
+        serie.getRatingsContainer().setTmdb(serieDTO.getRatingTmdb());
+        serie.getRatingsContainer().setRottenTomatoes(serieDTO.getRatingRottenTomatoes());
+        serie.getRatingsContainer().setMetaScore(serieDTO.getRatingMetascore());
+        serie.getRatingsContainer().setMoviews(serieDTO.getRatingMoviews());
+        serie.getRatingsContainer().setImdbVotes(serieDTO.getVotesImdb());
+        serie.getRatingsContainer().setTmdbVotes(serieDTO.getVotesTmdb());
+
+        //OMDB extra data
+        serie.getSerieOmdb().setAwards(serieDTO.getOmdbAwards());
+        serie.getSerieOmdb().setRated(serieDTO.getOmdbRated());
+        serie.getSerieOmdb().setPlot(serieDTO.getOmdbPlot());
+        serie.getSerieOmdb().setCountry(serieDTO.getOmdbCountry());
+
         return serie;
     }
 }

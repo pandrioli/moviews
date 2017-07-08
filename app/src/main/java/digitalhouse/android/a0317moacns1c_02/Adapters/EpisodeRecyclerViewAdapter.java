@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragment;
@@ -96,8 +95,8 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
         void setUpViews(){
 
             title.setText(mItem.getName());
-            if(mItem.getAirDate() == null) airDate.setVisibility(View.GONE);
-            else airDate.setText(mItem.getAirDate());
+            if(mItem.getFormattedAirDate() == null) airDate.setVisibility(View.GONE);
+            else airDate.setText(mItem.getFormattedAirDate());
             overview.setText(mItem.getOverview());
             String stillUrl = mItem.getStillUrl(1);
             if(stillUrl == null) backdrop.setVisibility(View.GONE);

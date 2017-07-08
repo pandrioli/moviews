@@ -93,6 +93,10 @@ public class SerieResult implements Serializable {
     }
 
     public String getFirstAirDate() {
+        return firstAirDate;
+    }
+
+    public String getFormattedFirstAirDate() {
         return DateHelper.apiDateToString(firstAirDate);
     }
 
