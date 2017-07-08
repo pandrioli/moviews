@@ -134,7 +134,8 @@ public class SeasonsAndEpisodesFragment extends Fragment {
                         episodes = result.getEpisodes();
                         toggleViews();
                     } else {
-                        noConnection.setVisibility(View.VISIBLE);
+                        //no se porque a veces noConnection es null y explota
+                        if (noConnection!=null) noConnection.setVisibility(View.VISIBLE);
                     }
             }
         });
@@ -142,7 +143,8 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     }
 
     private void toggleViews(){
-        noConnection.setVisibility(View.INVISIBLE);
+        // no se porque a veces noConnection es null y explota
+        if (noConnection!=null) noConnection.setVisibility(View.INVISIBLE);
         appBarLayout.setVisibility(View.VISIBLE);
         nestedScrollView.setVisibility(View.VISIBLE);
         setUpTitle();

@@ -3,6 +3,8 @@ package digitalhouse.android.a0317moacns1c_02.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -25,14 +27,21 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-        Toaster.getInstance().init(this);
+        Toaster.init(this);
         callbackManager = CallbackManager.Factory.create();
+        Button buttonNoLogin = (Button)findViewById(R.id.buttonWithoutLogin);
+        buttonNoLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startItemTabsActivity();
+            }
+        });
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        starItemTabsActivity();
+                        startItemTabsActivity();
                     }
 
                     @Override
@@ -47,7 +56,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 });
     }
 
-    private void starItemTabsActivity(){
+    private void startItemTabsActivity(){
         Intent intent = new Intent(this, ItemTabsActivity.class);
         startActivity(intent);
         finish();

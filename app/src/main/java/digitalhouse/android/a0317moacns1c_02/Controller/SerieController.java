@@ -51,12 +51,14 @@ public class SerieController {
             ObtainSerieTask serieTask = new ObtainSerieTask(new ResultListener<Serie>() {
                 @Override
                 public void finish(Serie result) {
-                    if (result!=null) serieDAOLocal.saveSerie(DTOSerieMapper.map(result));
+                    if (result!=null) {
+                        serieDAOLocal.saveSerie(DTOSerieMapper.map(result));
+                        Toaster.getInstance().toast("Datos traidos de Internet");
+                    }
                     resultListener.finish(result);
                 }
             });
             serieTask.execute(id);
-            Toaster.getInstance().toast("Datos traidos de Internet");
         } else {
             resultListener.finish(DTOSerieMapper.map(serieDTO));
             Toaster.getInstance().toast("Datos en base local");
