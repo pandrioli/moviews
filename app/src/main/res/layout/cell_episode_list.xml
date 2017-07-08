@@ -1,89 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
+
     android:layout_height="wrap_content"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:orientation="horizontal"
+
     android:layout_margin="8dp"
+
     app:cardCornerRadius="2dp">
+
     <RelativeLayout
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
+
         >
+
         <TextView
+
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+
             android:id="@+id/textViewEpisodeTitle"
+
             android:textColor="@color/primary_text"
-            android:text="School Reunion"
+
             android:paddingTop="24dp"
+
             android:paddingStart="16dp"
+
             android:paddingEnd="16dp"
+
             android:paddingBottom="6dp"
+
+
             android:textStyle="bold"
+
             android:textSize="24sp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewEpisodeAirDate"
-            android:layout_below="@+id/textViewEpisodeTitle"
-            android:textColor="@color/secondary_text"
-            android:text="29 Junio, 2013"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewEpisodeOverview"
-            android:layout_below="@+id/textViewEpisodeAirDate"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
-            android:text="The Doctor takes Martha to New Earth, in the far future, only to find that an entire city has become a deadly trap."
-            />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="207dp"
-            android:id="@+id/imageViewEpisode"
-            android:layout_below="@+id/textViewEpisodeOverview"
-            android:src="@drawable/episode_image"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewEpisodeShare"
-            android:layout_below="@+id/imageViewEpisode"
-            android:padding="8dp"
-            android:layout_margin="8dp"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:text="SHARE"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewEpisodeSave"
-            android:layout_alignBottom="@+id/textViewEpisodeShare"
-            android:layout_toEndOf="@+id/textViewEpisodeShare"
-            android:padding="8dp"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:text="SAVE"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewEpisodeLike"
-            android:src="@drawable/fav_border_xhdpi"
-            android:layout_alignBottom="@+id/textViewEpisodeShare"
-            android:layout_alignTop="@+id/textViewEpisodeShare"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="8dp"
+
+
             />
 
+        <TextView
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:id="@+id/textViewEpisodeAirDate"
+
+            android:layout_below="@+id/textViewEpisodeTitle"
+
+            android:textColor="@color/secondary_text"
+
+            android:paddingStart="16dp"
+
+            android:paddingEnd="16dp"
+
+            android:paddingBottom="16dp"
+
+            />
+
+        <TextView
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:id="@+id/textViewEpisodeOverview"
+
+            android:layout_below="@+id/textViewEpisodeAirDate"
+
+            android:paddingStart="16dp"
+
+            android:paddingEnd="16dp"
+
+            android:paddingBottom="16dp"
+
+            />
+
+        <ImageView
+
+            android:layout_width="match_parent"
+
+
+            android:layout_height="207dp"
+
+
+            android:id="@+id/imageViewEpisode"
+
+            android:layout_below="@+id/textViewEpisodeOverview"
+
+            android:src="@drawable/episode_image"
+
+            />
+
+
+        <ImageView
+
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+
+            android:id="@+id/imageViewEpisodeLike"
+
+            android:src="@drawable/fav_border_xhdpi"
+
+
+            android:layout_below="@+id/imageViewEpisode"
+            android:contentDescription="@string/button_like"
+
+            android:layout_toStartOf="@+id/imageViewEpisodeShare"
+
+
+            android:layout_margin="8dp"
+
+            />
+
+
+        <ImageView
+
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:contentDescription="@string/button_share"
+            android:src="@drawable/share_black_xhdpi"
+
+            android:id="@+id/imageViewEpisodeShare"
+
+            android:layout_below="@+id/imageViewEpisode"
+
+            android:layout_alignParentEnd="true"
+
+            android:layout_margin="8dp"
+
+
+            />
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_bookmark"
+
+            android:src="@drawable/bookmark_border_xhdpi"
+
+            android:id="@+id/imageViewEpisodeSave"
+
+            android:layout_toStartOf="@+id/imageViewEpisodeLike"
+
+            android:layout_below="@+id/imageViewEpisode"
+
+            android:layout_margin="8dp"
+
+
+            />
 
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>

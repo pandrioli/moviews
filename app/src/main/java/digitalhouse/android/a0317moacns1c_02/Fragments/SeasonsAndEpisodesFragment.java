@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -54,7 +53,7 @@ public class SeasonsAndEpisodesFragment extends Fragment {
 
     private LottieAnimationView loaderAnim;
 
-    private OnEpisodeListFragmentInteractionListener mListener;
+    private OnEpisodeInteractionListener mListener;
 
 
     private static final String SEASON_KEY = "SEASON";
@@ -97,6 +96,22 @@ public class SeasonsAndEpisodesFragment extends Fragment {
             serieId = getArguments().getString(SERIE_ID_KEY);
             seasonNumber = getArguments().getInt(SEASON_NUMBER_KEY);
         }
+        mListener = new OnEpisodeInteractionListener() {
+            @Override
+            public void onEpisodeLiked(EpisodeDetails episode) {
+                //TODO: llamar al controller para sumar un like
+            }
+
+            @Override
+            public void onEpisodeBookmarked(EpisodeDetails episode) {
+                //TODO: llamar al controller para guardar el episodio
+            }
+
+            @Override
+            public void onEpisodeShared(EpisodeDetails episode) {
+                //TODO: compartir el episodio
+            }
+        };
     }
 
     @Override
@@ -177,9 +192,11 @@ public class SeasonsAndEpisodesFragment extends Fragment {
         collapsingToolbar.setTitleEnabled(true);
     }
 
-    public interface OnEpisodeListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(EpisodeDetails item);
+
+    public interface OnEpisodeInteractionListener {
+        void onEpisodeLiked(EpisodeDetails episode);
+        void onEpisodeBookmarked(EpisodeDetails episode);
+        void onEpisodeShared(EpisodeDetails episode);
     }
 
 }

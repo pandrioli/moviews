@@ -10,8 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp">
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -24,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/frameLayoutSDBackdrop">
                 <ImageView
+                    android:contentDescription="@string/backdrop_sd_desc"
                     android:id="@+id/imageViewSDBackDrop"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"/>
@@ -35,12 +35,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Al aire"
                         android:padding="3dp"
                         android:textSize="12sp"
                         android:visibility="visible"
                         android:layout_margin="3dp"
                         android:background="@drawable/pop_on_the_air"
+                        android:text="@string/on_the_air"
                         android:textColor="#FFFF"
                         android:id="@+id/textViewSDOnTheAir"/>
                     <TextView
@@ -51,7 +51,6 @@
                         android:textColor="#fff"
                         android:textSize="17sp"
                         android:textStyle="bold"
-                        android:text="Alien: Recontra contrataca por decimo octava novena vez"
                         android:id="@+id/textViewSDTitle"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"/>
@@ -61,7 +60,6 @@
                         android:background="#96000000"
                         android:textColor="#fff"
                         android:textSize="12sp"
-                        android:text="Horror | Sci-Fi | ThrillerHorror"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="2dp"
@@ -101,7 +99,6 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="2dp"
                 android:id="@+id/cardViewSDInfo"
-                android:layout_below="@+id/frameLayoutSDBackdrop"
                 tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.SeriesDetailsInfoFragment">
 
                 <RelativeLayout
@@ -123,7 +120,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingBottom="12dp"
-                            android:text="Detalles"
+                            android:text="@string/details"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -132,7 +129,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textViewSDDetails"
-                            android:text="Emitido por:"
+                            android:text="@string/emited_by"
                             android:textSize="12sp" />
 
                         <TextView
@@ -140,16 +137,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textViewSDNetwork"
-                            android:paddingLeft="4dp"
-                            android:text="Netflix"
-                            android:textSize="12sp" />
+                            android:paddingStart="4dp"
+                            android:textSize="12sp"
+                            tools:ignore="RtlSymmetry"  />
 
                         <TextView
                             android:id="@+id/textViewSDLaunch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textViewSDNetworkCont"
-                            android:text="Primera Emisión:"
+                            android:text="@string/first_air_date"
                             android:textSize="12sp" />
 
                         <TextView
@@ -158,16 +155,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@id/textViewSDLaunch"
                             android:layout_toEndOf="@id/textViewSDLaunch"
-                            android:paddingLeft="4dp"
-                            android:text="25/06/1992"
-                            android:textSize="12sp" />
+                            android:paddingStart="4dp"
+                            android:textSize="12sp"
+                            tools:ignore="RtlSymmetry" />
 
                         <TextView
                             android:id="@+id/textViewSDSeasons"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textViewSDLaunchCont"
-                            android:text="Temporadas:"
+                            android:text="@string/seasons"
                             android:textSize="12sp" />
 
                         <TextView
@@ -176,16 +173,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/textViewSDSeasons"
                             android:layout_toEndOf="@+id/textViewSDSeasons"
-                            android:paddingLeft="4dp"
-                            android:text="18"
-                            android:textSize="12sp" />
+                            android:paddingStart="4dp"
+                            android:textSize="12sp"
+                            tools:ignore="RtlSymmetry" />
 
                         <TextView
                             android:id="@+id/textViewSDChapters"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textViewSDSeasons"
-                            android:text="Capítulos:"
+                            android:text="@string/episodes"
                             android:textSize="12sp" />
 
                         <TextView
@@ -194,9 +191,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/textViewSDChapters"
                             android:layout_toEndOf="@+id/textViewSDChapters"
-                            android:paddingLeft="4dp"
-                            android:text="95"
-                            android:textSize="12sp" />
+                            android:paddingStart="4dp"
+                            android:textSize="12sp"
+                            tools:ignore="RtlSymmetry" />
                     </RelativeLayout>
 
                     <View
@@ -217,24 +214,31 @@
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        tools:ignore="RtlHardcoded">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:id="@+id/bookmark"
+                            android:contentDescription="@string/button_bookmark"
                             android:src="@drawable/bookmark_border_xhdpi" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:id="@+id/like"
+                            android:contentDescription="@string/button_like"
                             android:src="@drawable/fav_border_xhdpi" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:id="@+id/share"
+                            android:contentDescription="@string/button_share"
                             android:src="@drawable/share_black_xhdpi" />
 
                     </LinearLayout>
@@ -243,6 +247,7 @@
                         android:id="@+id/imageViewPoster"
                         android:layout_width="127dp"
                         android:layout_height="191dp"
+                        android:contentDescription="@string/poster_sd_desc"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentStart="true" />
                 </RelativeLayout>
@@ -252,15 +257,13 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/framelayoutSDRatings"
-                android:layout_below="@+id/cardViewSDInfo"/>
+                android:id="@+id/framelayoutSDRatings"/>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 app:cardCornerRadius="2dp"
-                android:layout_below="@+id/framelayoutSDRatings"
                 android:id="@+id/cardViewSDSummary">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -277,14 +280,13 @@
                         android:layout_marginBottom="5dp"
                         android:paddingBottom="12dp"
                         android:paddingTop="16dp"
-                        android:text="Summary"
-                        android:textSize="16dp"
+                        android:text="@string/summary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
                     <TextView
                         android:id="@+id/textViewSDSummary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Set to the all-new sonic backdrop of Awesome Mixtape #2, Marvel Studios' Guardians of the Galaxy Vol. 2 continues the team's adventures as they traverse the outer reaches of the cosmos. The Guardians must fight to keep their newfound family together as they unravel the mystery of Peter Quill's true parentage. Old foes become new allies and fan-favorite characters from the classic comics will come to our heroes' aid as the Marvel Cinematic Universe continues to expand."
                         android:textSize="12sp"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -292,13 +294,11 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/frameLayoutSDMedia"
-                android:layout_below="@+id/cardViewSDSummary" />
+                android:id="@+id/frameLayoutSDMedia" />
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/frameLayoutSDCasting"
-                android:layout_below="@id/frameLayoutSDMedia" />
+                android:id="@+id/frameLayoutSDCasting"/>
 
         </LinearLayout>
 

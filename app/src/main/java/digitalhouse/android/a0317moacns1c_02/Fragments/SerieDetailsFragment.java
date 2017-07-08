@@ -1,6 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
+import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Mappers.ImageListMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
@@ -33,6 +35,9 @@ import digitalhouse.android.a0317moacns1c_02.R;
 
 public class SerieDetailsFragment extends Fragment implements ImageListFragment.ImageClickeable {
     public static final String SERIE_KEY = "serie";
+
+    private Boolean favorited;
+    private Boolean bookmarked;
 
     @BindView(R.id.imageViewSDBackDrop) protected ImageView backdrop;
     @BindView(R.id.textViewSDTitle) protected TextView title;
@@ -44,6 +49,9 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
     @BindView(R.id.textViewSDChaptersCont) protected TextView numberOfChapters;
     @BindView(R.id.imageViewPoster) protected ImageView poster;
     @BindView(R.id.textViewSDSummary) protected TextView textViewSummary;
+    @BindView(R.id.share) ImageView share;
+    @BindView(R.id.like) ImageView like;
+    @BindView(R.id.bookmark) ImageView bookmark;
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
@@ -86,6 +94,7 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
         startMediaListFragment();
         startCastListFragment();
         setUpCollapsingToolbar();
+        setUpButtons();
         return view;
     }
 
@@ -103,6 +112,54 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
                 return true;
         }
         return false;
+    }
+
+    private void setUpButtons(){
+        favorited = ListUserController.getInstance().isSerieInFavorites(serie.getSerieDetails().getId())
+        ;
+        bookmarked = ListUserController.getInstance().isSerieInBookmarks(serie.getSerieDetails().getId());
+        drawButtons();
+        int color = ContextCompat.getColor(getContext(), R.color.accent);
+        bookmark.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        like.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        share.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bookmarked) {
+                    bookmarked = false;
+                    ListUserController.getInstance().removeSerieFromBookmarks(serie.getSerieDetails().getId());
+                    drawButtons();
+                } else {
+                    bookmarked = true;
+                    ListUserController.getInstance().addSerieToBookmarks(serie);
+                    drawButtons();
+                }
+            }
+        });
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (favorited) {
+                    favorited=false;
+                    ListUserController.getInstance().removeSerieFromFavorites(serie.getSerieDetails().getId());
+                    drawButtons();
+                } else {
+                    favorited=true;
+                    ListUserController.getInstance().addSerieToFavorites(serie);
+                    drawButtons();
+                }
+            }
+        });
+    }
+
+    private void drawButtons() {
+        if (favorited) like.setImageResource(R.drawable.fav_black_xhdpi);
+        else like.setImageResource(R.drawable.fav_border_xhdpi);
+
+        if (bookmarked) bookmark.setImageResource(R.drawable.bookmark_black_xhdpi);
+        else bookmark.setImageResource(R.drawable.bookmark_border_xhdpi);
     }
 
     private void setUpTitleAndGenres(){

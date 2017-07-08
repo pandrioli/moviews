@@ -21,9 +21,9 @@ import java.util.List;
 public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerViewAdapter.ViewHolder> {
 
     private final List<EpisodeDetails> mValues;
-    private final SeasonsAndEpisodesFragment.OnEpisodeListFragmentInteractionListener mListener;
+    private final SeasonsAndEpisodesFragment.OnEpisodeInteractionListener mListener;
 
-    public EpisodeRecyclerViewAdapter(List<EpisodeDetails> items, SeasonsAndEpisodesFragment.OnEpisodeListFragmentInteractionListener listener) {
+    public EpisodeRecyclerViewAdapter(List<EpisodeDetails> items, SeasonsAndEpisodesFragment.OnEpisodeInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -33,7 +33,11 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cell_episode_list, parent, false);
         ImageView like = (ImageView) view.findViewById(R.id.imageViewEpisodeLike);
+        ImageView boorkmark = (ImageView) view.findViewById(R.id.imageViewEpisodeSave);
+        ImageView share = (ImageView) view.findViewById(R.id.imageViewEpisodeShare);
+        boorkmark.setColorFilter(Color.parseColor("#009688"), PorterDuff.Mode.SRC_IN);
         like.setColorFilter(Color.parseColor("#009688"), PorterDuff.Mode.SRC_IN);
+        share.setColorFilter(Color.parseColor("#009688"), PorterDuff.Mode.SRC_IN);
         return new ViewHolder(view);
     }
 
@@ -46,10 +50,16 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                switch (v.getId()){
+                    case R.id.imageViewEpisodeShare:
+                        mListener.onEpisodeShared(holder.mItem);
+                        break;
+                    case R.id.imageViewEpisodeSave:
+                        mListener.onEpisodeBookmarked(holder.mItem);
+                        break;
+                    case R.id.imageViewEpisodeLike:
+                        mListener.onEpisodeLiked(holder.mItem);
+                        break;
                 }
             }
         });
@@ -61,15 +71,15 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-         final View mView;
-         final TextView title;
-         final TextView airDate;
-         final TextView overview;
-         final ImageView backdrop;
-         final TextView share;
-         final TextView save;
-         final ImageView like;
-         EpisodeDetails mItem;
+        final View mView;
+        final TextView title;
+        final TextView airDate;
+        final TextView overview;
+        final ImageView backdrop;
+        final ImageView share;
+        final ImageView save;
+        final ImageView like;
+        EpisodeDetails mItem;
 
         ViewHolder(View view) {
             super(view);
@@ -78,8 +88,8 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
             airDate = (TextView) mView.findViewById(R.id.textViewEpisodeAirDate);
             overview = (TextView) mView.findViewById(R.id.textViewEpisodeOverview);
             backdrop = (ImageView) mView.findViewById(R.id.imageViewEpisode);
-            share = (TextView) mView.findViewById(R.id.textViewEpisodeShare);
-            save = (TextView) mView.findViewById(R.id.textViewEpisodeSave);
+            share = (ImageView) mView.findViewById(R.id.imageViewEpisodeShare);
+            save = (ImageView) mView.findViewById(R.id.imageViewEpisodeSave);
             like = (ImageView) mView.findViewById(R.id.imageViewEpisodeLike);
         }
 
