@@ -20,6 +20,7 @@ public class MovieResultsCallback implements ResultListener<MovieResultsContaine
 
     @Override
     public void finish(MovieResultsContainer movieResults) {
+        if (movieResults!=null)
         resultListener.finish(ListItemMapper.map(movieResults.getResults()));
     }
 }

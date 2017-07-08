@@ -1,12 +1,16 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -37,6 +41,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
 
     private static Integer currentTab;
     private SearchPagerAdapter adapter;
+    private Handler handler;
 
     @BindView(R.id.toolbar_editText) protected EditText searchEditText;
     @BindView(R.id.search_act_toolbar) protected Toolbar toolbar;
@@ -73,6 +78,9 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         setSupportActionBar(toolbar);
 
         loadViewPager();
+
+        setupAutoSearch();
+
     }
 
 
@@ -113,6 +121,38 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         viewPager.setCurrentItem(currentTab);
 
     }
+
+    private void setupAutoSearch() {
+        //handler que ejecuta la busqueda
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                onButtonSearchPressed(searchEditText.getText().toString());
+            }
+        };
+        //listener para cuando el texto es cambiado
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length()>3) {
+                    //borra cualquier peticion anterior
+                    handler.removeMessages(0);
+                    //envia peticion de busqueda con un retardo de un segundo
+                    handler.sendEmptyMessageDelayed(0, 1000);
+                }
+            }
+        });
+    }
+
 
     //Mas adelate voy a agregar todas las opciones de busqueda, por eso los diferentes requests
     private void onButtonSearchPressed(String query){

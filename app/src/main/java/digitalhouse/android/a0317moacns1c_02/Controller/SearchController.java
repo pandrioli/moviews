@@ -55,8 +55,10 @@ public class SearchController {
         searchDAO.searchPeople(parameters, new ResultListener<PersonResultsContainer>() {
             @Override
             public void finish(PersonResultsContainer personResultsContainer) {
-                ArrayList<ListItem> listItems = ListItemMapper.map(personResultsContainer.getResults());
-                resultListener.finish(listItems);
+                if (personResultsContainer!=null) {
+                    ArrayList<ListItem> listItems = ListItemMapper.map(personResultsContainer.getResults());
+                    resultListener.finish(listItems);
+                }
             }
         });
     }

@@ -19,6 +19,7 @@ public class SerieResultsCallback implements ResultListener<SerieResultsContaine
 
     @Override
     public void finish(SerieResultsContainer serieResults) {
+        if (serieResults!=null)
         resultListener.finish(ListItemMapper.map(serieResults.getResults()));
     }
 }
