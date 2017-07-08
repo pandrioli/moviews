@@ -10,7 +10,6 @@
     <string name="poster_sd_desc">Poster Serie Details</string>
 
 
-
     <string name="button_like">Like Button</string>
 
     <string name="button_bookmark">Bookmark Button</string>
@@ -18,9 +17,7 @@
     <string name="button_share">Share Button</string>
 
 
-
     <string name="on_the_air">On the air</string>
-
 
 
     <string name="episodes">Episodes: </string>
@@ -34,5 +31,8 @@
     <string name="emited_by">Emited in:</string>
 
     <string name="details">Details</string>
+
+    <string name="facebook_app_id">336882533400585</string>
+    <string name="fb_login_protocol_scheme">fb336882533400585</string>
 
 </resources>
