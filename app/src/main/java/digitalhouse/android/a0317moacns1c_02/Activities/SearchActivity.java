@@ -52,6 +52,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
+        currentTab = 0;
         if(intent.hasExtra(SEARCH_ACTION_TAG))
         {
             Integer default_value = 0;
