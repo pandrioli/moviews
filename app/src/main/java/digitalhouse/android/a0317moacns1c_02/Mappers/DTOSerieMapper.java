@@ -208,6 +208,7 @@ public class DTOSerieMapper {
         ArrayList<Video> videos = new ArrayList<>();
         for (RealmString realmString : serieDTO.getVideos()) {
             Video video = new Video();
+            video.setSite("YouTube");
             video.setKey(realmString.getValue());
             videos.add(video);
         }

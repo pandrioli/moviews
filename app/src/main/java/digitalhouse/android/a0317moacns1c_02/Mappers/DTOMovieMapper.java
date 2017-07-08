@@ -233,6 +233,7 @@ public class DTOMovieMapper {
         ArrayList<Video> videos = new ArrayList<>();
         for (RealmString stringDTO : movieDTO.getVideos()) {
             Video video = new Video();
+            video.setSite("YouTube");
             video.setKey(stringDTO.getValue());
             videos.add(video);
         }

@@ -39,16 +39,16 @@ public class VideoContainer implements Serializable {
     public ArrayList<String> getYouTubeURLs(){
         ArrayList<String> rtnList = new ArrayList<>();
         for(Video video : videos){
-            rtnList.add(video.getYoutubeVideoURL());
+            if (video.getSite().toLowerCase().contains("youtube")) rtnList.add(video.getYoutubeVideoURL());
         }
         return rtnList;
     }
 
     public ArrayList<String> getYouTubeThumbnailURLs(){
-        ArrayList<String> ThumbnailURLList = new ArrayList<>();
+        ArrayList<String> thumbnailURLList = new ArrayList<>();
         for(Video video : videos){
-            ThumbnailURLList.add(video.getYouTubeThumbnailURL());
+            if (video.getSite().toLowerCase().contains("youtube")) thumbnailURLList.add(video.getYouTubeThumbnailURL());
         }
-        return ThumbnailURLList;
+        return thumbnailURLList;
     }
 }
