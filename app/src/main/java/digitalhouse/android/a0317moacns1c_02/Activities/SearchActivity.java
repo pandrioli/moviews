@@ -70,9 +70,9 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
             onButtonSearchPressed(query);
         }
 
-        tabLayout.addTab(tabLayout.newTab().setText("Movies"));
-        tabLayout.addTab(tabLayout.newTab().setText("Series"));
-        tabLayout.addTab(tabLayout.newTab().setText("People"));
+        tabLayout.addTab(tabLayout.newTab().setText("MOVIES"));
+        tabLayout.addTab(tabLayout.newTab().setText("SERIES"));
+        tabLayout.addTab(tabLayout.newTab().setText("PEOPLE"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         setSupportActionBar(toolbar);
