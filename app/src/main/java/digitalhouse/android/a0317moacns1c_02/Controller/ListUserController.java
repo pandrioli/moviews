@@ -40,17 +40,17 @@ public class ListUserController {
 
     public ArrayList<ListItem> getFavorites() {
         ListDTO listDTO = listDAOLocal.obtainAppList(ListDTO.FAVORITES);
-        return ListItemMapper.map(listDTO.getList());
+        return DTOListItemMapper.map(listDTO.getList());
     }
 
     public ArrayList<ListItem> getBookmarks() {
         ListDTO listDTO = listDAOLocal.obtainAppList(ListDTO.BOOKMARKS);
-        return ListItemMapper.map(listDTO.getList());
+        return DTOListItemMapper.map(listDTO.getList());
     }
 
     public ArrayList<ListItem> getUserList(String id) {
         ListDTO listDTO = listDAOLocal.obtainUserList(id);
-        return ListItemMapper.map(listDTO.getList());
+        return DTOListItemMapper.map(listDTO.getList());
     }
 
 
