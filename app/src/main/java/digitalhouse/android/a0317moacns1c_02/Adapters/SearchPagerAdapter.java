@@ -25,9 +25,9 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter {
         fragments.add(new Fragment());
         fragments.add(new Fragment());
         titles = new ArrayList<>();
-        titles.add("Movies");
-        titles.add("Series");
-        titles.add("People");
+        titles.add("MOVIES");
+        titles.add("SERIES");
+        titles.add("PEOPLE");
     }
 
     @Override
