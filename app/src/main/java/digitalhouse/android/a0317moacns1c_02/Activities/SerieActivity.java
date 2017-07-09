@@ -154,7 +154,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
                 case 0:
                     return "DETAILS";
                 case 1:
-                    return "SEASONS & ESPISODES";
+                    return "SEASONS & EPISODES";
             }
             return null;
         }

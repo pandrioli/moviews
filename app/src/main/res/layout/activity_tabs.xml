@@ -50,7 +50,6 @@
     <digitalhouse.android.a0317moacns1c_02.CustomViews.BottomBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:id="@+id/bottomBarTabsActivity">
     </digitalhouse.android.a0317moacns1c_02.CustomViews.BottomBar>
 </LinearLayout>

@@ -27,7 +27,8 @@ import digitalhouse.android.a0317moacns1c_02.R;
 
 public class BottomBar extends FrameLayout {
     //Color de icono seleccionado
-    public static final Integer SELECTED_COLOR_FILTER = Color.WHITE;
+    public static final Integer NORMAL_COLOR = Color.rgb(60,70,90);
+    public static final Integer SELECTED_COLOR = Color.WHITE;
 
     private Context context;
     private LinearLayout container;
@@ -83,7 +84,9 @@ public class BottomBar extends FrameLayout {
 
         //setup listeners y seleccionar icono segun actividad donde esta la bottombar
         for (int i=0; i<Math.min(activities.size(),container.getChildCount()); i++) {
-            container.getChildAt(i).setOnClickListener(new IconClickListener());
+            ImageView icon = (ImageView)container.getChildAt(i);
+            icon.setOnClickListener(new IconClickListener());
+            icon.setColorFilter(NORMAL_COLOR);
             if (context.getClass().equals(activities.get(i))) setCurrentIcon(i);
         }
 
@@ -93,13 +96,15 @@ public class BottomBar extends FrameLayout {
     private void setCurrentIcon(Integer index) {
         currentIcon = index;
         ImageView icon = (ImageView)container.getChildAt(index);
-        icon.setColorFilter(SELECTED_COLOR_FILTER);
+        icon.setColorFilter(SELECTED_COLOR);
     }
 
     private void startActivity(Class c) {
         Intent intent = new Intent(context, c);
         context.startActivity(intent);
-        ((Activity)context).overridePendingTransition(0,0);
+        Activity currentActivity = (Activity)context;
+        currentActivity.overridePendingTransition(0,0);
+        currentActivity.finish();
     }
 
 
