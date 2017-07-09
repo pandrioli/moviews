@@ -1,62 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="digitalhouse.android.a0317moacns1c_02.Activities.WelcomeActivity">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background_welcome"
-        android:scaleType="centerCrop"
-        android:tint="#c14b4b4b"/>
-
-    <LinearLayout
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:text="@string/app_name"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="50sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-
-            android:text="@string/frase"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="28sp" />
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/textViewSkipLogin"
-            android:text="@string/skip_login"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-
-</FrameLayout>
+<?xml version="1.0" encoding="utf-8"?><FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:tools="http://schemas.android.com/tools"    android:layout_width="match_parent"    android:layout_height="match_parent"    tools:context="digitalhouse.android.a0317moacns1c_02.Activities.WelcomeActivity">    <android.support.v7.widget.RecyclerView        android:layout_width="match_parent"        android:layout_height="match_parent"        android:id="@+id/recyclerVIewWelcomeAct">    </android.support.v7.widget.RecyclerView>    <LinearLayout        android:gravity="center_horizontal"        android:layout_width="match_parent"        android:layout_height="match_parent"        android:orientation="vertical">        <ImageView            android:layout_width="300dp"            android:layout_height="175dp"            android:src="@drawable/logo_white"            />        <TextView            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:gravity="center"            android:text="@string/frase"            android:textColor="@color/light_text"            android:textSize="20sp"/>    </LinearLayout>    <LinearLayout        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:layout_gravity="bottom|center_horizontal"        android:gravity="center_horizontal"        android:orientation="vertical">        <com.facebook.login.widget.LoginButton            android:id="@+id/login_button"            android:layout_width="wrap_content"            android:padding="20dp"            android:layout_height="wrap_content"            android:layout_gravity="center_horizontal"            android:layout_margin="3dp"/>        <com.google.android.gms.common.SignInButton            android:id="@+id/sign_in_button"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:layout_margin="3dp"/>        <TextView            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:id="@+id/textViewSkipLogin"            android:text="@string/skip_login"            android:textColor="@color/light_text"            android:textSize="18sp"            android:layout_marginTop="3dp"            android:layout_marginBottom="20dp"/>    </LinearLayout></FrameLayout>
