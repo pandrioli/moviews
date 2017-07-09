@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Callbacks.SerieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.DAO.ListDAOLocal;
 import digitalhouse.android.a0317moacns1c_02.DAO.MovieDAOInternet;
 import digitalhouse.android.a0317moacns1c_02.DAO.SerieDAOInternet;
@@ -18,7 +20,6 @@ import digitalhouse.android.a0317moacns1c_02.Mappers.DTOListItemMapper;
 import digitalhouse.android.a0317moacns1c_02.Mappers.ListItemMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.ListDTO;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
-import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieResultsContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieResultsContainer;
 
@@ -126,7 +127,6 @@ public class ListTmdbController {
     }
 
 
-
     public void getSeriesAiringToday(ResultListener<ArrayList<ListItem>> resultListener) {
         if (offline(ListDTO.SERIES_AIRING_TODAY)) {
             resultListener.finish(getLocalList(ListDTO.SERIES_AIRING_TODAY));
@@ -137,6 +137,25 @@ public class ListTmdbController {
         }
     }
 
+    // Tops
+
+    public void getTopMovies(String yearFrom, String yearTo, List<Integer> genres, ResultListener<ArrayList<ListItem>> resultListener) {
+        Map<String, String> queryMap = getTopsQuery(genres, 400);
+        Date from = DateHelper.parse(yearFrom+"-01-01", DateHelper.FORMAT_API);
+        Date to = DateHelper.parse(yearTo+"-12-31", DateHelper.FORMAT_API);
+        queryMap.putAll(getMovieDateRangeQuery(from, to));
+        queryMap.put("with_runtime.gte", "60");
+        movieDAOInternet.discoverMovies(queryMap, new MovieResultsCallback(resultListener));
+    }
+    public void getTopSeries(String yearFrom, String yearTo, List<Integer> genres, ResultListener<ArrayList<ListItem>> resultListener) {
+        Map<String, String> queryMap = getTopsQuery(genres, 100);
+        Date from = DateHelper.parse(yearFrom+"-01-01", DateHelper.FORMAT_API);
+        Date to = DateHelper.parse(yearTo+"-12-31", DateHelper.FORMAT_API);
+        queryMap.putAll(getSerieDateRangeQuery(from, to));
+        serieDAOInternet.discoverSeries(queryMap, new SerieResultsCallback(resultListener));
+    }
+
+
 
 
     // private methods
@@ -145,6 +164,19 @@ public class ListTmdbController {
     private ArrayList<ListItem> getLocalList(String id) {
         ListDTO listDTO = listDAOLocal.obtainAppList(id);
         return DTOListItemMapper.map(listDTO.getList());
+    }
+
+    private Map<String, String> getTopsQuery(List<Integer> genres, Integer minVotes) {
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put("sort_by", "vote_average.desc");
+        queryMap.put("vote_count.gte", minVotes.toString());
+        //queryMap.put("vote_average.gte", "7.5");
+        String genresString = "";
+        for (Integer genreId : genres) {
+            genresString+=genreId.toString()+",";
+        }
+        if (!genresString.isEmpty()) queryMap.put("with_genres",genresString);
+        return queryMap;
     }
 
     private Map<String,String> getMovieDateRangeQuery(Date from, Date to) {

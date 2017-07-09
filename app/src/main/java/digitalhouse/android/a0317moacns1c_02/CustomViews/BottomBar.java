@@ -19,6 +19,7 @@ import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Activities.ItemTabsActivity;
 import digitalhouse.android.a0317moacns1c_02.Activities.SearchActivity;
+import digitalhouse.android.a0317moacns1c_02.Activities.TopsActivity;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -43,7 +44,7 @@ public class BottomBar extends FrameLayout {
         activities.add(ItemTabsActivity.class);
 
         //1 - Top 20
-        activities.add(null);
+        activities.add(TopsActivity.class);
 
         //2 - Search
         activities.add(SearchActivity.class);

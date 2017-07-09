@@ -23,6 +23,10 @@ public class TabItemListPagerAdapter extends FragmentStatePagerAdapter {
         this.titles = titles;
     }
 
+    public List<ItemListFragment> getFragmentList() {
+        return fragmentList;
+    }
+
     @Override
     public Fragment getItem(int position) {
         return fragmentList.get(position);
@@ -37,4 +41,9 @@ public class TabItemListPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return titles.get(position);
     }
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
 }

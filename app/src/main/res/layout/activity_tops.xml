@@ -1,0 +1,79 @@
+<LinearLayout
+    android:id="@+id/main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context=".Activities.ItemTabsActivity">
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:paddingRight="30dp"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/linearLayoutTopsQuery">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryLight"
+                android:text="from  "/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="25sp"
+                android:text="1950"
+                android:id="@+id/editTextTopsFrom"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryLight"
+                android:text="to  "/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="25sp"
+                android:text="2017"
+                android:id="@+id/editTextTopsTo"/>
+        </LinearLayout>
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayoutTopsQuery"
+            android:background="@color/colorPrimary"
+            style="@style/AppTabLayout"
+            android:elevation="4dp"
+            android:id="@+id/tabLayoutTops"
+            >
+            <android.support.design.widget.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="TOP MOVIES"/>
+            <android.support.design.widget.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="TOP SERIES"/>
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/viewPagerTops"
+            android:layout_below="@id/tabLayoutTops"/>
+    </RelativeLayout>
+    <digitalhouse.android.a0317moacns1c_02.CustomViews.BottomBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottomBarTabsActivity">
+    </digitalhouse.android.a0317moacns1c_02.CustomViews.BottomBar>
+</LinearLayout>
