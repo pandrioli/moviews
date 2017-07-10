@@ -8,6 +8,7 @@
         <item name="android:textColorSecondary">@color/light_text</item>
         <item name="android:divider">@color/divider</item>
         <item name="android:dialogTheme">@style/TitledDialog</item>
+        <item name="android:text">@color/light_text</item>
     </style>
 
     <style name="TitledDialog" parent="@style/Theme.AppCompat.Light.Dialog">

@@ -23,7 +23,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
+            <ImageView
+                android:id="@+id/imageViewSeasonPoster"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/backgroundseason" />
             <TextView
                 android:id="@+id/textViewSeasonName"
                 android:layout_width="match_parent"
@@ -57,12 +62,6 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/AppTheme" />
 
-            <ImageView
-                android:id="@+id/imageViewSeasonPoster"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/backgroundseason" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
