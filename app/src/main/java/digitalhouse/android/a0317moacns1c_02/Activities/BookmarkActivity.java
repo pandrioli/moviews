@@ -34,7 +34,7 @@ public class BookmarkActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private BookmarkMovieSeriesFragment bookmarkMovieFragment;
     private BookmarkMovieSeriesFragment bookmarkSerieFragment;
-    private BookmarkMovieSeriesFragment bookmarGeneralFragment;
+    private BookmarkMovieSeriesFragment bookmarkGeneralFragment;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -59,8 +59,10 @@ public class BookmarkActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        bookmarkMovieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getMoviesBookmarks());
-        bookmarkSerieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getSeriesBookmarks());
+        bookmarkMovieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getMoviesBookmarks(), false);
+        bookmarkSerieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getSeriesBookmarks(), false);
+        bookmarkGeneralFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getBookmarks(), true);
+
 
     }
 
@@ -135,13 +137,13 @@ public class BookmarkActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position){
-                case 0:
-                    return PlaceholderFragment.newInstance(position + 1);
                 case 1:
                     return bookmarkMovieFragment;
-                default:
                 case 2:
                     return bookmarkSerieFragment;
+                default:
+                case 0:
+                    return bookmarkGeneralFragment;
             }
 
         }
@@ -156,7 +158,7 @@ public class BookmarkActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "ALL";
+                    return "ALL BOOKMARKS";
                 case 1:
                     return "MOVIES";
                 case 2:
