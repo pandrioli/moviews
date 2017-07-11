@@ -24,5 +24,6 @@
 
     <string name="facebook_app_id">336882533400585</string>
     <string name="fb_login_protocol_scheme">fb336882533400585</string>
+    <string name="title_activity_bookmark">Bookmarks</string>
 
 </resources>
