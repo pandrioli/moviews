@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,9 +20,10 @@ import android.widget.TextView;
 
 import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.BookmarkMovieSeriesFragment;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
-public class BookmarkActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity implements BookmarkMovieSeriesFragment.OnListFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -87,6 +89,25 @@ public class BookmarkActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onListFragmentInteraction(ListItem item) {
+        if (item.getType().equals(ListItem.TYPE_MOVIE)) {
+            Intent intent = new Intent(this,MovieDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, item.getId());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+        if (item.getType().equals(ListItem.TYPE_SERIE)) {
+            Intent intent = new Intent(this, SerieActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(SerieActivity.SERIE_ID_KEY, item.getId().toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     /**

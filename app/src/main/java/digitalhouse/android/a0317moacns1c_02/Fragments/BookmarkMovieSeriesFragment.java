@@ -3,6 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -73,10 +74,15 @@ public class BookmarkMovieSeriesFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             if (isGeneral) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                        LinearLayoutManager.VERTICAL);
+                recyclerView.addItemDecoration(mDividerItemDecoration);
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new BookmarkRecyclerViewAdapter(mItemList, mListener, isGeneral));
+
+
         }
         return view;
     }
@@ -88,8 +94,8 @@ public class BookmarkMovieSeriesFragment extends Fragment {
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
-            //throw new RuntimeException(context.toString()
-            //        + " must implement OnListFragmentInteractionListener");
+            throw new RuntimeException(context.toString()
+                   + " must implement OnListFragmentInteractionListener");
         }
     }
 
