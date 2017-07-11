@@ -7,8 +7,12 @@ import java.io.Serializable;
  */
 
 public class Genre implements Serializable {
+    public static final String TYPE_MOVIES = "movies";
+    public static final String TYPE_SERIES = "series";
+
     private Integer id;
     private String name;
+    private String type;
 
     public Genre(){
 
@@ -34,4 +38,19 @@ public class Genre implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Genre genre = (Genre)obj;
+        return genre.getId().equals(id);
+    }
 }
+

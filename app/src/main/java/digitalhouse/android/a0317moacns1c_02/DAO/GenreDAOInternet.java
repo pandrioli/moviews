@@ -43,8 +43,18 @@ public class GenreDAOInternet {
             try {
                 Genres genresMovies = callMovies.execute().body();
                 Genres genresSeries = callSeries.execute().body();
-                genreList.addAll(genresMovies.getGenres());
-                genreList.addAll(genresSeries.getGenres());
+                if (genresMovies!=null && genresSeries!=null) {
+                    List<Genre> genreListMovies = genresMovies.getGenres();
+                    List<Genre> genreListSeries = genresSeries.getGenres();
+                    for (Genre genre : genreListMovies) {
+                        genre.setType(Genre.TYPE_MOVIES);
+                    }
+                    for (Genre genre : genreListSeries) {
+                        genre.setType(Genre.TYPE_SERIES);
+                    }
+                    genreList.addAll(genreListMovies);
+                    genreList.addAll(genreListSeries);
+                }
                 return genreList;
             } catch (IOException e) {
                 e.printStackTrace();

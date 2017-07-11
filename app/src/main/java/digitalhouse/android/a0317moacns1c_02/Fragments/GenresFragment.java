@@ -26,17 +26,16 @@ public class GenresFragment extends Fragment {
     public static final String MOVIES_MODE = "movies";
     public static final String SERIES_MODE = "series";
     public static final String MODE_KEY = "mode";
-    public static final String GENRES_LIST_KEY = "serieGenres";
-    private ArrayList<Genre> selectedGenres;
+    private List<Genre> selectedGenres;
     private List<Genre> genres;
     private View view;
     private LinearLayout layoutLabels;
     private LinearLayout layoutCheckboxes;
+    private String mode;
+    private GenreSelectionListener listenerActivity;
 
-
-    public static GenresFragment newInstance(ArrayList<Genre> genres, String mode) {
+    public static GenresFragment newInstance(String mode) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(GENRES_LIST_KEY, genres);
         bundle.putString(MODE_KEY, mode);
         GenresFragment genresFragment = new GenresFragment();
         genresFragment.setArguments(bundle);
@@ -47,57 +46,77 @@ public class GenresFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listenerActivity = (GenreSelectionListener)context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_genres, container, false);
-        selectedGenres = (ArrayList) getArguments().getSerializable(GENRES_LIST_KEY);
-        String mode = getArguments().getString(MODE_KEY);
-        setupGenreList(mode);
+        mode = getArguments().getString(MODE_KEY);
+        setupGenreList();
         setupViews();
         return view;
     }
 
-    private void setupGenreList(String mode) {
-        Integer start = 0;
-        Integer end = 0;
-        List<Genre> allGenres = GenreController.getInstance().getGenreList();
+    private void setupGenreList() {
+        selectedGenres = new ArrayList<>();
         if (mode.equals(MOVIES_MODE)) {
-            genres = GenreController.getInstance().getGenreList();
-            start=0;
-            end=18;
+            selectedGenres.addAll(GenreController.getInstance().getSelectedMovieGenres());
+            genres = GenreController.getInstance().getGenreListMovies();
         }
         if (mode.equals(SERIES_MODE)) {
-            start=19;
-            end=34;
-        }
-        genres = new ArrayList<>();
-        for (int i=start; i<end; i++) {
-            genres.add(allGenres.get(i));
+            selectedGenres.addAll(GenreController.getInstance().getSelectedSerieGenres());
+            genres = GenreController.getInstance().getGenreListSeries();
         }
     }
 
     private void setupViews() {
         layoutLabels = (LinearLayout)view.findViewById(R.id.linearLayoutGenresLabels);
         layoutCheckboxes = (LinearLayout)view.findViewById(R.id.linearLayoutGenresCheckboxes);
+        layoutLabels.removeAllViews();
+        layoutCheckboxes.removeAllViews();
         for (Genre genre : genres) {
             TextView genreLabel = new Label(getContext());
             genreLabel.setOnClickListener(new GenreClickListener());
             genreLabel.setText(genre.getName());
             layoutLabels.addView(genreLabel);
             CheckBox genreCheckBox = new GenreCheckBox(getContext());
+            genreCheckBox.setOnClickListener(new GenreClickListener());
             layoutCheckboxes.addView(genreCheckBox);
+            if (selectedGenres.contains(genre)) genreCheckBox.setChecked(true);
         }
-        Button search = (Button)view.findViewById(R.id.buttonGenresSelection);
+
+        //listeners buttons
+
+        Button search = (Button)view.findViewById(R.id.buttonGenresSearch);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((GenreSelectionListener)getActivity()).onGenresSelected(selectedGenres);
+                finish();
+            }
+        });
+
+        Button clear = (Button)view.findViewById(R.id.buttonGenresAll);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedGenres = new ArrayList<>();
+                listenerActivity.onSelectionUpdated(selectedGenres);
+                setupViews();
             }
         });
     }
+
+    private void finish() {
+        listenerActivity.onFinishSelection(selectedGenres);
+        //getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
+
 
     private int getPixels(int dps) {
         final float scale = getContext().getResources().getDisplayMetrics().density;
@@ -105,35 +124,25 @@ public class GenresFragment extends Fragment {
         return pixels;
     }
 
-    private void addGenre(View v) {
-        Integer genreIndex = layoutLabels.indexOfChild(v);
-        v.setTag("selected");
-        CheckBox checkBox = (CheckBox)layoutCheckboxes.getChildAt(genreIndex);
-        checkBox.setChecked(true);
-        selectedGenres.add(genres.get(genreIndex));
-    }
-
-    private void removeGenre(View v) {
-        Integer genreIndex = layoutLabels.indexOfChild(v);
-        v.setTag(null);
-        CheckBox checkBox = (CheckBox)layoutCheckboxes.getChildAt(genreIndex);
-        checkBox.setChecked(false);
-        selectedGenres.remove(genres.get(genreIndex));
-    }
-
     private class GenreClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
-            if (v.getTag()==null) {
-                addGenre(v);
+            Integer genreIndex = ((LinearLayout)v.getParent()).indexOfChild(v);
+            CheckBox checkBox = (CheckBox)layoutCheckboxes.getChildAt(genreIndex);
+            if (v instanceof CheckBox) checkBox.setChecked(!checkBox.isChecked());
+            if (checkBox.isChecked()) {
+                checkBox.setChecked(false);
+                selectedGenres.remove(genres.get(genreIndex));
             } else {
-                removeGenre(v);
+                checkBox.setChecked(true);
+                selectedGenres.add(genres.get(genreIndex));
             }
+            listenerActivity.onSelectionUpdated(selectedGenres);
         }
     }
 
-    private class Label extends TextView {
+    private class Label extends android.support.v7.widget.AppCompatTextView {
         public Label(Context context) {
             super(context);
             setTextSize(20);
@@ -142,16 +151,18 @@ public class GenresFragment extends Fragment {
         }
     }
 
-    private class GenreCheckBox extends CheckBox {
+    private class GenreCheckBox extends android.support.v7.widget.AppCompatCheckBox {
         public GenreCheckBox(Context context) {
             super(context);
             setText("");
             setHeight(getPixels(30));
+            //setClickable(false);
         }
     }
 
     public interface GenreSelectionListener {
-        void onGenresSelected(List<Genre> selectedGenres);
+        void onFinishSelection(List<Genre> selectedGenres);
+        void onSelectionUpdated(List<Genre> selectedGenres);
     }
 
 }

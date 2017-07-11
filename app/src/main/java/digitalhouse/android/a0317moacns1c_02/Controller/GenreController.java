@@ -19,6 +19,10 @@ import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 public class GenreController {
     private static GenreController instance;
     private List<Genre> genreList;
+    private List<Genre> genreListMovies;
+    private List<Genre> genreListSeries;
+    private List<Genre> selectedMovieGenres;
+    private List<Genre> selectedSerieGenres;
     private GenreDAOInternet genreDAOInternet;
     private GenreDAOLocal genreDAOLocal;
 
@@ -29,6 +33,10 @@ public class GenreController {
 
     private GenreController() {
         genreList = new ArrayList<>();
+        genreListMovies = new ArrayList<>();
+        genreListSeries = new ArrayList<>();
+        selectedMovieGenres = new ArrayList<>();
+        selectedSerieGenres = new ArrayList<>();
         genreDAOInternet = new GenreDAOInternet();
         genreDAOLocal = new GenreDAOLocal();
     }
@@ -39,18 +47,53 @@ public class GenreController {
                 @Override
                 public void finish(List<Genre> result) {
                     genreList = result;
+                    separateGenres();
                     genreDAOLocal.saveGenres(genreList);
                     resultListener.finish(true);
                 }
             });
         } else {
             genreList = genreDAOLocal.obtainGenres();
+            separateGenres();
             resultListener.finish(genreList!=null);
+        }
+    }
+
+    public void separateGenres() {
+        genreListMovies = new ArrayList<>();
+        genreListSeries = new ArrayList<>();
+        for (Genre genre : genreList) {
+            if (genre.getType().equals(Genre.TYPE_MOVIES)) genreListMovies.add(genre);
+            if (genre.getType().equals(Genre.TYPE_SERIES)) genreListSeries.add(genre);
         }
     }
 
     public List<Genre> getGenreList() {
         return genreList;
+    }
+
+    public List<Genre> getGenreListMovies() {
+        return genreListMovies;
+    }
+
+    public List<Genre> getGenreListSeries() {
+        return genreListSeries;
+    }
+
+    public List<Genre> getSelectedMovieGenres() {
+        return selectedMovieGenres;
+    }
+
+    public void setSelectedMovieGenres(List<Genre> selectedMovieGenres) {
+        this.selectedMovieGenres = selectedMovieGenres;
+    }
+
+    public List<Genre> getSelectedSerieGenres() {
+        return selectedSerieGenres;
+    }
+
+    public void setSelectedSerieGenres(List<Genre> selectedSerieGenres) {
+        this.selectedSerieGenres = selectedSerieGenres;
     }
 
     public String getGenreNameById(Integer id) {

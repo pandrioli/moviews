@@ -18,6 +18,7 @@ public class DTOGeneralMapper {
         Genre genre = new Genre();
         genre.setId(genreDTO.getId());
         genre.setName(genreDTO.getName());
+        genre.setType(genreDTO.getType());
         return genre;
     }
     public static Cast map(CastDTO castDTO) {
@@ -44,6 +45,7 @@ public class DTOGeneralMapper {
         GenreDTO genreDTO = new GenreDTO();
         genreDTO.setId(genre.getId());
         genreDTO.setName(genre.getName());
+        genreDTO.setType(genre.getType());
         return genreDTO;
     }
     public static CastDTO map(Cast cast) {
