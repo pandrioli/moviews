@@ -49,6 +49,10 @@ public class GenreController {
         }
     }
 
+    public List<Genre> getGenreList() {
+        return genreList;
+    }
+
     public String getGenreNameById(Integer id) {
         for (Genre genre : genreList) {
             if (genre.getId().equals(id)) return genre.getName();
