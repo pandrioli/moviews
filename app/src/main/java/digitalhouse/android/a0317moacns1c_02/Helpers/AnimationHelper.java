@@ -2,6 +2,7 @@ package digitalhouse.android.a0317moacns1c_02.Helpers;
 
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -38,14 +39,15 @@ public class AnimationHelper {
                 Animation.RELATIVE_TO_SELF, xPivot,
                 Animation.RELATIVE_TO_SELF , yPivot);
         scaleAnim.setDuration(duration);
-        scaleAnim.setRepeatCount(0);
-        scaleAnim.setInterpolator(new DecelerateInterpolator());
+        if (show) scaleAnim.setInterpolator(new DecelerateInterpolator());
+        else scaleAnim.setInterpolator(new AccelerateInterpolator());
         AlphaAnimation alphaAnimation = new AlphaAnimation(startAlpha,endAlpha);
         alphaAnimation.setDuration(duration);
         AnimationSet animation = new AnimationSet(true);
         animation.addAnimation(alphaAnimation);
         animation.addAnimation(scaleAnim);
         animation.setFillAfter(true);
+        animation.setRepeatCount(0);
         view.startAnimation(animation);
     }
 }

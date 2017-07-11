@@ -193,7 +193,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
     }
 
     private void unloadGenreSelectionFragment() {
-        AnimationHelper.zoomAndFade(frameLayoutGenreSelection,false,0f,1f,1f,300);
+        AnimationHelper.zoomAndFade(frameLayoutGenreSelection,false,.3f,1f,0f,300);
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
