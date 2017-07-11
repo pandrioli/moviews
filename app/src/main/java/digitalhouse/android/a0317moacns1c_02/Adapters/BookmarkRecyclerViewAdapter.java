@@ -32,14 +32,8 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
-        if(this.isGeneral){
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.cell_bookmark_general, parent, false);
-        } else {
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.cell_bookmark_movie_series, parent, false);
-        }
+        Integer layout = isGeneral ? R.layout.cell_bookmark_general : R.layout.cell_bookmark_movie_series;
+        View  view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
 
         return new ViewHolder(view);
     }
@@ -49,18 +43,14 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
         holder.mItem = mValues.get(position);
         String imageUrl = ImageHelper.getImagePathFromFullURL(holder.mItem.getImageURL());
         Picasso.with(holder.mView.getContext()).load(ImageHelper.getPosterURL(imageUrl, 3)).fit().centerInside().into(holder.poster);
-        if(!isGeneral){
-            holder.title.setText(holder.mItem.getTitle());
-        }
         holder.year.setText(holder.mItem.getYear());
         holder.dateBookmarked.setText("15/06/2016");
+        if(!isGeneral) holder.title.setText(holder.mItem.getTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
@@ -88,11 +78,7 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
             title = (TextView) view.findViewById(R.id.titleBookmarkMovie);
             options = (ImageView) view.findViewById(R.id.moreOptionsBookmark);
             dateBookmarked = (TextView) view.findViewById(R.id.dateBoorkmarkMovie);
-            if(!isGeneral){
-                year = (TextView) view.findViewById(R.id.yearBookmarkMovie);
-            } else {
-                year = null;
-            }
+            year = isGeneral ? null : (TextView) view.findViewById(R.id.yearBookmarkMovie);
         }
 
         @Override

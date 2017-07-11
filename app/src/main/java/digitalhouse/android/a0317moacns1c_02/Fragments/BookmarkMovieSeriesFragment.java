@@ -40,19 +40,12 @@ public class BookmarkMovieSeriesFragment extends Fragment {
     }
 
     // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static BookmarkMovieSeriesFragment newInstance(ArrayList<ListItem> itemList) {
         BookmarkMovieSeriesFragment fragment = new BookmarkMovieSeriesFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_ITEM_LIST, itemList);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    private Integer obtainColumnCount(Integer listSize){
-        double preColumnCount = listSize < 2 ? 1 : listSize / 2;
-        Long columnCount = Math.round(preColumnCount);
-        return columnCount.intValue() > 1 ? columnCount.intValue() : 2;
     }
 
     @Override
