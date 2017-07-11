@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:padding="10dp"
-        android:src="@drawable/bottombar_button_provisorio">
+        android:src="@drawable/bookmark_black_xhdpi">
     </ImageView>
     <ImageView
         android:layout_weight="1"

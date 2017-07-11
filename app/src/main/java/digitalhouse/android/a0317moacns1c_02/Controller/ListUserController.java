@@ -48,6 +48,26 @@ public class ListUserController {
         return DTOListItemMapper.map(listDTO.getList());
     }
 
+    public ArrayList<ListItem> getSeriesBookmarks() {
+        ListDTO listDTO = listDAOLocal.obtainAppList(ListDTO.BOOKMARKS);
+        ArrayList<ListItem> list = new ArrayList<>();
+        for(ListItemDTO item : listDTO.getList()){
+            if(item.getType().equals(ListItem.TYPE_SERIE))
+                list.add(DTOListItemMapper.map(item));
+        }
+        return list;
+    }
+
+    public ArrayList<ListItem> getMoviesBookmarks() {
+        ListDTO listDTO = listDAOLocal.obtainAppList(ListDTO.BOOKMARKS);
+        ArrayList<ListItem> list = new ArrayList<>();
+        for(ListItemDTO item : listDTO.getList()){
+            if(item.getType().equals(ListItem.TYPE_MOVIE))
+                list.add(DTOListItemMapper.map(item));
+        }
+        return list;
+    }
+
     public ArrayList<ListItem> getUserList(String id) {
         ListDTO listDTO = listDAOLocal.obtainUserList(id);
         return DTOListItemMapper.map(listDTO.getList());

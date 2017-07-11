@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import digitalhouse.android.a0317moacns1c_02.Activities.BookmarkActivity;
 import digitalhouse.android.a0317moacns1c_02.Activities.ItemTabsActivity;
 import digitalhouse.android.a0317moacns1c_02.Activities.SearchActivity;
 import digitalhouse.android.a0317moacns1c_02.Activities.TopsActivity;
@@ -50,7 +51,7 @@ public class BottomBar extends FrameLayout {
         activities.add(SearchActivity.class);
 
         //3 - Hall of fame
-        activities.add(null);
+        activities.add(BookmarkActivity.class);
 
         //4 - Profile
         activities.add(null);
