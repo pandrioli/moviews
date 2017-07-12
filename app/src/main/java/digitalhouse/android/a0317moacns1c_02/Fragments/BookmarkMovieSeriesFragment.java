@@ -3,6 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,8 +28,10 @@ public class BookmarkMovieSeriesFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_ITEM_LIST = "item-list";
+    private static final String ARG_IS_GENERAL = "is-general";
     // TODO: Customize parameters
     private int mColumnCount = 2;
+    private Boolean isGeneral;
     private List<ListItem> mItemList;
     private OnListFragmentInteractionListener mListener;
 
@@ -40,10 +43,11 @@ public class BookmarkMovieSeriesFragment extends Fragment {
     }
 
     // TODO: Customize parameter initialization
-    public static BookmarkMovieSeriesFragment newInstance(ArrayList<ListItem> itemList) {
+    public static BookmarkMovieSeriesFragment newInstance(ArrayList<ListItem> itemList, Boolean isGeneral) {
         BookmarkMovieSeriesFragment fragment = new BookmarkMovieSeriesFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_ITEM_LIST, itemList);
+        args.putBoolean(ARG_IS_GENERAL, isGeneral);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,6 +58,7 @@ public class BookmarkMovieSeriesFragment extends Fragment {
 
         if (getArguments() != null) {
             mItemList = (List<ListItem>) getArguments().getSerializable(ARG_ITEM_LIST);
+            isGeneral = getArguments().getBoolean(ARG_IS_GENERAL);
             //mColumnCount = obtainColumnCount(mItemList.size());
         }
     }
@@ -67,12 +72,17 @@ public class BookmarkMovieSeriesFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+            if (isGeneral) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                        LinearLayoutManager.VERTICAL);
+                recyclerView.addItemDecoration(mDividerItemDecoration);
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookmarkRecyclerViewAdapter(mItemList, mListener, false));
+            recyclerView.setAdapter(new BookmarkRecyclerViewAdapter(mItemList, mListener, isGeneral));
+
+
         }
         return view;
     }
@@ -84,8 +94,8 @@ public class BookmarkMovieSeriesFragment extends Fragment {
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
-            //throw new RuntimeException(context.toString()
-            //        + " must implement OnListFragmentInteractionListener");
+            throw new RuntimeException(context.toString()
+                   + " must implement OnListFragmentInteractionListener");
         }
     }
 

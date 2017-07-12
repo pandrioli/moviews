@@ -9,5 +9,4 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.BookmarkMovieSeriesFragment"
-    tools:listitem="@layout/cell_bookmark_movie_series" />
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.BookmarkMovieSeriesFragment" />

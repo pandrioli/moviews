@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,9 +20,10 @@ import android.widget.TextView;
 
 import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.BookmarkMovieSeriesFragment;
+import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
-public class BookmarkActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity implements BookmarkMovieSeriesFragment.OnListFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -34,7 +36,7 @@ public class BookmarkActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private BookmarkMovieSeriesFragment bookmarkMovieFragment;
     private BookmarkMovieSeriesFragment bookmarkSerieFragment;
-    private BookmarkMovieSeriesFragment bookmarGeneralFragment;
+    private BookmarkMovieSeriesFragment bookmarkGeneralFragment;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -59,8 +61,10 @@ public class BookmarkActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        bookmarkMovieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getMoviesBookmarks());
-        bookmarkSerieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getSeriesBookmarks());
+        bookmarkMovieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getMoviesBookmarks(), false);
+        bookmarkSerieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getSeriesBookmarks(), false);
+        bookmarkGeneralFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getBookmarks(), true);
+
 
     }
 
@@ -85,6 +89,25 @@ public class BookmarkActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onListFragmentInteraction(ListItem item) {
+        if (item.getType().equals(ListItem.TYPE_MOVIE)) {
+            Intent intent = new Intent(this,MovieDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, item.getId());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+        if (item.getType().equals(ListItem.TYPE_SERIE)) {
+            Intent intent = new Intent(this, SerieActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(SerieActivity.SERIE_ID_KEY, item.getId().toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     /**
@@ -135,13 +158,13 @@ public class BookmarkActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position){
-                case 0:
-                    return PlaceholderFragment.newInstance(position + 1);
                 case 1:
                     return bookmarkMovieFragment;
-                default:
                 case 2:
                     return bookmarkSerieFragment;
+                default:
+                case 0:
+                    return bookmarkGeneralFragment;
             }
 
         }
@@ -156,7 +179,7 @@ public class BookmarkActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "ALL";
+                    return "ALL BOOKMARKS";
                 case 1:
                     return "MOVIES";
                 case 2:

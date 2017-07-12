@@ -16,6 +16,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/tabLayoutModes"
             android:background="@color/colorPrimary"
+
+            android:paddingTop="@dimen/appbar_padding_top"
             style="@style/AppTabLayout"
             android:elevation="4dp"
             >
