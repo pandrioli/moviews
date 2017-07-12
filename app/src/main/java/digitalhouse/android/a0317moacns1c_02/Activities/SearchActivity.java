@@ -161,6 +161,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         SearchController.getInstance().searchMovies(movieSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> movieList) {
+                if (SearchActivity.this.isDestroyed()) return;
                 adapter.getFragments().set(0, ItemListFragment.newInstance(movieList));
                 adapter.notifyDataSetChanged();
             }
@@ -170,6 +171,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         SearchController.getInstance().searchSeries(serieSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> serieList) {
+                if (SearchActivity.this.isDestroyed()) return;
                 adapter.getFragments().set(1, ItemListFragment.newInstance(serieList));
                 adapter.notifyDataSetChanged();
             }
@@ -179,6 +181,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         SearchController.getInstance().searchPeople(personSearchRequest, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> personList) {
+                if (SearchActivity.this.isDestroyed()) return;
                 adapter.getFragments().set(2, ItemListFragment.newInstance(personList));
                 adapter.notifyDataSetChanged();
             }
