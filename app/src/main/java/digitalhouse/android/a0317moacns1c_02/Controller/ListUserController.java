@@ -119,6 +119,10 @@ public class ListUserController {
         listDAOLocal.removeItemFromList(ListDTO.BOOKMARKS, itemId, ListItem.TYPE_MOVIE);
     }
 
+    public void removeFromBookmarks(ListItem item){
+        listDAOLocal.removeItemFromList(ListDTO.BOOKMARKS, item.getId(), item.getType());
+    }
+
     public void removeMovieFromUserList(String listId, Integer itemId) {
         listDAOLocal.removeItemFromList(listId, itemId, ListItem.TYPE_MOVIE);
     }

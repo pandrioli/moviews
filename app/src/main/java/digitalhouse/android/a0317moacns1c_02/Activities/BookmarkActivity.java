@@ -73,7 +73,7 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
 
             @Override
             public void unsave() {
-                ListUserController.getInstance().removeMovieFromBookmarks(actualItem.getId());
+                ListUserController.getInstance().removeFromBookmarks(actualItem);
                 bottomSheetBookmark.dismiss();
                 refresh();
             }
