@@ -139,6 +139,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
         ListTmdbController.getInstance(this).getTopMovies(from, to, movieGenresSelected, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> result) {
+                if (TopsActivity.this.isDestroyed()) return;
                 movieResults = result;
                 sortResults(movieResults);
                 adapter.getFragmentList().set(0, ItemListFragment.newInstance(result));
@@ -148,6 +149,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
         ListTmdbController.getInstance(this).getTopSeries(from, to, serieGenresSelected, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> result) {
+                if (TopsActivity.this.isDestroyed()) return;
                 serieResults = result;
                 sortResults(serieResults);
                 adapter.getFragmentList().set(1, ItemListFragment.newInstance(result));
