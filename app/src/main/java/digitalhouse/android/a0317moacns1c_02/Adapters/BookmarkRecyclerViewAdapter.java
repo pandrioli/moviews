@@ -42,12 +42,14 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         String imageUrl = ImageHelper.getImagePathFromFullURL(holder.mItem.getImageURL());
-        Picasso.with(holder.mView.getContext()).load(ImageHelper.getPosterURL(imageUrl, 3)).fit().centerInside().into(holder.poster);
         holder.dateBookmarked.setText("15/06/2016");
         holder.title.setText(holder.mItem.getTitle());
+        int imageQuality = 1;
         if(!isGeneral) {
             holder.year.setText(holder.mItem.getYear());
+            imageQuality = 3;
         }
+        Picasso.with(holder.mView.getContext()).load(ImageHelper.getPosterURL(imageUrl, imageQuality)).fit().centerInside().into(holder.poster);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
