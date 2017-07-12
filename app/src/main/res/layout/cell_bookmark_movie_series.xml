@@ -33,6 +33,7 @@
             android:layout_marginTop="5dp"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:tag="more-options-bookmark"
             android:src="@drawable/more_black_xhdpi"
             android:id="@+id/moreOptionsBookmark"
             android:layout_below="@+id/imageBookmarkMovie"

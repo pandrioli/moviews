@@ -117,6 +117,6 @@ public class BookmarkMovieSeriesFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(ListItem item);
+        void onListFragmentInteraction(View view, ListItem item);
     }
 }

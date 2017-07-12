@@ -53,7 +53,7 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.mView ,holder.mItem);
                 }
             }
         });
@@ -79,6 +79,12 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
             poster = (ImageView) view.findViewById(R.id.imageBookmarkMovie);
             title = (TextView) view.findViewById(R.id.titleBookmarkMovie);
             options = (ImageView) view.findViewById(R.id.moreOptionsBookmark);
+            options.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onListFragmentInteraction(v, mItem);
+                }
+            });
             dateBookmarked = (TextView) view.findViewById(R.id.dateBoorkmarkMovie);
             year = isGeneral ? null : (TextView) view.findViewById(R.id.yearBookmarkMovie);
         }

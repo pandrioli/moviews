@@ -1,7 +1,10 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -16,56 +19,106 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
+import digitalhouse.android.a0317moacns1c_02.CustomViews.BottomSheetBookmark;
 import digitalhouse.android.a0317moacns1c_02.Fragments.BookmarkMovieSeriesFragment;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
+import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 public class BookmarkActivity extends AppCompatActivity implements BookmarkMovieSeriesFragment.OnListFragmentInteractionListener {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    public static final String moreOptionsTag = "more-options-bookmark";
+    private String actualTab = "0";
+    @BindView(R.id.container) protected ViewPager mViewPager;
+    @BindView(R.id.tabs) protected TabLayout tabLayout;
+    private BottomSheetBookmark bottomSheetBookmark;
     private BookmarkMovieSeriesFragment bookmarkMovieFragment;
     private BookmarkMovieSeriesFragment bookmarkSerieFragment;
     private BookmarkMovieSeriesFragment bookmarkGeneralFragment;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+    private ListItem actualItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        ButterKnife.bind(this);
+    }
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        setUpViewPager();
+        startFragments();
+
+        if(getIntent().getAction() != null){
+            int position = Integer.parseInt(getIntent().getAction());
+            mViewPager.setCurrentItem(position);
+        }
+
+
+
+        bottomSheetBookmark = BottomSheetBookmark.getInstance(new BottomSheetBookmark.OnBottomSheetBookmarkListener() {
+            @Override
+            public void share() {
+                //TODO: implementar share
+            }
+
+            @Override
+            public void unsave() {
+                ListUserController.getInstance().removeMovieFromBookmarks(actualItem.getId());
+                bottomSheetBookmark.dismiss();
+                refresh();
+            }
+
+            @Override
+            public void markAsUnseen() {
+                //TODO: implementar mark as unseen
+            }
+        });
+    }
+
+    public void setUpViewPager(){
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+            @Override
+            public void onPageSelected(int position) {
+                actualTab = String.valueOf(position);
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    public void startFragments(){
         bookmarkMovieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getMoviesBookmarks(), false);
         bookmarkSerieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getSeriesBookmarks(), false);
         bookmarkGeneralFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getBookmarks(), true);
+    }
 
-
+    public void refresh() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.setAction(actualTab);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 
 
@@ -92,23 +145,32 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
     }
 
     @Override
-    public void onListFragmentInteraction(ListItem item) {
-        if (item.getType().equals(ListItem.TYPE_MOVIE)) {
-            Intent intent = new Intent(this,MovieDetailsActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, item.getId());
-            intent.putExtras(bundle);
-            startActivity(intent);
+    public void onListFragmentInteraction(View view, ListItem item) {
+        actualItem = item;
+        if(moreOptionsTag.equals(view.getTag())){
+            bottomSheetBookmark.show(getSupportFragmentManager(), "Custom Bottom Sheet");
+        } else {
+            startActivityDetails(item);
         }
 
-        if (item.getType().equals(ListItem.TYPE_SERIE)) {
-            Intent intent = new Intent(this, SerieActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(SerieActivity.SERIE_ID_KEY, item.getId().toString());
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
     }
+
+    private void startActivityDetails(ListItem item){
+        Class startingClass = null;
+        Bundle bundle = new Bundle();
+        if (item.getType().equals(ListItem.TYPE_MOVIE)) {
+            startingClass = MovieDetailsActivity.class;
+            bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, item.getId());
+        } else if (item.getType().equals(ListItem.TYPE_SERIE)) {
+            startingClass = SerieActivity.class;
+            bundle.putString(SerieActivity.SERIE_ID_KEY, item.getId().toString());
+        }
+        Intent intent = new Intent(this, startingClass);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+
 
     /**
      * A placeholder fragment containing a simple view.

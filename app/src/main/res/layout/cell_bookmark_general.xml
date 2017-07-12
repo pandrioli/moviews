@@ -34,6 +34,7 @@
             android:layout_height="25dp"
             android:src="@drawable/more_black_hor_xhdpi"
             android:id="@+id/moreOptionsBookmark"
+            android:tag="more-options-bookmark"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             />
