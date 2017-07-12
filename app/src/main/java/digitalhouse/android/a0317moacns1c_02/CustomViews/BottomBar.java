@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +31,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
 
 public class BottomBar extends FrameLayout {
     //Color de icono seleccionado
-    public static final Integer NORMAL_COLOR = Color.rgb(60,70,90);
+    public static Integer NORMAL_COLOR;
     public static final Integer SELECTED_COLOR = Color.WHITE;
 
     private Context context;
@@ -84,11 +86,13 @@ public class BottomBar extends FrameLayout {
         container = (LinearLayout)view;
         this.addView(container);
 
+        NORMAL_COLOR = ContextCompat.getColor(view.getContext(), R.color.colorPrimaryLight);
+
         //setup listeners y seleccionar icono segun actividad donde esta la bottombar
         for (int i=0; i<Math.min(activities.size(),container.getChildCount()); i++) {
             ImageView icon = (ImageView)container.getChildAt(i);
             icon.setOnClickListener(new IconClickListener());
-            icon.setColorFilter(NORMAL_COLOR);
+            icon.setColorFilter(NORMAL_COLOR, PorterDuff.Mode.SRC_IN);
             if (context.getClass().equals(activities.get(i))) setCurrentIcon(i);
         }
 
