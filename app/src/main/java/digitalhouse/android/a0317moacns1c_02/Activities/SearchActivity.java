@@ -13,7 +13,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,9 +46,9 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
     private Handler handler;
 
     @BindView(R.id.toolbar_editText) protected EditText searchEditText;
-    @BindView(R.id.search_act_toolbar) protected Toolbar toolbar;
     @BindView(R.id.tab_layout) protected TabLayout tabLayout;
     @BindView(R.id.view_pager) protected ViewPager viewPager;
+    @BindView(R.id.clear_text) protected TextView clearText;
 
 
     @Override
@@ -55,6 +57,8 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         setContentView(R.layout.activity_search);
 
         ButterKnife.bind(this);
+
+        clearText.setVisibility(View.GONE);
 
         Intent intent = getIntent();
         currentTab = 0;
@@ -75,8 +79,6 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         tabLayout.addTab(tabLayout.newTab().setText("PEOPLE"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        setSupportActionBar(toolbar);
-
         loadViewPager();
 
         setupAutoSearch();
@@ -93,6 +95,8 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 currentTab = viewPager.getCurrentItem();
+
+                /*
                 switch (currentTab){
                     case 1:
                         searchEditText.setHint("Search series...");
@@ -105,6 +109,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
                         searchEditText.setHint("Search movies...");
                         break;
                 }
+                 */
             }
 
             @Override
@@ -123,6 +128,16 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
     }
 
     private void setupAutoSearch() {
+        //listener del clearText
+
+        clearText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchEditText.setText("");
+            }
+        });
+
+
         //handler que ejecuta la busqueda
         handler = new Handler() {
             @Override
@@ -143,6 +158,8 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (s.toString().length()>0) clearText.setVisibility(View.VISIBLE);
+                else clearText.setVisibility(View.GONE);
                 if (s.toString().length()>3) {
                     //borra cualquier peticion anterior
                     handler.removeMessages(0);

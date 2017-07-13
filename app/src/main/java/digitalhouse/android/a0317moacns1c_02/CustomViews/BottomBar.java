@@ -31,7 +31,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
 
 public class BottomBar extends FrameLayout {
     //Color de icono seleccionado
-    public static Integer NORMAL_COLOR;
+    public static Integer NORMAL_COLOR = Color.argb(100,255,255,255);
     public static final Integer SELECTED_COLOR = Color.WHITE;
 
     private Context context;
@@ -85,8 +85,6 @@ public class BottomBar extends FrameLayout {
         View view = LayoutInflater.from(context).inflate(R.layout.bottom_bar, this, false);
         container = (LinearLayout)view;
         this.addView(container);
-
-        NORMAL_COLOR = ContextCompat.getColor(view.getContext(), R.color.colorPrimaryLight);
 
         //setup listeners y seleccionar icono segun actividad donde esta la bottombar
         for (int i=0; i<Math.min(activities.size(),container.getChildCount()); i++) {
