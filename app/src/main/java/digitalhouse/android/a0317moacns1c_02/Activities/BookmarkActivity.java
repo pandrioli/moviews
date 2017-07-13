@@ -1,6 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.TabLayout;
@@ -22,21 +23,26 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+
+import java.io.Serializable;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
+import digitalhouse.android.a0317moacns1c_02.Controller.ShareController;
 import digitalhouse.android.a0317moacns1c_02.CustomViews.BottomSheetBookmark;
 import digitalhouse.android.a0317moacns1c_02.Fragments.BookmarkMovieSeriesFragment;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
 
-public class BookmarkActivity extends AppCompatActivity implements BookmarkMovieSeriesFragment.OnListFragmentInteractionListener {
+public class BookmarkActivity extends AppCompatActivity implements BookmarkMovieSeriesFragment.OnListFragmentInteractionListener, Serializable {
 
     public static final String moreOptionsTag = "more-options-bookmark";
     private String actualTab = "0";
-    @BindView(R.id.container) protected ViewPager mViewPager;
-    @BindView(R.id.tabs) protected TabLayout tabLayout;
     private BottomSheetBookmark bottomSheetBookmark;
     private BookmarkMovieSeriesFragment bookmarkMovieFragment;
     private BookmarkMovieSeriesFragment bookmarkSerieFragment;
@@ -58,17 +64,10 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
         setUpViewPager();
         startFragments();
 
-        if(getIntent().getAction() != null){
-            int position = Integer.parseInt(getIntent().getAction());
-            mViewPager.setCurrentItem(position);
-        }
-
-
-
         bottomSheetBookmark = BottomSheetBookmark.getInstance(new BottomSheetBookmark.OnBottomSheetBookmarkListener() {
             @Override
             public void share() {
-                //TODO: implementar share
+                startShareFragment();
             }
 
             @Override
@@ -85,7 +84,14 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     public void setUpViewPager(){
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
@@ -103,7 +109,18 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
 
             }
         });
+        if(getIntent().getAction() != null){
+            int position = Integer.parseInt(getIntent().getAction());
+            mViewPager.setCurrentItem(position);
+        }
     }
+
+    private void startShareFragment() {
+        Intent sendIntent = ShareController.getInstance().obtainShareIntent(actualItem);
+        startActivity(sendIntent);
+        bottomSheetBookmark.dismiss();
+    }
+
 
     public void startFragments(){
         bookmarkMovieFragment = BookmarkMovieSeriesFragment.newInstance(ListUserController.getInstance().getMoviesBookmarks(), false);
