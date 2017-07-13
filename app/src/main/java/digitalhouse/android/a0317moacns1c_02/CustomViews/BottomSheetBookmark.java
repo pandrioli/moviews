@@ -8,16 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.Serializable;
-import java.util.List;
-
-import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
  * Created by Gregorio Martin on 11/7/2017.
  */
 
-public class BottomSheetBookmark extends BottomSheetDialogFragment {
+public class BottomSheetBookmark extends BottomSheetDialogFragment implements Serializable {
 
     private static final String ARG_LISTENER = "bookmark-actions-listener";
     private OnBottomSheetBookmarkListener mListener;

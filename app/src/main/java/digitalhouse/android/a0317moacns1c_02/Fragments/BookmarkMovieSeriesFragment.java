@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import digitalhouse.android.a0317moacns1c_02.R;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class BookmarkMovieSeriesFragment extends Fragment {
+public class BookmarkMovieSeriesFragment extends Fragment implements Serializable {
 
     // TODO: Customize parameter argument names
     private static final String ARG_ITEM_LIST = "item-list";
