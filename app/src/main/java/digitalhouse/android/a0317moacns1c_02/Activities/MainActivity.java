@@ -30,11 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         animationView = (LottieAnimationView) findViewById(R.id.animationViewMainActivity);
 
-        //Inicializar Toaster (tostadora para hacer tostadas desde cualquier lugar sin necesidad de contexto)
-        Toaster.init(this);
-
-        //Inicializar Realm
-        Realm.init(this);
 
         //Provisorio: borra toda la base de datos
         Realm realm = Realm.getDefaultInstance();
