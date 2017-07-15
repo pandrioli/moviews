@@ -25,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Adapters.SearchPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
+import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.MovieSearchRequest;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ItemListFragment;
@@ -229,23 +230,38 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        AnimationHelper.stopLoader(this);
+    }
+
+    @Override
     public void onClick(ListItem listItem, ImageView imageView) {
+        AnimationHelper.startLoader(this);
+        Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "poster");
+
         if (listItem.getType().equals(ListItem.TYPE_MOVIE)) {
             Bundle bundle = new Bundle();
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
             Intent intent = new Intent(this, MovieDetailsActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivity(intent, transitionBundle);
         }
         if (listItem.getType().equals(ListItem.TYPE_SERIE)) {
+            Bundle bundle = new Bundle();
+            bundle.putString(SerieActivity.SERIE_ID_KEY, listItem.getId().toString());
+            Intent intent = new Intent(this, SerieActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent, transitionBundle);
 
         }
         if (listItem.getType().equals(ListItem.TYPE_PERSON)) {
+            Bundle transitionBundlePerson = AnimationHelper.getTransitionBundle(this, imageView, "profile");
             Bundle bundle = new Bundle();
             bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, listItem.getId());
             Intent intent = new Intent(this, PersonDetailsActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivity(intent, transitionBundlePerson);
         }
     }
 }

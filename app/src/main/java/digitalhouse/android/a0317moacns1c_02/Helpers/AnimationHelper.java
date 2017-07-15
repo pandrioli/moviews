@@ -2,10 +2,12 @@ package digitalhouse.android.a0317moacns1c_02.Helpers;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -13,6 +15,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
+
+import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
  * Created by Pablo on 11/07/2017.
@@ -56,7 +60,10 @@ public class AnimationHelper {
         view.startAnimation(animation);
     }
 
+    @TargetApi(21)
     public static Bundle getTransitionBundle(Activity activity, View view, String transition) {
+        if (Build.VERSION.SDK_INT >=21)
+            activity.getWindow().setSharedElementsUseOverlay(false);
         return ActivityOptionsCompat
                 .makeSceneTransitionAnimation(activity,view,transition)
                 .toBundle();
@@ -75,4 +82,17 @@ public class AnimationHelper {
             activity.startPostponedEnterTransition();
         }
     }
+
+    public static void startLoader(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        View loaderView = activity.getLayoutInflater().inflate(R.layout.loader, (ViewGroup)view, false);
+        ((ViewGroup) view).addView(loaderView);
+    }
+    public static void stopLoader(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        View loaderView = view.findViewById(R.id.loaderContainer);
+        ((ViewGroup) view).removeView(loaderView);
+    }
+
+
 }

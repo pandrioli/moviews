@@ -6,12 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.PersonController;
+import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.DateHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.NetworkHelper;
@@ -34,7 +34,6 @@ import digitalhouse.android.a0317moacns1c_02.R;
 public class PersonDetailsActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable {
     public final static String PERSON_ID_KEY = "personId";
 
-    @BindView(R.id.frameLayoutLoaderPersonDetails) FrameLayout loaderContainer;
     @BindView(R.id.textViewPDName)
     TextView textViewName;
     @BindView(R.id.textViewPDBirthDay)
@@ -53,17 +52,17 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_details);
+        AnimationHelper.postponeTransition(this);
         ButterKnife.bind(this);
         ActivityStackManager.getInstance().addActivity(this);
         Bundle bundleReceived = getIntent().getExtras();
         Integer id = bundleReceived.getInt(PERSON_ID_KEY);
-        loaderContainer.setVisibility(View.VISIBLE);
         if (NetworkHelper.isNetworkAvailable(this)) {
             PersonController.getInstance().getDetails(id, new ResultListener<PersonDetails>() {
                 @Override
                 public void finish(PersonDetails personDetails) {
                     setupViews(personDetails);
-                    stopLoader();
+                    startTransition();
                 }
             });
             PersonController.getInstance().getImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
@@ -71,21 +70,21 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
                 public void finish(ArrayList<ImageListItem> imageList) {
                     personImages = imageList;
                     startPersonDetailsImageFragment(imageList);
-                    stopLoader();
+                    startTransition();
                 }
             });
             PersonController.getInstance().getMovieCreditsImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
                 @Override
                 public void finish(ArrayList<ImageListItem> imageList) {
                     startImageListCreditsFragment(R.id.frameLayoutPDMovieCredits, "Movie credits", imageList);
-                    stopLoader();
+                    startTransition();
                 }
             });
             PersonController.getInstance().getTVCreditsImageList(id, new ResultListener<ArrayList<ImageListItem>>() {
                 @Override
                 public void finish(ArrayList<ImageListItem> imageList) {
                     startImageListCreditsFragment(R.id.frameLayoutPDTVCredits, "TV credits", imageList);
-                    stopLoader();
+                    startTransition();
                 }
             });
         } else {
@@ -94,12 +93,10 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         }
     }
 
-    private void stopLoader() {
+    private void startTransition() {
         loadCounter++;
-        if (loadCounter==4) {
-            LottieAnimationView loader = (LottieAnimationView)findViewById(R.id.animationViewLoaderPersonDetails);
-            loader.cancelAnimation();
-            loaderContainer.setVisibility(View.GONE);
+        if (loadCounter==5) {
+            AnimationHelper.startPostponedTransition(this);
         }
     }
 
@@ -123,21 +120,33 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         }
         textViewBio.setText(personDetails.getBiography());
         String url = ImageHelper.getProfileURL(personDetails.getProfile_path(), 2);
-        Picasso.with(this).load(url).fit().centerCrop().into(imageViewProfile);
+        Picasso.with(this).load(url).fit().centerCrop().into(imageViewProfile, new Callback() {
+            @Override
+            public void onSuccess() {
+                startTransition();
+            }
+
+            @Override
+            public void onError() {
+                startTransition();
+            }
+        });
         imageViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startImageViewActivity(personDetails.getProfile_path());
+                startImageViewActivity(personDetails.getProfile_path(), imageViewProfile);
             }
         });
     }
 
-    private void startImageViewActivity(String imagePath) {
+    private void startImageViewActivity(String imagePath, ImageView imageView) {
+        AnimationHelper.startLoader(this);
+        Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "imageviewer");
         Intent intent = new Intent(this, ImageViewerActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(ImageViewerActivity.IMAGE_URL_KEY, ImageViewMapper.map(imagePath));
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivity(intent, transitionBundle);
     }
 
     private void startPersonDetailsImageFragment(ArrayList<ImageListItem> imageList) {
@@ -155,28 +164,39 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     }
 
     @Override
-    public void onClick(ImageListItem imageListItem, String title, Integer index) {
+    protected void onStart() {
+        super.onStart();
+        AnimationHelper.stopLoader(this);
+    }
+
+    @Override
+    public void onClick(ImageListItem imageListItem, String title, Integer index, ImageView imageView) {
         if (title.equals("Movie credits")) {
+            AnimationHelper.startLoader(this);
+            Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "poster");
             Bundle bundle = new Bundle();
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, imageListItem.getId());
             Intent intent = new Intent(this, MovieDetailsActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivity(intent, transitionBundle);
         }
         if (title.equals("TV credits")) {
+            AnimationHelper.startLoader(this);
+            Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "poster");
             Bundle bundle = new Bundle();
             bundle.putString(SerieActivity.SERIE_ID_KEY, imageListItem.getId().toString());
             Intent intent = new Intent(this, SerieActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivity(intent, transitionBundle);
         }
         if (title.equals("Images")) {
+            Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "imageviewer");
             Bundle bundle = new Bundle();
             bundle.putStringArrayList(ImageViewerActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(personImages));
             bundle.putInt(ImageViewerActivity.IMAGE_INDEX_KEY, index);
             Intent intent = new Intent(this, ImageViewerActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivity(intent, transitionBundle);
         }
     }
 

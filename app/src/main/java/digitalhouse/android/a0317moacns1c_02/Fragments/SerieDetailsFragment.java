@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -183,7 +185,17 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
         numberOfSeasons.setText(serie.getNumberOfSeasons());
         numberOfChapters.setText(serie.getNumberOfEpisodes());
         String url = ImageHelper.getPosterURL(serie.getPosterPath(), 2);
-        Glide.with(this).load(url).into(poster);
+        Picasso.with(getContext()).load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(poster, new Callback() {
+            @Override
+            public void onSuccess() {
+                AnimationHelper.startPostponedTransition(getActivity());
+            }
+
+            @Override
+            public void onError() {
+                AnimationHelper.startPostponedTransition(getActivity());
+            }
+        });
     }
 
     private void setUpSummary(){
@@ -236,10 +248,10 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
     }
 
     @Override
-    public void onClick(ImageListItem imageListItem, String title, Integer index) {
+    public void onClick(ImageListItem imageListItem, String title, Integer index, ImageView imageView) {
         if (title.equals("Casting")) {
             ImageListFragment.ImageClickeable act = (ImageListFragment.ImageClickeable) getActivity();
-            act.onClick(imageListItem, title, index);
+            act.onClick(imageListItem, title, index, imageView);
         }
     }
 }

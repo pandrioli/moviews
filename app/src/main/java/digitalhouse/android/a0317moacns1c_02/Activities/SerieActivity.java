@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -67,6 +68,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         setContentView(R.layout.activity_series);
         ButterKnife.bind(this);
         ActivityStackManager.getInstance().addActivity(this);
+        AnimationHelper.postponeTransition(this);
 
         Bundle bundleReceived = getIntent().getExtras();
         final String id = bundleReceived.getString(SERIE_ID_KEY);
@@ -79,7 +81,6 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
                 } else {
                     serie = result;
                     setUpFragmentsAndViewPager();
-                    stopAnimation();
                 }
             }
         });
@@ -98,12 +99,6 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         tabLayout.setupWithViewPager(mViewPager);
     }
 
-    private void stopAnimation(){
-        LottieAnimationView animation = (LottieAnimationView) findViewById(R.id.animationViewAS);
-        animation.cancelAnimation();
-        animation.setVisibility(View.GONE);
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -111,13 +106,21 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     }
 
     @Override
-    public void onClick(ImageListItem imageListItem, String title, Integer index) {
+    protected void onStart() {
+        super.onStart();
+        AnimationHelper.stopLoader(this);
+    }
+
+    @Override
+    public void onClick(ImageListItem imageListItem, String title, Integer index, ImageView imageView) {
         if (title.equals("Casting")) {
+            AnimationHelper.startLoader(this);
+            Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "profile");
             Bundle bundle = new Bundle();
             bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, imageListItem.getId());
             Intent intent = new Intent(this, PersonDetailsActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivity(intent, transitionBundle);
         }
     }
 

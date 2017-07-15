@@ -22,16 +22,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationViewAS"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:lottie_fileName="preloader.json"
-        app:lottie_scale="1"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true" />
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"

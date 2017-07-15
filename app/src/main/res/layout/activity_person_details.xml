@@ -16,8 +16,7 @@
             android:background="#ccc">
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#000"
+                android:layout_height="200dp"
                 android:id="@+id/frameLayoutPDImages">
             </FrameLayout>
             <LinearLayout
@@ -26,12 +25,17 @@
                 android:layout_marginTop="-80dp"
                 android:orientation="horizontal"
                 android:padding="16dp">
+                <FrameLayout
+                    android:transitionName="profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="150dp"
                     android:layout_height="200dp"
-                    android:src="@drawable/profile"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/profile"
                     android:id="@+id/imageViewPDprofile"/>
+                </FrameLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,20 +125,4 @@
 
         </LinearLayout>
     </ScrollView>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff"
-        android:id="@+id/frameLayoutLoaderPersonDetails"
-        android:visibility="gone">
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationViewLoaderPersonDetails"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:lottie_fileName="preloader.json"
-            app:lottie_scale="1"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true" />
-    </FrameLayout>
 </FrameLayout>

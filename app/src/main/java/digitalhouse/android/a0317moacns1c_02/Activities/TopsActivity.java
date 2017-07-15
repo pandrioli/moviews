@@ -95,11 +95,34 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
         editTextTo.setText(ListTmdbController.getInstance(this).getTopsYearTo());
 
         //Listeners
+        editTextFrom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) editTextFrom.setText("");
+                else if (editTextFrom.getText().length()<4) {
+                    editTextFrom.setText(ListTmdbController.getInstance(TopsActivity.this).getTopsYearFrom());
+                    searchMoviesAndSeries();
+                }
+            }
+        });
+        editTextTo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) editTextTo.setText("");
+                else if (editTextTo.getText().length()<4) {
+                    editTextTo.setText(ListTmdbController.getInstance(TopsActivity.this).getTopsYearTo());
+                    searchMoviesAndSeries();
+                }
+            }
+        });
         editTextFrom.addTextChangedListener(new YearWatcher());
         editTextTo.addTextChangedListener(new YearWatcher());
         imageViewBurger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
+                editTextFrom.clearFocus();
+                editTextTo.clearFocus();
                 startGenreSelection();
             }
         });
@@ -120,6 +143,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
             }
         });
     }
+
 
     private void startGenreSelection() {
         selectingGenres = true;
@@ -229,8 +253,15 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        AnimationHelper.stopLoader(this);
+    }
+
+    @Override
     public void onClick(ListItem listItem, ImageView imageView) {
 
+        AnimationHelper.startLoader(this);
         Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "poster");
 
         if (listItem.getType().equals(ListItem.TYPE_MOVIE)) {

@@ -16,7 +16,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:background="#fff"
                 android:id="@+id/frameLayoutMDImages"
                 app:layout_collapseMode="parallax">
@@ -215,7 +215,7 @@
             <FrameLayout
                 android:id="@+id/frameLayoutMDTrailers"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/cardViewMDSummary"></FrameLayout>
 
             <FrameLayout

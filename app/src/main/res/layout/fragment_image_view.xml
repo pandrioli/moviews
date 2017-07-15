@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.ImageViewFragment">
+    tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.ImageViewerFragment">
 
     <com.github.chrisbanes.photoview.PhotoView
         android:layout_width="match_parent"

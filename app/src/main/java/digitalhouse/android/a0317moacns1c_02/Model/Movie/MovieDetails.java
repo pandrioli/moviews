@@ -232,6 +232,7 @@ public class MovieDetails implements Serializable {
     }
 
     public String getRuntimeString(){
+        if (runtime==null) return "N/A";
         int horas = runtime / 60;
         int minutos = runtime - (horas * 60);
         StringBuilder stringBuilder = new StringBuilder();

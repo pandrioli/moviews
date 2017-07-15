@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -100,7 +101,8 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
         Integer index = (Integer)v.getTag();
         ImageListItem selectedItem = imageList.get(index);
         ImageClickeable myActivity = (ImageClickeable)getActivity();
-        myActivity.onClick(selectedItem, title, index);
+        ImageView imageView = (ImageView) v.findViewById(R.id.imageViewImageList);
+        myActivity.onClick(selectedItem, title, index, imageView);
     }
 
     @Override
@@ -109,7 +111,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
         unbinder.unbind();
     }
     public interface ImageClickeable {
-        void onClick(ImageListItem imageListItem, String title, Integer index);
+        void onClick(ImageListItem imageListItem, String title, Integer index, ImageView imageView);
     }
 
 }

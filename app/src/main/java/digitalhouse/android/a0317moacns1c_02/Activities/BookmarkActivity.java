@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
 import digitalhouse.android.a0317moacns1c_02.Controller.ShareController;
 import digitalhouse.android.a0317moacns1c_02.CustomViews.BottomSheetBookmark;
 import digitalhouse.android.a0317moacns1c_02.Fragments.BookmarkMovieSeriesFragment;
+import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.SerieDetails;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -167,14 +169,23 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
         if(moreOptionsTag.equals(view.getTag())){
             bottomSheetBookmark.show(getSupportFragmentManager(), "Custom Bottom Sheet");
         } else {
-            startActivityDetails(item);
+            startActivityDetails(item, view);
         }
 
     }
 
-    private void startActivityDetails(ListItem item){
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AnimationHelper.stopLoader(this);
+    }
+
+    private void startActivityDetails(ListItem item, View view){
         Class startingClass = null;
+        AnimationHelper.startLoader(this);
         Bundle bundle = new Bundle();
+        ImageView imageView = (ImageView)view.findViewById(R.id.imageBookmarkMovie);
+        Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "poster");
         if (item.getType().equals(ListItem.TYPE_MOVIE)) {
             startingClass = MovieDetailsActivity.class;
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, item.getId());
@@ -184,7 +195,7 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
         }
         Intent intent = new Intent(this, startingClass);
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivity(intent, transitionBundle);
     }
 
 

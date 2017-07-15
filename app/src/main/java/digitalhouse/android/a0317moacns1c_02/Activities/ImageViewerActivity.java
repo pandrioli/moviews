@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import digitalhouse.android.a0317moacns1c_02.Adapters.ImageViewPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator;
+import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 public class ImageViewerActivity extends AppCompatActivity {
@@ -20,17 +21,25 @@ public class ImageViewerActivity extends AppCompatActivity {
     public static final String IMAGE_LIST_URL_KEY = "imageListURL";
     public static final String LANDSCAPE_KEY = "landscape";
 
+    private List<String> imagesURL;
+
     @BindView(R.id.viewPagerImageView)
     ViewPager viewPager;
     @BindView(R.id.pageIndicatorImageView)
     PageIndicator pageIndicator;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
         ButterKnife.bind(this);
+        AnimationHelper.postponeTransition(this);
         Bundle bundle = getIntent().getExtras();
         Boolean landscape = bundle.getBoolean(LANDSCAPE_KEY);
         landscape = landscape == null ? false : landscape;
@@ -38,7 +47,7 @@ public class ImageViewerActivity extends AppCompatActivity {
             //el cambio de orientacion causa error al volver a MovieDetails en mi telefono (no en el emulador)
             //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
-        List<String> imagesURL = new ArrayList<>();
+        imagesURL = new ArrayList<>();
         if (bundle.containsKey(IMAGE_LIST_URL_KEY)) {
             imagesURL = bundle.getStringArrayList(IMAGE_LIST_URL_KEY);
         } else if (bundle.containsKey(IMAGE_URL_KEY)) {

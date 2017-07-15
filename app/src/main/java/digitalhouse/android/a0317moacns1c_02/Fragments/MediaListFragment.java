@@ -134,6 +134,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
             Intent playVideoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
             getActivity().startActivity(playVideoIntent);
         } else {
+            AnimationHelper.startLoader(getActivity());
             Intent intent = new Intent(getActivity(), ImageViewerActivity.class);
             Bundle bundle = new Bundle();
             bundle.putStringArrayList(ImageViewerActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(URLs));

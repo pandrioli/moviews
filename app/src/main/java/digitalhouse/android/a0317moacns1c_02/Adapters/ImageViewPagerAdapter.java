@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import digitalhouse.android.a0317moacns1c_02.Fragments.ImageViewFragment;
+import digitalhouse.android.a0317moacns1c_02.Fragments.ImageViewerFragment;
 
 /**
  * Created by Pablo on 25/06/2017.
@@ -20,7 +20,7 @@ public class ImageViewPagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         fragments = new ArrayList<>();
         for (String url : imagesURL) {
-            fragments.add(ImageViewFragment.newInstance(url));
+            fragments.add(ImageViewerFragment.newInstance(url));
         }
     }
 

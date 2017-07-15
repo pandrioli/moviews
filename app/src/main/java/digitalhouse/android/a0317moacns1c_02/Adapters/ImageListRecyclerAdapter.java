@@ -73,7 +73,10 @@ public class ImageListRecyclerAdapter extends Adapter {
         ImageViewHolder imgHolder = (ImageViewHolder) holder;
         imgHolder.title.setText(img.getTitle());
         imgHolder.subtitle.setText(img.getSubtitle());
-        if (imgList.size()==1 && headerMode) Picasso.with(context).load(img.getImageURL()).resize(width,0).into(imgHolder.picture);
+        if (imgList.size()==1 && headerMode) {
+            imgHolder.picture.setScaleType(ImageView.ScaleType.MATRIX);
+            Picasso.with(context).load(img.getImageURL()).resize(width,0).into(imgHolder.picture);
+        }
         else Picasso.with(context).load(img.getImageURL()).fit().centerCrop().into(imgHolder.picture);
         imgHolder.view.setTag(position);
         if (img.getTitle()==null) imgHolder.title.setHeight(0);
@@ -93,7 +96,7 @@ public class ImageListRecyclerAdapter extends Adapter {
         private ImageViewHolder(View view) {
             super(view);
             this.view = view;
-            picture = (ImageView) view.findViewById(R.id.imageViewCreditsPicture);
+            picture = (ImageView) view.findViewById(R.id.imageViewImageList);
             title = (TextView) view.findViewById(R.id.textViewCreditsName);
             subtitle = (TextView) view.findViewById(R.id.textViewCreditsCharacter);
         }
