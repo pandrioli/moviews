@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -81,7 +80,7 @@ public class ListItemRecyclerAdapter extends RecyclerView.Adapter implements Vie
             year = (TextView) view.findViewById(R.id.textViewMovieListYear);
             genres = (TextView) view.findViewById(R.id.textViewMovieListGenres);
             rating = (TextView) view.findViewById(R.id.textViewMovieListRating);
-            poster = (ImageView) view.findViewById(R.id.imageViewMovieListPoster);
+            poster = (ImageView) view.findViewById(R.id.imageViewPoster);
             tmdbIcon = (ImageView) view.findViewById(R.id.imageViewMovieListTMDBicon);
         }
     }

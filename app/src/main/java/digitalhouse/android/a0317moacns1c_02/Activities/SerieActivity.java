@@ -1,6 +1,9 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
@@ -28,6 +31,7 @@ import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonPagerFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
+import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
@@ -80,6 +84,9 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
             }
         });
     }
+
+
+
 
 
     private void setUpFragmentsAndViewPager(){

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -62,11 +63,13 @@ public class ItemListFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         ItemClickeable activity = (ItemClickeable)getActivity();
-        activity.onClick(itemList.get((Integer)v.getTag()));
+        ListItem listItem = itemList.get((Integer)v.getTag());
+        ImageView imageView = (ImageView)v.findViewById(R.id.imageViewPoster);
+        activity.onClick(listItem, imageView);
     }
 
     public interface ItemClickeable {
-        void onClick(ListItem listItem);
+        void onClick(ListItem listItem, ImageView imageView);
     }
 
 

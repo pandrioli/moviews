@@ -1,5 +1,10 @@
 package digitalhouse.android.a0317moacns1c_02.Helpers;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -49,5 +54,25 @@ public class AnimationHelper {
         animation.setFillAfter(true);
         animation.setRepeatCount(0);
         view.startAnimation(animation);
+    }
+
+    public static Bundle getTransitionBundle(Activity activity, View view, String transition) {
+        return ActivityOptionsCompat
+                .makeSceneTransitionAnimation(activity,view,transition)
+                .toBundle();
+    }
+
+    @TargetApi(21)
+    public static void postponeTransition(Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            activity.postponeEnterTransition();
+        }
+    }
+
+    @TargetApi(21)
+    public static void startPostponedTransition(Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            activity.startPostponedEnterTransition();
+        }
     }
 }

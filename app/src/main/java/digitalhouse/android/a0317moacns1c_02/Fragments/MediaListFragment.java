@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -23,9 +24,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import digitalhouse.android.a0317moacns1c_02.Activities.ImageViewActivity;
+import digitalhouse.android.a0317moacns1c_02.Activities.ImageViewerActivity;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MultimediaRecyclerAdapter;
 import digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator;
+import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Mappers.ImageViewMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Video;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -132,13 +134,13 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
             Intent playVideoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
             getActivity().startActivity(playVideoIntent);
         } else {
-            Intent intent = new Intent(getActivity(), ImageViewActivity.class);
+            Intent intent = new Intent(getActivity(), ImageViewerActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putStringArrayList(ImageViewActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(URLs));
-            bundle.putInt(ImageViewActivity.IMAGE_INDEX_KEY, index);
-            bundle.putBoolean(ImageViewActivity.LANDSCAPE_KEY, true);
+            bundle.putStringArrayList(ImageViewerActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(URLs));
+            bundle.putInt(ImageViewerActivity.IMAGE_INDEX_KEY, index);
+            bundle.putBoolean(ImageViewerActivity.LANDSCAPE_KEY, true);
             intent.putExtras(bundle);
-            getActivity().startActivity(intent);
+            getActivity().startActivity(intent, AnimationHelper.getTransitionBundle(getActivity(), mRecyclerView, "imageviewer"));
         }
     }
 

@@ -16,7 +16,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +29,6 @@ import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Person.PersonDetails;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
-import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 public class PersonDetailsActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable {
@@ -135,9 +133,9 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     }
 
     private void startImageViewActivity(String imagePath) {
-        Intent intent = new Intent(this, ImageViewActivity.class);
+        Intent intent = new Intent(this, ImageViewerActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(ImageViewActivity.IMAGE_URL_KEY, ImageViewMapper.map(imagePath));
+        bundle.putString(ImageViewerActivity.IMAGE_URL_KEY, ImageViewMapper.map(imagePath));
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -174,9 +172,9 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         }
         if (title.equals("Images")) {
             Bundle bundle = new Bundle();
-            bundle.putStringArrayList(ImageViewActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(personImages));
-            bundle.putInt(ImageViewActivity.IMAGE_INDEX_KEY, index);
-            Intent intent = new Intent(this, ImageViewActivity.class);
+            bundle.putStringArrayList(ImageViewerActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(personImages));
+            bundle.putInt(ImageViewerActivity.IMAGE_INDEX_KEY, index);
+            Intent intent = new Intent(this, ImageViewerActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }

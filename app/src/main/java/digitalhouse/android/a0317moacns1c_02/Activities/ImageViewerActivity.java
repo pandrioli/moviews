@@ -1,6 +1,5 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
-import android.content.pm.ActivityInfo;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +13,7 @@ import digitalhouse.android.a0317moacns1c_02.Adapters.ImageViewPagerAdapter;
 import digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator;
 import digitalhouse.android.a0317moacns1c_02.R;
 
-public class ImageViewActivity extends AppCompatActivity {
+public class ImageViewerActivity extends AppCompatActivity {
 
     public static final String IMAGE_INDEX_KEY = "imageIndex";
     public static final String IMAGE_URL_KEY = "imageURL";
@@ -30,7 +29,7 @@ public class ImageViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_view);
+        setContentView(R.layout.activity_image_viewer);
         ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
         Boolean landscape = bundle.getBoolean(LANDSCAPE_KEY);

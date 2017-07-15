@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -228,7 +229,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
     }
 
     @Override
-    public void onClick(ListItem listItem) {
+    public void onClick(ListItem listItem, ImageView imageView) {
         if (listItem.getType().equals(ListItem.TYPE_MOVIE)) {
             Bundle bundle = new Bundle();
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());

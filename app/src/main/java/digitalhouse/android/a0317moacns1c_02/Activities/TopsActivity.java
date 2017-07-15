@@ -229,7 +229,9 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
     }
 
     @Override
-    public void onClick(ListItem listItem) {
+    public void onClick(ListItem listItem, ImageView imageView) {
+
+        Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "poster");
 
         if (listItem.getType().equals(ListItem.TYPE_MOVIE)) {
 
@@ -241,7 +243,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
 
             intent.putExtras(bundle);
 
-            startActivity(intent);
+            startActivity(intent, transitionBundle);
 
         }
 
@@ -255,7 +257,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
 
             intent.putExtras(bundle);
 
-            startActivity(intent);
+            startActivity(intent, transitionBundle);
 
         }
 

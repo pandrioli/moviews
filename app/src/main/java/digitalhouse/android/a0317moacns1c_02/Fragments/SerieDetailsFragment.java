@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Controller.ListUserController;
+import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Mappers.ImageListMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
@@ -171,7 +172,7 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
     }
 
     private void setUpImages(){
-        String url = ImageHelper.getPosterURL(serie.getBackDropPath(), 4);
+        String url = ImageHelper.getBackdropURL(serie.getBackDropPath(), 2);
         Picasso.with(getContext()).load(url).fit().centerCrop().into(backdrop);
     }
 

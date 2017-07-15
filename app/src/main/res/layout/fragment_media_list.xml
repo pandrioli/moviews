@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="digitalhouse.android.a0317moacns1c_02.Fragments.MediaListFragment"
+    android:transitionName="imageviewer"
     android:layout_margin="8dp">
         <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:id="@+id/multimedia_recycler_view"
@@ -12,6 +13,6 @@
         <digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:layout_gravity="right|bottom"
+            android:layout_gravity="center|bottom"
             android:id="@+id/pageIndicatorMediaList"/>
 </FrameLayout>
