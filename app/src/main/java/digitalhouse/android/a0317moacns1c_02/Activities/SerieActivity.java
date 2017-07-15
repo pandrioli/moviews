@@ -65,10 +65,10 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AnimationHelper.postponeTransition(this);
         setContentView(R.layout.activity_series);
         ButterKnife.bind(this);
         ActivityStackManager.getInstance().addActivity(this);
-        AnimationHelper.postponeTransition(this);
 
         Bundle bundleReceived = getIntent().getExtras();
         final String id = bundleReceived.getString(SERIE_ID_KEY);

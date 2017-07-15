@@ -28,6 +28,7 @@ import digitalhouse.android.a0317moacns1c_02.Activities.ImageViewerActivity;
 import digitalhouse.android.a0317moacns1c_02.Adapters.MultimediaRecyclerAdapter;
 import digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator;
 import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Mappers.ImageViewMapper;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.Video;
 import digitalhouse.android.a0317moacns1c_02.R;
@@ -39,7 +40,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
 
     public static final String MEDIA_URLS_KEY = "mediaContainer";
     private Unbinder unbinder;
-
+    private MultimediaRecyclerAdapter mAdapter;
     private List<String> URLs;
 
     @BindView(R.id.multimedia_recycler_view) protected DiscreteScrollView mRecyclerView;
@@ -81,7 +82,9 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_media_list, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        MultimediaRecyclerAdapter mAdapter = new MultimediaRecyclerAdapter(getActivity(),
+        ImageHelper.currentImageIndex = 0;
+
+        mAdapter = new MultimediaRecyclerAdapter(getActivity(),
                 URLs, this);
 
         mRecyclerView.setHasFixedSize(true);
@@ -101,11 +104,17 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
             }
         });
 
-
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(mRecyclerView);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.scrollToPosition(ImageHelper.currentImageIndex);
     }
 
     @Override

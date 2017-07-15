@@ -51,8 +51,8 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_person_details);
         AnimationHelper.postponeTransition(this);
+        setContentView(R.layout.activity_person_details);
         ButterKnife.bind(this);
         ActivityStackManager.getInstance().addActivity(this);
         Bundle bundleReceived = getIntent().getExtras();
@@ -194,6 +194,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             Bundle bundle = new Bundle();
             bundle.putStringArrayList(ImageViewerActivity.IMAGE_LIST_URL_KEY, ImageViewMapper.map(personImages));
             bundle.putInt(ImageViewerActivity.IMAGE_INDEX_KEY, index);
+            bundle.putBoolean(ImageViewerActivity.NO_RETURN_ANIMATION_FLAG, true);
             Intent intent = new Intent(this, ImageViewerActivity.class);
             intent.putExtras(bundle);
             startActivity(intent, transitionBundle);

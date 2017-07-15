@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageViewerFragment;
+import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 
 /**
  * Created by Pablo on 25/06/2017.
@@ -28,6 +29,8 @@ public class ImageViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         return fragments.get(position);
     }
+
+
 
     @Override
     public int getCount() {

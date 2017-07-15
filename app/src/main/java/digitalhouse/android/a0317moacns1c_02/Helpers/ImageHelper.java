@@ -7,6 +7,7 @@ import digitalhouse.android.a0317moacns1c_02.Controller.ConfigController;
  */
 
 public class ImageHelper {
+    public static Integer currentImageIndex = 0;
     public static String getPosterURL(String filePath, Integer size) {
         String url = ConfigController.getInstance().getImagesBaseURL();
         url += ConfigController.getInstance().getPosterSizes().get(size);
