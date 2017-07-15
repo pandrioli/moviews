@@ -164,8 +164,8 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onStop() {
+        super.onStop();
         AnimationHelper.stopLoader(this);
     }
 

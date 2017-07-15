@@ -106,8 +106,8 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onStop() {
+        super.onStop();
         AnimationHelper.stopLoader(this);
     }
 
