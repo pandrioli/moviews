@@ -1,7 +1,10 @@
 package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -20,6 +23,10 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -29,6 +36,7 @@ import butterknife.Unbinder;
 import digitalhouse.android.a0317moacns1c_02.Adapters.EpisodeRecyclerViewAdapter;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
+import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.EpisodeDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
@@ -54,7 +62,7 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     @BindView(R.id.scrolling_container) NestedScrollView nestedScrollView;
     @BindView(R.id.textViewSeasonsNoConnection) TextView noConnection;
 
-    private LottieAnimationView loaderAnim;
+    private View mView;
 
     private OnEpisodeInteractionListener mListener;
 
@@ -120,11 +128,9 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_seasons_episodes, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        loaderAnim = (LottieAnimationView) view.findViewById(R.id.loaderAnimSeasons);
-        loaderAnim.setAnimation("loader.json");
-        loaderAnim.playAnimation();
+        mView = inflater.inflate(R.layout.fragment_seasons_episodes, container, false);
+        unbinder = ButterKnife.bind(this, mView);
+        AnimationHelper.startLoaderInView(getActivity(), mView);
         SerieController.getInstance().getSeasonDetails(serieId, seasonNumber, new ResultListener<SeasonDetails>() {
             @Override
             public void finish(SeasonDetails result) {
@@ -139,7 +145,7 @@ public class SeasonsAndEpisodesFragment extends Fragment {
                     }
             }
         });
-        return view;
+        return mView;
     }
 
     private void finishFragment(){
@@ -156,12 +162,22 @@ public class SeasonsAndEpisodesFragment extends Fragment {
         setUpCollapsingToolbar();
         setUpEpisodes();
         setUpOverview();
-        loaderAnim.cancelAnimation();
-        loaderAnim.setVisibility(View.GONE);
     }
 
     private void setUpTitle(){
-        Glide.with(this).load(season.getPosterUrl(3)).into(poster);
+        Glide.with(this).load(season.getPosterUrl(3)).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                AnimationHelper.stopLoaderInView(getActivity(), mView);
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                AnimationHelper.stopLoaderInView(getActivity(), mView);
+                return false;
+            }
+        }).into(poster);
         seasonAirDate.setText(season.getAirDate());
         title.setText(season.getName());
     }

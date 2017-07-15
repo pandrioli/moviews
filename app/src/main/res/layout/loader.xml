@@ -6,7 +6,7 @@
     android:id="@+id/loaderContainer"
     android:background="#ad000000">
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationViewLoaderPersonDetails"
+        android:id="@+id/animationViewLoader"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

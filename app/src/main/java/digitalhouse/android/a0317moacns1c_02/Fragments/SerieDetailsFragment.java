@@ -57,6 +57,7 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
     @BindView(R.id.bookmark) ImageView bookmark;
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.loadSeasons) View loadSeasonsButton;
 
     private Unbinder unbinder;
     private Serie serie;
@@ -89,14 +90,14 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
         View view = inflater.inflate(R.layout.fragment_serie_details, container, false);
 
         unbinder = ButterKnife.bind(this, view);
-        startRatingsFragment();
-        setUpSummary();
+        setUpCollapsingToolbar();
         setUpImages();
         setUpTitleAndGenres();
         setUpInfo();
+        startRatingsFragment();
+        setUpSummary();
         startMediaListFragment();
         startCastListFragment();
-        setUpCollapsingToolbar();
         setUpButtons();
         return view;
     }
@@ -118,6 +119,12 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
     }
 
     private void setUpButtons(){
+        loadSeasonsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((View.OnClickListener)getActivity()).onClick(v);
+            }
+        });
         favorited = ListUserController.getInstance().isSerieInFavorites(serie.getSerieDetails().getId())
         ;
         bookmarked = ListUserController.getInstance().isSerieInBookmarks(serie.getSerieDetails().getId());
@@ -185,7 +192,7 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
         numberOfSeasons.setText(serie.getNumberOfSeasons());
         numberOfChapters.setText(serie.getNumberOfEpisodes());
         String url = ImageHelper.getPosterURL(serie.getPosterPath(), 2);
-        Picasso.with(getContext()).load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(poster, new Callback() {
+        Picasso.with(getContext()).load(url).into(poster, new Callback() {
             @Override
             public void onSuccess() {
                 AnimationHelper.startPostponedTransition(getActivity());
@@ -254,4 +261,5 @@ public class SerieDetailsFragment extends Fragment implements ImageListFragment.
             act.onClick(imageListItem, title, index, imageView);
         }
     }
+
 }

@@ -3,9 +3,11 @@ package digitalhouse.android.a0317moacns1c_02.Helpers;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -62,8 +64,7 @@ public class AnimationHelper {
 
     @TargetApi(21)
     public static Bundle getTransitionBundle(Activity activity, View view, String transition) {
-        if (Build.VERSION.SDK_INT >=21)
-            activity.getWindow().setSharedElementsUseOverlay(false);
+        if (Build.VERSION.SDK_INT >=21) activity.getWindow().setSharedElementsUseOverlay(false);
         return ActivityOptionsCompat
                 .makeSceneTransitionAnimation(activity,view,transition)
                 .toBundle();
@@ -83,13 +84,27 @@ public class AnimationHelper {
         }
     }
 
+
     public static void startLoader(Activity activity) {
         View view = activity.findViewById(android.R.id.content);
         View loaderView = activity.getLayoutInflater().inflate(R.layout.loader, (ViewGroup)view, false);
         ((ViewGroup) view).addView(loaderView);
     }
+
     public static void stopLoader(Activity activity) {
         View view = activity.findViewById(android.R.id.content);
+        View loaderView = view.findViewById(R.id.loaderContainer);
+        ((ViewGroup) view).removeView(loaderView);
+    }
+
+
+    public static void startLoaderInView(Activity activity, View view) {
+        View loaderView = activity.getLayoutInflater().inflate(R.layout.loader, (ViewGroup)view, false);
+        loaderView.setBackgroundColor(Color.WHITE);
+        ((ViewGroup) view).addView(loaderView);
+    }
+
+    public static void stopLoaderInView(Activity activity, View view) {
         View loaderView = view.findViewById(R.id.loaderContainer);
         ((ViewGroup) view).removeView(loaderView);
     }

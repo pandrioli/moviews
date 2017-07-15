@@ -44,14 +44,14 @@ public class MovieController {
                 public void finish(Movie movie) {
                     if (movie!=null) {
                         movieDAOLocal.saveMovie(DTOMovieMapper.map(movie));
-                        Toaster.getInstance().toast("Datos traidos de internet");
+                        //Toaster.getInstance().toast("Datos traidos de internet");
                     }
                     resultListener.finish(movie);
                 }
             });
         } else { // esta guardada en la base local, mapea movieDTO recibida y devuelve movie
             resultListener.finish(DTOMovieMapper.map(movieDTO));
-            Toaster.getInstance().toast("Datos en base de datos local");
+            //Toaster.getInstance().toast("Datos en base de datos local");
         }
     }
 

@@ -53,7 +53,7 @@ public class SerieController {
                 public void finish(Serie result) {
                     if (result!=null) {
                         serieDAOLocal.saveSerie(DTOSerieMapper.map(result));
-                        Toaster.getInstance().toast("Datos traidos de Internet");
+                        //Toaster.getInstance().toast("Datos traidos de Internet");
                     }
                     resultListener.finish(result);
                 }
@@ -61,7 +61,7 @@ public class SerieController {
             serieTask.execute(id);
         } else {
             resultListener.finish(DTOSerieMapper.map(serieDTO));
-            Toaster.getInstance().toast("Datos en base local");
+            //Toaster.getInstance().toast("Datos en base local");
         }
     }
 

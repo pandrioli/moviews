@@ -1,9 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
@@ -12,14 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.ArrayList;
 
@@ -29,29 +24,27 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
 import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonPagerFragment;
-import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonsAndEpisodesFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
-import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
-import digitalhouse.android.a0317moacns1c_02.Model.Series.SeasonDetails;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
-public class SerieActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable {
+public class SerieActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable, View.OnClickListener {
     public static final String SERIE_ID_KEY = "serieID";
 
     @BindView(R.id.fab) protected FloatingActionButton fab;
-    @BindView(R.id.tabs) protected TabLayout tabLayout;
-    @BindView(R.id.container) protected ViewPager mViewPager;
+    @BindView(R.id.container) protected FrameLayout container;
 
     private Serie serie;
     private ArrayList<Season> seasons;
     private Season temporalVar;
     private SerieDetailsFragment serieDetailsFragment;
     private SeasonPagerFragment seasonPagerFragment;
+    private Boolean isSeasonsLoaded;
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -80,24 +73,32 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
                     SerieActivity.this.finish();
                 } else {
                     serie = result;
-                    setUpFragmentsAndViewPager();
+                    serieDetailsFragment = SerieDetailsFragment.newInstance(serie);
+                    loadSerieDetails();
                 }
             }
         });
     }
 
 
+    private void loadSerieDetails(){
+        isSeasonsLoaded=false;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, serieDetailsFragment)
+                .commit();
+    }
 
-
-
-    private void setUpFragmentsAndViewPager(){
-        serieDetailsFragment = SerieDetailsFragment.newInstance(serie);
+    private void loadSeasons() {
+        isSeasonsLoaded=true;
         Integer numOfSeason = Integer.parseInt(serie.getNumberOfSeasons());
         seasonPagerFragment = SeasonPagerFragment.newInstance(numOfSeason, serie.getSerieIdIMDB() );
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        tabLayout.setupWithViewPager(mViewPager);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, seasonPagerFragment)
+                .commit();
     }
+
 
     @Override
     public void onDestroy() {
@@ -130,9 +131,20 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         switch (item.getItemId())
         {
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isSeasonsLoaded) loadSerieDetails();
+        else super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.loadSeasons) loadSeasons();
     }
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
