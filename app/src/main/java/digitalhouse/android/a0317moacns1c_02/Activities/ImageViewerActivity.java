@@ -58,12 +58,11 @@ public class ImageViewerActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                ImageHelper.currentImageIndex=position;
             }
 
             @Override
             public void onPageSelected(int position) {
-                ImageHelper.currentImageIndex=position;
                 pageIndicator.setPage(position);
             }
 

@@ -100,6 +100,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
         mRecyclerView.addOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
             @Override
             public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+                ImageHelper.currentImageIndex=adapterPosition;
                 pageIndicator.setPage(adapterPosition);
             }
         });
