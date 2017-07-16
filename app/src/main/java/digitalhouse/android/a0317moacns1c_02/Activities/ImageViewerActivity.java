@@ -37,6 +37,9 @@ public class ImageViewerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AnimationHelper.postponeTransition(this);
         setContentView(R.layout.activity_image_viewer);
+
+
+
         ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
         if (bundle.containsKey(NO_RETURN_ANIMATION_FLAG)) noReturnAnimation();

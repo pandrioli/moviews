@@ -54,9 +54,10 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         AnimationHelper.postponeTransition(this);
         setContentView(R.layout.activity_person_details);
         ButterKnife.bind(this);
-        ActivityStackManager.getInstance().addActivity(this);
         Bundle bundleReceived = getIntent().getExtras();
         Integer id = bundleReceived.getInt(PERSON_ID_KEY);
+
+
         if (NetworkHelper.isNetworkAvailable(this)) {
             PersonController.getInstance().getDetails(id, new ResultListener<PersonDetails>() {
                 @Override
@@ -89,6 +90,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             });
         } else {
             Toast.makeText(this, "Not available without connection", Toast.LENGTH_SHORT).show();
+            startPostponedEnterTransition();
             finish();
         }
     }
@@ -146,7 +148,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         Bundle bundle = new Bundle();
         bundle.putString(ImageViewerActivity.IMAGE_URL_KEY, ImageViewMapper.map(imagePath));
         intent.putExtras(bundle);
-        startActivity(intent, transitionBundle);
+        startActivityForResult(intent,1, transitionBundle);
     }
 
     private void startPersonDetailsImageFragment(ArrayList<ImageListItem> imageList) {
@@ -163,6 +165,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
         ft.commit();
     }
 
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -170,24 +173,28 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        AnimationHelper.stopLoader(this);
+    }
+
+    @Override
     public void onClick(ImageListItem imageListItem, String title, Integer index, ImageView imageView) {
+        AnimationHelper.startLoader(this);
         if (title.equals("Movie credits")) {
-            AnimationHelper.startLoader(this);
             Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "poster");
             Bundle bundle = new Bundle();
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, imageListItem.getId());
             Intent intent = new Intent(this, MovieDetailsActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent, transitionBundle);
+            startActivityForResult(intent,1, transitionBundle);
         }
         if (title.equals("TV credits")) {
-            AnimationHelper.startLoader(this);
             Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "poster");
             Bundle bundle = new Bundle();
             bundle.putString(SerieActivity.SERIE_ID_KEY, imageListItem.getId().toString());
             Intent intent = new Intent(this, SerieActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent, transitionBundle);
+            startActivityForResult(intent,1, transitionBundle);
         }
         if (title.equals("Images")) {
             Bundle transitionBundle = AnimationHelper.getTransitionBundle(this, imageView, "imageviewer");
@@ -197,13 +204,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements ImageLis
             bundle.putBoolean(ImageViewerActivity.NO_RETURN_ANIMATION_FLAG, true);
             Intent intent = new Intent(this, ImageViewerActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent, transitionBundle);
+            startActivityForResult(intent, 1, transitionBundle);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ActivityStackManager.getInstance().removeLastActivity();
     }
 }

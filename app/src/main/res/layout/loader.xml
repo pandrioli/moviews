@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loaderContainer"
-    android:background="#ad000000">
+    android:background="#88000000">
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationViewLoader"
         android:layout_gravity="center"

@@ -60,6 +60,8 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
 
         ButterKnife.bind(this);
 
+
+
         clearText.setVisibility(View.GONE);
 
         Intent intent = getIntent();
@@ -235,6 +237,12 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
         AnimationHelper.stopLoader(this);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        AnimationHelper.stopLoader(this);
+    }
+
     @Override
     public void onClick(ListItem listItem, ImageView imageView) {
         AnimationHelper.startLoader(this);
@@ -245,14 +253,14 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
             bundle.putInt(MovieDetailsActivity.MOVIE_ID_KEY, listItem.getId());
             Intent intent = new Intent(this, MovieDetailsActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent, transitionBundle);
+            startActivityForResult(intent,1, transitionBundle);
         }
         if (listItem.getType().equals(ListItem.TYPE_SERIE)) {
             Bundle bundle = new Bundle();
             bundle.putString(SerieActivity.SERIE_ID_KEY, listItem.getId().toString());
             Intent intent = new Intent(this, SerieActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent, transitionBundle);
+            startActivityForResult(intent,1, transitionBundle);
 
         }
         if (listItem.getType().equals(ListItem.TYPE_PERSON)) {
@@ -261,7 +269,7 @@ public class SearchActivity extends AppCompatActivity implements ItemListFragmen
             bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, listItem.getId());
             Intent intent = new Intent(this, PersonDetailsActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent, transitionBundlePerson);
+            startActivityForResult(intent,1, transitionBundlePerson);
         }
     }
 }

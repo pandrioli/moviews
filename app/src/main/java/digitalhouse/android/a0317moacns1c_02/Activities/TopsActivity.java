@@ -65,6 +65,8 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tops);
+
+
         ButterKnife.bind(this);
         selectingGenres = false;
         movieGenresSelected = GenreController.getInstance().getSelectedMovieGenres();
@@ -258,6 +260,12 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
         AnimationHelper.stopLoader(this);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        AnimationHelper.stopLoader(this);
+    }
+
     @Override
     public void onClick(ListItem listItem, ImageView imageView) {
 
@@ -274,7 +282,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
 
             intent.putExtras(bundle);
 
-            startActivity(intent, transitionBundle);
+            startActivityForResult(intent,1, transitionBundle);
 
         }
 
@@ -288,7 +296,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
 
             intent.putExtras(bundle);
 
-            startActivity(intent, transitionBundle);
+            startActivityForResult(intent,1, transitionBundle);
 
         }
 

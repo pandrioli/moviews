@@ -174,9 +174,15 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
 
     }
 
+
     @Override
     protected void onStop() {
         super.onStop();
+        AnimationHelper.stopLoader(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         AnimationHelper.stopLoader(this);
     }
 
@@ -195,7 +201,7 @@ public class BookmarkActivity extends AppCompatActivity implements BookmarkMovie
         }
         Intent intent = new Intent(this, startingClass);
         intent.putExtras(bundle);
-        startActivity(intent, transitionBundle);
+        startActivityForResult(intent,1, transitionBundle);
     }
 
 

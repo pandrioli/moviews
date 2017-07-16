@@ -1,7 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Fragments;
 
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,9 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -60,7 +57,7 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     @BindView(R.id.recyclerViewEpisodes) RecyclerView recyclerViewEpisodes;
     @BindView(R.id.appbar) AppBarLayout appBarLayout;
     @BindView(R.id.scrolling_container) NestedScrollView nestedScrollView;
-    @BindView(R.id.textViewSeasonsNoConnection) TextView noConnection;
+    @BindView(R.id.textViewSeasonsNoConnection) TextView textViewNoConnection;
 
     private View mView;
 
@@ -140,8 +137,8 @@ public class SeasonsAndEpisodesFragment extends Fragment {
                         episodes = result.getEpisodes();
                         toggleViews();
                     } else {
-                        //no se porque a veces noConnection es null y explota
-                        if (noConnection!=null) noConnection.setVisibility(View.VISIBLE);
+                        //no se por que a veces textViewNoConnection es null
+                        if (textViewNoConnection !=null) textViewNoConnection.setVisibility(View.VISIBLE);
                     }
             }
         });
@@ -154,8 +151,8 @@ public class SeasonsAndEpisodesFragment extends Fragment {
     }
 
     private void toggleViews(){
-        // no se porque a veces noConnection es null y explota
-        if (noConnection!=null) noConnection.setVisibility(View.INVISIBLE);
+        // no se por que a veces textViewNoConnection es null
+        if (textViewNoConnection !=null) textViewNoConnection.setVisibility(View.INVISIBLE);
         appBarLayout.setVisibility(View.VISIBLE);
         nestedScrollView.setVisibility(View.VISIBLE);
         setUpTitle();

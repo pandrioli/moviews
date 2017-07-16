@@ -61,7 +61,8 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         AnimationHelper.postponeTransition(this);
         setContentView(R.layout.activity_series);
         ButterKnife.bind(this);
-        ActivityStackManager.getInstance().addActivity(this);
+
+
 
         Bundle bundleReceived = getIntent().getExtras();
         final String id = bundleReceived.getString(SERIE_ID_KEY);
@@ -70,6 +71,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
             public void finish(Serie result) {
                 if (result==null) {
                     Toast.makeText(SerieActivity.this, "Not available without connection", Toast.LENGTH_SHORT).show();
+                    SerieActivity.this.startPostponedEnterTransition();
                     SerieActivity.this.finish();
                 } else {
                     serie = result;
@@ -101,14 +103,13 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
 
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ActivityStackManager.getInstance().removeLastActivity(); // saco la activity del stack manager
+    protected void onStop() {
+        super.onStop();
+        AnimationHelper.stopLoader(this);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         AnimationHelper.stopLoader(this);
     }
 
@@ -121,7 +122,7 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
             bundle.putInt(PersonDetailsActivity.PERSON_ID_KEY, imageListItem.getId());
             Intent intent = new Intent(this, PersonDetailsActivity.class);
             intent.putExtras(bundle);
-            startActivity(intent, transitionBundle);
+            startActivityForResult(intent,1, transitionBundle);
         }
     }
 

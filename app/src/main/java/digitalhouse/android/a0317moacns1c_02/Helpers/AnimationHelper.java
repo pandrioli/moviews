@@ -18,6 +18,8 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -64,7 +66,7 @@ public class AnimationHelper {
 
     @TargetApi(21)
     public static Bundle getTransitionBundle(Activity activity, View view, String transition) {
-        if (Build.VERSION.SDK_INT >=21) activity.getWindow().setSharedElementsUseOverlay(false);
+        activity.getWindow().setSharedElementsUseOverlay(false);
         return ActivityOptionsCompat
                 .makeSceneTransitionAnimation(activity,view,transition)
                 .toBundle();
