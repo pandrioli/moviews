@@ -96,7 +96,10 @@ public class AnimationHelper {
     public static void stopLoader(Activity activity) {
         View view = activity.findViewById(android.R.id.content);
         View loaderView = view.findViewById(R.id.loaderContainer);
-        ((ViewGroup) view).removeView(loaderView);
+        if (loaderView!=null) {
+            ((LottieAnimationView)loaderView.findViewById(R.id.animationViewLoader)).cancelAnimation();
+            ((ViewGroup) view).removeView(loaderView);
+        }
     }
 
 
@@ -108,7 +111,10 @@ public class AnimationHelper {
 
     public static void stopLoaderInView(Activity activity, View view) {
         View loaderView = view.findViewById(R.id.loaderContainer);
-        ((ViewGroup) view).removeView(loaderView);
+        if (loaderView!=null) {
+            ((LottieAnimationView)loaderView.findViewById(R.id.animationViewLoader)).cancelAnimation();
+            ((ViewGroup) view).removeView(loaderView);
+        }
     }
 
 
