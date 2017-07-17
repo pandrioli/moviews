@@ -3,6 +3,7 @@ package digitalhouse.android.a0317moacns1c_02.Application;
 import android.app.Application;
 import android.content.Context;
 
+import digitalhouse.android.a0317moacns1c_02.Controller.ListTmdbController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -17,5 +18,6 @@ public class MyApplication extends Application {
         super.onCreate();
         Realm.init(getApplicationContext());
         Toaster.init(getApplicationContext());
+        ListTmdbController.init(getApplicationContext());
     }
 }

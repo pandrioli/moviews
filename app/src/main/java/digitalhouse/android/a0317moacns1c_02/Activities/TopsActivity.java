@@ -91,10 +91,10 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
         //EditTexts
         editTextFrom.setInputType(InputType.TYPE_CLASS_NUMBER);
         editTextFrom.setSelectAllOnFocus(true);
-        editTextFrom.setText(ListTmdbController.getInstance(this).getTopsYearFrom());
+        editTextFrom.setText(ListTmdbController.getInstance().getTopsYearFrom());
         editTextTo.setInputType(InputType.TYPE_CLASS_NUMBER);
         editTextTo.setSelectAllOnFocus(true);
-        editTextTo.setText(ListTmdbController.getInstance(this).getTopsYearTo());
+        editTextTo.setText(ListTmdbController.getInstance().getTopsYearTo());
 
         //Listeners
         editTextFrom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -102,7 +102,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) editTextFrom.setText("");
                 else if (editTextFrom.getText().length()<4) {
-                    editTextFrom.setText(ListTmdbController.getInstance(TopsActivity.this).getTopsYearFrom());
+                    editTextFrom.setText(ListTmdbController.getInstance().getTopsYearFrom());
                     searchMoviesAndSeries();
                 }
             }
@@ -112,7 +112,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) editTextTo.setText("");
                 else if (editTextTo.getText().length()<4) {
-                    editTextTo.setText(ListTmdbController.getInstance(TopsActivity.this).getTopsYearTo());
+                    editTextTo.setText(ListTmdbController.getInstance().getTopsYearTo());
                     searchMoviesAndSeries();
                 }
             }
@@ -160,9 +160,9 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
     private void searchMoviesAndSeries(){
         String from = editTextFrom.getText().toString();
         String to = editTextTo.getText().toString();
-        ListTmdbController.getInstance(this).setTopsYearFrom(from);
-        ListTmdbController.getInstance(this).setTopsYearTo(to);
-        ListTmdbController.getInstance(this).getTopMovies(from, to, movieGenresSelected, new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance().setTopsYearFrom(from);
+        ListTmdbController.getInstance().setTopsYearTo(to);
+        ListTmdbController.getInstance().getTopMovies(from, to, movieGenresSelected, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> result) {
                 if (TopsActivity.this.isDestroyed()) return;
@@ -172,7 +172,7 @@ public class TopsActivity extends AppCompatActivity implements ItemListFragment.
                 adapter.notifyDataSetChanged();
             }
         });
-        ListTmdbController.getInstance(this).getTopSeries(from, to, serieGenresSelected, new ResultListener<ArrayList<ListItem>>() {
+        ListTmdbController.getInstance().getTopSeries(from, to, serieGenresSelected, new ResultListener<ArrayList<ListItem>>() {
             @Override
             public void finish(ArrayList<ListItem> result) {
                 if (TopsActivity.this.isDestroyed()) return;
