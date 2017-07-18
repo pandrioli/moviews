@@ -108,7 +108,7 @@ public class ImageListFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onDestroy(){
         super.onDestroy();
-        unbinder.unbind();
+        if (unbinder!=null) unbinder.unbind();
     }
     public interface ImageClickeable {
         void onClick(ImageListItem imageListItem, String title, Integer index, ImageView imageView);

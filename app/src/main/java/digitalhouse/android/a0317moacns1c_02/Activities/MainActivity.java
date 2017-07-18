@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         loadCounter = 0;
 
         //Carga los datos generales de la API
-        ConfigController.getInstance().loadConfigData(this, new ResultListener<Boolean>() {
+        ConfigController.getInstance().loadConfigData(new ResultListener<Boolean>() {
             @Override
             public void finish(Boolean result) {
                 loadCounter++;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        GenreController.getInstance().loadGenres(this, new ResultListener<Boolean>() {
+        GenreController.getInstance().loadGenres(new ResultListener<Boolean>() {
             @Override
             public void finish(Boolean result) {
                 loadCounter++;

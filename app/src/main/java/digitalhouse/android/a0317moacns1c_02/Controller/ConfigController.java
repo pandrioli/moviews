@@ -26,10 +26,18 @@ public class ConfigController {
     private ArrayList<String> posterSizes;
     private ArrayList<String> backdropSizes;
     private ArrayList<String> profileSizes;
+    private Context context;
 
-    private ConfigController() {
+    private ConfigController(Context context) {
         this.configDAOInternet = new ConfigDAOInternet();
         this.configDAOLocal = new ConfigDAOLocal();
+        this.context = context;
+        ImageConfig imageConfig = configDAOLocal.obtainConfigData();
+        if (imageConfig!=null) setConfig(imageConfig);
+    }
+
+    public static void init(Context context) {
+        instance = new ConfigController(context);
     }
 
     public String getImagesBaseURL() {
@@ -47,11 +55,10 @@ public class ConfigController {
     }
 
     public static ConfigController getInstance() {
-        if (instance == null) instance = new ConfigController();
         return instance;
     }
 
-    public void loadConfigData(Context context, final ResultListener<Boolean> resultListener) {
+    public void loadConfigData(final ResultListener<Boolean> resultListener) {
         if (NetworkHelper.isNetworkAvailable(context)) {
             //obtener datos de la API
             configDAOInternet.obtainConfigData(new ResultListener<Config>() {

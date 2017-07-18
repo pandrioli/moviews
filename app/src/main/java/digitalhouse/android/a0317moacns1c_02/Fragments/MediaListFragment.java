@@ -120,7 +120,7 @@ public class MediaListFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onDestroy() {
-        unbinder.unbind();
+        if (unbinder!=null) unbinder.unbind();
         super.onDestroy();
     }
 
