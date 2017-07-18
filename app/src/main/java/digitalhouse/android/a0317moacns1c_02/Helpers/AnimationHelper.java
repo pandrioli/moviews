@@ -75,14 +75,14 @@ public class AnimationHelper {
     @TargetApi(21)
     public static void postponeTransition(Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
-            activity.postponeEnterTransition();
+            if (activity!=null) activity.postponeEnterTransition();
         }
     }
 
     @TargetApi(21)
     public static void startPostponedTransition(Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
-            activity.startPostponedEnterTransition();
+            if (activity!=null) activity.startPostponedEnterTransition();
         }
     }
 

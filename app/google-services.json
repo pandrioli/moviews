@@ -1,33 +1,35 @@
 {
   "project_info": {
-    "project_number": "633240951344",
-    "project_id": "moviews-171005"
+    "project_number": "738650580646",
+    "firebase_url": "https://moviews-b83b1.firebaseio.com",
+    "project_id": "moviews-b83b1",
+    "storage_bucket": "moviews-b83b1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:633240951344:android:c7d3ef8eee9b039f",
+        "mobilesdk_app_id": "1:738650580646:android:c7d3ef8eee9b039f",
         "android_client_info": {
           "package_name": "digitalhouse.android.a0317moacns1c_02"
         }
       },
       "oauth_client": [
         {
-          "client_id": "633240951344-7ine2uoell1ghadj7nhaheupuk3u05pv.apps.googleusercontent.com",
+          "client_id": "738650580646-da2fqrt3neo9chgh0a2si6l4hchav6o9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "digitalhouse.android.a0317moacns1c_02",
-            "certificate_hash": "64326cb136e1aa6a0cd3030fbeeb891aeba8439a"
+            "certificate_hash": "55e585ee89075e4fa872073991230cf3938bf4dd"
           }
         },
         {
-          "client_id": "633240951344-rg7hpsfrsbat2mm246h8ge7o4okc4ll3.apps.googleusercontent.com",
+          "client_id": "738650580646-05nhqoan890ua1756q3mf4r35eltpqn2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVpQzd_L4w8IQXKDFEsIg4w622UZ9RQxc"
+          "current_key": "AIzaSyCI-mnoXBiUj0j4lTiom0GRsBAm8vVycdM"
         }
       ],
       "services": {
@@ -35,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738650580646-05nhqoan890ua1756q3mf4r35eltpqn2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
