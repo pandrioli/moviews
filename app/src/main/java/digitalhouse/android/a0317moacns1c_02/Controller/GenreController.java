@@ -45,6 +45,7 @@ public class GenreController {
         genreDAOInternet = new GenreDAOInternet();
         genreDAOLocal = new GenreDAOLocal();
         genreList = genreDAOLocal.obtainGenres();
+        if (genreList != null) separateGenres();
     }
 
     public void loadGenres(final ResultListener<Boolean> resultListener) {
@@ -60,7 +61,7 @@ public class GenreController {
             });
         } else {
             genreList = genreDAOLocal.obtainGenres();
-            separateGenres();
+            if (genreList != null) separateGenres();
             resultListener.finish(genreList!=null);
         }
     }
