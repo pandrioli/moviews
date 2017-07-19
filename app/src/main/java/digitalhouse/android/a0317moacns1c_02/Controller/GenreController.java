@@ -60,24 +60,17 @@ public class GenreController {
                 }
             });
         } else {
-            genreList = genreDAOLocal.obtainGenres();
-            if (genreList != null) separateGenres();
             resultListener.finish(genreList!=null);
         }
     }
 
     public void separateGenres() {
+        genreListMovies = new ArrayList<>();
+        genreListSeries = new ArrayList<>();
         for (Genre genre : genreList) {
-
-            if(genre.getType() == null){
-                genreListMovies.add(genre);
-                genreListSeries.add(genre);
-                return;
-            }
 
             if(Genre.TYPE_MOVIES.equals(genre.getType())) {
                 genreListMovies.add(genre);
-                return;
             }
 
             if(Genre.TYPE_SERIES.equals(genre.getType())) {
