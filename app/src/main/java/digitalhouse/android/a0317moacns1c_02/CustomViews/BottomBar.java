@@ -23,6 +23,7 @@ import digitalhouse.android.a0317moacns1c_02.Activities.BookmarkActivity;
 import digitalhouse.android.a0317moacns1c_02.Activities.ItemTabsActivity;
 import digitalhouse.android.a0317moacns1c_02.Activities.SearchActivity;
 import digitalhouse.android.a0317moacns1c_02.Activities.TopsActivity;
+import digitalhouse.android.a0317moacns1c_02.Activities.WelcomeActivity;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 /**
@@ -56,7 +57,7 @@ public class BottomBar extends FrameLayout {
         activities.add(BookmarkActivity.class);
 
         //4 - Profile
-        activities.add(null);
+        activities.add(WelcomeActivity.class);
     }
 
     public BottomBar(@NonNull Context context) {
