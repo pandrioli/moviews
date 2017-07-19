@@ -19,8 +19,8 @@ import digitalhouse.android.a0317moacns1c_02.Model.Genres.Genres;
 public class GenreController {
     private static GenreController instance;
     private List<Genre> genreList;
-    private List<Genre> genreListMovies;
-    private List<Genre> genreListSeries;
+    private List<Genre> genreListMovies  = new ArrayList<>();
+    private List<Genre> genreListSeries  = new ArrayList<>();
     private List<Genre> selectedMovieGenres;
     private List<Genre> selectedSerieGenres;
     private GenreDAOInternet genreDAOInternet;
@@ -67,11 +67,22 @@ public class GenreController {
     }
 
     public void separateGenres() {
-        genreListMovies = new ArrayList<>();
-        genreListSeries = new ArrayList<>();
         for (Genre genre : genreList) {
-            if (genre.getType().equals(Genre.TYPE_MOVIES)) genreListMovies.add(genre);
-            if (genre.getType().equals(Genre.TYPE_SERIES)) genreListSeries.add(genre);
+
+            if(genre.getType() == null){
+                genreListMovies.add(genre);
+                genreListSeries.add(genre);
+                return;
+            }
+
+            if(Genre.TYPE_MOVIES.equals(genre.getType())) {
+                genreListMovies.add(genre);
+                return;
+            }
+
+            if(Genre.TYPE_SERIES.equals(genre.getType())) {
+                genreListSeries.add(genre);
+            }
         }
     }
 
