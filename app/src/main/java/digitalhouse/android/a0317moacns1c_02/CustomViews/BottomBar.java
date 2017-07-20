@@ -99,8 +99,9 @@ public class BottomBar extends FrameLayout {
         if (isInEditMode()) setCurrentIcon(0);
     }
 
-    public void setOnBoarding(Boolean onBoarding) {
-        this.onBoarding = onBoarding;
+    public void setOnBoarding() {
+        this.onBoarding = true;
+        container.setBackgroundColor(Color.argb(0,0,0,0));
     }
 
     public void setCurrentIcon(Integer index) {

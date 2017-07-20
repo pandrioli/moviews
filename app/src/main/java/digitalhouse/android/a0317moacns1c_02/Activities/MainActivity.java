@@ -1,6 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         animationView = (LottieAnimationView) findViewById(R.id.animationViewMainActivity);
 
+        startOnBoarding();
+        if (isFinishing()) return;
 
         //Provisorio: borra toda la base de datos
         Realm realm = Realm.getDefaultInstance();
@@ -60,9 +63,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startOnBoarding() {
-        Intent intent = new Intent(this, OnBoardingActivity.class);
-        startActivity(intent);
-        finish();
+        // Get the shared preferences
+        SharedPreferences preferences =  getSharedPreferences("my_preferences", MODE_PRIVATE);
+
+        // Check if onboarding_complete is false
+        if(!preferences.getBoolean("onboarding_complete",false)) {
+            // Start the onboarding Activity
+            Intent onboarding = new Intent(this, OnBoardingActivity.class);
+            startActivity(onboarding);
+
+            // Close the main Activity
+            finish();
+        }
     }
 
     private void startTabsActivity(){
