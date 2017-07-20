@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         if (loadCounter<2) return;
         if (isLoadFinished()) {
             //Intent intent = new Intent(this, ItemTabsActivity.class);
-            Intent intent = new Intent(this, WelcomeActivity.class);
+            Intent intent = new Intent(this, ItemTabsActivity.class);
             startActivity(intent);
             finish();
         } else {
