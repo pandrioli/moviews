@@ -59,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void startOnBoarding() {
+        Intent intent = new Intent(this, OnBoardingActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void startTabsActivity(){
         if (loadCounter<2) return;
         if (isLoadFinished()) {

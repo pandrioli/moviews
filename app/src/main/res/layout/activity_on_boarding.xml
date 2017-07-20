@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/activity_on_boarding"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="digitalhouse.android.a0317moacns1c_02.Activities.OnBoardingActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_welcome_2"
+        android:scaleType="centerCrop"
+        android:id="@+id/imageViewOnBoardingBack"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:text="Welcome to Moviews"
+            android:layout_gravity="center"
+            android:id="@+id/textViewOnBoardingTitle"/>
+        <android.support.v4.view.ViewPager
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewPagerOnBoarding">
+        </android.support.v4.view.ViewPager>
+        <digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/pageIndicatorOnBoarding">
+        </digitalhouse.android.a0317moacns1c_02.CustomViews.PageIndicator>
+        <digitalhouse.android.a0317moacns1c_02.CustomViews.BottomBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomBarOnBoarding">
+        </digitalhouse.android.a0317moacns1c_02.CustomViews.BottomBar>
+    </LinearLayout>
+</FrameLayout>

@@ -33,7 +33,7 @@ public class BottomBar extends FrameLayout {
     //Color de icono seleccionado
     public static Integer NORMAL_COLOR = Color.argb(100,255,255,255);
     public static final Integer SELECTED_COLOR = Color.WHITE;
-
+    private Boolean onBoarding = false;
     private Context context;
     private LinearLayout container;
     private Integer currentIcon;
@@ -87,6 +87,7 @@ public class BottomBar extends FrameLayout {
         this.addView(container);
 
         //setup listeners y seleccionar icono segun actividad donde esta la bottombar
+
         for (int i=0; i<Math.min(activities.size(),container.getChildCount()); i++) {
             ImageView icon = (ImageView)container.getChildAt(i);
             icon.setOnClickListener(new IconClickListener());
@@ -97,13 +98,28 @@ public class BottomBar extends FrameLayout {
         if (isInEditMode()) setCurrentIcon(0);
     }
 
-    private void setCurrentIcon(Integer index) {
+    public void setOnBoarding(Boolean onBoarding) {
+        this.onBoarding = onBoarding;
+    }
+
+    public void setCurrentIcon(Integer index) {
         currentIcon = index;
-        ImageView icon = (ImageView)container.getChildAt(index);
-        icon.setColorFilter(SELECTED_COLOR);
+        ImageView selectedIcon = (ImageView)container.getChildAt(index);
+        if (onBoarding) {
+            for (int i=0; i<Math.min(activities.size(),container.getChildCount()); i++) {
+                ImageView icon = (ImageView)container.getChildAt(i);
+                icon.setColorFilter(NORMAL_COLOR, PorterDuff.Mode.SRC_IN);
+                icon.setScaleX(1f);
+                icon.setScaleY(1f);
+            }
+            selectedIcon.setScaleX(1.5f);
+            selectedIcon.setScaleY(1.5f);
+        }
+        selectedIcon.setColorFilter(SELECTED_COLOR);
     }
 
     private void startActivity(Class c) {
+        if (onBoarding) return;
         Intent intent = new Intent(context, c);
         context.startActivity(intent);
         Activity currentActivity = (Activity)context;
