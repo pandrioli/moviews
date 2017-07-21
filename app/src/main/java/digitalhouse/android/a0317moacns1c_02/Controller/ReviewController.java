@@ -41,9 +41,15 @@ public class ReviewController {
         Review review = new Review();
         if (user.isAnonymous()) review.setAuthor("Anonymous");
         else review.setAuthor(user.getDisplayName());
+        review.setUserId(user.getUid());
         review.setContent(content);
         review.setId(reference.getKey());
         reference.setValue(review);
+    }
+
+    public void deleteReview(Integer movieId, String reviewId) {
+        DatabaseReference reference = reviewsReference.child(movieId.toString()).child(reviewId);
+        reference.removeValue();
     }
 
     public void getReviews(Integer movieId, final ResultListener<List<Review>> resultListener) {

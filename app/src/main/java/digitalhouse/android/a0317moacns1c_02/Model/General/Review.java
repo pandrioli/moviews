@@ -6,6 +6,7 @@ package digitalhouse.android.a0317moacns1c_02.Model.General;
 
 public class Review {
     private String id;
+    private String userId;
     private String author;
     private String content;
 
@@ -15,6 +16,14 @@ public class Review {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getAuthor() {

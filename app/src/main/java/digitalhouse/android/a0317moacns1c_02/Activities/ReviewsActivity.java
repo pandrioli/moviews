@@ -23,6 +23,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,6 +34,7 @@ import digitalhouse.android.a0317moacns1c_02.Controller.ReviewController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.ImageHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.General.Review;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ReviewContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
@@ -69,6 +71,7 @@ public class ReviewsActivity extends AppCompatActivity {
     private Boolean reviewsFirebaseLoaded = false;
     private ReviewsAdapter adapter;
     private Boolean editMode = false;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +82,13 @@ public class ReviewsActivity extends AppCompatActivity {
         AnimationHelper.startLoaderInView(this, frameLayoutReviews);
         editReviewContainer.setVisibility(View.GONE);
         movieId = getIntent().getExtras().getInt(MOVIE_ID_KEY);
-        setupUser(FirebaseAuth.getInstance().getCurrentUser());
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        setupUser();
         setupButtons();
         getReviews();
     }
 
-    private void setupUser(FirebaseUser user) {
+    private void setupUser() {
         String name = user.getDisplayName();
         if (user.isAnonymous()) name = "anonymous";
         textViewUserName.setText("as "+name);
@@ -196,6 +200,7 @@ public class ReviewsActivity extends AppCompatActivity {
             @Override
             public void finish(List<Review> result) {
                 reviewsFirebase = result;
+                Collections.reverse(reviewsFirebase);
                 reviewsFirebaseLoaded = true;
                 showReviews();
                 stopLoader();
@@ -220,7 +225,7 @@ public class ReviewsActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             ReviewsViewHolder rHolder = (ReviewsViewHolder) holder;
-            Review review = reviews.get(position);
+            final Review review = reviews.get(position);
             if (review.getAuthor()==null) {
                 rHolder.author.setText("No reviews found");
                 rHolder.content.setText("Be the first to write one!");
@@ -228,6 +233,18 @@ public class ReviewsActivity extends AppCompatActivity {
             else {
                 rHolder.author.setText("by "+review.getAuthor());
                 rHolder.content.setText(review.getContent());
+            }
+            rHolder.deleteReview.setVisibility(View.GONE);
+            if (review.getUserId()!=null) {
+                if (review.getUserId().equals(user.getUid())) {
+                    rHolder.deleteReview.setVisibility(View.VISIBLE);
+                    rHolder.deleteReview.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ReviewController.getInstance().deleteReview(movie.getMovieDetails().getId(), review.getId());
+                        }
+                    });
+                }
             }
         }
 
@@ -239,11 +256,13 @@ public class ReviewsActivity extends AppCompatActivity {
         private class ReviewsViewHolder extends RecyclerView.ViewHolder {
             private TextView author;
             private TextView content;
+            private TextView deleteReview;
 
             public ReviewsViewHolder(View itemView) {
                 super(itemView);
                 author = (TextView)itemView.findViewById(R.id.textViewReviewAuthor);
                 content = (TextView)itemView.findViewById(R.id.textViewReviewContent);
+                deleteReview = (TextView)itemView.findViewById(R.id.deleteReview);
             }
 
         }
