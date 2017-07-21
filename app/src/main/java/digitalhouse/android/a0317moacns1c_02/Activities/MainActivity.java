@@ -35,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loadCounter = 0;
+
         mAuth = FirebaseAuth.getInstance();
-        loginFirebaseAnonymous();
+        if (mAuth.getCurrentUser()==null) loginFirebaseAnonymous();
+        else loadCounter++;
 
         animationView = (LottieAnimationView) findViewById(R.id.animationViewMainActivity);
 
@@ -49,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         //realm.deleteAll();
         realm.commitTransaction();
 
-        loadCounter = 0;
 
         //Carga los datos generales de la API
         ConfigController.getInstance().loadConfigData(new ResultListener<Boolean>() {

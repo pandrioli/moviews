@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -52,6 +54,8 @@ public class ReviewsActivity extends AppCompatActivity {
     Button buttonSendReview;
     @BindView(R.id.fabAddReview)
     FloatingActionButton fabAddReview;
+    @BindView(R.id.textViewUserName)
+    TextView textViewUserName;
 
 
     public static final String MOVIE_ID_KEY = "movieId";
@@ -74,8 +78,15 @@ public class ReviewsActivity extends AppCompatActivity {
         AnimationHelper.startLoaderInView(this, frameLayoutReviews);
         editReviewContainer.setVisibility(View.GONE);
         movieId = getIntent().getExtras().getInt(MOVIE_ID_KEY);
+        setupUser(FirebaseAuth.getInstance().getCurrentUser());
         setupButtons();
         getReviews();
+    }
+
+    private void setupUser(FirebaseUser user) {
+        String name = user.getDisplayName();
+        if (user.isAnonymous()) name = "anonymous";
+        textViewUserName.setText("as "+name);
     }
 
     private void setupButtons() {

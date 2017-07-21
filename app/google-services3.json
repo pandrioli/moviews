@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "738650580646-0telcmmvffm43f1rkuccimfvqhd5v77m.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "digitalhouse.android.a0317moacns1c_02",
-            "certificate_hash": "d879327182f30f3764e63ad8ef4e5000dd46b699"
-          }
-        },
-        {
           "client_id": "738650580646-da2fqrt3neo9chgh0a2si6l4hchav6o9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -65,8 +65,17 @@
             android:layout_gravity="center_horizontal"
             android:padding="5dp"
             android:textColor="@android:color/white"
+            android:textStyle="bold"
             android:textSize="18dp"
             android:text="Write your review"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/white"
+            android:text="Anonymous"
+            android:id="@+id/textViewUserName"/>
         <EditText
             android:id="@+id/editTextReview"
             android:layout_width="match_parent"
