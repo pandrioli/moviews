@@ -75,6 +75,7 @@ public class ReviewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews);
         ButterKnife.bind(this);
+        fabAddReview.setVisibility(View.GONE);
         AnimationHelper.startLoaderInView(this, frameLayoutReviews);
         editReviewContainer.setVisibility(View.GONE);
         movieId = getIntent().getExtras().getInt(MOVIE_ID_KEY);
@@ -117,12 +118,15 @@ public class ReviewsActivity extends AppCompatActivity {
             fabAddReview.setVisibility(View.GONE);
             editReviewContainer.setVisibility(View.VISIBLE);
             editTextReview.setText("");
+            editTextReview.requestFocus();
         }
     }
 
     private void stopLoader() {
-        if (reviewsApiLoaded && reviewsFirebaseLoaded && imageLoaded)
-        AnimationHelper.stopLoaderInView(frameLayoutReviews);
+        if (reviewsApiLoaded && reviewsFirebaseLoaded && imageLoaded) {
+            AnimationHelper.stopLoaderInView(frameLayoutReviews);
+            fabAddReview.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupImageAndTitle() {
