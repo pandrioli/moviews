@@ -1,5 +1,6 @@
 package digitalhouse.android.a0317moacns1c_02.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
@@ -42,7 +43,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
         // - obtenemos un elemento del dataset según su posición
         // - reemplazamos el contenido de los views según tales datos
 
-        Glide.with(context).load(drawableIdList.get(position)).into(holder.picture);
+        if (!((Activity)context).isDestroyed()) Glide.with(context).load(drawableIdList.get(position)).into(holder.picture);
 
     }
 
