@@ -188,6 +188,11 @@ public class ReviewsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (editMode) toggleEditMode();
+        else super.onBackPressed();
+    }
 
     private class ReviewsAdapter extends RecyclerView.Adapter {
 
