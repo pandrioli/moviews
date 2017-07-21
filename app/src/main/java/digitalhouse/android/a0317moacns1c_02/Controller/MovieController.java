@@ -63,9 +63,6 @@ public class MovieController {
             @Override
             public void finish(ReviewContainer result) {
                 if (result!=null) {
-                    if (result.getResults().isEmpty()) {
-                        result.getResults().add(new Review());
-                    }
                     resultListener.finish(result.getResults());
                 }
                 else resultListener.finish(new ArrayList<Review>());

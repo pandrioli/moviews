@@ -59,7 +59,7 @@ public class AnimationHelper {
         AnimationSet animation = new AnimationSet(true);
         animation.addAnimation(alphaAnimation);
         animation.addAnimation(scaleAnim);
-        animation.setFillAfter(true);
+        //animation.setFillAfter(true);
         animation.setRepeatCount(0);
         view.startAnimation(animation);
     }
