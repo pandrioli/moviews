@@ -109,7 +109,7 @@ public class AnimationHelper {
         ((ViewGroup) view).addView(loaderView);
     }
 
-    public static void stopLoaderInView(Activity activity, View view) {
+    public static void stopLoaderInView(View view) {
         View loaderView = view.findViewById(R.id.loaderContainer);
         if (loaderView!=null) {
             ((LottieAnimationView)loaderView.findViewById(R.id.animationViewLoader)).cancelAnimation();

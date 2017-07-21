@@ -165,13 +165,13 @@ public class SeasonsAndEpisodesFragment extends Fragment {
         Glide.with(this).load(season.getPosterUrl(3)).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                AnimationHelper.stopLoaderInView(getActivity(), mView);
+                AnimationHelper.stopLoaderInView(mView);
                 return false;
             }
 
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                AnimationHelper.stopLoaderInView(getActivity(), mView);
+                AnimationHelper.stopLoaderInView(mView);
                 return false;
             }
         }).into(poster);

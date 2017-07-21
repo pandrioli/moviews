@@ -1,6 +1,7 @@
 package digitalhouse.android.a0317moacns1c_02.Controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import digitalhouse.android.a0317moacns1c_02.Callbacks.MovieResultsCallback;
 import digitalhouse.android.a0317moacns1c_02.Callbacks.ResultListener;
@@ -8,6 +9,8 @@ import digitalhouse.android.a0317moacns1c_02.DAO.MovieDAOLocal;
 import digitalhouse.android.a0317moacns1c_02.Mappers.DTOMovieMapper;
 import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
 import digitalhouse.android.a0317moacns1c_02.Model.DTO.MovieDTO;
+import digitalhouse.android.a0317moacns1c_02.Model.General.Review;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ReviewContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ListItem;
 import digitalhouse.android.a0317moacns1c_02.DAO.MovieDAOInternet;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
@@ -54,6 +57,22 @@ public class MovieController {
             //Toaster.getInstance().toast("Datos en base de datos local");
         }
     }
+
+    public void getReviews(Integer id, final ResultListener<List<Review>> resultListener) {
+        movieDAOInternet.obtainReviews(id, new ResultListener<ReviewContainer>() {
+            @Override
+            public void finish(ReviewContainer result) {
+                if (result!=null) {
+                    if (result.getResults().isEmpty()) {
+                        result.getResults().add(new Review());
+                    }
+                    resultListener.finish(result.getResults());
+                }
+                else resultListener.finish(new ArrayList<Review>());
+            }
+        });
+    }
+
 
     public void saveMovie(Movie movie) {
         movieDAOLocal.saveMovie(DTOMovieMapper.map(movie));

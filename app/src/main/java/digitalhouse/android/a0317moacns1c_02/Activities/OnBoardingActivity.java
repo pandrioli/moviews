@@ -48,6 +48,7 @@ public class OnBoardingActivity extends AppCompatActivity {
     private List<Integer> images;
     private List<OnBoardingFragment> fragments;
     private float previousOffset = 0f;
+    private OnBoardingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +64,8 @@ public class OnBoardingActivity extends AppCompatActivity {
     private void setupViews() {
         pageIndicator.setTotalPages(TOTAL_PAGES);
         bottomBar.setOnBoarding();
-        OnBoardingAdapter onBoardingAdapter = new OnBoardingAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(onBoardingAdapter);
+        adapter = new OnBoardingAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new OnBoardingPageChangeListener());
         buttonStartMoviews.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +147,7 @@ public class OnBoardingActivity extends AppCompatActivity {
     private class OnBoardingPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            //un poco de magia
             Float alpha = Math.abs(0.5f-positionOffset)/0.5f;
             imageViewLogo.setAlpha(alpha);
             textViewTitle.setAlpha(alpha);

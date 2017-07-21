@@ -14,6 +14,7 @@ import digitalhouse.android.a0317moacns1c_02.Callbacks.TMDBCallBack;
 import digitalhouse.android.a0317moacns1c_02.Model.Credits.Credits;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RateOmdb;
 import digitalhouse.android.a0317moacns1c_02.Model.General.RatingsContainer;
+import digitalhouse.android.a0317moacns1c_02.Model.General.ReviewContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Media.VideoContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.Movie;
 import digitalhouse.android.a0317moacns1c_02.Model.Movie.MovieDetails;
@@ -23,6 +24,8 @@ import digitalhouse.android.a0317moacns1c_02.Model.Media.ImageContainer;
 import digitalhouse.android.a0317moacns1c_02.Model.Requests.OMDBRequest;
 import digitalhouse.android.a0317moacns1c_02.Services.ServiceGenerator;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Pablo on 03/06/2017.
@@ -49,6 +52,22 @@ public class MovieDAOInternet {
         queryMap.put("api_key", TMDBClient.API_KEY);
         Call<MovieResultsContainer> call = tmdbClient.discoverMovies(queryMap);
         call.enqueue(new TMDBCallBack<MovieResultsContainer>(resultListener));
+    }
+
+    // reviews
+    public void obtainReviews(Integer id, final ResultListener<ReviewContainer> resultListener) {
+        Call<ReviewContainer> call = tmdbClient.obtainMovieReviews(id.toString(), TMDBClient.API_KEY);
+        call.enqueue(new Callback<ReviewContainer>() {
+            @Override
+            public void onResponse(Call<ReviewContainer> call, Response<ReviewContainer> response) {
+                resultListener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ReviewContainer> call, Throwable t) {
+
+            }
+        });
     }
 
     // task para obtener todos los datos de una Movie
