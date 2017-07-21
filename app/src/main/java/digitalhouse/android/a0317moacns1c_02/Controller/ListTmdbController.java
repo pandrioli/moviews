@@ -35,8 +35,6 @@ public class ListTmdbController {
     private static final Integer LATEST_DAY_RANGE = 30;
     private static final Integer UPCOMING_DAY_RANGE = 30;
 
-    private Context context;
-
     private MovieDAOInternet movieDAOInternet;
     private SerieDAOInternet serieDAOInternet;
     private ListDAOLocal listDAOLocal;
@@ -48,21 +46,17 @@ public class ListTmdbController {
 
     private static ListTmdbController instance;
     public static ListTmdbController getInstance() {
+        if (instance==null) instance = new ListTmdbController();
         return instance;
     }
 
-    private ListTmdbController (Context context) {
+    private ListTmdbController () {
         movieDAOInternet = new MovieDAOInternet();
         serieDAOInternet = new SerieDAOInternet();
         listDAOLocal = new ListDAOLocal();
         downloadedLists = new ArrayList<>();
         topsYearFrom = "1950";
         topsYearTo = String.format("%1d", Calendar.getInstance().get(Calendar.YEAR));
-        this.context = context;
-    }
-
-    public static void init(Context context) {
-        instance = new ListTmdbController(context);
     }
 
     public String getTopsYearFrom() {
@@ -237,7 +231,7 @@ public class ListTmdbController {
 
     private Boolean offline(String id) {
         Boolean downloaded = downloadedLists.contains(id);
-        Boolean connection = NetworkHelper.isNetworkAvailable(context);
+        Boolean connection = NetworkController.getInstance().isNetworkAvailable();
         return downloaded || !connection;
     }
 

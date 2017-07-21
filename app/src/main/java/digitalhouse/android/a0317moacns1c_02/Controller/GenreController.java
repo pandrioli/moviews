@@ -25,18 +25,13 @@ public class GenreController {
     private List<Genre> selectedSerieGenres;
     private GenreDAOInternet genreDAOInternet;
     private GenreDAOLocal genreDAOLocal;
-    private Context context;
 
     public static GenreController getInstance() {
+        if (instance==null) instance = new GenreController();
         return instance;
     }
 
-    public static void init(Context context) {
-        instance = new GenreController(context);
-    }
-
-    private GenreController(Context context) {
-        this.context = context;
+    private GenreController() {
         genreList = new ArrayList<>();
         genreListMovies = new ArrayList<>();
         genreListSeries = new ArrayList<>();
@@ -49,7 +44,7 @@ public class GenreController {
     }
 
     public void loadGenres(final ResultListener<Boolean> resultListener) {
-        if (NetworkHelper.isNetworkAvailable(context)) {
+        if (NetworkController.getInstance().isNetworkAvailable()) {
             genreDAOInternet.obtainGenres(new ResultListener<List<Genre>>() {
                 @Override
                 public void finish(List<Genre> result) {

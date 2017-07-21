@@ -6,7 +6,9 @@ import android.content.Context;
 import digitalhouse.android.a0317moacns1c_02.Controller.ConfigController;
 import digitalhouse.android.a0317moacns1c_02.Controller.GenreController;
 import digitalhouse.android.a0317moacns1c_02.Controller.ListTmdbController;
+import digitalhouse.android.a0317moacns1c_02.Controller.NetworkController;
 import digitalhouse.android.a0317moacns1c_02.Helpers.Toaster;
+import digitalhouse.android.a0317moacns1c_02.Model.General.Network;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -20,8 +22,6 @@ public class MyApplication extends Application {
         super.onCreate();
         Realm.init(getApplicationContext());
         Toaster.init(getApplicationContext());
-        ListTmdbController.init(getApplicationContext());
-        ConfigController.init(getApplicationContext());
-        GenreController.init(getApplicationContext());
+        NetworkController.init(getApplicationContext());
     }
 }

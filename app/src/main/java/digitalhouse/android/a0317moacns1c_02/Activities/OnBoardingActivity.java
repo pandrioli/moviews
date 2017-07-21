@@ -46,6 +46,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     private List<String> titles;
     private List<Integer> images;
+    private List<OnBoardingFragment> fragments;
     private float previousOffset = 0f;
 
     @Override
@@ -53,6 +54,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
         ButterKnife.bind(this);
+        setupFragments();
         setupTitlesAndImages();
         setupViews();
         updateViews(0);
@@ -102,7 +104,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     private void setupTitlesAndImages() {
         titles = new ArrayList<>();
-        titles.add("Welcome to Moviews!");
+        titles.add("");
         titles.add("Home");
         titles.add("Top Rated");
         titles.add("Search");
@@ -117,6 +119,13 @@ public class OnBoardingActivity extends AppCompatActivity {
         images.add(R.drawable.background_welcome_5);
         images.add(R.drawable.background_welcome_6);
         images.add(R.drawable.background_welcome_7);
+    }
+
+    private void setupFragments() {
+        fragments = new ArrayList<>();
+        for (int i=0; i<TOTAL_PAGES; i++) {
+            fragments.add(OnBoardingFragment.newInstance(i));
+        }
     }
 
     private void finishOnboarding() {
@@ -140,7 +149,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             Float alpha = Math.abs(0.5f-positionOffset)/0.5f;
             imageViewLogo.setAlpha(alpha);
             textViewTitle.setAlpha(alpha);
-            imageViewBackground.setAlpha(alpha*0.8f);
+            imageViewBackground.setAlpha((float)Math.sqrt(alpha)*.8f);
             Integer direction = positionOffset>previousOffset?1:0;
             previousOffset=positionOffset;
             if ((positionOffset>0.5f && direction==1) || (positionOffset<0.5 && direction==0))
@@ -167,7 +176,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return OnBoardingFragment.newInstance(position);
+            return fragments.get(position);
         }
 
         @Override
