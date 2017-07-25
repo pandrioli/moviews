@@ -1,22 +1,15 @@
 package digitalhouse.android.a0317moacns1c_02.Activities;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,35 +18,20 @@ import digitalhouse.android.a0317moacns1c_02.Controller.SerieController;
 import digitalhouse.android.a0317moacns1c_02.Fragments.ImageListFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SeasonPagerFragment;
 import digitalhouse.android.a0317moacns1c_02.Fragments.SerieDetailsFragment;
-import digitalhouse.android.a0317moacns1c_02.Helpers.ActivityStackManager;
 import digitalhouse.android.a0317moacns1c_02.Helpers.AnimationHelper;
 import digitalhouse.android.a0317moacns1c_02.Model.ListItems.ImageListItem;
-import digitalhouse.android.a0317moacns1c_02.Model.Series.Season;
 import digitalhouse.android.a0317moacns1c_02.Model.Series.Serie;
 import digitalhouse.android.a0317moacns1c_02.R;
 
 public class SerieActivity extends AppCompatActivity implements ImageListFragment.ImageClickeable, View.OnClickListener {
     public static final String SERIE_ID_KEY = "serieID";
 
-    @BindView(R.id.fab) protected FloatingActionButton fab;
     @BindView(R.id.container) protected FrameLayout container;
 
     private Serie serie;
-    private ArrayList<Season> seasons;
-    private Season temporalVar;
     private SerieDetailsFragment serieDetailsFragment;
     private SeasonPagerFragment seasonPagerFragment;
-    private Boolean isSeasonsLoaded;
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private Boolean isSeasonsLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +39,6 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
         AnimationHelper.postponeTransition(this);
         setContentView(R.layout.activity_series);
         ButterKnife.bind(this);
-
-
 
         Bundle bundleReceived = getIntent().getExtras();
         final String id = bundleReceived.getString(SERIE_ID_KEY);
@@ -84,7 +60,6 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
 
 
     private void loadSerieDetails(){
-        isSeasonsLoaded=false;
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, serieDetailsFragment)
@@ -146,40 +121,5 @@ public class SerieActivity extends AppCompatActivity implements ImageListFragmen
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.loadSeasons) loadSeasons();
-    }
-
-    private class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                default:
-                case 0:
-                    return serieDetailsFragment;
-                case 1:
-                    return seasonPagerFragment;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "DETAILS";
-                case 1:
-                    return "SEASONS & EPISODES";
-            }
-            return null;
-        }
     }
 }
